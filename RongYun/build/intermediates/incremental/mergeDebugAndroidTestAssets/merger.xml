@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="debug"><source path="C:\Users\27805\Desktop\sdkdemoapp3.0_android-master\ziya\RongYun\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="C:\Users\27805\Desktop\sdkdemoapp3.0_android-master\ziya\RongYun\src\androidTest\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="debug"><source path="C:\Users\27805\Desktop\github_workSpace\ZIYAWANG_Android\RongYun\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="C:\Users\27805\Desktop\github_workSpace\ZIYAWANG_Android\RongYun\src\androidTest\assets"/></dataSet></merger>
