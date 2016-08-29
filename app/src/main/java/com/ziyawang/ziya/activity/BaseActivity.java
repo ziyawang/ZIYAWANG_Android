@@ -24,6 +24,7 @@ public class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        //git测试
         app = (MyApplication) getApplication();
         this.getApplication() ;
         app.addActivity(this);
