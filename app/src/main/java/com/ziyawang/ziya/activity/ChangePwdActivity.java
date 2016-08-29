@@ -46,6 +46,7 @@ public class ChangePwdActivity extends BaseActivity {
     private MyProgressDialog dialog ;
 
     public void onResume() {
+
         super.onResume();
         //统计页面
         MobclickAgent.onPageStart("更改密码页面");

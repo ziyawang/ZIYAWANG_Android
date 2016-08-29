@@ -29,6 +29,9 @@ public class BaseActivity extends Activity {
         this.getApplication() ;
         app.addActivity(this);
 
+
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
