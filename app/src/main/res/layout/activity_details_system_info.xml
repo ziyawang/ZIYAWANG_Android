@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.ziyawang.ziya.activity.DetailsSystemInfoActivity">
+
+    <RelativeLayout
+        android:id="@+id/niu_383"
+        android:background="#fdd000"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:text="系统消息详情"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:textIsSelectable="true"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/details_title"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="#6d6d6d"
+        android:textSize="13dp"
+        android:id="@+id/details_time"
+        android:paddingRight="16dp"
+        android:gravity="end"
+        android:background="#ffffff"
+        android:paddingBottom="10dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

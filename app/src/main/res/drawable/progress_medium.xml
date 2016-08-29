@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+
+    <item
+
+        android:drawable="@mipmap/runleft"
+        android:duration="150"/>
+    <item
+        android:drawable="@mipmap/runright"
+        android:duration="150"/>
+
+</animation-list>
+
+
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
+        android:drawable="@mipmap/rab"
+        android:fromDegrees="0"
+        android:pivotX="50.0%"
+        android:pivotY="50.0%"
+        android:duration="1500"
+        android:toDegrees="360" />
+    -->

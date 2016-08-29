@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="#f4f4f4"
+    tools:context="com.ziyawang.ziya.activity.SearchActivity">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_info_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="搜索视频"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="#f4f4f4"
+        android:id="@+id/homepage_search"
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <RelativeLayout
+
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/login_register"
+            android:layout_width="match_parent"
+            android:layout_height="38dp">
+
+            <TextView
+                android:textSize="15sp"
+                android:textColor="#ef8200"
+                android:id="@+id/search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="找视频" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/homepage_up"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/homepager_up"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@id/search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/search_button"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/icon09"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:paddingLeft="10dp"
+                android:background="#ffffff"
+                android:layout_toLeftOf="@id/search_button"
+                android:layout_centerVertical="true"
+                android:id="@+id/search_edit"
+                android:layout_toRightOf="@id/homepage_up"
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <com.ziyawang.ziya.view.MyScrollView
+        android:layout_marginLeft="14dp"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.ziyawang.ziya.view.BenListView
+                android:id="@+id/listView"
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.ziyawang.ziya.view.BenListView>
+
+
+
+        </LinearLayout>
+
+
+    </com.ziyawang.ziya.view.MyScrollView>
+
+</LinearLayout>

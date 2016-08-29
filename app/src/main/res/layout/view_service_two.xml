@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <Button
+            android:id="@+id/service_nine"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:drawableTop="@mipmap/icon27"
+            android:text="担保公司"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/service_ten"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:drawableTop="@mipmap/icon29"
+            android:text="催收机构"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:clickable="false"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:clickable="false"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="invisible"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </LinearLayout>
+
+
+</LinearLayout>

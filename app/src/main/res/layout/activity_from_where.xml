@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="#f4f4f4"
+    tools:context="com.ziyawang.ziya.activity.FromWhereActivity">
+
+    <RelativeLayout
+        android:id="@+id/details_release_head"
+        android:background="#fdd000"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000"
+            android:text="来源"
+            android:id="@+id/title"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button01"
+            android:background="#ffffff"
+            android:text="银行"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button02"
+            android:background="#ffffff"
+            android:text="非银行金融机构"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button03"
+            android:background="#ffffff"
+            android:text="企业"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button04"
+            android:background="#ffffff"
+            android:text="企业"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button05"
+            android:background="#ffffff"
+            android:text="个人"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+    </RadioGroup>
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button06"
+            android:background="#ffffff"
+            android:text="企业"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button07"
+            android:background="#ffffff"
+            android:text="个人"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+    </RadioGroup>
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button08"
+            android:background="#ffffff"
+            android:text="咨询"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button09"
+            android:background="#ffffff"
+            android:text="诉讼"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/button10"
+            android:background="#ffffff"
+            android:text="其他"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+
+    </RadioGroup>
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button11"
+            android:background="#ffffff"
+            android:text="个人"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button12"
+            android:background="#ffffff"
+            android:text="企业"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+    </RadioGroup>
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button13"
+            android:background="#ffffff"
+            android:text="5%--15%"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button14"
+            android:background="#ffffff"
+            android:text="15%--30%"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/button15"
+            android:background="#ffffff"
+            android:text="30%--50%"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button16"
+            android:background="#ffffff"
+            android:text="50%以上"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button17"
+            android:background="#ffffff"
+            android:text="已诉讼"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button18"
+            android:background="#ffffff"
+            android:text="未诉讼"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="#ffffff"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_one"
+            android:drawableTop="@mipmap/icon01"
+            android:text="资产包转让"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_two"
+            android:drawableTop="@mipmap/icon02"
+            android:text="债权转让"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_three"
+            android:drawableTop="@mipmap/icon03"
+            android:text="固产转让"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_four"
+            android:drawableTop="@mipmap/icon04"
+            android:text="商业保理"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_five"
+            android:drawableTop="@mipmap/icon05"
+            android:text="典当信息"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_six"
+            android:drawableTop="@mipmap/icon06"
+            android:text="融资需求"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_seven"
+            android:drawableTop="@mipmap/icon07"
+            android:text="悬赏信息"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/info_eight"
+            android:drawableTop="@mipmap/icon08"
+            android:text="尽职调查"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

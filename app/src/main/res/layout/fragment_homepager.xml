@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBEBEB"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="false"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--首页的滑动布局-->
+        <com.ziyawang.ziya.view.MyScrollView
+            android:id="@+id/mys"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--首页的轮播图位置-->
+                <RelativeLayout
+                    android:id="@+id/niu_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="162dp">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/home_viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/homepager_viewpager" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="6dp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/one"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/viewpager01" />
+
+                        <ImageView
+                            android:id="@+id/two"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="6dp"
+                            android:src="@drawable/viewpager01" />
+
+                        <ImageView
+                            android:id="@+id/three"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginRight="13dp"
+                            android:src="@drawable/viewpager01" />
+
+                        <!--<ImageView
+                            android:visibility="gone"
+                            android:id="@+id/four"
+                            android:src="@drawable/viewpager01"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp" />-->
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <!--首页的搜索框的位置-->
+                <RelativeLayout
+                    android:id="@+id/homepage_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:background="#f4f4f4">
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/login_register">
+
+                        <TextView
+                            android:id="@+id/homepage_change"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="找信息"
+                            android:textColor="#ef8200"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:id="@+id/homepage_up"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="9dp"
+                            android:layout_toRightOf="@id/homepage_change"
+                            android:src="@mipmap/homepager_up" />
+
+                        <TextView
+                            android:id="@+id/homepage_home"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="6dp"
+                            android:layout_toRightOf="@id/homepage_up"
+                            android:drawableRight="@mipmap/icon09" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <!--首页的listView的位置-->
+                <FrameLayout
+                    android:id="@+id/home_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></FrameLayout>
+            </LinearLayout>
+        </com.ziyawang.ziya.view.MyScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <!--首页的悬停布局-->
+    <RelativeLayout
+        android:id="@+id/search01"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="#f4f4f4"
+        android:visibility="invisible">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/login_register">
+
+            <TextView
+                android:id="@+id/homepage_change02"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="找信息"
+                android:textColor="#ef8200"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/homepage_up02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@id/homepage_change02"
+                android:src="@mipmap/homepager_up" />
+
+            <TextView
+                android:id="@+id/homepage_home02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="6dp"
+                android:layout_toRightOf="@id/homepage_up02"
+                android:drawableRight="@mipmap/icon09" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

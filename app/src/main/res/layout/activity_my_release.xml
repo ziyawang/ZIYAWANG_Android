@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#f4f4f4"
+    tools:context=".activity.FindInfoActivity">
+
+    <RelativeLayout
+        android:id="@+id/details_release_head"
+        android:background="#fdd000"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="找信息"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000"
+            android:id="@+id/title"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/find_vip_type"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="筛选"
+            android:textSize="16dp"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:textColor="#000"
+            android:id="@+id/find_type"
+            android:gravity="center"
+            android:text="信息类型"
+            android:background="@mipmap/find_find"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="#000"
+            android:id="@+id/part"
+            android:gravity="center"
+            android:text="地区"
+            android:background="@mipmap/find_find"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="#000"
+            android:id="@+id/details_type"
+            android:gravity="center"
+            android:text="更多"
+            android:background="@mipmap/find_find"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:background="#9b9b9b"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+
+    </LinearLayout>
+
+    <com.ziyawang.ziya.view.MyScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.ziyawang.ziya.view.BenListView
+                android:layout_marginLeft="14dp"
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.ziyawang.ziya.view.BenListView>
+
+
+
+        </LinearLayout>
+
+
+    </com.ziyawang.ziya.view.MyScrollView>
+
+
+</LinearLayout>

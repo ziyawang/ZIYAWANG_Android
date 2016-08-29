@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/video_frame"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@mipmap/home_video"-->
+        <!--android:minHeight="200dp">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/play_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:src="@drawable/biz_video_list_play_icon_big"/>-->
+
+        <!--<com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer-->
+            <!--android:id="@+id/video_player_item_1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="220dp"-->
+            <!--android:visibility="gone">-->
+        <!--</com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer>-->
+
+    <!--</FrameLayout>-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <com.ziyawang.ziya.view.MyMovieImageView
+            android:id="@+id/movie_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/biz_video_list_play_icon_big"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+
+
+    </FrameLayout>
+
+
+
+    <TextView
+        android:textColor="#000"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="13dp"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="#6d6d6d"
+        android:textSize="10dp"
+        android:id="@+id/other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

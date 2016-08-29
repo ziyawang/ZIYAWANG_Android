@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#f4f4f4"
+    tools:context="com.ziyawang.ziya.activity.FeedBackActivity">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_info_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="意见反馈"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:textColorHint="#6d6d6d"
+        android:textColor="#000"
+        android:id="@+id/feedBack_editText"
+        android:maxLength="100"
+        android:minHeight="150dp"
+        android:gravity="top"
+        android:hint="亲：您遇到什么系统问题了？或有什么功能建议吗？
+        欢迎提给我们，谢谢。
+        "
+        android:paddingLeft="10dp"
+        android:background="#ffffff"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/release_foot"
+        android:paddingRight="10dp"
+        android:background="#ffffff"
+        android:gravity="end"
+        android:text="文字输入，限于100个字"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:background="@drawable/release_add_img"
+            android:paddingTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#fdd000"
+            android:drawableTop="@mipmap/icon51"
+            android:id="@+id/feedBack_textView"
+            android:gravity="center"
+            android:text="添加凭证"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp" />
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/feedBack_frame"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp">
+
+            <ImageView
+                android:layout_marginBottom="10dp"
+                android:id="@+id/feedBack_imageVIew"
+                android:layout_width="90dp"
+                android:layout_height="90dp" />
+
+            <ImageView
+                android:id="@+id/feedback_img_cancel"
+                android:layout_gravity="end"
+                android:src="@mipmap/release_cancel"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:textColor="#000"
+        android:layout_marginTop="20dp"
+        android:id="@+id/feedBack_submit"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:text="提交"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+
+</LinearLayout>

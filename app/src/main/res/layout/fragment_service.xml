@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/home_service_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#ffffff">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="#ffffff">
+
+
+        <ImageView
+            android:id="@+id/five"
+            android:layout_marginRight="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/viewpager02" />
+
+        <ImageView
+            android:id="@+id/six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/viewpager02" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="@mipmap/icon44"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<TextView-->
+        <!--android:id="@+id/jing"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingLeft="16dp"-->
+        <!--android:text="精选"-->
+        <!--android:textColor="#FFCC33" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_toRightOf="@id/jing"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:text="信息"-->
+        <!--android:textColor="#000000" />-->
+
+    </RelativeLayout>
+
+    <com.ziyawang.ziya.view.BenListView
+        android:layout_marginLeft="14dp"
+        android:focusable="false"
+        android:id="@+id/home_service_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.ziyawang.ziya.view.BenListView>
+
+
+</LinearLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:textSize="18dp"
+        android:gravity="center"
+        android:background="#fdd000"
+        android:id="@+id/release_head"
+        android:textColor="#000"
+        android:text="消息"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+    <RelativeLayout
+        android:background="#fffdf2"
+        android:id="@+id/info_sys"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <ImageView
+            android:id="@+id/aaa"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/icon97"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
+
+        <TextView
+            android:textColor="#ef8200"
+            android:textSize="17dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/aaa"
+            android:text="系统消息"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></LinearLayout>
+
+    <RelativeLayout
+        android:background="#fffdf2"
+        android:id="@+id/info_help"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <ImageView
+            android:id="@+id/bbb"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/default_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
+
+        <TextView
+            android:textColor="#ef8200"
+            android:textSize="17dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/bbb"
+            android:text="资芽小助手"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></LinearLayout>
+
+    <fragment
+        android:id="@+id/conversationlist"
+        android:name="io.rong.imkit.fragment.ConversationListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<fragment
+        android:id="@+id/subconversationlist"
+        android:name="io.rong.imkit.fragment.SubConversationListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+</LinearLayout>

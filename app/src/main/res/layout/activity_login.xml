@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:line="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:background="#ffffff"
+    tools:context="com.ziyawang.ziya.activity.LoginActivity">
+
+    <RelativeLayout
+        android:id="@+id/login_relative_head"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:textSize="18dp"
+            android:textColor="#999"
+            android:text="登录"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_below="@id/login_relative_head"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:layout_marginLeft="55dp"
+                android:layout_marginRight="55dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/login_001"
+                android:id="@+id/register_imageView_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <RelativeLayout
+                android:layout_marginRight="55dp"
+                android:layout_marginLeft="55dp"
+                android:background="@drawable/login_uesrname"
+                android:layout_marginTop="40dp"
+                android:layout_below="@id/register_imageView_logo"
+                android:id="@+id/login_relative_userName"
+                android:layout_width="match_parent"
+                android:layout_height="38dp">
+
+                <ImageView
+                    android:id="@+id/login_imageView_userName"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/login_002"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <com.ziyawang.ziya.view.LineEditText
+                    line:lineColorEt="@color/start_button_color"
+                    android:textColorLink="#ff0000"
+                    android:paddingLeft="15dp"
+                    android:textColor="#ccc"
+                    android:background="#00000000"
+                    android:layout_toRightOf="@id/login_imageView_userName"
+                    android:textColorHint="#ccc"
+                    android:maxLength="13"
+                    android:digits="1234567890"
+                    android:hint="@string/login_editText_userName"
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginRight="55dp"
+                android:layout_marginLeft="55dp"
+                android:background="@drawable/login_uesrname"
+                android:layout_marginTop="14dp"
+                android:layout_below="@id/login_relative_userName"
+                android:id="@+id/login_relative_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="38dp">
+
+                <ImageView
+                    android:id="@+id/login_imageView_pwd"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/login_003"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <com.ziyawang.ziya.view.LineEditText
+
+                    line:lineColorEt="@color/start_button_color"
+                    android:paddingLeft="15dp"
+                    android:textColor="#ccc"
+                    android:background="#00000000"
+                    android:layout_toRightOf="@id/login_imageView_pwd"
+                    android:textColorHint="#ccc"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789."
+                    android:inputType="textPassword"
+                    android:hint="@string/login_editText_pwd"
+                    android:id="@+id/pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+
+            </RelativeLayout>
+
+            <Button
+                android:textSize="15dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginRight="55dp"
+                android:background="@drawable/register_button"
+                android:textColor="#fff"
+                android:text="@string/login_login"
+                android:layout_below="@id/login_relative_pwd"
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="38dp" />
+
+            <Button
+                android:textSize="15dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginRight="55dp"
+                android:background="@drawable/login_register"
+                android:textColor="#fdd000"
+                android:layout_below="@id/login"
+                android:text="@string/login_register"
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="38dp" />
+
+            <TextView
+                android:textSize="15dp"
+                android:layout_marginRight="70dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="11dp"
+                android:textColor="#5b5b5b"
+                android:id="@+id/register_textView_find_pwd"
+                android:text="@string/login_find_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/register" />
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+    </ScrollView>
+
+</RelativeLayout>
+
+

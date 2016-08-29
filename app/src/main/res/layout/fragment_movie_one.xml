@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <EditText
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:text="输入你想选择的视频，快来试试吧..."
+        android:background="#ffffff"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:drawableLeft="@mipmap/search_icon"
+        android:layout_width="match_parent"
+        android:layout_height="38dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/title"
+                    android:background="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="16dp"
+                        android:drawableLeft="@mipmap/search_icon"
+                        android:gravity="center"
+                        android:text="精品推荐"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/movieMore01"
+                        android:layout_marginRight="16dp"
+                        android:layout_alignParentRight="true"
+                        android:text="更多"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/line"
+                    android:layout_below="@id/title"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></LinearLayout>
+
+                <GridView
+                    android:horizontalSpacing="10dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/gridView01"
+                    android:layout_below="@id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="2">
+
+                </GridView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/title02"
+                    android:background="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="16dp"
+                        android:drawableLeft="@mipmap/search_icon"
+                        android:gravity="center"
+                        android:text="热播排行"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/movieMore02"
+                        android:layout_marginRight="16dp"
+                        android:layout_alignParentRight="true"
+                        android:text="更多"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/line02"
+                    android:layout_below="@id/title02"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></LinearLayout>
+
+                <GridView
+                    android:horizontalSpacing="10dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:id="@+id/gridView02"
+                    android:layout_below="@id/line02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="2">
+
+                </GridView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/title03"
+                    android:background="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="16dp"
+                        android:drawableLeft="@mipmap/search_icon"
+                        android:gravity="center"
+                        android:text="最新发布"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/movieMore03"
+                        android:layout_marginRight="16dp"
+                        android:layout_alignParentRight="true"
+                        android:text="更多"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/line03"
+                    android:layout_below="@id/title03"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></LinearLayout>
+
+                <GridView
+                    android:horizontalSpacing="10dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:id="@+id/gridView03"
+                    android:numColumns="2"
+                    android:layout_below="@id/line03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </GridView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

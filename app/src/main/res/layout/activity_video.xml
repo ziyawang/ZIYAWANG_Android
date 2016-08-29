@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#ffffff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+
+        android:id="@+id/details_release_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="视频详情"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:background="#ffffff"
+        android:id="@+id/video_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/details_release_head"
+        android:minHeight="200dp">
+
+        <ImageView
+            android:id="@+id/play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/biz_video_list_play_icon_big" />
+
+        <com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer
+            android:id="@+id/video_player_item_1"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:visibility="gone"></com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:background="#ffffff"
+        android:paddingTop="10dp"
+        android:id="@+id/niu_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/video_frame">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/movie_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:background="@mipmap/info_share" />
+
+        <ImageView
+            android:src="@mipmap/collect"
+            android:id="@+id/movie_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/movie_share" />
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textColor="#333"
+            android:textSize="15dp"
+            android:id="@+id/movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toLeftOf="@id/movie_collect" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:textColor="#6d6d6d"
+        android:textSize="12dp"
+        android:drawableLeft="@mipmap/zhu"
+        android:id="@+id/movie_look"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/niu_one"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:gravity="center_vertical"
+        android:textColor="#6d6d6d"
+        android:textSize="12dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/movie_time"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/niu_one"
+        android:layout_toRightOf="@+id/movie_look"
+        android:layout_toEndOf="@+id/movie_look" />
+
+    <TextView
+        android:textSize="12dp"
+        android:textColor="#6d6d6d"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/movie_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/movie_time"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:textColor="#ef8200"
+        android:id="@+id/niu_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_below="@id/movie_des"
+        android:background="#fcfcfc"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="热门评论" />
+
+    <RelativeLayout
+        android:background="#f4f4f4"
+        android:id="@+id/zhu"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_marginLeft="1dp"
+            android:paddingRight="16dp"
+            android:background="#ffffff"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/movie_submit"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="评论" />
+
+        <EditText
+
+            android:layout_marginTop="1dp"
+            android:paddingLeft="16dp"
+            android:id="@+id/movie_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/movie_submit"
+            android:background="#ffffff"
+            android:hint="请输入热门评论..." />
+
+
+    </RelativeLayout>
+
+    <ListView
+
+        android:background="#f4f4f4"
+        android:paddingLeft="14dp"
+        android:layout_above="@id/zhu"
+        android:id="@+id/listView"
+        android:layout_below="@id/niu_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ListView>
+
+
+
+
+
+</RelativeLayout>

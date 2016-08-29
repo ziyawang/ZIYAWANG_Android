@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="资产包类型" />
+    <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/one_one"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:text="抵押" />
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+
+    <RadioButton
+        android:id="@+id/one_two"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:text="信用" />
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/one_three"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:text="综合类" />
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/one_four"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:text="其他" />
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="来源" />
+    <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/one_five"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:text="银行" />
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/one_six"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:text="非银行金融机构" />
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/one_seven"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:text="企业" />
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+</LinearLayout>

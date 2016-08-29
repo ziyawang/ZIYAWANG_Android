@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.ziyawang.ziya.activity.ServiceTypeActivity">
+
+    <RelativeLayout
+        android:id="@+id/details_release_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="服务类型"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="保存"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/a"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:paddingLeft="16dp"
+                android:text="资产包收购" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/b"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="催收机构" />
+
+            <CheckBox
+
+                android:paddingLeft="16dp"
+                android:id="@+id/c"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="律师事务所" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/d"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="保理公司" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/e"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="投融资服务" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/f"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="尽职调查" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/g"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="典当公司" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/h"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="担保公司" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/i"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="固产收购" />
+
+            <CheckBox
+                android:paddingLeft="16dp"
+                android:id="@+id/j"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:text="债权收购" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

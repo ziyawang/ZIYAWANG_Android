@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.ziyawang.ziya.activity.MovieListActivity">
+
+    <RelativeLayout
+        android:id="@+id/details_release_head"
+        android:background="#fdd000"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="最新发布"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:background="#ffffff"
+        android:drawablePadding="10dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@mipmap/search_icon"
+        android:text="精品推荐"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+    <com.ziyawang.ziya.view.MyScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.ziyawang.ziya.view.MyGridView
+                android:scrollbars="none"
+                android:background="#ffffff"
+                android:horizontalSpacing="10dp"
+                android:padding="5dp"
+                android:id="@+id/gridView01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2">
+
+            </com.ziyawang.ziya.view.MyGridView>
+
+        </LinearLayout>
+
+
+    </com.ziyawang.ziya.view.MyScrollView>
+
+
+
+
+</LinearLayout>

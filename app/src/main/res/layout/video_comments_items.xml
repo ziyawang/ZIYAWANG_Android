@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_margin="4dp"
+        android:background="@mipmap/basic_icon"
+        android:layout_centerVertical="true"
+        android:id="@+id/comments_icon"
+        android:layout_width="44dp"
+        android:layout_height="44dp" />
+
+    <TextView
+        android:textColor="#999"
+        android:id="@+id/comments_title"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/comments_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/comments_time"
+        android:textColor="#999"
+        android:layout_marginLeft="10dp"
+        android:textSize="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/comments_title"
+        android:layout_toRightOf="@+id/comments_title"
+        android:layout_toEndOf="@+id/comments_title" />
+
+    <TextView
+        android:textColor="#333"
+        android:id="@+id/comments_des"
+        android:layout_below="@id/comments_title"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/comments_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</RelativeLayout>
