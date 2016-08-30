@@ -61,6 +61,7 @@ public class ChangePwdActivity extends BaseActivity {
         MobclickAgent.onPause(this);
 
 
+
     }
 
 
