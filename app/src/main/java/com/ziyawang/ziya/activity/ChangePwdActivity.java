@@ -59,6 +59,8 @@ public class ChangePwdActivity extends BaseActivity {
         MobclickAgent.onPageEnd("更改密码页面");
         //统计时长
         MobclickAgent.onPause(this);
+
+
     }
 
 
