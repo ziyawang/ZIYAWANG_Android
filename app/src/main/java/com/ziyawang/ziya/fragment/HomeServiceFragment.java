@@ -174,7 +174,7 @@ public class HomeServiceFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList_service.get(0).findViewById(R.id.service_five).setOnClickListener(new View.OnClickListener() {
+        viewList_service.get(1).findViewById(R.id.service_five).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("benben" , "--------------------------------服务05") ;
@@ -219,7 +219,7 @@ public class HomeServiceFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList_service.get(1).findViewById(R.id.service_ten).setOnClickListener(new View.OnClickListener() {
+        viewList_service.get(0).findViewById(R.id.service_ten).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("benben" , "--------------------------------服务10") ;

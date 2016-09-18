@@ -15,7 +15,6 @@
         android:layout_height="44dp"
         android:background="#fdd000">
 
-
         <RelativeLayout
             android:id="@+id/pre"
             android:layout_width="50dp"
@@ -56,10 +55,10 @@
     <!--滚动详情页面-->
     <ScrollView
         android:visibility="gone"
+        android:layout_marginBottom="44dp"
         android:id="@+id/info_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayout"
         android:layout_below="@id/details_info_head">
 
         <LinearLayout
@@ -72,7 +71,7 @@
             <RelativeLayout
                 android:id="@+id/info_basic"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="90dp"
                 android:background="#ffffff">
 
                 <ImageView
@@ -95,7 +94,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_weight="1">
+                        android:layout_weight="2">
 
                         <TextView
                             android:id="@+id/info_type"
@@ -116,15 +115,14 @@
 
                     </LinearLayout>
 
-
                     <LinearLayout
+                        android:id="@+id/type_linear"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center">
 
                         <TextView
-
                             android:id="@+id/info_details_nine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -140,23 +138,28 @@
                             android:textColor="#6d6d6d"
                             android:textSize="12dp" />
 
-                       <!-- <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="完整度" />
 
-                        <RatingBar
-                            android:id="@+id/info_rating"
-                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp">
+
+                        <TextView
+                            android:id="@+id/info_time"
+                            android:textColor="#6d6d6d"
+                            android:textSize="10sp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:numStars="5" />-->
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:background="#ffffff"
@@ -167,6 +170,7 @@
                     android:gravity="end|center_vertical">
 
                     <TextView
+                        android:drawablePadding="5dp"
                         android:textColor="#6d6d6d"
                         android:id="@+id/info_collect"
                         android:gravity="center"
@@ -179,6 +183,7 @@
                         android:textSize="10dp" />
 
                     <TextView
+                        android:drawablePadding="5dp"
                         android:textColor="#6d6d6d"
                         android:id="@+id/info_share"
                         android:gravity="center"
@@ -292,6 +297,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/niu_145"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:background="#ffffff"
@@ -389,6 +395,7 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:background="#ffffff"
                 android:textColor="#6d6d6d"
                 android:layout_width="match_parent"
@@ -432,6 +439,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/info_audio_des" />
+
+                <TextView
+                    android:textSize="15dp"
+                    android:visibility="gone"
+                    android:id="@+id/voice_status"
+                    android:layout_marginLeft="14dp"
+                    android:layout_toRightOf="@id/audio_one"
+                    android:layout_centerVertical="true"
+                    android:text="无语音描述"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </RelativeLayout>
 
@@ -542,6 +560,7 @@
         </LinearLayout>
     </ScrollView>
 
+    <!--查看抢单人按钮-->
     <LinearLayout
         android:visibility="gone"
         android:background="#ea6155"
@@ -564,8 +583,7 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
-
-    <!--悬停页面-->
+    <!--联系方式、抢单、私聊-->
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/linearLayout"
@@ -583,15 +601,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <ImageView
-                 android:src="@mipmap/info_call"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/textView6"
-                android:layout_toStartOf="@+id/textView6" />
 
             <TextView
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/info_call"
                 android:textColor="#000"
                 android:layout_marginLeft="10dp"
                 android:background="#ffffff"
@@ -614,15 +627,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:src="@mipmap/icon34"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/textView7"
-                android:layout_toStartOf="@+id/textView7" />
 
             <TextView
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/icon34"
                 android:textColor="#fff"
                 android:layout_marginLeft="10dp"
                 android:textSize="17dp"
@@ -642,15 +650,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:src="@mipmap/info_sendmessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/textView5"
-                android:layout_toStartOf="@+id/textView5" />
 
             <TextView
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/info_sendmessage"
                 android:textColor="#000"
                 android:gravity="center"
                 android:layout_marginLeft="10dp"
@@ -664,4 +667,96 @@
 
         </RelativeLayout>
     </LinearLayout>
+    <!--发布方进入后不是投资和融资需求显示显示组件联系方式、抢单、私聊-->
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/show_info_register"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:gravity="center"
+            android:background="#ffffff"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@mipmap/info_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/textView667"
+                android:layout_toStartOf="@+id/textView667" />
+
+            <TextView
+                android:textColor="#000"
+                android:layout_marginLeft="10dp"
+                android:background="#ffffff"
+                android:textSize="17dp"
+                android:text="联系方式"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textView667" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:gravity="center"
+            android:background="#ea6155"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@mipmap/icon34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/textView777"
+                android:layout_toStartOf="@+id/textView777" />
+
+            <TextView
+                android:textColor="#fff"
+                android:layout_marginLeft="10dp"
+                android:textSize="17dp"
+                android:text="申请抢单"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textView777" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="#fdd000"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/info_sendmessage"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textSize="17dp"
+                android:text="私聊"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView555" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
 </RelativeLayout>

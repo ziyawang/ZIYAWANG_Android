@@ -6,16 +6,16 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:paddingTop="16dp"
-        android:paddingBottom="200dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="38dp">
 
         <Button
             android:id="@+id/a"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="#ffffff"
             android:text="VIP1" />
@@ -25,7 +25,7 @@
             android:id="@+id/b"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="#ffffff" />
 
@@ -34,7 +34,7 @@
             android:id="@+id/c"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="#ffffff" />
     </LinearLayout>

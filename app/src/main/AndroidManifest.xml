@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ziyawang.ziya">
 
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -53,7 +52,6 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -180,7 +178,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ChangePwdActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+
+        </activity>
         <activity
             android:name=".activity.MoneyTypeActivity"
             android:screenOrientation="portrait" />
@@ -244,7 +245,8 @@
             android:value="Channel ID" />
 
         <activity android:name=".activity.SystemInformationActivity" />
-        <activity android:name=".activity.DetailsSystemInfoActivity"></activity>
+        <activity android:name=".activity.DetailsSystemInfoActivity" />
+        <activity android:name=".activity.BenBenActivity"></activity>
     </application>
 
 </manifest>

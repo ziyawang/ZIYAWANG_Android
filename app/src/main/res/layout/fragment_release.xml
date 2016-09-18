@@ -82,23 +82,24 @@
 
                 <Button
                     android:background="#ffffff"
-                    android:id="@+id/shop"
+                    android:id="@+id/daijia"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/icon05"
+                    android:drawableTop="@mipmap/icon07"
                     android:paddingTop="24dp"
-                    android:text="典当信息" />
+                    android:text="悬赏信息" />
 
                 <Button
                     android:background="#ffffff"
-                    android:id="@+id/huankuan"
+                    android:id="@+id/huoyun"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/icon27"
+                    android:drawableTop="@mipmap/icon08"
                     android:paddingTop="24dp"
-                    android:text="担保信息" />
+                    android:text="尽职调查" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -118,23 +119,26 @@
 
                 <Button
                     android:background="#ffffff"
-                    android:id="@+id/daijia"
+                    android:id="@+id/tuangou"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/icon07"
+                    android:drawableTop="@mipmap/icon41"
                     android:paddingTop="24dp"
-                    android:text="悬赏信息" />
+                    android:text="法律服务" />
 
                 <Button
-                    android:background="#ffffff"
-                    android:id="@+id/huoyun"
+                    android:drawableTop="@mipmap/icon28"
+                    android:text="资产求购"
+                    android:id="@+id/lvxing"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/icon08"
-                    android:paddingTop="24dp"
-                    android:text="尽职调查" />
+                    android:background="#ffffff"
+                    android:paddingTop="24dp" />
+
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -154,24 +158,59 @@
 
                 <Button
                     android:background="#ffffff"
-                    android:id="@+id/tuangou"
+                    android:id="@+id/xv"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:drawableTop="@mipmap/icon41"
+                    android:drawableTop="@mipmap/xu"
                     android:paddingTop="24dp"
-                    android:text="法律服务" />
+                    android:text="投资需求" />
 
                 <Button
-                    android:drawableTop="@mipmap/icon28"
-                    android:text="资产求购"
-                    android:id="@+id/lvxing"
+                    android:visibility="visible"
+                    android:background="#ffffff"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="24dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+                <Button
+                    android:background="#ffffff"
+                    android:id="@+id/shop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon05"
+                    android:paddingTop="24dp"
+                    android:text="典当信息" />
+
+                <Button
+                    android:background="#ffffff"
+                    android:id="@+id/huankuan"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon27"
+                    android:paddingTop="24dp"
+                    android:text="担保信息" />
+
+
+                <Button
+                    android:visibility="visible"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="#ffffff"
                     android:paddingTop="24dp"
-                     />
+                    />
             </LinearLayout>
 
 

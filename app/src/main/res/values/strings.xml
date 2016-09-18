@@ -59,6 +59,7 @@
 
     <!-- 个地级市-->
     <string-array name="beijin_province_item">
+        <item>不限</item>
         <item>东城区</item>
         <item>西城区</item>
         <item>崇文区</item>
@@ -79,6 +80,7 @@
         <item>延庆县</item>
     </string-array>
     <string-array name="tianjin_province_item">
+        <item>不限</item>
         <item>和平区</item>
         <item>河东区</item>
         <item>河西区</item>
@@ -99,6 +101,7 @@
         <item>蓟县</item>
     </string-array>
     <string-array name="heibei_province_item">
+        <item>不限</item>
         <item>石家庄市</item>
         <item>唐山市</item>
         <item>秦皇岛市</item>
@@ -112,6 +115,7 @@
         <item>衡水市</item>
     </string-array>
     <string-array name="shanxi1_province_item">
+        <item>不限</item>
         <item>太原市</item>
         <item>大同市</item>
         <item>阳泉市</item>
@@ -125,6 +129,7 @@
         <item>吕梁市</item>
     </string-array>
     <string-array name="neimenggu_province_item">
+        <item>不限</item>
         <item>呼和浩特市</item>
         <item>包头市</item>
         <item>乌海市</item>
@@ -139,6 +144,7 @@
         <item>阿拉善</item>
     </string-array>
     <string-array name="liaoning_province_item">
+        <item>不限</item>
         <item>沈阳市</item>
         <item>大连市</item>
         <item>鞍山市</item>
@@ -155,6 +161,7 @@
         <item>葫芦岛市</item>
     </string-array>
     <string-array name="jilin_province_item">
+        <item>不限</item>
         <item>长春市</item>
         <item>吉林市</item>
         <item>四平市</item>
@@ -166,6 +173,7 @@
         <item>延边州</item>
     </string-array>
     <string-array name="heilongjiang_province_item">
+        <item>不限</item>
         <item>哈尔滨市</item>
         <item>齐齐哈尔市</item>
         <item>鸡西市</item>
@@ -181,7 +189,7 @@
         <item>大兴安岭地区</item>
     </string-array>
     <string-array name="shanghai_province_item">
-
+        <item>不限</item>
         <item>黄浦区</item>
         <item>徐汇区</item>
         <item>长宁区</item>
@@ -202,6 +210,7 @@
 
     </string-array>
     <string-array name="jiangsu_province_item">
+        <item>不限</item>
         <item>南京市</item>
         <item>无锡市</item>
         <item>徐州市</item>
@@ -217,6 +226,7 @@
         <item>宿迁市</item>
     </string-array>
     <string-array name="zhejiang_province_item">
+        <item>不限</item>
         <item>杭州市</item>
         <item>宁波市</item>
         <item>温州市</item>
@@ -230,6 +240,7 @@
         <item>丽水市</item>
     </string-array>
     <string-array name="anhui_province_item">
+        <item>不限</item>
         <item>合肥市</item>
         <item>芜湖市</item>
         <item>蚌埠市</item>
@@ -249,6 +260,7 @@
         <item>宣城市</item>
     </string-array>
     <string-array name="fujian_province_item">
+        <item>不限</item>
         <item>福州市</item>
         <item>厦门市</item>
         <item>莆田市</item>
@@ -260,6 +272,7 @@
         <item>宁德市</item>
     </string-array>
     <string-array name="jiangxi_province_item">
+        <item>不限</item>
         <item>南昌市</item>
         <item>景德镇市</item>
         <item>萍乡市</item>
@@ -273,6 +286,7 @@
         <item>上饶市</item>
     </string-array>
     <string-array name="shandong_province_item">
+        <item>不限</item>
         <item>济南市</item>
         <item>青岛市</item>
         <item>淄博市</item>
@@ -292,6 +306,7 @@
         <item>荷泽市</item>
     </string-array>
     <string-array name="henan_province_item">
+        <item>不限</item>
         <item>郑州市</item>
         <item>开封市</item>
         <item>洛阳市</item>
@@ -312,6 +327,7 @@
         <item>济源市</item>
     </string-array>
     <string-array name="hubei_province_item">
+        <item>不限</item>
         <item>武汉市</item>
         <item>黄石市</item>
         <item>十堰市</item>
@@ -332,6 +348,7 @@
         <item>江汉油田</item>
     </string-array>
     <string-array name="hunan_province_item">
+        <item>不限</item>
         <item>长沙市</item>
         <item>株洲市</item>
         <item>湘潭市</item>
@@ -348,6 +365,7 @@
         <item>湘西</item>
     </string-array>
     <string-array name="guangdong_province_item">
+        <item>不限</item>
         <item>广州市</item>
         <item>韶关市</item>
         <item>深圳市</item>
@@ -371,6 +389,7 @@
         <item>云浮市</item>
     </string-array>
     <string-array name="guangxi_province_item">
+        <item>不限</item>
         <item>南宁市</item>
         <item>柳州市</item>
         <item>桂林市</item>
@@ -387,6 +406,7 @@
         <item>崇左市</item>
     </string-array>
     <string-array name="hainan_province_item">
+        <item>不限</item>
         <item>海口市</item>
         <item>三亚市</item>
         <item>五指山市</item>
@@ -408,6 +428,7 @@
         <item>洋浦经济开发区</item>
     </string-array>
     <string-array name="chongqing_province_item">
+        <item>不限</item>
         <item>万州区</item>
         <item>涪陵区</item>
         <item>渝中区</item>
@@ -448,6 +469,7 @@
         <item>北部新区</item>
     </string-array>
     <string-array name="sichuan_province_item">
+        <item>不限</item>
         <item>成都市</item>
         <item>自贡市</item>
         <item>攀枝花市</item>
@@ -471,6 +493,7 @@
         <item>凉山</item>
     </string-array>
     <string-array name="guizhou_province_item">
+        <item>不限</item>
         <item>贵阳市</item>
         <item>六盘水市</item>
         <item>遵义市</item>
@@ -482,6 +505,7 @@
         <item>黔南</item>
     </string-array>
     <string-array name="yunnan_province_item">
+        <item>不限</item>
         <item>昆明市</item>
         <item>曲靖市</item>
         <item>玉溪市</item>
@@ -500,6 +524,7 @@
         <item>迪庆</item>
     </string-array>
     <string-array name="xizang_province_item">
+        <item>不限</item>
         <item>拉萨市</item>
         <item>昌都地区</item>
         <item>山南地区</item>
@@ -509,6 +534,7 @@
         <item>林芝地区</item>
     </string-array>
     <string-array name="shanxi2_province_item">
+        <item>不限</item>
         <item>西安市</item>
         <item>铜川市</item>
         <item>宝鸡市</item>
@@ -522,6 +548,7 @@
         <item>杨凌示范区</item>
     </string-array>
     <string-array name="gansu_province_item">
+        <item>不限</item>
         <item>兰州市</item>
         <item>嘉峪关市</item>
         <item>金昌市</item>
@@ -538,6 +565,7 @@
         <item>甘南</item>
     </string-array>
     <string-array name="qinghai_province_item">
+        <item>不限</item>
         <item>西宁市</item>
         <item>海东地区</item>
         <item>海北</item>
@@ -548,6 +576,7 @@
         <item>海西</item>
     </string-array>
     <string-array name="linxia_province_item">
+        <item>不限</item>
         <item>银川市</item>
         <item>石嘴山市</item>
         <item>吴忠市</item>
@@ -555,6 +584,7 @@
         <item>中卫市</item>
     </string-array>
     <string-array name="xinjiang_province_item">
+        <item>不限</item>
         <item>乌鲁木齐市</item>
         <item>克拉玛依市</item>
         <item>吐鲁番地区</item>
@@ -572,6 +602,7 @@
         <item>自治区直辖县级行政单位</item>
     </string-array>
     <string-array name="hongkong_province_item">
+        <item>不限</item>
         <item>中西区</item>
         <item>东区</item>
         <item>九龙城区</item>
@@ -590,6 +621,7 @@
         <item>元朗区</item>
     </string-array>
     <string-array name="aomen_province_item">
+        <item>不限</item>
         <item>花地玛堂区</item>
         <item>圣安多尼堂区</item>
         <item>大堂区</item>
@@ -599,6 +631,7 @@
         <item>圣方济各堂区</item>
     </string-array>
     <string-array name="taiwan_province_item">
+        <item>不限</item>
         <item>台北市</item>
         <item>高雄市</item>
         <item>基隆市</item>
@@ -623,8 +656,6 @@
         <item>花莲县</item>
         <item>澎湖县</item>
     </string-array>
-
-
     <!-- 2000多个县-->
     <string-array name="beijin_city_item">
         <item>东城区</item>

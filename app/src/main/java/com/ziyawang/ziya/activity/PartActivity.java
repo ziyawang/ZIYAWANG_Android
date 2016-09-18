@@ -3,7 +3,6 @@ package com.ziyawang.ziya.activity;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 import com.umeng.analytics.MobclickAgent;
@@ -26,22 +21,15 @@ import com.ziyawang.ziya.tools.SystemBarTintManager;
 public class PartActivity extends BaseActivity {
 
     private RelativeLayout pre ;
-
     private Spinner province_spinner ;
     private Spinner city_spinner ;
-
     private Integer provinceId, cityId ;
     private String strProvince, strCity ;
-
     private ListView listView01 ;
     private ListView listView02 ;
-
-
     String part  ;
-
     private ArrayAdapter<CharSequence> province_adapter;
     private ArrayAdapter<CharSequence> city_adapter;
-
     private int[] city = {R.array.beijin_province_item, R.array.tianjin_province_item, R.array.heibei_province_item, R.array.shanxi1_province_item, R.array.neimenggu_province_item, R.array.liaoning_province_item, R.array.jilin_province_item, R.array.heilongjiang_province_item, R.array.shanghai_province_item, R.array.jiangsu_province_item, R.array.zhejiang_province_item, R.array.anhui_province_item, R.array.fujian_province_item, R.array.jiangxi_province_item, R.array.shandong_province_item, R.array.henan_province_item, R.array.hubei_province_item, R.array.hunan_province_item, R.array.guangdong_province_item,  R.array.guangxi_province_item, R.array.hainan_province_item, R.array.chongqing_province_item, R.array.sichuan_province_item, R.array.guizhou_province_item, R.array.yunnan_province_item, R.array.xizang_province_item, R.array.shanxi2_province_item, R.array.gansu_province_item, R.array.qinghai_province_item, R.array.linxia_province_item, R.array.xinjiang_province_item, R.array.hongkong_province_item, R.array.aomen_province_item, R.array.taiwan_province_item};
     private int[] countyOfBeiJing = {R.array.beijin_city_item};
     private int[] countyOfTianJing = {R.array.tianjin_city_item};
@@ -92,7 +80,6 @@ public class PartActivity extends BaseActivity {
         super.onPause();
         MobclickAgent.onPause(this);
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

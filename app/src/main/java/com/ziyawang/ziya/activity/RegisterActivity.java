@@ -1,13 +1,9 @@
 package com.ziyawang.ziya.activity;
 
 import android.annotation.TargetApi;
-import android.app.Application;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -19,10 +15,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
 import com.lidroid.xutils.HttpUtils;
@@ -48,23 +41,15 @@ public class RegisterActivity extends BaseActivity {
     private EditText register_editText_smsCode ;
     private EditText register_editText_pwd_one ;
     private EditText register_editText_pwd_two ;
-
     private Button register_button_smsCode ;
     private Button register_button_register ;
-
-
     private CheckBox register_checkBox ;
-
     private MyProgressDialog dialog , myProgressDialog ;
-
-
     private SharedPreferences loginCode ;
     private SharedPreferences isLogin ;
     private SharedPreferences myNumber ;
     private SharedPreferences role ;
-
     private MyApplication app ;
-
     private RelativeLayout pre ;
 
 

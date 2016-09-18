@@ -16,7 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.lidroid.xutils.HttpUtils;
@@ -50,30 +49,21 @@ public class SearchActivity extends BaseActivity {
 
     private List<FindInfoEntity> data = new ArrayList<FindInfoEntity>();
     private List<FindServiceEntity> data01 = new ArrayList<FindServiceEntity>();
-
     private FindInfoAdapter adapter;
     private FindServiceAdapter adapter01;
-
     private int page;
     private int count = 1;
-
     private RelativeLayout pre;
     private TextView info_title;
     private TextView search_text;
     private EditText search_edit;
     private ImageView search_button;
-
     private String type;
-
     private Boolean isOK = true;
-
     private MyProgressDialog dialog;
-
     private MyScrollView scrollView;
     private BenListView listView;
-
     private TextView niuniuniuniu ;
-
 
     private Handler mHandler = new Handler() {
 
@@ -219,6 +209,7 @@ public class SearchActivity extends BaseActivity {
                 HttpUtils httpUtils = new HttpUtils();
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("content", content);
+                params.addQueryStringParameter("startpage", "" + count);
                 params.addBodyParameter("type", type);
                 httpUtils.send(HttpRequest.HttpMethod.POST, Url.Search, params, new RequestCallBack<String>() {
                     @Override
@@ -279,6 +270,7 @@ public class SearchActivity extends BaseActivity {
                 HttpUtils httpUtils = new HttpUtils();
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("content", content);
+                params.addQueryStringParameter("startpage" , "" + count );
                 params.addBodyParameter("type", type);
                 httpUtils.send(HttpRequest.HttpMethod.POST, Url.Search, params, new RequestCallBack<String>() {
                     @Override

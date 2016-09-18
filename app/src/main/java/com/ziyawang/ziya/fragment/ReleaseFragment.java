@@ -17,31 +17,44 @@ import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.LoginActivity;
 import com.ziyawang.ziya.activity.ReleaseDetailsActivity;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.ToastUtils;
 
 /**
  * Created by 牛海丰 on 2016/7/19.
  */
-public class ReleaseFragment extends Fragment {
+public class ReleaseFragment extends Fragment implements View.OnClickListener {
 
+    //资产包转让按钮
     private Button Transfer;
+    //债权转让按钮
     private Button Withdraw;
+    //固产转让按钮
     private Button recharge;
+    //商业保理按钮
     private Button QMoney;
+    //典当信息按钮
     private Button shop;
+    //担保信息按钮
     private Button huankuan;
+    //融资需求按钮
     private Button chuxing;
+    //悬赏信息按钮
     private Button daijia;
+    //尽职调查按钮
     private Button huoyun;
+    //委外催收按钮
     private Button waimai;
+    //法律服务按钮
     private Button tuangou;
+    //资产求购按钮
     private Button lvxing;
-
-    private ScrollView scrollView ;
-
-    public ReleaseFragment() {
-    }
-
+    //投资需求按钮
+    private Button xu ;
+    //用户缓存的isLogin的状态
+    private boolean isLogin ;
+    //无参构造
+    public ReleaseFragment() {}
 
     @Nullable
     @Override
@@ -52,255 +65,231 @@ public class ReleaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         //实例化组件
         initView(view);
+        //拿到isLogin的状态
+        initData()  ;
+        //注册监听事件
+        initListener() ;
+    }
 
-        SharedPreferences sp = getActivity().getSharedPreferences("isLogin", getActivity().MODE_PRIVATE);
-        boolean isLogin = sp.getBoolean("isLogin", false);
+    private void initListener() {
+        Withdraw.setOnClickListener(this);
+        Transfer.setOnClickListener(this);
+        recharge.setOnClickListener(this);
+        QMoney.setOnClickListener(this);
+        shop.setOnClickListener(this);
+        huankuan.setOnClickListener(this);
+        chuxing.setOnClickListener(this);
+        daijia.setOnClickListener(this);
+        huoyun.setOnClickListener(this);
+        waimai.setOnClickListener(this);
+        tuangou.setOnClickListener(this);
+        lvxing.setOnClickListener(this);
+        xu.setOnClickListener(this);
+    }
 
-        if (isLogin){
-            //资产包转让
-            Transfer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity(), "----------------资产包转让----------------");
-
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "资产包转让");
-                    startActivity(intent);
-                }
-            });
-            //债权转让
-            Withdraw.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "----------------债权转让----------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "债权转让");
-                    startActivity(intent);
-                }
-            });
-
-            //固产转化
-            recharge.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "------------------固产转化--------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "固产转让");
-                    startActivity(intent);
-                }
-            });
-            //商业保理
-            QMoney.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // ToastUtils.shortToast(getActivity() , "-----------------商业保理---------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "商业保理");
-                    startActivity(intent);
-                }
-            });
-            //典当信息
-            shop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity(), "----------------典当信息----------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "典当信息");
-                    startActivity(intent);
-                }
-            });
-            //担保信息
-            huankuan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "---------------担保信息-----------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "担保信息");
-                    startActivity(intent);
-                }
-            });
-            //融资需求
-            chuxing.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "---------------融资需求-----------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "融资需求");
-                    startActivity(intent);
-                }
-            });
-            //悬赏信息
-            daijia.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "----------------悬赏信息----------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "悬赏信息");
-                    startActivity(intent);
-                }
-            });
-            //尽职调查
-            huoyun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "----------------尽职调查----------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "尽职调查");
-                    startActivity(intent);
-                }
-            });
-            //委外催收
-            waimai.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "----------------委外催收----------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "委外催收");
-                    startActivity(intent);
-                }
-            });
-            //法律服务
-            tuangou.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToastUtils.shortToast(getActivity() , "-----------------法律服务---------------");
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "法律服务");
-                    startActivity(intent);
-                }
-            });
-            //固产求购
-            lvxing.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-                    intent.putExtra("title", "资产求购");
-                    startActivity(intent);
-                }
-            });
-        }else {
-            Transfer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            Withdraw.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            recharge.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            daijia.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            chuxing.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            huankuan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            shop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            QMoney.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            lvxing.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            tuangou.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            waimai.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-            huoyun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
-
-
-
-
+    private void initData() {
+        isLogin = GetBenSharedPreferences.getIsLogin(getActivity());
     }
 
     private void initView(View v) {
-
         Withdraw = (Button) v.findViewById(R.id.Withdraw);
         Transfer = (Button) v.findViewById(R.id.Transfer);
         recharge = (Button) v.findViewById(R.id.recharge);
-
         QMoney = (Button) v.findViewById(R.id.QMoney);
         shop = (Button) v.findViewById(R.id.shop);
         huankuan = (Button) v.findViewById(R.id.huankuan);
-
         chuxing = (Button) v.findViewById(R.id.chuxing);
         daijia = (Button) v.findViewById(R.id.daijia);
         huoyun = (Button) v.findViewById(R.id.huoyun);
-
         waimai = (Button) v.findViewById(R.id.waimai);
         tuangou = (Button) v.findViewById(R.id.tuangou);
         lvxing = (Button) v.findViewById(R.id.lvxing);
-
-        scrollView = (ScrollView)v.findViewById(R.id.scrollView ) ;
-
+        xu = (Button) v.findViewById(R.id.xv);
     }
 
-
-    public void aaa(View v) {
-        switch (v.getId()) {
-            case R.id.Withdraw:
-                //ToastUtils.shortToast(getActivity(), "--------------------------------");
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.Withdraw :
+                judgeWithdraw() ;
                 break;
+            case R.id.Transfer :
+                judgeTransfer() ;
+                break;
+            case R.id.recharge :
+                judgerecharge() ;
+                break;
+            case R.id.QMoney :
+                judgeQMoney() ;
+                break;
+            case R.id.shop :
+                judgeshop() ;
+                break;
+            case R.id.huankuan :
+                judgehuankuan() ;
+                break;
+            case R.id.chuxing :
+                judgechuxing() ;
+                break;
+            case R.id.daijia :
+                judgedaijia() ;
+                break;
+            case R.id.huoyun :
+                judgehuoyun() ;
+                break;
+            case R.id.waimai :
+                judgewaimai() ;
+                break;
+            case R.id.tuangou :
+                judgetuangou() ;
+                break;
+            case R.id.lvxing :
+                judgelvxing() ;
+                break;
+            case R.id.xv :
+                judgexv() ;
+                break;
+            default:
+                break;
+
         }
     }
+
+    private void judgexv() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "投资需求");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgelvxing() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "资产求购");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgetuangou() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "法律服务");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgewaimai() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "委外催收");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgehuoyun() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "尽职调查");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgedaijia() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "悬赏信息");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgechuxing() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "融资需求");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgehuankuan() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "担保信息");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgeshop() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "典当信息");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgeQMoney() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "商业保理");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgerecharge() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "固产转让");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgeTransfer() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "资产包转让");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void judgeWithdraw() {
+        if (isLogin){
+            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+            intent.putExtra("title", "债权转让");
+            startActivity(intent);
+        }else {
+            goLoginActivity() ;
+        }
+    }
+
+    private void goLoginActivity() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+    }
+
 }

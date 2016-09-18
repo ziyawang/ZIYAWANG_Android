@@ -10,11 +10,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -39,6 +38,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.SDUtil;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -52,23 +52,30 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class FeedBackActivity extends BaseActivity {
-
+public class FeedBackActivity extends BenBenActivity implements View.OnClickListener {
+    //缓存到本地的用户的ticket
     private static String login ;
-
+    //回退按钮
     private RelativeLayout pre ;
+    //意见反馈图片描述
     private ImageView feedBack_imageVIew ;
+    //意见反馈的意见输入框
     private EditText feedBack_editText ;
+    //意见反馈的添加凭证按钮
     private TextView feedBack_textView ;
-
+    //获取图片的后缀名
     private String imgstr ;
+    //图片的暂存文件
     private File file ;
+    //需要发送的图片的文件
     private File uploadfile ;
+    //提交按钮
     private TextView feedBack_submit ;
-
+    //数据加载的dialog
     private MyProgressDialog dialog ;
-
+    //图片的整体frame布局
     private FrameLayout feedBack_frame ;
+    //图片的取消按钮
     private ImageView feedback_img_cancel ;
 
     public void onResume() {
@@ -78,6 +85,7 @@ public class FeedBackActivity extends BaseActivity {
         //统计时长
         MobclickAgent.onResume(this);
     }
+
     public void onPause() {
         super.onPause();
         // 统计页面
@@ -89,96 +97,15 @@ public class FeedBackActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_back);
-
-        //实例化组建
-        initView() ;
-        //退出事件的监听事件
-        pre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        //添加图片
-        feedBack_textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iconGet();
-            }
-        });
-        //删除图片
-        feedback_img_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                feedBack_frame.setVisibility(View.GONE);
-                feedBack_textView.setVisibility(View.VISIBLE);
-            }
-        });
-        //提交
-        feedBack_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!TextUtils.isEmpty(feedBack_editText.getText().toString().trim())){
-                    String urls = String.format(Url.FeedBack, login ) ;
-                    HttpUtils httpUtils = new HttpUtils() ;
-                    RequestParams params = new RequestParams() ;
-                    if (feedBack_frame.getVisibility() == View.VISIBLE){
-                        params.addBodyParameter("Picture" , uploadfile );
-                    }
-                    params.addBodyParameter("Content" , feedBack_editText.getText().toString().trim() );
-                    dialog = new MyProgressDialog( FeedBackActivity.this , "提交数据中请稍后。。。") ;
-                    dialog.show();
-                    httpUtils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
-                        @Override
-                        public void onSuccess(ResponseInfo<String> responseInfo) {
-                            if (dialog!=null){
-                                dialog.dismiss();
-                            }
-                            Log.e("benben" , responseInfo.result) ;
-                            try {
-                                JSONObject object = new JSONObject(responseInfo.result) ;
-                                String status_code = object.getString("status_code");
-                                switch (status_code){
-                                    case "200" :
-                                        ToastUtils.shortToast(FeedBackActivity.this , "反馈意见已提交");
-                                        finish();
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            } catch (JSONException e) {
-
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(HttpException error, String msg) {
-                            if (dialog!=null){
-                                dialog.dismiss();
-                            }
-                            ToastUtils.shortToast(FeedBackActivity.this , "网络连接异常");
-                            error.printStackTrace();
-                        }
-                    }) ;
-
-                    //ToastUtils.shortToast(FeedBackActivity.this , "意见反馈功能待开发");
-                    //finish();
-                }else {
-                    ToastUtils.shortToast(FeedBackActivity.this , "请添加您的意见");
-                }
-            }
-        });
-
-        SharedPreferences loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
-        login = loginCode.getString("loginCode", null);
-
     }
 
-    private void initView() {
+    @Override
+    public void setContentView() {
+        setContentView(R.layout.activity_feed_back);
+    }
 
+    @Override
+    public void initViews() {
         pre = (RelativeLayout)findViewById(R.id.pre ) ;
         feedBack_editText = (EditText)findViewById(R.id.feedBack_editText) ;
         feedBack_textView = (TextView)findViewById(R.id.feedBack_textView) ;
@@ -186,6 +113,19 @@ public class FeedBackActivity extends BaseActivity {
         feedBack_imageVIew = (ImageView)findViewById(R.id.feedBack_imageVIew ) ;
         feedback_img_cancel = (ImageView)findViewById(R.id.feedback_img_cancel ) ;
         feedBack_frame = (FrameLayout)findViewById(R.id.feedBack_frame) ;
+    }
+
+    @Override
+    public void initListeners() {
+        pre.setOnClickListener(this);
+        feedBack_textView.setOnClickListener(this);
+        feedback_img_cancel.setOnClickListener(this);
+        feedBack_submit.setOnClickListener(this);
+    }
+
+    @Override
+    public void initData() {
+        login = GetBenSharedPreferences.getTicket(this ) ;
     }
 
     private void iconGet() {
@@ -235,7 +175,6 @@ public class FeedBackActivity extends BaseActivity {
                 window.dismiss();
             }
         });
-
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
@@ -260,7 +199,6 @@ public class FeedBackActivity extends BaseActivity {
         lp.alpha = bgAlpha;
         getWindow().setAttributes(lp);
     }
-
 
     //构造剪裁图片意图
     private Intent getCropImageIntent(Uri uri) {
@@ -310,7 +248,6 @@ public class FeedBackActivity extends BaseActivity {
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK && null != data) {
-
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
@@ -320,7 +257,6 @@ public class FeedBackActivity extends BaseActivity {
                     cursor.close();
                     Uri uri = Uri.fromFile(new File(picturePath));
                     imgstr = getSubStr(picturePath);
-
                     file = new File(picturePath);
                     Log.e("benben图库后缀01", imgstr);
                     Log.e("benben图库路径01", picturePath);
@@ -342,7 +278,6 @@ public class FeedBackActivity extends BaseActivity {
                     Log.e("benben相机路径01", file.getPath());
                     //剪裁图片为方形
                     doCropPhoto(Uri.fromFile(file));
-
                 } else {
                     Toast.makeText(FeedBackActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
                 }
@@ -368,7 +303,112 @@ public class FeedBackActivity extends BaseActivity {
             default:
                 break;
         }
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            //返回按钮
+            case R.id.pre :
+                finish();
+                break;
+            //添加图片的按钮
+            case R.id.feedBack_textView :
+                iconGet();
+                break;
+            //删除图片的按钮
+            case R.id.feedback_img_cancel :
+                goDelPic() ;
+                break;
+            //提交按钮
+            case R.id.feedBack_submit :
+                goSubmit() ;
+                break;
+            default:
+                break;
+        }
+    }
 
+    private void goSubmit() {
+        if (!TextUtils.isEmpty(feedBack_editText.getText().toString().trim())) {
+            //提交反馈意见
+            goLoadSubmit() ;
+        } else {
+            ToastUtils.shortToast(FeedBackActivity.this, "请添加您的意见");
+        }
+    }
+
+    private void goLoadSubmit() {
+        //使dialog可见
+        showBenDialog();
+        String urls = String.format(Url.FeedBack, login);
+        HttpUtils httpUtils = new HttpUtils();
+        RequestParams params = new RequestParams();
+        //通过判断是否可见，决定是否添加图片
+        if (feedBack_frame.getVisibility() == View.VISIBLE) {
+            params.addBodyParameter("Picture", uploadfile);
+        }
+        params.addBodyParameter("Content", feedBack_editText.getText().toString().trim());
+        httpUtils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                //隐藏dialog
+                hiddenBenDialog();
+                //处理成功回调的信息
+                dealResult(responseInfo.result) ;
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                //隐藏dialog
+                hiddenBenDialog();
+                ToastUtils.shortToast(FeedBackActivity.this, "网络连接异常");
+                //打印失败回调的信息
+                error.printStackTrace();
+            }
+        });
+    }
+
+    private void dealResult(String result) {
+        try {
+            JSONObject object = new JSONObject(result);
+            String status_code = object.getString("status_code");
+            switch (status_code) {
+                case "200":
+                    ToastUtils.shortToast(FeedBackActivity.this, "反馈意见已提交");
+                    finish();
+                    break;
+                default:
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void goDelPic() {
+        feedBack_frame.setVisibility(View.GONE);
+        feedBack_textView.setVisibility(View.VISIBLE);
+    }
+    /**
+     * 展示数据加载框
+     */
+    private void showBenDialog() {
+        /* 显示ProgressDialog */
+        //在开始进行网络连接时显示进度条对话框
+        dialog = new MyProgressDialog(FeedBackActivity.this, "提交数据中请稍后。。。");
+        // 不可以用“返回键”取消
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    /**
+     * 隐藏数据加载框
+     */
+    private void hiddenBenDialog() {
+        //关闭dialog
+        if (dialog != null) {
+            dialog.dismiss();
+        }
     }
 }

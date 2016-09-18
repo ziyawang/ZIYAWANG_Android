@@ -46,32 +46,31 @@
 
                         <ImageView
                             android:id="@+id/one"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/viewpager01" />
 
                         <ImageView
                             android:id="@+id/two"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="13dp"
                             android:layout_marginRight="6dp"
                             android:src="@drawable/viewpager01" />
 
                         <ImageView
                             android:id="@+id/three"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
                             android:layout_marginRight="13dp"
                             android:src="@drawable/viewpager01" />
 
-                        <!--<ImageView
-                            android:visibility="gone"
+                        <ImageView
                             android:id="@+id/four"
                             android:src="@drawable/viewpager01"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp" />-->
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -84,8 +83,30 @@
                     android:layout_height="58dp"
                     android:background="#f4f4f4">
 
-                    <RelativeLayout
+                    <FrameLayout
+                        android:id="@+id/homepage_video"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="78dp"
+                        android:layout_height="38dp">
 
+                        <ImageView
+                            android:background="@drawable/search_video"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/red_point"
+                            android:layout_gravity="end|right"
+                            android:src="@mipmap/red_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:layout_toLeftOf="@id/homepage_video"
                         android:layout_width="match_parent"
                         android:layout_height="38dp"
                         android:layout_marginLeft="10dp"
@@ -146,8 +167,31 @@
         android:background="#f4f4f4"
         android:visibility="invisible">
 
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/homepage_video_02"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="78dp"
+            android:layout_height="38dp">
 
+            <ImageView
+                android:background="@drawable/search_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/red_point02"
+                android:layout_gravity="end|right"
+                android:src="@mipmap/red_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/homepage_search02"
+            android:layout_toLeftOf="@id/homepage_video_02"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_marginLeft="10dp"
@@ -185,6 +229,7 @@
                 android:drawableRight="@mipmap/icon09" />
 
         </RelativeLayout>
+
     </RelativeLayout>
 
 

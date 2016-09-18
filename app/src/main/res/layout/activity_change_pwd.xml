@@ -70,7 +70,7 @@
     <TextView
         android:layout_marginTop="5dp"
         android:textSize="12dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="16dp"
         android:text="密码由6--16位英文字母、数字组成。"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

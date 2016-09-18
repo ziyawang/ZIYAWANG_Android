@@ -7,13 +7,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +43,6 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import io.rong.imkit.RongIM;
 
 public class MySetActivity extends BaseActivity implements PlatformActionListener, Handler.Callback {
@@ -56,19 +53,14 @@ public class MySetActivity extends BaseActivity implements PlatformActionListene
     private TextView set_ziya_rule ;
     private TextView set_ziya_share ;
     private String totalCacheSize ;
-
     private SharedPreferences loginCode ;
-
     private SharedPreferences sharedPreferences ;
     private SharedPreferences myNumber ;
     private SharedPreferences role ;
     private SharedPreferences r_token ;
-
     private TextView logout ;
-
     private TextView app_check ;
     private TextView app_info ;
-
     private final  static int SHARE_SUCCESS = 1;
     private final  static int SHARE_CANCEL = 2;
     private final  static int SHARE_ERROR = 3;

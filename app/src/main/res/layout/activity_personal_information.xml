@@ -95,8 +95,6 @@
 
     </RelativeLayout>
 
-
-
     <TextView
         android:id="@+id/basic_changePwd"
         android:paddingLeft="10dp"
@@ -110,11 +108,5 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="44dp">
-
     </TextView>
-
-
-
-
-
 </LinearLayout>

@@ -2,11 +2,13 @@ package com.ziyawang.ziya.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +20,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.application.MyApplication;
+import com.ziyawang.ziya.entity.FindVideoEntity;
 import com.ziyawang.ziya.fragment.MovieOneFragment;
 import com.ziyawang.ziya.fragment.MovieThreeFragment;
 import com.ziyawang.ziya.fragment.MovieTwoFragment;
 import com.ziyawang.ziya.tools.SystemBarTintManager;
 import com.ziyawang.ziya.tools.ToastUtils;
+import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.videotitle.BaseTools;
 import com.ziyawang.ziya.videotitle.ColumnHorizontalScrollView;
 import com.ziyawang.ziya.videotitle.Constants;
@@ -33,8 +46,12 @@ import com.ziyawang.ziya.videotitle.NewsClassify;
 import com.ziyawang.ziya.videotitle.NewsFragmentPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class FindVideoActivity extends FragmentActivity {
+public class FindVideoActivity extends FragmentActivity implements View.OnClickListener{
+
+    private SharedPreferences spVideoID ;
+    private RelativeLayout search_video ;
 
     private MyApplication app;
     /** 自定义HorizontalScrollView */
@@ -46,7 +63,6 @@ public class FindVideoActivity extends FragmentActivity {
     LinearLayout ll_more_columns01;
     RelativeLayout rl_column;
     RelativeLayout rl_column01;
-
     RelativeLayout pre ;
     private ViewPager mViewPager;
     private ImageView button_more_columns;
@@ -96,8 +112,48 @@ public class FindVideoActivity extends FragmentActivity {
 
         mScreenWidth = BaseTools.getWindowsWidth(this);
         mItemWidth = mScreenWidth / 4;// 一个Item宽度为屏幕的1/4
+        //实例化组件
         initView();
+        //注册监听事件
+        initListeners() ;
+        //加载最新的视频ID
+        LoadVideoID() ;
+
     }
+
+    private void initListeners() {
+        search_video.setOnClickListener(this);
+    }
+
+    private void LoadVideoID() {
+        HttpUtils httpUtils = new HttpUtils()  ;
+        RequestParams params = new RequestParams() ;
+
+        params.addQueryStringParameter("pagecount" , "1");
+        httpUtils.configCurrentHttpCacheExpiry(1000);
+        httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetMovie, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                JSONObject jsonObj = JSON.parseObject(responseInfo.result);
+                JSONArray result = jsonObj.getJSONArray("data");
+                List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
+                if (list.size() == 1) {
+                    String videoID = list.get(0).getVideoID();
+                    //拿到用户缓存的spVideoID的值,用户看过的最新的VideoID
+                    spVideoID = getSharedPreferences("VideoID", MODE_PRIVATE);
+                    spVideoID.edit().putString("VideoID", videoID).commit();
+
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                error.printStackTrace();
+
+            }
+        }) ;
+    }
+
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
@@ -113,8 +169,14 @@ public class FindVideoActivity extends FragmentActivity {
     }
 
 
-    /** 初始化layout控件*/
+
+    /**
+     * 初始化layout控件
+     */
     private void initView() {
+
+        search_video = (RelativeLayout)findViewById(R.id.search_video ) ;
+
         mColumnHorizontalScrollView =  (ColumnHorizontalScrollView)findViewById(R.id.mColumnHorizontalScrollView);
         mColumnHorizontalScrollView01 =  (ColumnHorizontalScrollView)findViewById(R.id.mColumnHorizontalScrollView01);
 
@@ -152,14 +214,13 @@ public class FindVideoActivity extends FragmentActivity {
                 Intent intent = new Intent(FindVideoActivity.this  , MovieListActivity.class ) ;
                 intent.putExtra("title" , "最新发布") ;
                 startActivity(intent);
-
             }
         });
         setChangelView();
     }
     /**
      *  当栏目项发生变化时候调用
-     * */
+     **/
     private void setChangelView() {
         initColumnData();
         initTabColumn();
@@ -381,6 +442,20 @@ public class FindVideoActivity extends FragmentActivity {
     };
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.search_video :
+                goSearchVideoActivity() ;
+                break;
+            default:
+                break;
+        }
+    }
 
+    private void goSearchVideoActivity() {
+        Intent intent = new Intent(FindVideoActivity.this, SearchVideoActivity.class);
+        startActivity(intent);
+    }
 }
 

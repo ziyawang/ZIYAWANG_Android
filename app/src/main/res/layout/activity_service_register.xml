@@ -104,6 +104,9 @@
                     android:layout_height="match_parent" />
 
                 <EditText
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:singleLine="true"
                     android:textSize="15dp"
                     android:textColorHint="#6d6d6d"
                     android:textColor="#000"
@@ -347,11 +350,10 @@
         android:background="#fdd000"
         android:id="@+id/text_submit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="44dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-
 
     </TextView>
 

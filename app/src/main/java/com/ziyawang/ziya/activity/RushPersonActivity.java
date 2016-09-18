@@ -33,10 +33,8 @@ public class RushPersonActivity extends BaseActivity {
     private static String id ;
     private static String login  ;
     private String status ;
-
     private ListView myPerson_listView ;
     private MyPersonAdapter adapter ;
-
     private TextView niuniuniuniu ;
 
     @Override

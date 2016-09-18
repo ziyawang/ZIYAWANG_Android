@@ -20,14 +20,6 @@ public class FindVideoEntity {
 
     public FindVideoEntity(){}
 
-    public String getCollectFlag() {
-        return CollectFlag;
-    }
-
-    public void setCollectFlag(String collectFlag) {
-        CollectFlag = collectFlag;
-    }
-
     public FindVideoEntity(String videoID, String videoTitle, String videoDes, String videoLogo, String videoLabel, String videoAuthor, String publishTime, String viewCount, String collectionCount, String videoLink, String videoLink2 , String collectFlag) {
         VideoID = videoID;
         VideoTitle = videoTitle;
@@ -42,6 +34,14 @@ public class FindVideoEntity {
         VideoLink2 = videoLink2;
         CollectFlag = collectFlag ;
 
+    }
+
+    public String getCollectFlag() {
+        return CollectFlag;
+    }
+
+    public void setCollectFlag(String collectFlag) {
+        CollectFlag = collectFlag;
     }
 
     public String getVideoID() {

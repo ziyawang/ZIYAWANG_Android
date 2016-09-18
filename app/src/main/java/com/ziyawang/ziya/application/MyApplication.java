@@ -10,7 +10,11 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.widget.provider.ImageInputProvider;
+import io.rong.imkit.widget.provider.InputProvider;
+import io.rong.imlib.model.Conversation;
 
 
 /**
@@ -18,8 +22,10 @@ import io.rong.imkit.RongIM;
  */
 public class MyApplication extends Application {
 
+    //activity Task
     private List<Activity> activities = new ArrayList<Activity>();
 
+    //add activity
     public void addActivity(Activity activity) {
         activities.add(activity);
     }
@@ -27,35 +33,39 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //初始化融云SDK
+        initSDK() ;
+        //融云扩展功能的自定义,去掉定位，只存在图片的发送
+        initData() ;
+        //设置Umeng的统计场景
+        setUmengType() ;
+    }
 
-        /**
-         * 初始化融云
-         */
-        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
-                "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
-
-            /**
-             * IMKit SDK调用第一步 初始化
-             */
-            RongIM.init(this);
-        }
-
+    private void setUmengType() {
         //设置Umeng的监控场景
         MobclickAgent.setScenarioType(MyApplication.this , MobclickAgent.EScenarioType.E_UM_NORMAL);
+    }
 
-        //Umeng 的调试模式
-        //MobclickAgent.setDebugMode(true);
+    private void initData() {
+        //扩展功能自定义
+        InputProvider.ExtendProvider[] provider = {
+                new ImageInputProvider(RongContext.getInstance()),
+        };
+        RongIM.resetInputExtensionProvider(Conversation.ConversationType.PRIVATE, provider);
+    }
 
+    private void initSDK() {
+        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) || "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
+            RongIM.init(this);
+        }
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-
         for (Activity activity : activities) {
             activity.finish();
         }
-
         System.exit(0);
     }
 
@@ -66,22 +76,14 @@ public class MyApplication extends Application {
      * @return 进程号
      */
     public static String getCurProcessName(Context context) {
-
         int pid = android.os.Process.myPid();
-
-        ActivityManager activityManager = (ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-
-        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager
-                .getRunningAppProcesses()) {
-
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
             if (appProcess.pid == pid) {
                 return appProcess.processName;
             }
         }
         return null;
     }
-
-
 
 }

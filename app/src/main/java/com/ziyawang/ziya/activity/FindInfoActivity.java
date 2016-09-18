@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,44 +45,30 @@ public class FindInfoActivity extends BaseActivity {
 
     private List<FindInfoEntity> list ;
     private FindInfoAdapter adapter ;
-
     private BenListView listView ;
-
     private RelativeLayout pre ;
-
     private List<FindInfoEntity> data  = new ArrayList<FindInfoEntity>();
-
     private int page  ;
     private int count = 1 ;
-
     private Boolean isOK = true ;
-
     private MyProgressDialog dialog ;
-
     private MyScrollView scrollView ;
-
     private TextView find_type ;
-
     private String typeName ;
     private String part_a ;
-
     private TextView part ;
     private TextView details_type ;
     private String  params_three ;
     private String params_four ;
-
     private String vip_type  ;
-
     private TextView find_vip_type ;
-
+    private TextView niuniuniuniu ;
     private Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             // TODO 接收消息并且去更新UI线程上的控件内容
             if (msg.what == 201) {
-                // Bundle b = msg.getData();
-                // tv.setText(b.getString("num"));
                 Log.e("HomeINfo", count + "====================================" +page ) ;
                 if (isOK){
                     if (count <= page ){
@@ -101,7 +86,6 @@ public class FindInfoActivity extends BaseActivity {
                                 }
                             }
                         }).start();
-
                     }else {
                         ToastUtils.shortToast( FindInfoActivity.this, "信息没有更多数据");
                     }
@@ -116,11 +100,8 @@ public class FindInfoActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_release);
-
-
         //实例化组件
         initView() ;
-
         Intent intent = getIntent() ;
         if (intent != null ){
             String typeName_a = intent.getStringExtra("typeName");
@@ -178,12 +159,15 @@ public class FindInfoActivity extends BaseActivity {
                         typeName = typeName_a ;
                         find_type.setText("悬赏信息");
                         break;
+                    case "15" :
+                        typeName = typeName_a ;
+                        find_type.setText("投资需求");
+                        break;
                     default:
                         break;
                 }
             }
         }
-
         //加载数据
         findinfo(this.typeName, part_a, params_three, params_four, vip_type) ;
         //对信息类型的选定
@@ -197,7 +181,7 @@ public class FindInfoActivity extends BaseActivity {
         part.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                partGet() ;
+                partGet();
             }
         });
         //获得类型的分类
@@ -211,10 +195,9 @@ public class FindInfoActivity extends BaseActivity {
         find_vip_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vipTypeGet() ;
+                vipTypeGet();
             }
         });
-
         //添加回退事件
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,20 +209,15 @@ public class FindInfoActivity extends BaseActivity {
         scrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
             @Override
             public void onScroll(int scrollY) {
-                //Log.e("benben________", scrollY + "");
-
                 View childView = scrollView.getChildAt(0);
                 if (childView.getMeasuredHeight() <= scrollY + scrollView.getHeight()) {
-
                     mHandler.sendEmptyMessage(201);
                 }
             }
         });
-
     }
 
     private void vipTypeGet() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_vip_type, null);
@@ -247,11 +225,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button a = (Button)view.findViewById(R.id.one_one);
         final Button b = (Button)view.findViewById(R.id.one_two);
         final Button c = (Button)view.findViewById(R.id.one_three);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -265,10 +241,10 @@ public class FindInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 window.dismiss();
                 data.clear();
-                count = 1 ;
-                vip_type = "0" ;
+                count = 1;
+                vip_type = "0";
                 find_vip_type.setText("普通");
-                findinfo(typeName, part_a, params_three, params_four , vip_type );
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         c.setOnClickListener(new View.OnClickListener() {
@@ -279,20 +255,15 @@ public class FindInfoActivity extends BaseActivity {
                 count = 1 ;
                 vip_type = "1" ;
                 find_vip_type.setText("VIP");
-                findinfo(typeName, part_a, params_three, params_four , vip_type );
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
-
-
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -301,12 +272,9 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
     }
 
     private void partTwoGet() {
-
         String niu_ben = find_type.getText().toString() ;
         switch (niu_ben){
             case "资产包转让" :
@@ -345,15 +313,130 @@ public class FindInfoActivity extends BaseActivity {
             case "担保信息" :
                 popUpWindow12() ;
                 break;
-
+            case "投资需求" :
+                popUpWindow13() ;
+                break;
             default:
                 ToastUtils.shortToast(FindInfoActivity.this , "请先选择您的发布类型");
                 break;
         }
     }
 
-    private void popUpWindow12() {
+    private void popUpWindow13() {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.popupwindow_more_requirement, null);
+        final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final Button a = (Button)view.findViewById(R.id.one_one);
+        final Button b = (Button)view.findViewById(R.id.one_two);
+        final Button c = (Button)view.findViewById(R.id.one_three);
+        final Button d = (Button)view.findViewById(R.id.one_four);
 
+        final Button i = (Button)view.findViewById(R.id.one_nine);
+        final Button j = (Button)view.findViewById(R.id.one_ten);
+        final Button k = (Button)view.findViewById(R.id.one_eleven);
+        a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1 ;
+                details_type.setText(a.getText().toString());
+                params_three = a.getText().toString() ;
+                params_four = "AssetType" ;
+                findinfo(typeName, part_a, params_three, params_four , vip_type);
+            }
+        });
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1 ;
+                details_type.setText(b.getText().toString());
+                params_three = b.getText().toString() ;
+                params_four = "AssetType" ;
+                findinfo(typeName, part_a, params_three, params_four , vip_type);
+            }
+        });
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1 ;
+                details_type.setText(c.getText().toString());
+                params_three = c.getText().toString() ;
+                params_four = "AssetType" ;
+                findinfo(typeName, part_a, params_three, params_four , vip_type);
+            }
+        });
+        d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1 ;
+                details_type.setText(d.getText().toString());
+                params_three = d.getText().toString() ;
+                params_four = "AssetType" ;
+                findinfo(typeName, part_a, params_three, params_four , vip_type);
+            }
+        });
+
+        i.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(i.getText().toString());
+                params_three = i.getText().toString();
+                params_four = "InvestType";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        j.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(j.getText().toString());
+                params_three = j.getText().toString();
+                params_four = "InvestType";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        k.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(k.getText().toString());
+                params_three = k.getText().toString();
+                params_four = "InvestType";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        window.setFocusable(true);
+        //点击空白的地方关闭PopupWindow
+        window.setBackgroundDrawable(new BitmapDrawable());
+        // 设置popWindow的显示和消失动画
+        window.setAnimationStyle(R.style.animation);
+        // 在底部显示
+        window.showAsDropDown(find_type);
+        backgroundAlpha(0.5f);
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+    }
+
+    private void popUpWindow12() {
         data.clear();
         count = 1 ;
         details_type.setText("担保");
@@ -363,7 +446,6 @@ public class FindInfoActivity extends BaseActivity {
     }
 
     private void popUpWindow11() {
-
         data.clear();
         count = 1 ;
         details_type.setText("典当");
@@ -374,7 +456,6 @@ public class FindInfoActivity extends BaseActivity {
     }
 
     private void popUpWindow10() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_ten, null);
@@ -389,11 +470,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button h = (Button)view.findViewById(R.id.one_eight);
         final Button i = (Button)view.findViewById(R.id.one_nine);
         final Button j = (Button)view.findViewById(R.id.one_ten);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -511,16 +590,12 @@ public class FindInfoActivity extends BaseActivity {
                 findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
-
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -529,12 +604,9 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
     }
 
     private void popUpWindow09() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_nine, null);
@@ -546,11 +618,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button e = (Button)view.findViewById(R.id.one_five);
         final Button f = (Button)view.findViewById(R.id.one_six);
         final Button g = (Button)view.findViewById(R.id.one_seven);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -632,16 +702,12 @@ public class FindInfoActivity extends BaseActivity {
                 findinfo(typeName, part_a, params_three, params_four , vip_type);
             }
         });
-
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -650,24 +716,18 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
     }
 
     private void popUpWindow08() {
-
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_eight, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         final Button a = (Button)view.findViewById(R.id.one_one);
         final Button b = (Button)view.findViewById(R.id.one_two);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -696,9 +756,6 @@ public class FindInfoActivity extends BaseActivity {
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -712,7 +769,6 @@ public class FindInfoActivity extends BaseActivity {
     }
 
     private void popUpWindow07() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_seven, null);
@@ -724,11 +780,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button e = (Button)view.findViewById(R.id.one_five);
         final Button f = (Button)view.findViewById(R.id.one_six);
         final Button g = (Button)view.findViewById(R.id.one_seven);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -810,16 +864,12 @@ public class FindInfoActivity extends BaseActivity {
                 findinfo(typeName, part_a, params_three, params_four , vip_type);
             }
         });
-
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -828,12 +878,9 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
     }
 
     private void popUpWindow06() {
-
 
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -844,11 +891,12 @@ public class FindInfoActivity extends BaseActivity {
         final Button c = (Button)view.findViewById(R.id.one_three);
         final Button d = (Button)view.findViewById(R.id.one_four);
         final Button e = (Button)view.findViewById(R.id.one_five);
-
+        final Button f = (Button)view.findViewById(R.id.one_six);
+        final Button g = (Button)view.findViewById(R.id.one_seven);
+        final Button h = (Button)view.findViewById(R.id.one_eight);
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -902,8 +950,44 @@ public class FindInfoActivity extends BaseActivity {
                 count = 1 ;
                 details_type.setText(e.getText().toString());
                 params_three = e.getText().toString() ;
-                params_four = "FromWhere" ;
+                params_four = "AssetType" ;
                 findinfo(typeName, part_a, params_three, params_four , vip_type);
+            }
+        });
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(f.getText().toString());
+                params_three = f.getText().toString();
+                params_four = "AssetType";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        g.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(g.getText().toString());
+                params_three = g.getText().toString();
+                params_four = "AssetType";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        h.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(h.getText().toString());
+                params_three = h.getText().toString();
+                params_four = "AssetType";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
 
@@ -913,9 +997,6 @@ public class FindInfoActivity extends BaseActivity {
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -924,13 +1005,9 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
     }
 
     private void popUpWindow05() {
-
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_five, null);
@@ -941,11 +1018,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button d = (Button)view.findViewById(R.id.one_four);
         final Button e = (Button)view.findViewById(R.id.one_five);
         final Button f = (Button)view.findViewById(R.id.one_six);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -1022,9 +1097,6 @@ public class FindInfoActivity extends BaseActivity {
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -1033,13 +1105,9 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
-
     }
 
     private void popUpWindow04() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_four, null);
@@ -1048,11 +1116,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button b = (Button)view.findViewById(R.id.one_two);
         final Button c = (Button)view.findViewById(R.id.one_three);
         final Button d = (Button)view.findViewById(R.id.one_four);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -1098,16 +1164,12 @@ public class FindInfoActivity extends BaseActivity {
                 findinfo(typeName, part_a, params_three, params_four , vip_type);
             }
         });
-
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -1116,12 +1178,9 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
     }
 
     private void popUpWindow03() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_three, null);
@@ -1131,11 +1190,12 @@ public class FindInfoActivity extends BaseActivity {
         final Button c = (Button)view.findViewById(R.id.one_three);
         final Button d = (Button)view.findViewById(R.id.one_four);
         final Button e = (Button)view.findViewById(R.id.one_five);
-
+        final Button f = (Button)view.findViewById(R.id.one_six);
+        final Button g = (Button)view.findViewById(R.id.one_seven);
+        final Button h = (Button)view.findViewById(R.id.one_eight);
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -1177,7 +1237,7 @@ public class FindInfoActivity extends BaseActivity {
                 count = 1 ;
                 details_type.setText(d.getText().toString());
                 params_three = d.getText().toString() ;
-                params_four = "AssetType" ;
+                params_four = "Corpore" ;
                 findinfo(typeName, part_a, params_three, params_four , vip_type);
             }
         });
@@ -1189,20 +1249,52 @@ public class FindInfoActivity extends BaseActivity {
                 count = 1 ;
                 details_type.setText(e.getText().toString());
                 params_three = e.getText().toString() ;
-                params_four = "FromWhere" ;
+                params_four = "Corpore" ;
                 findinfo(typeName, part_a, params_three, params_four, vip_type );
             }
         });
-
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(f.getText().toString());
+                params_three = f.getText().toString();
+                params_four = "Corpore";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        g.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(g.getText().toString());
+                params_three = g.getText().toString();
+                params_four = "Corpore";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        h.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(h.getText().toString());
+                params_three = h.getText().toString();
+                params_four = "Corpore";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -1214,7 +1306,6 @@ public class FindInfoActivity extends BaseActivity {
     }
 
     private void popUpWindow02() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_two, null);
@@ -1222,11 +1313,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button a = (Button)view.findViewById(R.id.one_one);
         final Button b = (Button)view.findViewById(R.id.one_two);
         final Button c = (Button)view.findViewById(R.id.one_three);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -1260,16 +1349,12 @@ public class FindInfoActivity extends BaseActivity {
                 findinfo(typeName, part_a, params_three, params_four , vip_type);
             }
         });
-
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -1281,7 +1366,6 @@ public class FindInfoActivity extends BaseActivity {
     }
 
     private void popUpWindow01() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_one, null);
@@ -1293,11 +1377,9 @@ public class FindInfoActivity extends BaseActivity {
         final Button e = (Button)view.findViewById(R.id.one_five);
         final Button f = (Button)view.findViewById(R.id.one_six);
         final Button g = (Button)view.findViewById(R.id.one_seven);
-
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 window.dismiss();
                 data.clear();
                 count = 1 ;
@@ -1386,9 +1468,6 @@ public class FindInfoActivity extends BaseActivity {
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
-
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
         backgroundAlpha(0.5f);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -1397,12 +1476,9 @@ public class FindInfoActivity extends BaseActivity {
                 backgroundAlpha(1f);
             }
         });
-
-
     }
 
     private void findinfo(String typeName , String  part , String params_three , String params_four , String vip ) {
-
         /* 显示ProgressDialog */
         //在开始进行网络连接时显示进度条对话框
         dialog = new MyProgressDialog(FindInfoActivity.this , "数据加载中，请稍后。。。");
@@ -1410,10 +1486,7 @@ public class FindInfoActivity extends BaseActivity {
         dialog.show();
         HttpUtils httpUtils = new HttpUtils();
         RequestParams params = new RequestParams();
-        //params.addBodyParameter("access_token", "token");
-
-        params.addQueryStringParameter("Vip", vip );
-
+        params.addQueryStringParameter("Vip", vip);
         if (TextUtils.isEmpty(params_four)){
             params.addQueryStringParameter("TypeID", typeName );
             params.addQueryStringParameter("ProArea", part );
@@ -1424,61 +1497,52 @@ public class FindInfoActivity extends BaseActivity {
             params.addQueryStringParameter("startpage" , "" + count );
             params.addQueryStringParameter(params_four , params_three );
         }
-
-
         httpUtils.configCurrentHttpCacheExpiry(1000);
-
         httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetInfo, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-
                 if (dialog != null) {
                     dialog.dismiss();
                 }
-
                 Log.e("benben_home_info", responseInfo.result);
                 try {
                     JSONObject jsonObject = new JSONObject(responseInfo.result);
                     String pages = jsonObject.getString("pages");
-
                     page = Integer.parseInt(pages);
                     count++;
-
+                    String counts = jsonObject.getString("counts");
+                    if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
+                        scrollView.setVisibility(View.GONE);
+                        niuniuniuniu.setVisibility(View.VISIBLE);
+                    } else {
+                        scrollView.setVisibility(View.VISIBLE);
+                        niuniuniuniu.setVisibility(View.GONE);
+                        try {
+                            List<FindInfoEntity> list = Json_FindInfo.getParse(responseInfo.result);
+                            data.addAll(list);
+                            Log.e("benben", "数据的个数" + data.size());
+                            adapter = new FindInfoAdapter(FindInfoActivity.this, data);
+                            listView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                try {
-                    List<FindInfoEntity> list = Json_FindInfo.getParse(responseInfo.result);
-
-                    data.addAll(list);
-
-                    Log.e("benben", "数据的个数" + data.size());
-
-                    adapter = new FindInfoAdapter(FindInfoActivity.this, data);
-                    listView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailure(HttpException error, String msg) {
-
                 if (dialog != null) {
                     dialog.dismiss();
                 }
                 error.printStackTrace();
             }
         });
-
     }
+
 
     private void initView() {
         listView = (BenListView)findViewById(R.id.listView ) ;
@@ -1493,6 +1557,7 @@ public class FindInfoActivity extends BaseActivity {
         part = (TextView)findViewById(R.id.part ) ;
         details_type = (TextView)findViewById(R.id.details_type ) ;
         find_vip_type = (TextView)findViewById(R.id.find_vip_type ) ;
+        niuniuniuniu = (TextView)findViewById(R.id.niuniuniuniu ) ;
     }
 
     private void typeGet() {
@@ -1513,210 +1578,228 @@ public class FindInfoActivity extends BaseActivity {
         Button j = (Button)view.findViewById(R.id.j);
         Button k = (Button)view.findViewById(R.id.k);
         Button l = (Button)view.findViewById(R.id.l);
+        Button m = (Button)view.findViewById(R.id.m);
 
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("资产包转让");
                 window.dismiss();
                 data.clear();
-                typeName = "01" ;
-                count = 1 ;
+                typeName = "01";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName, part_a, params_three, params_four , vip_type);
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("债权转让");
                 window.dismiss();
                 data.clear();
-                typeName = "14" ;
-                count = 1 ;
+                typeName = "14";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("固产转让");
                 window.dismiss();
                 data.clear();
-                typeName = "12" ;
-                count = 1 ;
+                typeName = "12";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("商业保理");
                 window.dismiss();
                 data.clear();
-                typeName = "04" ;
-                count = 1 ;
+                typeName = "04";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four, vip_type );
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         e.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("典当信息");
                 window.dismiss();
                 data.clear();
-                typeName = "05" ;
-                count = 1 ;
+                typeName = "05";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("典当");
-                part_a = "" ;
-                params_four = "AssetType" ;
-                params_three = "典当" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "AssetType";
+                params_three = "典当";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         f.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("担保信息");
                 window.dismiss();
                 data.clear();
-                typeName = "05" ;
-                count = 1 ;
+                typeName = "05";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("担保");
-                part_a = "" ;
-                params_four = "AssetType" ;
-                params_three = "担保" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "AssetType";
+                params_three = "担保";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         g.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("融资需求");
                 window.dismiss();
                 data.clear();
-                typeName = "06" ;
-                count = 1 ;
+                typeName = "06";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         h.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("悬赏信息");
                 window.dismiss();
                 data.clear();
-                typeName = "09" ;
-                count = 1 ;
+                typeName = "09";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four, vip_type );
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         i.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("尽职调查");
                 window.dismiss();
                 data.clear();
-                typeName = "10" ;
-                count = 1 ;
+                typeName = "10";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         j.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("委外催收");
                 window.dismiss();
                 data.clear();
-                typeName = "02" ;
-                count = 1 ;
+                typeName = "02";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         k.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("法律服务");
                 window.dismiss();
                 data.clear();
-                typeName = "03" ;
-                count = 1 ;
+                typeName = "03";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four , vip_type);
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
         l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                params_four = "" ;
+                params_four = "";
                 find_type.setText("资产求购");
                 window.dismiss();
                 data.clear();
-                typeName = "13" ;
-                count = 1 ;
+                typeName = "13";
+                count = 1;
                 part.setText("地区");
                 details_type.setText("更多");
-                part_a = "" ;
-                params_four = "" ;
-                params_three = "" ;
-                findinfo(typeName , part_a , params_three , params_four, vip_type );
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        m.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                params_four = "";
+                find_type.setText("投资需求");
+                window.dismiss();
+                data.clear();
+                typeName = "15";
+                count = 1;
+                part.setText("地区");
+                details_type.setText("更多");
+                part_a = "";
+                params_four = "";
+                params_three = "";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
 
@@ -1727,10 +1810,9 @@ public class FindInfoActivity extends BaseActivity {
         window.setAnimationStyle(R.style.animation);
         // 在底部显示
 
-
-        //window.showAtLocation(find_type , Gravity.TOP, 0, 0);
         window.showAsDropDown(find_type);
-        backgroundAlpha(0.5f);
+        backgroundAlpha(0.6f);
+
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -2158,6 +2240,7 @@ public class FindInfoActivity extends BaseActivity {
         //统计时长
         MobclickAgent.onResume(this);
     }
+
     public void onPause() {
         super.onPause();
         // 统计页面
@@ -2175,64 +2258,4 @@ public class FindInfoActivity extends BaseActivity {
         getWindow().setAttributes(lp);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent a) {
-//        super.onActivityResult(requestCode, resultCode, a);
-//        switch (requestCode){
-//            case 4:
-//                if (resultCode == RESULT_OK && null != data) {
-//                    String result = a.getExtras().getString("result");//得到新Activity 关闭后返回的数据
-//                    details_type.setText(result);
-//                    params_three = result ;
-//                    data.clear();
-//                    count = 1 ;
-//
-//                    String b = find_type.getText().toString() ;
-//                    switch (b){
-//                        case "资产包转让" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "债权转让" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "固产转化" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "商业保理" :
-//                            params_four = "BuyerNature" ;
-//                            break;
-//                        case "典当信息" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "担保信息" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "融资借贷" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "悬赏信息" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "尽职调查" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "委外催收" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "法律服务" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        case "固产求购" :
-//                            params_four = "AssetType" ;
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                    findinfo(typeName , part_a , params_three , params_four );
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 }

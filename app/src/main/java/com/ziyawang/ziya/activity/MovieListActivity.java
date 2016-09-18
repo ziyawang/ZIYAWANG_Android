@@ -1,14 +1,11 @@
 package com.ziyawang.ziya.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,7 +24,6 @@ import com.ziyawang.ziya.adapter.MovieItemAdapter;
 import com.ziyawang.ziya.entity.FindVideoEntity;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
-import com.ziyawang.ziya.view.BenListView;
 import com.ziyawang.ziya.view.MyGridView;
 import com.ziyawang.ziya.view.MyProgressDialog;
 import com.ziyawang.ziya.view.MyScrollView;
@@ -43,22 +39,13 @@ public class MovieListActivity extends BaseActivity {
     private TextView title ;
     private MyGridView gridView ;
     private MovieItemAdapter adapter ;
-
     private String title_a ;
-
-
-    /***********************************分页加载****************************************/
     private List<FindVideoEntity> data  = new ArrayList<FindVideoEntity>();
-
     private int page  ;
     private int count = 1 ;
-
     private Boolean isOK = true ;
-
     private MyProgressDialog dialog ;
-
     private MyScrollView scrollView ;
-
     private Handler mHandler = new Handler() {
 
         @Override
@@ -96,9 +83,6 @@ public class MovieListActivity extends BaseActivity {
             super.handleMessage(msg);
         }
     };
-
-    /***********************************分页加载****************************************/
-
 
     public void onResume() {
         super.onResume();

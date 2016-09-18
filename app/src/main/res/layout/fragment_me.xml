@@ -1,231 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#f4f4f4"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--我的页面的标题-->
-    <TextView
-        android:textSize="18dp"
-        android:gravity="center"
-        android:background="#fdd000"
-        android:id="@+id/release_head"
-        android:textColor="#000"
-        android:text="我的"
-        android:layout_width="match_parent"
-        android:layout_height="44dp" />
-
-    <!--我的页面的头像组件-->
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/me_change_icon"
-        android:background="#ffffff"
-        android:layout_width="match_parent"
-        android:layout_height="90dp">
-
-        <com.ziyawang.ziya.view.MyIconImageView
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/default_icon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:id="@+id/default_icon" />
-
-        <TextView
-            android:textColor="#000"
-            android:textSize="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_name"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/default_icon"
-            android:layout_toEndOf="@+id/default_icon" />
-
-        <TextView
-            android:textColor="#6d6d6d"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView8"
-            android:layout_below="@+id/my_name"
-            android:layout_toRightOf="@+id/default_icon"
-            android:layout_toEndOf="@+id/default_icon" />
-
-        <TextView
-            android:textColor="#6d6d6d"
-            android:textSize="12dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView9"
-            android:layout_below="@+id/textView8"
-            android:layout_toRightOf="@+id/default_icon"
-            android:layout_toEndOf="@+id/default_icon" />
-
-        <ImageView
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/info_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView3"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <!--以发布方进入的页面-->
-    <RelativeLayout
-
-        android:id="@+id/niu_relative"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.ziyawang.ziya.view.MyIconImageView
-            android:id="@+id/niu_icon"
-            android:layout_marginTop="10dp"
-            android:src="@mipmap/default_icon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:textSize="15dp"
-            android:textColor="#6d6d6d"
-            android:id="@+id/niu_phone"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/niu_icon"
-            android:text="未登录"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <!--我的页面的功能组件-->
     <LinearLayout
-        android:background="#f9f9f9"
-        android:layout_marginTop="1dp"
+        android:background="#f4f4f4"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="78dp">
+        android:layout_height="match_parent">
 
+        <!--服务方进入的页面-->
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/me_change_icon"
+            android:background="#fdd000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.ziyawang.ziya.view.MyIconImageView
+                android:layout_marginTop="36dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/default_icon"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:id="@+id/default_icon" />
+
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_marginTop="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/default_icon"
+                android:id="@+id/my_name" />
+
+            <TextView
+                android:textColor="#fff"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp"
+                android:layout_marginTop="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_below="@+id/my_name" />
+            <TextView
+                android:layout_marginBottom="13dp"
+                android:textColor="#fff"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp"
+                android:layout_marginTop="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_below="@+id/textView8" />
+
+        </RelativeLayout>
+
+        <!--以发布方进入的页面-->
+        <RelativeLayout
+            android:background="#fdd000"
+            android:id="@+id/niu_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.ziyawang.ziya.view.MyIconImageView
+                android:id="@+id/niu_icon"
+                android:layout_marginTop="45dp"
+                android:src="@mipmap/user2"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:gravity="center"
+                android:background="@drawable/my_login"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:id="@+id/niu_phone"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/niu_icon"
+                android:text="未登录"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp" />
+
+        </RelativeLayout>
+        <!--我的页面的功能组件-->
+
+        <LinearLayout
+            android:background="#f9f9f9"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/publish_relative"
+                android:background="#fff"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:singleLine="true"
+                    android:id="@+id/publish_count"
+                    android:textColor="#666"
+                    android:textSize="22sp"
+                    android:layout_marginTop="13dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@id/publish_count"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="20dp"
+                    android:layout_gravity="center"
+                    android:textColor="#000"
+                    android:drawableLeft="@mipmap/publish"
+                    android:text="我的发布"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cooperation_relative"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:background="#fff"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="#666"
+                    android:textSize="22sp"
+                    android:singleLine="true"
+                    android:id="@+id/cooperation_count"
+                    android:layout_marginTop="13dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_below="@id/cooperation_count"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="#000"
+                    android:drawableLeft="@mipmap/cooperation"
+                    android:text="我的合作"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/collection_relative"
+                android:background="#fff"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#666"
+                    android:textSize="22sp"
+                    android:singleLine="true"
+                    android:id="@+id/collection_count"
+                    android:layout_marginTop="13dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_below="@id/collection_count"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="#000"
+                    android:drawableLeft="@mipmap/collection"
+                    android:text="我的收藏"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <!--我的页面完善信息-->
         <TextView
-
-            android:textColor="#6d6d6d"
-            android:id="@+id/my_release"
-            android:gravity="center"
-            android:drawablePadding="8dp"
-            android:paddingTop="15dp"
-            android:drawableTop="@mipmap/icon56"
-            android:text="我的发布"
+            android:id="@+id/service_register"
+            android:textSize="15dp"
+            android:textColor="#000"
             android:background="#ffffff"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
+            android:layout_marginTop="10dp"
+            android:paddingRight="10dp"
+            android:drawableRight="@mipmap/icon83"
+            android:drawablePadding="22dp"
+            android:paddingLeft="14dp"
+            android:gravity="center_vertical"
+            android:text="服务方认证"
+            android:drawableLeft="@mipmap/service_identification"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <!--我的页面账户安全-->
         <TextView
-            android:textColor="#6d6d6d"
-            android:id="@+id/my_teamwork"
-            android:gravity="center"
-            android:drawablePadding="8dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:paddingTop="15dp"
-            android:drawableTop="@mipmap/icon57"
-            android:text="我的合作"
+            android:visibility="gone"
+            android:id="@+id/my_rush"
+            android:textSize="15dp"
+            android:textColor="#000"
             android:background="#ffffff"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
+            android:layout_marginTop="1dp"
+            android:paddingRight="10dp"
+            android:drawableRight="@mipmap/icon83"
+            android:drawablePadding="22dp"
+            android:paddingLeft="14dp"
+            android:gravity="center_vertical"
+            android:text="我的抢单"
+            android:drawableLeft="@mipmap/grab_list"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <!--我的页面帮助与反馈-->
         <TextView
-            android:textColor="#6d6d6d"
-            android:id="@+id/my_collect"
-            android:gravity="center"
-            android:drawablePadding="8dp"
-            android:paddingTop="15dp"
-            android:drawableTop="@mipmap/icon55"
-            android:text="我的收藏"
+            android:id="@+id/feedBack"
+            android:textSize="15dp"
+            android:textColor="#000"
             android:background="#ffffff"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_marginTop="1dp"
+            android:paddingRight="10dp"
+            android:drawableRight="@mipmap/icon83"
+            android:drawablePadding="22dp"
+            android:paddingLeft="14dp"
+            android:gravity="center_vertical"
+            android:text="意见反馈"
+            android:drawableLeft="@mipmap/help"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <!--我的页面设置-->
+        <TextView
+            android:id="@+id/my_set"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:layout_marginTop="1dp"
+            android:paddingRight="10dp"
+            android:drawableRight="@mipmap/icon83"
+            android:drawablePadding="22dp"
+            android:paddingLeft="14dp"
+            android:gravity="center_vertical"
+            android:text="设置"
+            android:drawableLeft="@mipmap/set"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
 
 
     </LinearLayout>
 
-
-    <!--我的页面完善信息-->
-    <TextView
-        android:id="@+id/service_register"
-        android:textSize="15dp"
-        android:textColor="#333"
-        android:background="#ffffff"
-        android:layout_marginTop="10dp"
-        android:paddingRight="10dp"
-        android:drawableRight="@mipmap/icon83"
-        android:drawablePadding="23dp"
-        android:paddingLeft="16dp"
-        android:gravity="center_vertical"
-        android:text="服务方认证"
-        android:drawableLeft="@mipmap/icon58"
-        android:layout_width="match_parent"
-        android:layout_height="44dp" />
-    <!--我的页面账户安全-->
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/my_rush"
-        android:textSize="15dp"
-        android:textColor="#333"
-        android:background="#ffffff"
-        android:layout_marginTop="1dp"
-        android:paddingRight="10dp"
-        android:drawableRight="@mipmap/icon83"
-        android:drawablePadding="23dp"
-        android:paddingLeft="16dp"
-        android:gravity="center_vertical"
-        android:text="我的抢单"
-        android:drawableLeft="@mipmap/icon60"
-        android:layout_width="match_parent"
-        android:layout_height="44dp" />
-    <!--我的页面帮助与反馈-->
-    <TextView
-        android:id="@+id/feedBack"
-        android:textSize="15dp"
-        android:textColor="#333"
-        android:background="#ffffff"
-        android:layout_marginTop="1dp"
-        android:paddingRight="10dp"
-        android:drawableRight="@mipmap/icon83"
-        android:drawablePadding="23dp"
-        android:paddingLeft="16dp"
-        android:gravity="center_vertical"
-        android:text="意见反馈"
-        android:drawableLeft="@mipmap/icon61"
-        android:layout_width="match_parent"
-        android:layout_height="44dp" />
-    <!--我的页面设置-->
-    <TextView
-        android:id="@+id/my_set"
-        android:textSize="15dp"
-        android:textColor="#333"
-        android:background="#ffffff"
-        android:layout_marginTop="1dp"
-        android:paddingRight="10dp"
-        android:drawableRight="@mipmap/icon83"
-        android:drawablePadding="23dp"
-        android:paddingLeft="16dp"
-        android:gravity="center_vertical"
-        android:text="设置"
-        android:drawableLeft="@mipmap/icon59"
-        android:layout_width="match_parent"
-        android:layout_height="44dp" />
-
-
-
-
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

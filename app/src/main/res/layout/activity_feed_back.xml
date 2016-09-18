@@ -116,10 +116,12 @@
     </LinearLayout>
 
     <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#fdd000"
         android:textColor="#000"
         android:layout_marginTop="20dp"
         android:id="@+id/feedBack_submit"
-        android:background="@drawable/button"
         android:gravity="center"
         android:text="提交"
         android:layout_width="match_parent"

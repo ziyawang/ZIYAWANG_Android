@@ -11,7 +11,6 @@
         android:layout_height="44dp"
         android:background="#fdd000">
 
-
         <RelativeLayout
             android:id="@+id/pre"
             android:layout_width="50dp"
@@ -35,6 +34,20 @@
             android:text="找视频"
             android:textColor="#333"
             android:textSize="18dp" />
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:id="@+id/search_video"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon09" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

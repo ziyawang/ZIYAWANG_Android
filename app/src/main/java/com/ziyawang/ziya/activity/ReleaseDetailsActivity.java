@@ -78,103 +78,69 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ReleaseDetailsActivity extends BaseActivity {
 
+    private int left_time = 30 ;
     private PopupWindow window;
-
     private File file_upload;
-
     private File file;
     private File file_img01;
     private File file_img02;
     private File file_img03;
-
     private TextView niu_three;
-
     private TextView title, release_audio_des_duration;
     private RelativeLayout pre;
-
     private RelativeLayout release_audio_relative;
-
     private static Boolean isOK = true;
     private Boolean hasVoice = false;
-
     private MediaRecorder mMediaRecorder;
     private File recAudioFile;
     private MusicPlayer mPlayer;
-
     private float DownY = 0;
     private long currentMS;
-
     private Button release_audio_des;
-
     private TextView release_audio_cancel;
-
     private LinearLayout release_img_linear;
-
     private ImageView release_img_one, release_img_two, release_img_three;
     private ImageView release_img_cancel_one, release_img_cancel_two, release_img_cancel_three;
     private FrameLayout release_frame_one, release_frame_two, release_frame_three;
     private TextView release_img_add;
-
     private String imgstr;
-
     private RelativeLayout relative_type;
     private TextView textView_type;
-
     private RelativeLayout relative_from;
     private TextView text_from;
-
     private RelativeLayout relative_part;
     private TextView text_part;
-
     private EditText release_edit;
     private TextView release_foot;
-
     private static String title_t;
     private TextView release_one;
-
     private RelativeLayout relative_total;
-
     private TextView text_trans;
-
     private TextView text_total;
-
     private RelativeLayout relative_trans;
-
     private TextView text_from_a;
-
     private EditText trans_edit;
-
     private TextView release_text_part;
-
     private RelativeLayout relative_yognjin, relative_status;
     private TextView yognjin, text_yongjin, text_status, status;
-
     private RelativeLayout relative_head01;
     private TextView head01;
-
     private TextView linearLayout_release;
-
     private static String login;
     private static boolean isLogin;
-
     private MyProgressDialog dialog;
-
     private EditText total_money;
-
     private TextView release_wan;
     private TextView release_wan01;
-
     private ScrollView scrollView;
-
     private TextView voice_cancel;
-
     private RelativeLayout info_upload;
-
     private TextView audio_one ;
-
     private static final int REQUEST_PERMISSION_SETTING = 0x002;
 
     public void onResume() {
@@ -295,7 +261,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 break;
             case "固产转让":
                 release_one.setText("类型");
-                relative_from.setVisibility(View.GONE);
                 relative_total.setVisibility(View.GONE);
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -307,6 +272,16 @@ public class ReleaseDetailsActivity extends BaseActivity {
                         startActivityForResult(intent, 4);
                     }
                 });
+                relative_from.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ReleaseDetailsActivity.this, FromWhereActivity.class);
+                        intent.putExtra("title", "标的物");
+                        intent.putExtra("type", "8");
+                        startActivityForResult(intent, 5);
+                    }
+                });
+                text_from_a.setText("标的物");
                 break;
             case "商业保理":
                 trans_edit.setHint("请输入金额");
@@ -441,7 +416,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                     }
                 });
 
-
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -518,6 +492,52 @@ public class ReleaseDetailsActivity extends BaseActivity {
 
                 break;
 
+            case "投资需求":
+                release_one.setText("投资类型");
+                relative_type.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
+                        intent.putExtra("title", "投资类型");
+                        intent.putExtra("type", "12");
+                        startActivityForResult(intent, 4);
+                    }
+                });
+                relative_from.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ReleaseDetailsActivity.this, FromWhereActivity.class);
+                        intent.putExtra("title", "投资方式");
+                        intent.putExtra("type", "9");
+                        startActivityForResult(intent, 5);
+                    }
+                });
+
+                text_from_a.setText("投资方式");
+                text_total.setText("预期回报率");
+                //text_trans.setText("投资期限");
+                release_wan01.setText("%");
+                //release_wan.setText("年");
+                total_money.setHint("请输入回报率");
+                //trans_edit.setHint("输入投资期限");
+
+                relative_trans.setVisibility(View.GONE);
+                relative_yognjin.setVisibility(View.VISIBLE);
+                yognjin.setText("投资期限");
+                relative_yognjin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ReleaseDetailsActivity.this, FromWhereActivity.class);
+                        intent.putExtra("title", "投资期限");
+                        intent.putExtra("type", "10");
+                        startActivityForResult(intent, 7);
+
+                    }
+                });
+
+                break;
+
         }
 
         /***********************************************************获取图片的页面*************************/
@@ -526,17 +546,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if (release_frame_one.getVisibility() == View.VISIBLE) {
-                    if (release_frame_two.getVisibility() == View.VISIBLE) {
-                        //picGet03();
-                        picGet01();
-                    } else {
-                        //picGet02();
-                        picGet01();
-                    }
-                } else {
-                    picGet01();
-                }
+                picGet01();
             }
         });
 
@@ -633,8 +643,52 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
+                                }
+                                else if (moveTime > 30000){
+                                    //release_audio_des.setVisibility(View.GONE);
+                                    //voice_cancel.setVisibility(View.GONE);
+                                    //release_audio_cancel.setVisibility(View.GONE);
+                                    //stopRecorder();
+                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "时间过长，无法继续录制");
+                                    //release_audio_des_duration.setText("30");
+                                    //window.dismiss();
 
+                                    isOK = true;
+                                    hasVoice = true;
+                                    release_audio_cancel.setVisibility(View.VISIBLE);
+                                    voice_cancel.setVisibility(View.VISIBLE);
+                                    release_audio_des_duration.setText("30'");
 
+                                    //final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.amr";
+                                    final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.aac";
+                                    file_upload = new File(path);
+                                    //成功，加载数据
+                                    release_audio_relative.setVisibility(View.VISIBLE);
+                                    //点击播放按钮
+                                    release_audio_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (isOK) {
+                                                //播放录制的音频文件
+                                                mPlayer = new MusicPlayer(ReleaseDetailsActivity.this);
+                                                String s = mPlayer.playMicFile(recAudioFile);
+                                                Log.e("benbne", s);
+                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "正在播放音频");
+                                            } else {
+                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "已经取消上传");
+                                            }
+                                        }
+                                    });
+                                    voice_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            hasVoice = false;
+                                            ToastUtils.shortToast(ReleaseDetailsActivity.this, "撤销语音成功，请重新录制");
+                                            voice_cancel.setVisibility(View.GONE);
+                                            release_audio_cancel.setVisibility(View.GONE);
+                                            release_audio_des_duration.setText("0'");
+                                        }
+                                    });
                                 } else {
                                     isOK = true;
                                     hasVoice = true;
@@ -643,8 +697,8 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                     release_audio_des_duration.setText(moveTime / 1000 + "'");
                                     stopRecorder();
                                     window.dismiss();
-                                    final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.amr";
-                                    //final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.mp3";
+                                    //final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.amr";
+                                    final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.aac";
                                     file_upload = new File(path);
                                     //成功，加载数据
                                     release_audio_relative.setVisibility(View.VISIBLE);
@@ -694,7 +748,52 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-                                } else {
+                                } else if (moveTime > 30000 ){
+                                    //release_audio_des.setVisibility(View.GONE);
+                                    //voice_cancel.setVisibility(View.GONE);
+                                    //release_audio_cancel.setVisibility(View.GONE);
+                                    //stopRecorder();
+                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "时间过长，无法继续录制");
+                                    //release_audio_des_duration.setText("30");
+                                    //window.dismiss();
+
+                                    isOK = true;
+                                    hasVoice = true;
+                                    release_audio_cancel.setVisibility(View.VISIBLE);
+                                    voice_cancel.setVisibility(View.VISIBLE);
+                                    release_audio_des_duration.setText("30'");
+
+                                    //final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.amr";
+                                    final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.aac";
+                                    file_upload = new File(path);
+                                    //成功，加载数据
+                                    release_audio_relative.setVisibility(View.VISIBLE);
+                                    //点击播放按钮
+                                    release_audio_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (isOK) {
+                                                //播放录制的音频文件
+                                                mPlayer = new MusicPlayer(ReleaseDetailsActivity.this);
+                                                String s = mPlayer.playMicFile(recAudioFile);
+                                                Log.e("benbne", s);
+                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "正在播放音频");
+                                            } else {
+                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "已经取消上传");
+                                            }
+                                        }
+                                    });
+                                    voice_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            hasVoice = false;
+                                            ToastUtils.shortToast(ReleaseDetailsActivity.this, "撤销语音成功，请重新录制");
+                                            voice_cancel.setVisibility(View.GONE);
+                                            release_audio_cancel.setVisibility(View.GONE);
+                                            release_audio_des_duration.setText("0'");
+                                        }
+                                    });
+                                }else {
                                     isOK = true;
                                     hasVoice = true;
                                     release_audio_cancel.setVisibility(View.VISIBLE);
@@ -702,7 +801,8 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                     release_audio_des_duration.setText(moveTime / 1000 + "'");
                                     stopRecorder();
                                     window.dismiss();
-                                    final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.amr";
+                                    //final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.amr";
+                                    final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.aac";
                                     file_upload = new File(path);
                                     //成功，加载数据
                                     release_audio_relative.setVisibility(View.VISIBLE);
@@ -1536,90 +1636,95 @@ public class ReleaseDetailsActivity extends BaseActivity {
 
                             // s1 s2  s3 s4
                             if (!TextUtils.isEmpty(s1) && !s1.equals("请选择")) {
-                                if (!TextUtils.isEmpty(s2) && !s2.equals("0") && !s2.equals("0.0") && !s2.equals("0.")) {
-                                    if (!TextUtils.isEmpty(s3) && !s3.equals("请选择")) {
-                                        if (!TextUtils.isEmpty(s4)) {
-                                            if (release_frame_one.getVisibility() == View.VISIBLE) {
-
-
-                                                dialog = new MyProgressDialog(ReleaseDetailsActivity.this, "正在发布中。。。");
-                                                dialog.show();
-                                                HttpUtils utils = new HttpUtils();
-                                                RequestParams params = new RequestParams();
-                                                params.addBodyParameter("ProArea", s3);
-                                                params.addBodyParameter("WordDes", s4);
-                                                params.addBodyParameter("TypeID", "12");
-                                                params.addBodyParameter("TransferMoney", s2);
-                                                params.addBodyParameter("AssetType", s1);
+                                if (!TextUtils.isEmpty(s) && !s.equals("请选择")) {
+                                    if (!TextUtils.isEmpty(s2) && !s2.equals("0") && !s2.equals("0.0") && !s2.equals("0.")) {
+                                        if (!TextUtils.isEmpty(s3) && !s3.equals("请选择")) {
+                                            if (!TextUtils.isEmpty(s4)) {
                                                 if (release_frame_one.getVisibility() == View.VISIBLE) {
-                                                    params.addBodyParameter("PictureDes1", file_img01);
-                                                    if (release_frame_two.getVisibility() == View.VISIBLE) {
-                                                        params.addBodyParameter("PictureDes2", file_img02);
-                                                        if (release_frame_three.getVisibility() == View.VISIBLE) {
-                                                            params.addBodyParameter("PictureDes3", file_img03);
-                                                        }
-                                                    }
-                                                }
-                                                if (hasVoice) {
-                                                    params.addBodyParameter("VoiceDes", file_upload);
-                                                }
-                                                utils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
-                                                    @Override
-                                                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                                                        if (dialog != null) {
-                                                            dialog.dismiss();
-                                                        }
-                                                        Log.e("benbne", responseInfo.result);
-                                                        try {
-                                                            JSONObject jsonObject = new JSONObject(responseInfo.result);
-                                                            String status_code = jsonObject.getString("status_code");
-                                                            switch (status_code) {
-                                                                case "200":
-                                                                    final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
-                                                                    builder01.setTitle("发布成功，等待审核。");
-                                                                    builder01.setMessage("请到个人中心“我发布的”板块去查看");
-                                                                    builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(DialogInterface dialog, int which) {
 
-                                                                            finish();
-                                                                        }
-                                                                    });
-                                                                    builder01.create().show();
-                                                                    break;
-                                                                case "499":
-                                                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "发布失败");
-                                                                    break;
-                                                                default:
-                                                                    break;
+
+                                                    dialog = new MyProgressDialog(ReleaseDetailsActivity.this, "正在发布中。。。");
+                                                    dialog.show();
+                                                    HttpUtils utils = new HttpUtils();
+                                                    RequestParams params = new RequestParams();
+                                                    params.addBodyParameter("ProArea", s3);
+                                                    params.addBodyParameter("WordDes", s4);
+                                                    params.addBodyParameter("TypeID", "12");
+                                                    params.addBodyParameter("Corpore", s );
+                                                    params.addBodyParameter("TransferMoney", s2);
+                                                    params.addBodyParameter("AssetType", s1);
+                                                    if (release_frame_one.getVisibility() == View.VISIBLE) {
+                                                        params.addBodyParameter("PictureDes1", file_img01);
+                                                        if (release_frame_two.getVisibility() == View.VISIBLE) {
+                                                            params.addBodyParameter("PictureDes2", file_img02);
+                                                            if (release_frame_three.getVisibility() == View.VISIBLE) {
+                                                                params.addBodyParameter("PictureDes3", file_img03);
                                                             }
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
                                                         }
                                                     }
+                                                    if (hasVoice) {
+                                                        params.addBodyParameter("VoiceDes", file_upload);
+                                                    }
+                                                    utils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+                                                        @Override
+                                                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                                                            if (dialog != null) {
+                                                                dialog.dismiss();
+                                                            }
+                                                            Log.e("benbne", responseInfo.result);
+                                                            try {
+                                                                JSONObject jsonObject = new JSONObject(responseInfo.result);
+                                                                String status_code = jsonObject.getString("status_code");
+                                                                switch (status_code) {
+                                                                    case "200":
+                                                                        final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
+                                                                        builder01.setTitle("发布成功，等待审核。");
+                                                                        builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                        builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                                                            @Override
+                                                                            public void onClick(DialogInterface dialog, int which) {
 
-                                                    @Override
-                                                    public void onFailure(HttpException error, String msg) {
-                                                        if (dialog != null) {
-                                                            dialog.dismiss();
+                                                                                finish();
+                                                                            }
+                                                                        });
+                                                                        builder01.create().show();
+                                                                        break;
+                                                                    case "499":
+                                                                        ToastUtils.shortToast(ReleaseDetailsActivity.this, "发布失败");
+                                                                        break;
+                                                                    default:
+                                                                        break;
+                                                                }
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
                                                         }
-                                                        ToastUtils.shortToast(ReleaseDetailsActivity.this, "网络连接失败");
-                                                        error.printStackTrace();
-                                                        Log.e("benbne", msg);
-                                                    }
-                                                });
+
+                                                        @Override
+                                                        public void onFailure(HttpException error, String msg) {
+                                                            if (dialog != null) {
+                                                                dialog.dismiss();
+                                                            }
+                                                            ToastUtils.shortToast(ReleaseDetailsActivity.this, "网络连接失败");
+                                                            error.printStackTrace();
+                                                            Log.e("benbne", msg);
+                                                        }
+                                                    });
+                                                } else {
+                                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "请至少添加一张图片");
+                                                }
                                             } else {
-                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "请至少添加一张图片");
+                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "请添加文字描述");
                                             }
-                                        } else {
-                                            ToastUtils.shortToast(ReleaseDetailsActivity.this, "请添加文字描述");
-                                        }
 
+                                        } else {
+                                            ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择地区");
+                                        }
                                     } else {
-                                        ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择地区");
+                                        ToastUtils.shortToast(ReleaseDetailsActivity.this, "请输入转让价");
                                     }
-                                } else {
-                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "请输入转让价");
+                                }else {
+                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择标的物");
                                 }
                             } else {
                                 ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择固产转让类型");
@@ -1835,6 +1940,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
 
                             break;
 
+
                         /***************************************发布 商业保理****************************************/
                         case "商业保理":
                             if (!TextUtils.isEmpty(s1) && !s1.equals("请选择")) {
@@ -1923,6 +2029,107 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                 ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择买方性质");
                             }
                             break;
+                        /***************************************发布 投资需求****************************************/
+                        case "投资需求":
+                            // s1 s s5  s2 s3 s4 file_upload
+                            if (!TextUtils.isEmpty(s1) && !s1.equals("请选择")) {
+                                if (!TextUtils.isEmpty(s) && !s.equals("请选择")) {
+                                    if (!TextUtils.isEmpty(s5) && !s5.equals("0") && !s5.equals("0.0") && !s5.equals("0.")) {
+                                        if (!TextUtils.isEmpty(s6) && !s6.equals("请选择")) {
+                                            if (!TextUtils.isEmpty(s3) && !s3.equals("请选择")) {
+                                                if (!TextUtils.isEmpty(s4)) {
+                                                        //ToastUtils.shortToast(ReleaseDetailsActivity.this , "接口待开发");
+                                                        dialog = new MyProgressDialog(ReleaseDetailsActivity.this, "正在发布中。。。");
+                                                        dialog.show();
+                                                        HttpUtils utils = new HttpUtils();
+                                                        RequestParams params = new RequestParams();
+                                                        params.addBodyParameter("ProArea", s3);
+                                                        params.addBodyParameter("WordDes", s4);
+                                                        params.addBodyParameter("TypeID", "15");
+                                                        params.addBodyParameter("Rate", s5);
+                                                        params.addBodyParameter("InvestType", s);
+                                                        params.addBodyParameter("Year", s6.replace("年" ,"") );
+                                                        params.addBodyParameter("AssetType", s1);
+                                                        if (release_frame_one.getVisibility() == View.VISIBLE) {
+                                                            params.addBodyParameter("PictureDes1", file_img01);
+                                                            if (release_frame_two.getVisibility() == View.VISIBLE) {
+                                                                params.addBodyParameter("PictureDes2", file_img02);
+                                                                if (release_frame_three.getVisibility() == View.VISIBLE) {
+                                                                    params.addBodyParameter("PictureDes3", file_img03);
+                                                                }
+                                                            }
+                                                        }
+                                                        if (hasVoice) {
+                                                            params.addBodyParameter("VoiceDes", file_upload);
+                                                        }
+                                                        utils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+                                                            @Override
+                                                            public void onSuccess(ResponseInfo<String> responseInfo) {
+                                                                if (dialog != null) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                                Log.e("benbne", responseInfo.result);
+                                                                //ToastUtils.shortToast(ReleaseDetailsActivity.this, "OK");
+                                                                try {
+                                                                    JSONObject jsonObject = new JSONObject(responseInfo.result);
+                                                                    String status_code = jsonObject.getString("status_code");
+                                                                    switch (status_code) {
+                                                                        case "200":
+                                                                            final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
+                                                                            builder01.setTitle("发布成功，等待审核。");
+                                                                            builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                            builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                                                    finish();
+                                                                                }
+                                                                            });
+                                                                            builder01.create().show();
+                                                                            break;
+                                                                        case "499":
+                                                                            ToastUtils.shortToast(ReleaseDetailsActivity.this, "发布失败");
+                                                                            break;
+                                                                        default:
+                                                                            break;
+
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+
+                                                            }
+
+                                                            @Override
+                                                            public void onFailure(HttpException error, String msg) {
+                                                                if (dialog != null) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "网络连接失败");
+                                                                error.printStackTrace();
+                                                                Log.e("benbne", msg);
+                                                            }
+                                                        });
+                                                } else {
+                                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "请输入文字描述");
+                                                }
+                                            } else {
+                                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择地区");
+                                            }
+                                        } else {
+                                            ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择投资期限");
+                                        }
+                                    } else {
+                                        ToastUtils.shortToast(ReleaseDetailsActivity.this, "请输入预期回报率");
+                                    }
+                                } else {
+                                    ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择投资方式");
+                                }
+                            } else {
+                                ToastUtils.shortToast(ReleaseDetailsActivity.this, "请选择投资类型");
+                            }
+
+                            break;
                         default:
                             break;
                     }
@@ -1949,8 +2156,10 @@ public class ReleaseDetailsActivity extends BaseActivity {
         }
 
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        //mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        //mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
         mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         mMediaRecorder.setOutputFile(recAudioFile.getAbsolutePath());
 
         try {
@@ -2093,17 +2302,43 @@ public class ReleaseDetailsActivity extends BaseActivity {
         if (!file.exists()) {
             file.mkdirs();
         }
-        recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.amr");
+        //recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.amr");
+        recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.aac");
 
 
     }
 
     private void andioGet() {
+
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_audio, null);
         window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final Button audio = (Button)view.findViewById(R.id.audio);
 
+        final Timer timer = new Timer() ;
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        left_time -- ;
+                        if (left_time <= 5 ){
+                            audio.setText("剩余时间" + left_time +"s");
+                            if (left_time == 0){
+                                timer.cancel();
+                                audio.setText("录制时间过长");
+                                stopRecorder();
+                                window.dismiss();
+                            }
+                        }
+
+                    }
+                });
+            }
+        }, 1000, 1000) ;
         window.setFocusable(true);
         //点击空白的地方关闭PopupWindow
         window.setBackgroundDrawable(new BitmapDrawable());
@@ -2111,7 +2346,17 @@ public class ReleaseDetailsActivity extends BaseActivity {
         //window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
         window.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                left_time = 30 ;
+                timer.cancel();
+            }
+        });
     }
+
+
 
 
     private void picGet01() {
@@ -2178,122 +2423,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
         });
     }
 
-    private void picGet02() {
-        // 利用layoutInflater获得View
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.popupwindow_icon, null);
-        final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        Button picture = (Button) view.findViewById(R.id.picture);
-        Button camera = (Button) view.findViewById(R.id.camera);
-        Button clear = (Button) view.findViewById(R.id.clear);
-        //对图库按钮设置监听事件
-        picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 激活系统图库，选择一张图片
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
-                startActivityForResult(intent, 9);
-                window.dismiss();
-            }
-        });
-        //对打开相机按钮设置监听事件
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String fileName = new DateFormat().format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";
-
-                file_img02 = new File(Environment.getExternalStorageDirectory(), fileName);
-                Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file_img02));
-                startActivityForResult(intent1, 10);
-                window.dismiss();
-            }
-        });
-
-        //对取消操作按钮设置监听事件
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                window.dismiss();
-            }
-        });
-
-        window.setFocusable(true);
-        //点击空白的地方关闭PopupWindow
-        window.setBackgroundDrawable(new BitmapDrawable());
-        // 设置popWindow的显示和消失动画
-        window.setAnimationStyle(R.style.mypopwindow_anim_style);
-        // 在底部显示
-        window.showAtLocation(picture, Gravity.BOTTOM, 0, 0);
-        backgroundAlpha(0.5f);
-        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                backgroundAlpha(1f);
-            }
-        });
-    }
-
-    private void picGet03() {
-        // 利用layoutInflater获得View
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.popupwindow_icon, null);
-        final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        Button picture = (Button) view.findViewById(R.id.picture);
-        Button camera = (Button) view.findViewById(R.id.camera);
-        Button clear = (Button) view.findViewById(R.id.clear);
-        //对图库按钮设置监听事件
-        picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 激活系统图库，选择一张图片
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
-                startActivityForResult(intent, 12);
-                window.dismiss();
-            }
-        });
-        //对打开相机按钮设置监听事件
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String fileName = new DateFormat().format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";
-
-
-                file_img03 = new File(Environment.getExternalStorageDirectory(), fileName);
-                Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file_img03));
-                startActivityForResult(intent1, 13);
-                window.dismiss();
-            }
-        });
-
-        //对取消操作按钮设置监听事件
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                window.dismiss();
-            }
-        });
-        window.setFocusable(true);
-        //点击空白的地方关闭PopupWindow
-        window.setBackgroundDrawable(new BitmapDrawable());
-        // 设置popWindow的显示和消失动画
-        window.setAnimationStyle(R.style.mypopwindow_anim_style);
-        // 在底部显示
-        window.showAtLocation(picture, Gravity.BOTTOM, 0, 0);
-        backgroundAlpha(0.5f);
-        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                backgroundAlpha(1f);
-            }
-        });
-    }
-
     /**
      * 设置添加屏幕的背景透明度
      */
@@ -2337,23 +2466,11 @@ public class ReleaseDetailsActivity extends BaseActivity {
                         Toast.makeText(this, "SD卡不可用", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-//                    imgstr = getSubStr(file.getPath());
-//                    Log.e("benben相机后缀01", imgstr);
-//                    Log.e("benben相机路径01", file.getPath());
-//                    //剪裁图片为方形
-//                    doCropPhoto(Uri.fromFile(file));
-
-                    //二次采样
-                    //Bitmap bitmap = BitmapUtils.createImageThumbnail(file.getPath());
-                    //if (bitmap != null) {
-
                     imgstr = getSubStr(file.getPath());
                     Log.e("benben相机后缀01", imgstr);
                     Log.e("benben相机路径01", file.getPath());
                     //剪裁图片为方形
                     doCropPhoto(Uri.fromFile(file));
-                    //}
 
                 } else {
                     Toast.makeText(ReleaseDetailsActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
@@ -2449,99 +2566,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 }
 
                 break;
-
-//            case 9:
-//                if (resultCode == RESULT_OK && null != data) {
-//
-//                    Uri selectedImage = data.getData();
-//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//                    cursor.moveToFirst();
-//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                    String picturePath = cursor.getString(columnIndex);
-//                    cursor.close();
-//                    Uri uri = Uri.fromFile(new File(picturePath));
-//                    imgstr = getSubStr(picturePath);
-//
-//
-//                    file_img02 = new File(picturePath);
-//                    Log.e("benben图库后缀02", imgstr);
-//                    Log.e("benben图库路径02", picturePath);
-//                    //打开图片的裁剪意图
-//                    doCropPhoto(uri);
-//                } else {
-//                    Toast.makeText(ReleaseDetailsActivity.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            case 10:
-//                if (resultCode == Activity.RESULT_OK) {
-//                    String sdStatus = Environment.getExternalStorageState();
-//                    if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-//                        Toast.makeText(this, "SD卡不可用", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    //二次采样
-//
-//                    Bitmap bitmap01 = BitmapUtils.createImageThumbnail(file_img02.getPath());
-//                    if (bitmap01 != null) {
-//
-//                        imgstr = getSubStr(file_img02.getPath());
-//                        Log.e("benben相机后缀02", imgstr);
-//                        Log.e("benben相机路径02", file_img02.getPath());
-//                        //剪裁图片为方形
-//                        doCropPhoto(Uri.fromFile(file_img02));
-//                    }
-//                } else {
-//                    Toast.makeText(ReleaseDetailsActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//
-//
-//            case 12:
-//                if (resultCode == RESULT_OK && null != data) {
-//
-//                    Uri selectedImage = data.getData();
-//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//                    cursor.moveToFirst();
-//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                    String picturePath = cursor.getString(columnIndex);
-//                    cursor.close();
-//                    Uri uri = Uri.fromFile(new File(picturePath));
-//                    imgstr = getSubStr(picturePath);
-//
-//                    file_img03 = new File(picturePath);
-//                    Log.e("benben图库后缀03", imgstr);
-//                    Log.e("benben图库路径03", picturePath);
-//                    //打开图片的裁剪意图
-//                    doCropPhoto(uri);
-//                } else {
-//                    Toast.makeText(ReleaseDetailsActivity.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            case 13:
-//                if (resultCode == Activity.RESULT_OK) {
-//                    String sdStatus = Environment.getExternalStorageState();
-//                    if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-//                        Toast.makeText(this, "SD卡不可用", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    //二次采样
-//
-//                    Bitmap bitmap02 = BitmapUtils.createImageThumbnail(file_img03.getPath());
-//                    if (bitmap02 != null) {
-//
-//                        imgstr = getSubStr(file_img03.getPath());
-//                        Log.e("benben相机后缀03", imgstr);
-//                        Log.e("benben相机路径03", file_img03.getPath());
-//                        //剪裁图片为方形
-//                        doCropPhoto(Uri.fromFile(file_img03));
-//                    }
-//
-//                } else {
-//                    Toast.makeText(ReleaseDetailsActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
             default:
                 break;
         }

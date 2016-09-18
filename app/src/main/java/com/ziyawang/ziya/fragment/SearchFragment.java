@@ -25,14 +25,13 @@ import com.ziyawang.ziya.view.NiuLinear;
 /**
  * Created by 牛海丰 on 2016/7/29.
  */
-public class SearchFragment extends Fragment {
-
+public class SearchFragment extends Fragment implements View.OnClickListener {
+    //找信息的按钮，找服务的按钮，找视频的按钮。
     private RelativeLayout search_relative01 , search_relative02 , search_relative03 ;
+    //找信息，找服务，找视频，找字的加粗声明
     private TextView niu_111 , niu_113 , niu_112 ;
-
-
+    //SearchFragment的无参构造
     public SearchFragment(){}
-
 
     @Nullable
     @Override
@@ -43,57 +42,63 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         //实例化组件
         initView(view) ;
+        //注册监听事件
+        initListener() ;
+    }
 
-
-
-        search_relative01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class ) ;
-                startActivity(intent);
-
-            }
-        });
-        search_relative02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity() , FindServiceActivity.class ) ;
-                startActivity(intent);
-            }
-        });
-        search_relative03.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity() , FindVideoActivity.class ) ;
-                startActivity(intent);
-            }
-        });
-
-
+    private void initListener() {
+        search_relative01.setOnClickListener(this);
+        search_relative02.setOnClickListener(this);
+        search_relative03.setOnClickListener(this);
     }
 
     private void initView(View view) {
-
         search_relative01 = (RelativeLayout)view.findViewById(R.id.search_relative01) ;
         search_relative02 = (RelativeLayout)view.findViewById(R.id.search_relative02) ;
         search_relative03 = (RelativeLayout)view.findViewById(R.id.search_relative03) ;
         niu_111 = (TextView)view.findViewById(R.id.niu_111) ;
         niu_113 = (TextView)view.findViewById(R.id.niu_113) ;
         niu_112 = (TextView)view.findViewById(R.id.niu_112) ;
-
         TextPaint tp = niu_111.getPaint();
         tp.setFakeBoldText(true);
         TextPaint tp1 = niu_113.getPaint();
         tp1.setFakeBoldText(true);
         TextPaint tp2 = niu_112.getPaint();
         tp2.setFakeBoldText(true);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.search_relative01:
+                goFindInfoActivity() ;
+                break;
+            case R.id.search_relative02:
+                goFindServiceActivity() ;
+                break;
+            case R.id.search_relative03:
+                goFindVideoActivity() ;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void goFindVideoActivity() {
+        Intent intent = new Intent(getActivity() , FindVideoActivity.class ) ;
+        startActivity(intent);
+    }
+
+    private void goFindServiceActivity() {
+        Intent intent = new Intent(getActivity() , FindServiceActivity.class ) ;
+        startActivity(intent);
+    }
+
+    private void goFindInfoActivity() {
+        Intent intent = new Intent(getActivity() , FindInfoActivity.class ) ;
+        startActivity(intent);
     }
 
 }

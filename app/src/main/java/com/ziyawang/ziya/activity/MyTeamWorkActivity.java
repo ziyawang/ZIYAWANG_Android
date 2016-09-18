@@ -42,21 +42,14 @@ public class MyTeamWorkActivity extends BaseActivity {
 
     private List<FindInfoEntity> list ;
     private MyTeamWorkAdapter adapter ;
-
-
     private List<FindInfoEntity> data  = new ArrayList<FindInfoEntity>();
-
     private int page  ;
     private int count = 1 ;
-
     private Boolean isOK = true ;
-
     private MyProgressDialog dialog ;
-
     private MyScrollView scrollView ;
     private BenListView listView ;
     private RelativeLayout pre ;
-
     private TextView niuniuniuniu ;
 
     private Handler mHandler = new Handler() {
@@ -193,6 +186,10 @@ public class MyTeamWorkActivity extends BaseActivity {
                         scrollView.setVisibility(View.GONE);
                         niuniuniuniu.setVisibility(View.VISIBLE);
                     }else {
+
+                        scrollView.setVisibility(View.VISIBLE);
+                        niuniuniuniu.setVisibility(View.GONE);
+
                         page = Integer.parseInt(pages);
                         count++;
                         Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);

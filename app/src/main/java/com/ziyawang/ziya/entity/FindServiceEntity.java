@@ -22,7 +22,6 @@ public class FindServiceEntity {
     }
 
     public String getServiceID() {
-
         return ServiceID;
     }
 

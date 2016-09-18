@@ -59,7 +59,6 @@ public class ServiceRegisterActivity extends BaseActivity {
     private EditText service_register_phone;
     private EditText service_register_companyName;
     private EditText service_register_companyDes;
-
     private TextView service_part_one;
     private TextView service_part_one_des;
     private TextView service_part_two;
@@ -67,34 +66,25 @@ public class ServiceRegisterActivity extends BaseActivity {
     private TextView service_type;
     private TextView service_type_des;
     private TextView release_img_add;
-
     private FrameLayout release_frame_one;
     private FrameLayout release_frame_two;
     private FrameLayout release_frame_three;
-
     private ImageView release_img_one;
     private ImageView release_img_two;
     private ImageView release_img_three;
-
     private ImageView release_img_cancel_one;
     private ImageView release_img_cancel_two;
     private ImageView release_img_cancel_three;
-
     private TextView text_submit;
-
     private File file;
     private File file_img01;
     private File file_img02;
     private File file_img03;
     private String imgstr;
-
     private static String login;
-
     private StringBuffer stringBuffer01 = new StringBuffer();
-    private String type;
-
+    private String type = "";
     private String urls ;
-
     private MyProgressDialog dialog ;
 
     public void onResume() {
@@ -160,7 +150,7 @@ public class ServiceRegisterActivity extends BaseActivity {
                 service_register_companyDes.setText(ServiceIntroduction);
                 service_part_one_des.setText(ServiceLocation);
                 service_part_two_des.setText(ServiceArea);
-                service_type_des.setText(ServiceType);
+                //service_type_des.setText(ServiceType);
                 service_part_one_des.setVisibility(View.VISIBLE);
                 service_part_two_des.setVisibility(View.VISIBLE);
                 service_type_des.setVisibility(View.VISIBLE);
@@ -213,28 +203,30 @@ public class ServiceRegisterActivity extends BaseActivity {
                 service_type_des.setText(ServiceType1);
                 service_part_one_des.setVisibility(View.VISIBLE);
                 service_part_two_des.setVisibility(View.VISIBLE);
-                service_type_des.setVisibility(View.VISIBLE);
+                service_type_des.setVisibility(View.GONE);
+                release_img_add.setVisibility(View.VISIBLE);
 
-                release_img_add.setVisibility(View.GONE);
-
-                if (ConfirmationP11.equals("")) {
-                    release_frame_one.setVisibility(View.VISIBLE);
-                    BitmapUtils bitmapUtils = new BitmapUtils(ServiceRegisterActivity.this);
-                    bitmapUtils.display(release_img_one, Url.FileIP + ConfirmationP11);
-                    release_img_cancel_one.setVisibility(View.GONE);
-                }
-                if (ConfirmationP21.equals("")) {
-                    release_frame_two.setVisibility(View.VISIBLE);
-                    BitmapUtils bitmapUtils = new BitmapUtils(ServiceRegisterActivity.this);
-                    bitmapUtils.display(release_img_two, Url.FileIP + ConfirmationP21);
-                    release_img_cancel_two.setVisibility(View.GONE);
-                }
-                if (ConfirmationP31.equals("")) {
-                    release_frame_three.setVisibility(View.VISIBLE);
-                    BitmapUtils bitmapUtils = new BitmapUtils(ServiceRegisterActivity.this);
-                    bitmapUtils.display(release_img_three, Url.FileIP + ConfirmationP31);
-                    release_img_cancel_three.setVisibility(View.GONE);
-                }
+//                if (ConfirmationP11.equals("")) {
+//                    release_frame_one.setVisibility(View.GONE);
+//                }else {
+//                    BitmapUtils bitmapUtils = new BitmapUtils(ServiceRegisterActivity.this);
+//                    bitmapUtils.display(release_img_one, Url.FileIP + ConfirmationP11);
+//                }
+//
+//                if (ConfirmationP21.equals("")) {
+//                    release_frame_two.setVisibility(View.GONE);
+//                }else {
+//                    BitmapUtils bitmapUtils = new BitmapUtils(ServiceRegisterActivity.this);
+//                    bitmapUtils.display(release_img_two, Url.FileIP + ConfirmationP21);
+//                }
+//
+//                if (ConfirmationP31.equals("")) {
+//                    release_frame_three.setVisibility(View.GONE);
+//                }else {
+//                    BitmapUtils bitmapUtils = new BitmapUtils(ServiceRegisterActivity.this);
+//                    bitmapUtils.display(release_img_three, Url.FileIP + ConfirmationP31);
+//                    release_img_add.setVisibility(View.GONE);
+//                }
 
                 text_submit.setText("重新提交");
                 break;
@@ -326,7 +318,7 @@ public class ServiceRegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if (text_submit.getText().toString().equals("提交")) {
+                //if (text_submit.getText().toString().equals("提交")) {
 
                     if (!TextUtils.isEmpty(service_register_name.getText().toString())) {
 
@@ -344,22 +336,20 @@ public class ServiceRegisterActivity extends BaseActivity {
 
                                                 if (release_frame_one.getVisibility() == View.VISIBLE) {
 
-                                                    Log.e("benben", type);
+                                                    //Log.e("benben", type);
 
-                                                    if (type.contains("ben")) {
-                                                        type.replace("ben", "");
-                                                        type.trim();
-                                                        Log.e("benben", type);
-                                                    }
+                                                        if (type.contains("ben")) {
+                                                            type.replace("ben", "05");
+                                                            type.trim();
+                                                            Log.e("benben", type);
+                                                        }
+
                                                     if ("2".equals(root)){
                                                         //格式化网络连接url
                                                         urls = String.format(Url.ServiceReRegister, login);
                                                     }else{
                                                         urls = String.format(Url.ServiceRegister, login);
                                                     }
-
-
-
 
                                                     //开启网络请求
                                                     HttpUtils utils = new HttpUtils();
@@ -397,8 +387,11 @@ public class ServiceRegisterActivity extends BaseActivity {
                                                                 String status_code = jsonObject.getString("status_code");
                                                                 if (status_code.equals("200")) {
                                                                     ToastUtils.shortToast(ServiceRegisterActivity.this, "服务方认证成功");
-                                                                Intent intent = new Intent(ServiceRegisterActivity.this , MainActivity.class ) ;
-                                                                startActivity(intent);
+                                                                    if (dialog != null) {
+                                                                        dialog.dismiss();
+                                                                    }
+                                                                    Intent intent = new Intent(ServiceRegisterActivity.this , MainActivity.class ) ;
+                                                                    startActivity(intent);
                                                                     //finish();
                                                                 }
                                                             } catch (JSONException e) {
@@ -442,37 +435,38 @@ public class ServiceRegisterActivity extends BaseActivity {
                         ToastUtils.shortToast(ServiceRegisterActivity.this, "请添加您的联系人姓名");
                     }
 
-                } else {
-
-                    //service_register_name.setHint("请输入");
-                    //service_register_phone.setHint("请输入");
-                    //service_register_companyName.setHint("请输入");
-                    //service_register_companyDes.setHint("企业简介");
-                    //service_part_one_des.setText("");
-                    service_register_name.setText("");
-                    service_register_phone.setText(null);
-                    service_register_companyName.setText(null);
-                    service_register_companyDes.setText(null);
-                    service_part_one_des.setText(null);
-
-                    service_part_two_des.setText("");
-                    service_type_des.setText("");
-                    service_part_one_des.setVisibility(View.VISIBLE);
-                    service_part_two_des.setVisibility(View.VISIBLE);
-                    service_type_des.setVisibility(View.VISIBLE);
-                    release_img_add.setVisibility(View.VISIBLE);
-                    release_frame_one.setVisibility(View.GONE);
-                    release_frame_two.setVisibility(View.GONE);
-                    release_frame_three.setVisibility(View.GONE);
-//                    release_img_cancel_one.setVisibility(View.GONE);
-//                    release_img_cancel_two.setVisibility(View.GONE);
-//                    release_img_cancel_three.setVisibility(View.GONE);
-//                    release_img_one.setVisibility(View.GONE);
-//                    release_img_two.setVisibility(View.GONE);
-//                    release_img_three.setVisibility(View.GONE);
-
-                    text_submit.setText("提交");
-                }
+//                }
+//                else {
+//
+//                    //service_register_name.setHint("请输入");
+//                    //service_register_phone.setHint("请输入");
+//                    //service_register_companyName.setHint("请输入");
+//                    //service_register_companyDes.setHint("企业简介");
+//                    //service_part_one_des.setText("");
+//                    service_register_name.setText("");
+//                    service_register_phone.setText(null);
+//                    service_register_companyName.setText(null);
+//                    service_register_companyDes.setText(null);
+//                    service_part_one_des.setText(null);
+//
+//                    service_part_two_des.setText("");
+//                    service_type_des.setText("");
+//                    service_part_one_des.setVisibility(View.VISIBLE);
+//                    service_part_two_des.setVisibility(View.VISIBLE);
+//                    service_type_des.setVisibility(View.VISIBLE);
+//                    release_img_add.setVisibility(View.VISIBLE);
+//                    release_frame_one.setVisibility(View.GONE);
+//                    release_frame_two.setVisibility(View.GONE);
+//                    release_frame_three.setVisibility(View.GONE);
+////                    release_img_cancel_one.setVisibility(View.GONE);
+////                    release_img_cancel_two.setVisibility(View.GONE);
+////                    release_img_cancel_three.setVisibility(View.GONE);
+////                    release_img_one.setVisibility(View.GONE);
+////                    release_img_two.setVisibility(View.GONE);
+////                    release_img_three.setVisibility(View.GONE);
+//
+//                    text_submit.setText("提交");
+//                }
             }
         });
     }
@@ -516,8 +510,7 @@ public class ServiceRegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 // 激活系统图库，选择一张图片
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
                 startActivityForResult(intent, 1);
                 window.dismiss();
@@ -746,24 +739,24 @@ public class ServiceRegisterActivity extends BaseActivity {
                                 stringBuffer01.append("保理公司");
                                 stringBuffer01.append(",");
                                 break;
-                            case "06":
+                            case "05":
                                 stringBuffer01.append("典当公司");
                                 stringBuffer01.append(",");
                                 break;
-                            case "10":
+                            case "ben":
                                 stringBuffer01.append("担保公司");
                                 stringBuffer01.append(",");
                                 break;
-                            case "05":
+                            case "06":
                                 stringBuffer01.append("投融资服务");
                                 stringBuffer01.append(",");
                                 break;
-                            case "ben":
+                            case "10":
                                 stringBuffer01.append("尽职调查");
                                 stringBuffer01.append(",");
                                 break;
                             case "12":
-                                stringBuffer01.append("固产收购");
+                                stringBuffer01.append("资产收购");
                                 stringBuffer01.append(",");
                                 break;
                             case "14":
@@ -776,8 +769,6 @@ public class ServiceRegisterActivity extends BaseActivity {
                     }
                     service_type_des.setText(stringBuffer01.toString());
                     service_type_des.setVisibility(View.VISIBLE);
-
-                    //Log.e("benben" , stringBuffer01.toString() ) ;
                 }
                 break;
             case 6:

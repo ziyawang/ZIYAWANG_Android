@@ -50,8 +50,6 @@ public class CollectListAdapter extends BaseAdapter {
     private Context context;
     private List<MyCollectListEntity> list;
 
-
-
     public CollectListAdapter() {
     }
 

@@ -21,11 +21,11 @@ import com.ziyawang.ziya.tools.SystemBarTintManager;
 public class FromWhereActivity extends BaseActivity {
 
     private RelativeLayout pre ;
-    private RadioGroup group,group2 ,group3,group4,group5,group6,group7;
+    private RadioGroup group,group2 ,group3,group4,group5,group6,group7,group8,group9,group10;
     private RadioButton button01 , button02 ,button03,button04,button05 ,button06,button07,button08,button09,button10,button11,button13,button14,button15,button16,button17,button18,button12;
-
+    private RadioButton button19,button20,button21,button22,button23,button24,button25,button26 ;
+    private RadioButton v102button1,v102button2,v102button3,v102button4,v102button5,v102button6,v102button7,v102button8,v102button9,v102button10 ;
     String fromWhere  ;
-
     private TextView title ;
 
     @Override
@@ -262,6 +262,125 @@ public class FromWhereActivity extends BaseActivity {
                     }
                 });
                 break;
+            case "8" :
+                group8.setVisibility(View.VISIBLE);
+                group8.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId) {
+                            case R.id.button19:
+                                fromWhere = "土地";
+                                break;
+                            case R.id.button20:
+                                fromWhere = "房产";
+                                break;
+                            case R.id.button21:
+                                fromWhere = "汽车";
+                                break;
+                            case R.id.button22:
+                                fromWhere = "项目";
+                                break;
+                            case R.id.button23:
+                                fromWhere = "其他";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        //数据是使用Intent返回
+                        Intent intent = new Intent();
+                        //把返回数据存入Intent
+                        intent.putExtra("result", fromWhere);
+                        //设置返回数据
+                        FromWhereActivity.this.setResult(RESULT_OK, intent);
+                        //关闭Activity
+                        FromWhereActivity.this.finish();
+                    }
+                });
+                break;
+            case "9" :
+                group9.setVisibility(View.VISIBLE);
+                group9.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId) {
+                            case R.id.button24:
+                                fromWhere = "债权";
+                                break;
+                            case R.id.button25:
+                                fromWhere = "股权";
+                                break;
+                            case R.id.button26:
+                                fromWhere = "其他";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        //数据是使用Intent返回
+                        Intent intent = new Intent();
+                        //把返回数据存入Intent
+                        intent.putExtra("result", fromWhere);
+                        //设置返回数据
+                        FromWhereActivity.this.setResult(RESULT_OK, intent);
+                        //关闭Activity
+                        FromWhereActivity.this.finish();
+                    }
+                });
+                break;
+            case "10" :
+                group10.setVisibility(View.VISIBLE);
+                group10.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId) {
+                            case R.id.v102button1:
+                                fromWhere = "1年";
+                                break;
+                            case R.id.v102button2:
+                                fromWhere = "2年";
+                                break;
+                            case R.id.v102button3:
+                                fromWhere = "3年";
+                                break;
+                            case R.id.v102button4:
+                                fromWhere = "4年";
+                                break;
+                            case R.id.v102button5:
+                                fromWhere = "5年";
+                                break;
+                            case R.id.v102button6:
+                                fromWhere = "6年";
+                                break;
+                            case R.id.v102button7:
+                                fromWhere = "7年";
+                                break;
+                            case R.id.v102button8:
+                                fromWhere = "8年";
+                                break;
+                            case R.id.v102button9:
+                                fromWhere = "9年";
+                                break;
+                            case R.id.v102button10:
+                                fromWhere = "10年";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        //数据是使用Intent返回
+                        Intent intent = new Intent();
+                        //把返回数据存入Intent
+                        intent.putExtra("result", fromWhere);
+                        //设置返回数据
+                        FromWhereActivity.this.setResult(RESULT_OK, intent);
+                        //关闭Activity
+                        FromWhereActivity.this.finish();
+                    }
+                });
+                break;
+            default:
+                break;
         }
 
         //设置通知栏的颜色
@@ -292,6 +411,9 @@ public class FromWhereActivity extends BaseActivity {
         group5 = (RadioGroup)findViewById(R.id.group5) ;
         group6 = (RadioGroup)findViewById(R.id.group6) ;
         group7 = (RadioGroup)findViewById(R.id.group7) ;
+        group8 = (RadioGroup)findViewById(R.id.group8) ;
+        group9 = (RadioGroup)findViewById(R.id.group9) ;
+        group10 = (RadioGroup)findViewById(R.id.group10) ;
         button01 = (RadioButton)findViewById(R.id.button01 ) ;
         button02 = (RadioButton)findViewById(R.id.button02 ) ;
         button03 = (RadioButton)findViewById(R.id.button03 ) ;
@@ -310,7 +432,24 @@ public class FromWhereActivity extends BaseActivity {
         button16 = (RadioButton)findViewById(R.id.button16 ) ;
         button17 = (RadioButton)findViewById(R.id.button17 ) ;
         button18 = (RadioButton)findViewById(R.id.button18 ) ;
-
+        button19 = (RadioButton)findViewById(R.id.button19 ) ;
+        button20 = (RadioButton)findViewById(R.id.button20 ) ;
+        button21 = (RadioButton)findViewById(R.id.button21 ) ;
+        button22 = (RadioButton)findViewById(R.id.button22 ) ;
+        button23 = (RadioButton)findViewById(R.id.button23 ) ;
+        button24 = (RadioButton)findViewById(R.id.button24 ) ;
+        button25 = (RadioButton)findViewById(R.id.button25 ) ;
+        button26 = (RadioButton)findViewById(R.id.button26 ) ;
+        v102button1 = (RadioButton)findViewById(R.id.v102button1 ) ;
+        v102button2 = (RadioButton)findViewById(R.id.v102button2 ) ;
+        v102button3 = (RadioButton)findViewById(R.id.v102button3 ) ;
+        v102button4 = (RadioButton)findViewById(R.id.v102button4 ) ;
+        v102button5 = (RadioButton)findViewById(R.id.v102button5 ) ;
+        v102button6 = (RadioButton)findViewById(R.id.v102button6 ) ;
+        v102button7 = (RadioButton)findViewById(R.id.v102button7 ) ;
+        v102button8 = (RadioButton)findViewById(R.id.v102button8 ) ;
+        v102button9 = (RadioButton)findViewById(R.id.v102button9 ) ;
+        v102button10 = (RadioButton)findViewById(R.id.v102button10 ) ;
 
     }
 
@@ -321,7 +460,6 @@ public class FromWhereActivity extends BaseActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.aaa);//通知栏所需颜色
-
     }
 
     @TargetApi(19)
@@ -336,6 +474,4 @@ public class FromWhereActivity extends BaseActivity {
         }
         win.setAttributes(winParams);
     }
-
-
 }

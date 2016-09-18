@@ -1,15 +1,12 @@
 package com.ziyawang.ziya.activity;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,9 +22,7 @@ import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.CollectListAdapter;
 import com.ziyawang.ziya.entity.MyCollectListEntity;
 import com.ziyawang.ziya.tools.Json_MyCollectList;
-import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
-import com.ziyawang.ziya.view.CustomDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,14 +35,10 @@ public class MyCollectActivity extends BaseActivity {
     private static boolean isLogin;
     private static String root;
     private static String spphoneNumber;
-
     private TextView niuniuniuniu ;
-
     private RelativeLayout pre  ;
-
     private ListView listView ;
     private CollectListAdapter adapter ;
-
     List<MyCollectListEntity> list ;
 
     @Override
@@ -128,6 +119,10 @@ public class MyCollectActivity extends BaseActivity {
                         listView.setVisibility(View.GONE);
                         niuniuniuniu.setVisibility(View.VISIBLE);
                     }else {
+
+                        listView.setVisibility(View.VISIBLE);
+                        niuniuniuniu.setVisibility(View.GONE);
+
                         try {
                             list = Json_MyCollectList.getParse(responseInfo.result);
 

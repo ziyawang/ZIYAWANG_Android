@@ -41,17 +41,19 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
+
         <Button
+            android:id="@+id/service_ten"
             android:textSize="13sp"
             android:textColor="#000"
             android:background="#ffffff"
             android:paddingTop="12dp"
-            android:id="@+id/service_four"
-            android:drawableTop="@mipmap/icon04"
-            android:text="保理公司"
+            android:drawableTop="@mipmap/icon29"
+            android:text="催收机构"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
+
 
 
     </LinearLayout>
@@ -66,12 +68,13 @@
             android:textColor="#000"
             android:background="#ffffff"
             android:paddingTop="12dp"
-            android:id="@+id/service_five"
-            android:drawableTop="@mipmap/icon05"
-            android:text="典当公司"
+            android:id="@+id/service_four"
+            android:drawableTop="@mipmap/icon04"
+            android:text="保理公司"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
+
         <Button
             android:textSize="13sp"
             android:textColor="#000"

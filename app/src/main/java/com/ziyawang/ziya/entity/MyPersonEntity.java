@@ -70,7 +70,6 @@ public class MyPersonEntity {
         ServiceIntroduction = serviceIntroduction;
     }
 
-
     public String getCooperateFlag() {
         return CooperateFlag;
     }

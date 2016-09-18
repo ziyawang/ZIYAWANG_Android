@@ -48,97 +48,96 @@ public class ServiceTypeActivity extends BaseActivity {
         final CheckBox i = (CheckBox)findViewById(R.id.i);
         final CheckBox j = (CheckBox)findViewById(R.id.j);
 
-        a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("01")) {
-                    stringBuffer.append("01");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("02")) {
-                    stringBuffer.append("02");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("03")) {
-                    stringBuffer.append("03") ;
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("04")) {
-                    stringBuffer.append("04");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        e.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("06")) {
-                    stringBuffer.append("06");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        f.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("10")) {
-                    stringBuffer.append("10");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        g.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("05")) {
-                    stringBuffer.append("05");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        h.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("ben")) {
-                    stringBuffer.append("ben");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        i.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("12")) {
-                    stringBuffer.append("12");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-        j.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && !stringBuffer.toString().contains("14")) {
-                    stringBuffer.append("14");
-                    stringBuffer.append(",") ;
-                }
-            }
-        });
-
+//        a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("01")) {
+//                    stringBuffer.append("01");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("02")) {
+//                    stringBuffer.append("02");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("03")) {
+//                    stringBuffer.append("03") ;
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("04")) {
+//                    stringBuffer.append("04");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        e.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("06")) {
+//                    stringBuffer.append("06");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        f.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("10")) {
+//                    stringBuffer.append("10");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        g.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("05")) {
+//                    stringBuffer.append("05");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        h.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("ben")) {
+//                    stringBuffer.append("ben");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        i.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("12")) {
+//                    stringBuffer.append("12");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
+//        j.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked && !stringBuffer.toString().contains("14")) {
+//                    stringBuffer.append("14");
+//                    stringBuffer.append(",") ;
+//                }
+//            }
+//        });
 
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +149,47 @@ public class ServiceTypeActivity extends BaseActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (a.isChecked() ) {
+                    stringBuffer.append("01");
+                    stringBuffer.append(",") ;
+                }
+                if (b.isChecked() ) {
+                    stringBuffer.append("02");
+                    stringBuffer.append(",") ;
+                }
+                if (c.isChecked() ) {
+                    stringBuffer.append("03");
+                    stringBuffer.append(",") ;
+                }
+                if (d.isChecked() ) {
+                    stringBuffer.append("04");
+                    stringBuffer.append(",") ;
+                }
+                if (e.isChecked() ) {
+                    stringBuffer.append("06");
+                    stringBuffer.append(",") ;
+                }
+                if (f.isChecked() ) {
+                    stringBuffer.append("10");
+                    stringBuffer.append(",") ;
+                }
+                if (g.isChecked() ) {
+                    stringBuffer.append("05");
+                    stringBuffer.append(",") ;
+                }
+                if (h.isChecked() ) {
+                    stringBuffer.append("ben");
+                    stringBuffer.append(",") ;
+                }
+                if (i.isChecked() ) {
+                    stringBuffer.append("12");
+                    stringBuffer.append(",") ;
+                }
+                if (j.isChecked() ) {
+                    stringBuffer.append("14");
+                    stringBuffer.append(",") ;
+                }
 
                 //数据是使用Intent返回
                 Intent intent = new Intent();
@@ -163,7 +203,6 @@ public class ServiceTypeActivity extends BaseActivity {
 
             }
         });
-
     }
 
     private void initView() {

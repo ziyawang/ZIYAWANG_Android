@@ -32,17 +32,13 @@ public class SystemInformationActivity extends BaseActivity {
 
     private RelativeLayout pre ;
     private TextView niuniuniuniu ;
-
     private ListView listView ;
     private SystemAdapter adpter ;
 
     @Override
     protected void onResume() {
         super.onResume();
-
         loadData();
-
-
     }
 
     @Override

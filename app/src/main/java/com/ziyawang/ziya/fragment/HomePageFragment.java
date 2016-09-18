@@ -1,6 +1,7 @@
 package com.ziyawang.ziya.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -31,17 +33,16 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
-import com.ziyawang.ziya.activity.DetailsFindInfoActivity;
-import com.ziyawang.ziya.activity.DetailsFindServiceActivity;
 import com.ziyawang.ziya.activity.FindVideoActivity;
 import com.ziyawang.ziya.activity.SearchActivity;
-import com.ziyawang.ziya.activity.VideoActivity;
 import com.ziyawang.ziya.adapter.HeadpagerAdapter;
 import com.ziyawang.ziya.entity.BannerEntity;
+import com.ziyawang.ziya.entity.FindVideoEntity;
 import com.ziyawang.ziya.tools.FixedSpeedScroller;
-import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyScrollView;
+
+import org.json.JSONException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -50,8 +51,10 @@ import java.util.List;
 /**
  * Created by 牛海丰 on 2016/7/19.
  */
-public class HomePageFragment extends Fragment {
+public class HomePageFragment extends Fragment implements View.OnClickListener{
 
+
+    private SharedPreferences spVideoID ;
 
     private TextView homepage_change;
     private TextView homepage_home;
@@ -66,7 +69,14 @@ public class HomePageFragment extends Fragment {
     private FragmentManager manager01;
     private FragmentTransaction transaction01;
 
+    //跳转到搜索页面的按钮
     private RelativeLayout homepage_search;
+    //跳转到搜索页面的悬停按钮
+    private RelativeLayout homepage_search02;
+    //跳转到搜索视频的页面的按钮
+    private FrameLayout homepage_video ;
+    //跳转到搜索视频的页面的悬停按钮
+    private FrameLayout homepage_video_02 ;
     private RelativeLayout search01;
 
     private ViewPager home_viewPager;
@@ -80,11 +90,10 @@ public class HomePageFragment extends Fragment {
 
     private HeadpagerAdapter adapter;
 
-    private ImageView one, two, three, four;
-    private String type;
-
-    //private Thread thread;
-
+    private ImageView one, two, three , four ;
+    //系统显示的小红点
+    private ImageView red_point ;
+    private ImageView red_point02 ;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private Handler handler = new Handler() {
@@ -114,7 +123,6 @@ public class HomePageFragment extends Fragment {
         return handler;
     }
 
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -126,6 +134,7 @@ public class HomePageFragment extends Fragment {
         }
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -135,14 +144,14 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //实例化组件
         initView(view);
+        //default Fragment
         selectedFragment();
-
-        //swipeRefreshLayout重写事件的分发
-
-
-
+        //注册监听
+        initListeners() ;
+        //根据时间是否显示小红点
+        isShowRedPoint() ;
         //添加下拉刷新。
         swipeRefreshLayout.setColorSchemeResources(R.color.one, R.color.two, R.color.three, R.color.four);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -158,10 +167,14 @@ public class HomePageFragment extends Fragment {
                     default:
                         break;
                 }
+                //重新加载首页Banner的数据
                 loadData();
+                //是否有新的视频
+                isShowRedPoint() ;
+
             }
         });
-
+        //定义一个子线程，发送handler888
         Thread thread1 = new Thread() {
             @Override
             public void run() {
@@ -169,7 +182,6 @@ public class HomePageFragment extends Fragment {
             }
         };
         thread1.start();
-
         //对ScrollView的滑动的监听
         mys.setOnScrollListener(new MyScrollView.OnScrollListener() {
             @Override
@@ -190,31 +202,15 @@ public class HomePageFragment extends Fragment {
 
                 if (scrollY >= niu_head.getBottom()) {
                     if (search01.getVisibility() == View.INVISIBLE) {
-                        switch (homepage_change.getText().toString()) {
-                            case "找信息":
-                                homepage_change02.setText("找信息");
-                                break;
-                            case "找服务":
-                                homepage_change02.setText("找服务");
-                                break;
-                            default:
-                                break;
-                        }
+                        //根据homepage_change的值，来进行数据的显示
+                        judgeShowView();
                         homepage_search.setVisibility(View.INVISIBLE);
                         search01.setVisibility(View.VISIBLE);
                     }
                 } else {
                     if (search01.getVisibility() == View.VISIBLE) {
-                        switch (homepage_change.getText().toString()) {
-                            case "找信息":
-                                homepage_change02.setText("找信息");
-                                break;
-                            case "找服务":
-                                homepage_change02.setText("找服务");
-                                break;
-                            default:
-                                break;
-                        }
+                        //根据homepage_change的值，来进行数据的显示
+                        judgeShowView();
                         homepage_search.setVisibility(View.VISIBLE);
                         search01.setVisibility(View.INVISIBLE);
                     }
@@ -225,56 +221,23 @@ public class HomePageFragment extends Fragment {
         homepage_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (homepage_change.getText().toString()) {
-                    case "找信息":
-                        Intent intent = new Intent(getActivity(), SearchActivity.class);
-                        intent.putExtra("type", "信息");
-                        intent.putExtra("title", "搜索信息");
-                        startActivity(intent);
-                        break;
-                    case "找服务":
-                        Intent intent01 = new Intent(getActivity(), SearchActivity.class);
-                        intent01.putExtra("type", "服务");
-                        intent01.putExtra("title", "搜索服务");
-                        startActivity(intent01);
-                        break;
-                    default:
-                        break;
-                }
+                judgeGoView(homepage_change);
             }
         });
-        search01.setOnClickListener(new View.OnClickListener() {
+        homepage_search02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (homepage_change02.getText().toString()) {
-                    case "找信息":
-                        Intent intent = new Intent(getActivity(), SearchActivity.class);
-                        intent.putExtra("type", "信息");
-                        intent.putExtra("title", "搜索信息");
-                        startActivity(intent);
-                        break;
-                    case "找服务":
-                        Intent intent01 = new Intent(getActivity(), SearchActivity.class);
-                        intent01.putExtra("type", "服务");
-                        intent01.putExtra("title", "搜索服务");
-                        startActivity(intent01);
-                        break;
-                    default:
-                        break;
-                }
+                judgeGoView(homepage_change02);
             }
         });
         //更改信息和服务
         homepage_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 manager01 = getActivity().getSupportFragmentManager();
                 transaction01 = manager01.beginTransaction();
-
                 mys.smoothScrollTo(0, 0);
                 mys.scrollTo(0, 0);
-
                 if (homepage_change.getText().toString().equals("找服务")) {
                     homepage_change.setText("找信息");
                     //展示信息的Fragment
@@ -296,13 +259,93 @@ public class HomePageFragment extends Fragment {
         });
     }
 
+    private void isShowRedPoint() {
+
+        //拿到现在最新的存在的VideoID
+        LoadVideoID() ;
+    }
+
+    private void LoadVideoID() {
+        HttpUtils httpUtils = new HttpUtils()  ;
+        RequestParams params = new RequestParams() ;
+
+        params.addQueryStringParameter("pagecount" , "1");
+        httpUtils.configCurrentHttpCacheExpiry(1000);
+        httpUtils.send(HttpRequest.HttpMethod.GET,  Url.GetMovie,params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                JSONObject jsonObj = JSON.parseObject(responseInfo.result);
+                JSONArray result = jsonObj.getJSONArray("data");
+                List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
+                if (list.size() == 1){
+                    String videoID = list.get(0).getVideoID();
+                    Log.e("benben", "VideoID======" + videoID) ;
+                    //拿到用户缓存的spVideoID的值,用户看过的最新的VideoID
+                    spVideoID = getActivity().getSharedPreferences("VideoID", getActivity().MODE_PRIVATE );
+                    String spVideoIDString = spVideoID.getString("VideoID", "");
+                    //boolean isLook1 = isLook.getBoolean("isLook", false);
+                    Log.e("benben", "spVideoID======" + spVideoIDString) ;
+                    if (!spVideoIDString.equals(videoID)){
+                        red_point.setVisibility(View.VISIBLE);
+                        red_point02.setVisibility(View.VISIBLE);
+                    }else {
+                        red_point.setVisibility(View.GONE);
+                        red_point02.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                error.printStackTrace();
+
+            }
+        }) ;
+    }
+
+    private void initListeners() {
+        homepage_video.setOnClickListener(this);
+        homepage_video_02.setOnClickListener(this);
+    }
+
+    private void judgeGoView(TextView tv ) {
+        switch (tv.getText().toString()) {
+            case "找信息":
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra("type", "信息");
+                intent.putExtra("title", "搜索信息");
+                startActivity(intent);
+                break;
+            case "找服务":
+                Intent intent01 = new Intent(getActivity(), SearchActivity.class);
+                intent01.putExtra("type", "服务");
+                intent01.putExtra("title", "搜索服务");
+                startActivity(intent01);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void judgeShowView() {
+        switch (homepage_change.getText().toString()) {
+            case "找信息":
+                homepage_change02.setText("找信息");
+                break;
+            case "找服务":
+                homepage_change02.setText("找服务");
+                break;
+            default:
+                break;
+        }
+    }
 
     private void loadData() {
 
         HttpUtils utils = new HttpUtils();
         RequestParams params = new RequestParams();
         utils.configCurrentHttpCacheExpiry(1000);
-        utils.send(HttpRequest.HttpMethod.GET, Url.Banner, params, new RequestCallBack<String>() {
+        utils.send(HttpRequest.HttpMethod.GET, Url.BannerTWO, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Log.e("benben", responseInfo.result);
@@ -316,7 +359,7 @@ public class HomePageFragment extends Fragment {
                 list = new ArrayList<ImageView>();
                 ImageView img1 = new ImageView(getActivity());
                 BitmapUtils bitmapUitl = new BitmapUtils(getActivity());
-                bitmapUitl.display(img1, Url.FileIP + list01.get(1).getBannerLink());
+                bitmapUitl.display(img1, Url.FileIP + list01.get(0).getBannerLink());
                 img1.setScaleType(ImageView.ScaleType.FIT_XY);
                 img1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -328,7 +371,7 @@ public class HomePageFragment extends Fragment {
                 list.add(img1);
 
                 ImageView img2 = new ImageView(getActivity());
-                bitmapUitl.display(img2, Url.FileIP + list01.get(2).getBannerLink());
+                bitmapUitl.display(img2, Url.FileIP + list01.get(1).getBannerLink());
                 img2.setScaleType(ImageView.ScaleType.FIT_XY);
                 img2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -340,7 +383,7 @@ public class HomePageFragment extends Fragment {
                 list.add(img2);
 
                 ImageView img3 = new ImageView(getActivity());
-                bitmapUitl.display(img3, Url.FileIP + list01.get(0).getBannerLink());
+                bitmapUitl.display(img3, Url.FileIP + list01.get(2).getBannerLink());
                 img3.setScaleType(ImageView.ScaleType.FIT_XY);
                 img3.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -352,7 +395,7 @@ public class HomePageFragment extends Fragment {
                 list.add(img3);
 
                 ImageView img4 = new ImageView(getActivity());
-                bitmapUitl.display(img4, Url.FileIP + list01.get(1).getBannerLink());
+                bitmapUitl.display(img4, Url.FileIP + list01.get(3).getBannerLink());
                 img4.setScaleType(ImageView.ScaleType.FIT_XY);
                 img4.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -363,29 +406,29 @@ public class HomePageFragment extends Fragment {
                 });
                 list.add(img4);
 
-                ImageView img5 = new ImageView(getActivity());
-                bitmapUitl.display(img5, Url.FileIP + list01.get(2).getBannerLink());
-                img5.setScaleType(ImageView.ScaleType.FIT_XY);
-                img5.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                list.add(img5);
-
-                ImageView img6 = new ImageView(getActivity());
-                bitmapUitl.display(img6, Url.FileIP + list01.get(0).getBannerLink());
-                img6.setScaleType(ImageView.ScaleType.FIT_XY);
-                img6.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                list.add(img6);
+//                ImageView img5 = new ImageView(getActivity());
+//                bitmapUitl.display(img5, Url.FileIP + list01.get(2).getBannerLink());
+//                img5.setScaleType(ImageView.ScaleType.FIT_XY);
+//                img5.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
+//                list.add(img5);
+//
+//                ImageView img6 = new ImageView(getActivity());
+//                bitmapUitl.display(img6, Url.FileIP + list01.get(0).getBannerLink());
+//                img6.setScaleType(ImageView.ScaleType.FIT_XY);
+//                img6.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
+//                list.add(img6);
 
                 //实例化适配器
                 adapter = new HeadpagerAdapter(list, getActivity());
@@ -397,7 +440,7 @@ public class HomePageFragment extends Fragment {
                 list_diadian.add(one);
                 list_diadian.add(two);
                 list_diadian.add(three);
-                //list_diadian.add(four);
+                list_diadian.add(four);
 
 
                 //ViewPager实现点击事件的监听
@@ -427,9 +470,11 @@ public class HomePageFragment extends Fragment {
                         //发送消息1
                         handler.sendEmptyMessage(0x01);
                     }
+
                     @Override
                     public void onPageSelected(int position) {
                     }
+
                     @Override
                     public void onPageScrollStateChanged(int state) {
 
@@ -446,6 +491,9 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onFailure(HttpException error, String msg) {
 
+                if (swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
                 error.printStackTrace();
             }
         });
@@ -453,12 +501,10 @@ public class HomePageFragment extends Fragment {
     }
 
     private void initialState() {
-
         one.setEnabled(false);
         two.setEnabled(false);
         three.setEnabled(false);
-        //four.setEnabled(false);
-
+        four.setEnabled(false);
     }
 
     FixedSpeedScroller mScroller = null;
@@ -466,10 +512,8 @@ public class HomePageFragment extends Fragment {
     private void controlViewPagerSpeed() {
         try {
             Field mField;
-
             mField = ViewPager.class.getDeclaredField("mScroller");
             mField.setAccessible(true);
-
             mScroller = new FixedSpeedScroller(getActivity(), new AccelerateInterpolator());
             mScroller.setmDuration(300); // 2000ms
             mField.set(home_viewPager, mScroller);
@@ -479,36 +523,35 @@ public class HomePageFragment extends Fragment {
     }
 
     private void initView(View view) {
-
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-
         homepage_change = (TextView) view.findViewById(R.id.homepage_change);
         homepage_change02 = (TextView) view.findViewById(R.id.homepage_change02);
         homepage_home = (TextView) view.findViewById(R.id.homepage_home);
         home_frame = (FrameLayout) view.findViewById(R.id.home_frame);
         homepage_search = (RelativeLayout) view.findViewById(R.id.homepage_search);
+        homepage_search02 = (RelativeLayout) view.findViewById(R.id.homepage_search02);
+        homepage_video = (FrameLayout) view.findViewById(R.id.homepage_video);
+        homepage_video_02 = (FrameLayout) view.findViewById(R.id.homepage_video_02);
         search01 = (RelativeLayout) view.findViewById(R.id.search01);
         niu_head = (RelativeLayout) view.findViewById(R.id.niu_head);
         mys = (MyScrollView) view.findViewById(R.id.mys);
         home_viewPager = (ViewPager) view.findViewById(R.id.home_viewPager);
-
         controlViewPagerSpeed();
-
         one = (ImageView) view.findViewById(R.id.one);
         two = (ImageView) view.findViewById(R.id.two);
         three = (ImageView) view.findViewById(R.id.three);
-        //four = (ImageView) view.findViewById(R.id.four);
+        four = (ImageView) view.findViewById(R.id.four);
+        red_point = (ImageView) view.findViewById(R.id.red_point);
+        red_point02 = (ImageView) view.findViewById(R.id.red_point02);
     }
 
     private void selectedFragment() {
-
         manager01 = getActivity().getSupportFragmentManager();
         transaction01 = manager01.beginTransaction();
         homeInfoFragment = new HomeInfoFragment();
         transaction01.add(R.id.home_frame, homeInfoFragment);
         transaction01.commit();
         homeServiceFragment = new HomeServiceFragment();
-
     }
 
     /**
@@ -545,8 +588,26 @@ public class HomePageFragment extends Fragment {
         handler.sendEmptyMessage(what);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.homepage_video :
+                //跳转到播放视频页面
+                goFindVideoActivity() ;
+                break;
+            case R.id.homepage_video_02 :
+                //跳转到播放视频页面
+                goFindVideoActivity() ;
+                break;
+            default:
+                break;
+        }
+    }
 
-
+    private void goFindVideoActivity() {
+        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
+        startActivity(intent);
+    }
 
 
 }

@@ -3,14 +3,12 @@ package com.ziyawang.ziya.activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,7 +21,6 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.MyRushAdapter;
-import com.ziyawang.ziya.adapter.MyTeamWorkAdapter;
 import com.ziyawang.ziya.entity.FindInfoEntity;
 import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.ToastUtils;
@@ -43,22 +40,15 @@ public class MyRushActivity extends BaseActivity {
 
     private List<FindInfoEntity> list ;
     private MyRushAdapter adapter ;
-
-
     private List<FindInfoEntity> data  = new ArrayList<FindInfoEntity>();
-
     private static String login;
     private int page  ;
     private int count = 1 ;
-
     private Boolean isOK = true ;
-
     private MyProgressDialog dialog ;
-
     private MyScrollView scrollView ;
     private BenListView listView ;
     private RelativeLayout pre ;
-
     private TextView niuniuniuniu ;
 
     private Handler mHandler = new Handler() {

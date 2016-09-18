@@ -1,6 +1,5 @@
 package com.ziyawang.ziya.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -16,7 +15,6 @@ import com.ziyawang.ziya.tools.Url;
 public class MyRuleActivity extends BaseActivity {
 
     private RelativeLayout pre;
-
     private WebView webView;
     private ProgressBar bar;
 

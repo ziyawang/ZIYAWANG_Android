@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -70,24 +69,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private NotificationButton button_information;
     private FragmentManager manager;
     private FragmentTransaction transaction;
-
     private static Boolean isQuit = false;
     private Timer timer = new Timer();
-
     private MyApplication app;
-
     private HomePageFragment homePageFragment;
     private InformationFragment informationFragment;
     private MyFragment myFragment;
     private ReleaseFragment releaseFragment;
     private SearchFragment searchFragment;
-
     private SharedPreferences r_token;
-
-    //private Uri uir;
-
     private String login;
-
     private final static String lancherActivityClassName = StartActivity.class.getName();
 
     @Override
@@ -532,7 +523,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void selectedFragment() {
-
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         homePageFragment = new HomePageFragment();
@@ -542,7 +532,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         myFragment = new MyFragment();
         releaseFragment = new ReleaseFragment();
         searchFragment = new SearchFragment();
-
     }
 
     @Override

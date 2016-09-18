@@ -235,5 +235,158 @@
 
 
     </RadioGroup>
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button19"
+            android:background="#ffffff"
+            android:text="土地"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button20"
+            android:background="#ffffff"
+            android:text="房产"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/button21"
+            android:background="#ffffff"
+            android:text="汽车"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button22"
+            android:background="#ffffff"
+            android:text="项目"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/button23"
+            android:background="#ffffff"
+            android:text="其他"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+    </RadioGroup>
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/button24"
+            android:background="#ffffff"
+            android:text="债权"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:id="@+id/button25"
+            android:background="#ffffff"
+            android:text="股权"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/button26"
+            android:background="#ffffff"
+            android:text="其他"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/group10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button1"
+            android:background="#ffffff"
+            android:text="1年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button2"
+            android:background="#ffffff"
+            android:text="2年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button3"
+            android:background="#ffffff"
+            android:text="3年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button4"
+            android:background="#ffffff"
+            android:text="4年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button5"
+            android:background="#ffffff"
+            android:text="5年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button6"
+            android:background="#ffffff"
+            android:text="6年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button7"
+            android:background="#ffffff"
+            android:text="7年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button8"
+            android:background="#ffffff"
+            android:text="8年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button9"
+            android:background="#ffffff"
+            android:text="9年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <RadioButton
+            android:layout_marginTop="1dp"
+            android:id="@+id/v102button10"
+            android:background="#ffffff"
+            android:text="10年"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+    </RadioGroup>
 
 </LinearLayout>

@@ -6,7 +6,6 @@ package com.ziyawang.ziya.entity;
 public class FindInfoEntity {
 
     private String ProjectID ;
-
     private String ProArea ;
     private String FromWhere ;
     private String AssetType ;
@@ -23,26 +22,14 @@ public class FindInfoEntity {
     private String Member ;
     private String CertifyState ;
     private String PublishState ;
+    private String Corpore ;
+    private String WordDes ;
+    private String InvestType ;
+    private String Year ;
 
     public FindInfoEntity(){}
 
-    public String getProjectNumber() {
-        return ProjectNumber;
-    }
-
-    public void setProjectNumber(String projectNumber) {
-        ProjectNumber = projectNumber;
-    }
-
-    public String getMember() {
-        return Member;
-    }
-
-    public void setMember(String member) {
-        Member = member;
-    }
-
-    public FindInfoEntity(String projectID , String proArea, String fromWhere, String assetType, String totalMoney, String transferMoney, String status, String rate, String requirement, String buyerNature, String informant, String buyer,String typeName,String projectNumber , String member , String certifyState , String publishState) {
+    public FindInfoEntity(String projectID , String proArea, String fromWhere, String assetType, String totalMoney, String transferMoney, String status, String rate, String requirement, String buyerNature, String informant, String buyer,String typeName,String projectNumber , String member , String certifyState , String publishState , String corpore , String wordDes ,String investType , String year) {
         super();
         ProjectID = projectID ;
         ProArea = proArea;
@@ -61,7 +48,58 @@ public class FindInfoEntity {
         Member = member ;
         CertifyState = certifyState ;
         PublishState = publishState ;
+        Corpore = corpore ;
+        WordDes = wordDes ;
+        InvestType = investType ;
+        Year = year ;
+    }
 
+    public String getWordDes() {
+        return WordDes;
+    }
+
+    public String getInvestType() {
+        return InvestType;
+    }
+
+    public void setInvestType(String investType) {
+        InvestType = investType;
+    }
+
+    public String getYear() {
+        return Year;
+    }
+
+    public void setYear(String year) {
+        Year = year;
+    }
+
+    public void setWordDes(String wordDes) {
+        WordDes = wordDes;
+    }
+
+    public String getProjectNumber() {
+        return ProjectNumber;
+    }
+
+    public void setProjectNumber(String projectNumber) {
+        ProjectNumber = projectNumber;
+    }
+
+    public String getMember() {
+        return Member;
+    }
+
+    public void setMember(String member) {
+        Member = member;
+    }
+
+    public String getCorpore() {
+        return Corpore;
+    }
+
+    public void setCorpore(String corpore) {
+        Corpore = corpore;
     }
 
     public String getCertifyState() {

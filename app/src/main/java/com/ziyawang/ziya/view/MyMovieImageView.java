@@ -29,9 +29,9 @@ public class MyMovieImageView extends ImageView {
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        // 获得游戏布局的边长
+        // 布局的边长
         width =  MeasureSpec.getSize(widthMeasureSpec);
-        height = width /28 * 19  ;
+        height = width /7 * 4  ;
 
         setMeasuredDimension(width, height);
     }

@@ -4,9 +4,12 @@
     android:shareInterpolator="false">
 
 
-    <alpha
+    <scale
         android:duration="300"
-        android:fromAlpha="0"
-        android:toAlpha="1.0" />
+        android:fromXScale="1.0"
+        android:toXScale="1.0"
+        android:fromYScale="0.0"
+        android:toYScale="1.0"
+        />
 
 </set>

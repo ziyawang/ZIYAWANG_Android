@@ -12,8 +12,5 @@ public class SubConversationListActivtiy extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_conversation_list_activtiy);
-
-
-
     }
 }

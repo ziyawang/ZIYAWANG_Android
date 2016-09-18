@@ -149,8 +149,8 @@ public class HomeInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Log.e("benben", "_____________资产包转让________________");
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "01" ) ;
+                Intent intent = new Intent(getActivity(), FindInfoActivity.class);
+                intent.putExtra("typeName", "01");
                 startActivity(intent);
             }
         });
@@ -181,15 +181,15 @@ public class HomeInfoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList.get(0).findViewById(R.id.info_five).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("benben" , "_____________5________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "05" ) ;
-                startActivity(intent);
-            }
-        });
+//        viewList.get(0).findViewById(R.id.info_five).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("benben" , "_____________5________________") ;
+//                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
+//                intent.putExtra("typeName" , "05" ) ;
+//                startActivity(intent);
+//            }
+//        });
         viewList.get(0).findViewById(R.id.info_six).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +199,7 @@ public class HomeInfoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList.get(0).findViewById(R.id.info_seven).setOnClickListener(new View.OnClickListener() {
+        viewList.get(1).findViewById(R.id.info_seven).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("benben" , "_____________7________________") ;
@@ -217,7 +217,7 @@ public class HomeInfoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList.get(1).findViewById(R.id.info_nine).setOnClickListener(new View.OnClickListener() {
+        viewList.get(0).findViewById(R.id.info_nine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("benben" , "_____________9________________") ;
@@ -244,12 +244,21 @@ public class HomeInfoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList.get(1).findViewById(R.id.info_twelve).setOnClickListener(new View.OnClickListener() {
+//        viewList.get(1).findViewById(R.id.info_twelve).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("benben", "_____________12________________");
+//                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
+//                intent.putExtra("typeName" , "ben" ) ;
+//                startActivity(intent);
+//            }
+//        });
+        viewList.get(0).findViewById(R.id.info_requirement).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("benben", "_____________12________________");
+                Log.e("benben", "_____________15________________");
                 Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "ben" ) ;
+                intent.putExtra("typeName" , "15" ) ;
                 startActivity(intent);
             }
         });
@@ -353,7 +362,6 @@ public class HomeInfoFragment extends Fragment {
                 if (dialog != null ){
                     dialog.dismiss();
                 }
-
 
                 Log.e("benben_home_info", responseInfo.result);
                 try {

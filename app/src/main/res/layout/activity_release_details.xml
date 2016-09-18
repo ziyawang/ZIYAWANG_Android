@@ -46,17 +46,14 @@
         android:id="@+id/niu_101"
         android:background="#f4f4f4"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="64dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <TextView
             android:textSize="15dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="10dp"
             android:textColor="#000"
             android:gravity="center"
             android:text="确认发布"
@@ -301,6 +298,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textSize="15dp"
                     android:textColor="#000"
                     android:id="@+id/text_yongjin"
                     android:layout_marginRight="35dp"
@@ -337,6 +335,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textSize="15dp"
                     android:textColor="#000"
                     android:id="@+id/text_status"
                     android:layout_marginRight="35dp"
@@ -490,7 +489,7 @@
 
             <!--图片获取页面-->
             <LinearLayout
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:background="#ffffff"
                 android:id="@+id/release_img_linear"
                 android:layout_width="match_parent"

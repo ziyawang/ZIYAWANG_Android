@@ -78,6 +78,7 @@ public class FindInfoAdapter extends BaseAdapter {
             holder.info_vip = (ImageView)convertView.findViewById(R.id.info_vip);
             holder.money_transfer_info_02 = (LinearLayout)convertView.findViewById(R.id.money_transfer_info_02 ) ;
             holder.money_transfer_info_03 = (LinearLayout)convertView.findViewById(R.id.money_transfer_info_03 ) ;
+            holder.wordDes = (TextView)convertView.findViewById(R.id.wordDes) ;
 
             convertView.setTag(holder);
 
@@ -106,9 +107,46 @@ public class FindInfoAdapter extends BaseAdapter {
         }else {
             holder.money_transfer_area_right.setText(list.get(position).getProArea());
         }
-
+        holder.wordDes.setText(list.get(position).getWordDes());
         switch (list.get(position).getTypeName()){
+            case "投资需求" :
+                holder.niu_three.setText("%");
+                holder.niu_four.setText("年");
+                holder.money_transfer_no.setText(list.get(position).getProjectNumber());
+                holder.money_transfer_title.setText(list.get(position).getTypeName());
+                //holder.money_transfer_area_right.setText(list.get(position).getProArea());
+                holder.money_transfer_from_right.setText(list.get(position).getInvestType());
+                holder.money_transfer_type_right.setText(list.get(position).getAssetType());
+                holder.money_transfer_money_top.setText(list.get(position).getRate());
+                holder.money_transfer_money_02_up.setText(list.get(position).getYear());
+                holder.niu_one.setImageResource(R.mipmap.icon24);
+                holder.niu_two.setImageResource(R.mipmap.year32);
+
+                holder.money_transfer_area_left.setText("地区：");
+                holder.money_transfer_from_left.setText("方式：");
+                holder.money_transfer_type_left.setText("类型：");
+
+                holder.money_transfer_from_left.setVisibility(View.VISIBLE);
+                holder.money_transfer_from_right.setVisibility(View.VISIBLE);
+
+                holder.niu_one.setVisibility(View.VISIBLE);
+                holder.niu_two.setVisibility(View.VISIBLE);
+                holder.niu_three.setVisibility(View.VISIBLE);
+                holder.niu_four.setVisibility(View.VISIBLE);
+                holder.money_transfer_money_top.setVisibility(View.VISIBLE);
+                holder.money_transfer_money_02_up.setVisibility(View.VISIBLE);
+                holder.money_transfer_info_02.setVisibility(View.VISIBLE);
+                holder.money_transfer_info_03.setVisibility(View.VISIBLE);
+
+                break;
             case "资产包转让" :
+
+                holder.money_transfer_from_left.setVisibility(View.VISIBLE);
+                holder.money_transfer_from_right.setVisibility(View.VISIBLE);
+                holder.money_transfer_area_left.setText("地区：");
+                holder.money_transfer_from_left.setText("来源：");
+                holder.money_transfer_type_left.setText("类型：");
+                holder.niu_four.setText("万");
                 holder.niu_three.setText("万");
                 holder.money_transfer_no.setText( list.get(position).getProjectNumber());
                 holder.money_transfer_title.setText(list.get(position).getTypeName());
@@ -131,6 +169,8 @@ public class FindInfoAdapter extends BaseAdapter {
 
                 break;
             case "委外催收" :
+                holder.money_transfer_from_left.setVisibility(View.VISIBLE);
+                holder.money_transfer_from_right.setVisibility(View.VISIBLE);
                 holder.niu_three.setText("万");
                 holder.money_transfer_no.setText(list.get(position).getProjectNumber());
                 holder.money_transfer_title.setText(list.get(position).getTypeName());
@@ -241,6 +281,7 @@ public class FindInfoAdapter extends BaseAdapter {
                 holder.money_transfer_info_02.setVisibility(View.VISIBLE);
                 holder.money_transfer_info_03.setVisibility(View.VISIBLE);
                 break;
+            //功能隐藏
             case "典当担保" :
                 holder.niu_three.setText("万");
                 holder.money_transfer_no.setText(list.get(position).getProjectNumber());
@@ -318,12 +359,14 @@ public class FindInfoAdapter extends BaseAdapter {
                 break;
             case "固产转让" :
                 holder.niu_three.setText("万");
-                holder.money_transfer_no.setText(  list.get(position).getProjectNumber());
+                holder.money_transfer_no.setText(list.get(position).getProjectNumber());
                 holder.money_transfer_title.setText(list.get(position).getTypeName());
                 //holder.money_transfer_area_right.setText(list.get(position).getProArea());
-                holder.niu.setVisibility(View.GONE);
-                holder.money_transfer_from_left.setVisibility(View.GONE);
-                holder.money_transfer_from_right.setVisibility(View.GONE);
+                holder.niu.setVisibility(View.VISIBLE);
+                holder.money_transfer_from_left.setVisibility(View.VISIBLE);
+                holder.money_transfer_from_left.setText("标的物：");
+                holder.money_transfer_from_right.setVisibility(View.VISIBLE);
+                holder.money_transfer_from_right.setText(list.get(position).getCorpore());
                 holder.money_transfer_type_right.setText(list.get(position).getAssetType());
                 holder.money_transfer_money_top.setText(list.get(position).getTransferMoney() );
                 //holder.money_transfer_money_down.setText("转让价");
@@ -373,6 +416,7 @@ public class FindInfoAdapter extends BaseAdapter {
                 break;
             case "债权转让" :
                 holder.niu_three.setText("万");
+                holder.niu_four.setText("万");
                 holder.money_transfer_no.setText( list.get(position).getProjectNumber());
                 holder.money_transfer_title.setText(list.get(position).getTypeName());
                 //holder.money_transfer_area_right.setText(list.get(position).getProArea());
@@ -429,6 +473,8 @@ public class FindInfoAdapter extends BaseAdapter {
         LinearLayout money_transfer_info_03 ;
 
         LinearLayout niu ;
+
+        TextView wordDes ;
 
     }
 

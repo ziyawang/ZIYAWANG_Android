@@ -50,4 +50,5 @@ public class VideoCommentsEntity {
     public void setPubTime(String pubTime) {
         PubTime = pubTime;
     }
+
 }

@@ -77,6 +77,7 @@
                     android:layout_height="match_parent" />
 
                 <com.ziyawang.ziya.view.LineEditText
+                    android:singleLine="true"
                     line:lineColorEt="@color/start_button_color"
                     android:textColorLink="#ff0000"
                     android:paddingLeft="15dp"
@@ -112,7 +113,7 @@
                     android:layout_height="match_parent" />
 
                 <com.ziyawang.ziya.view.LineEditText
-
+                    android:singleLine="true"
                     line:lineColorEt="@color/start_button_color"
                     android:paddingLeft="15dp"
                     android:textColor="#ccc"

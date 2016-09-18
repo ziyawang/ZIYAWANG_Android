@@ -50,26 +50,18 @@ import java.util.List;
 
 public class SearchVideoActivity extends BaseActivity {
 
-
     private int page;
     private int count = 1;
-
     private RelativeLayout pre;
     private TextView search_text;
     private EditText search_edit;
     private ImageView search_button;
-
-
     private Boolean isOK = true;
-
     private MyProgressDialog dialog;
-
     private MyScrollView scrollView;
     private BenListView listView;
-
     private MovieBigItemAdapter adapter;
     private List<FindVideoEntity> data = new ArrayList<FindVideoEntity>();
-
 
     private Handler mHandler = new Handler() {
 
@@ -150,7 +142,6 @@ public class SearchVideoActivity extends BaseActivity {
                 }
             }
         });
-
 
     }
 
@@ -253,7 +244,6 @@ public class SearchVideoActivity extends BaseActivity {
                 return false;
             }
         });
-
 
     }
 }

@@ -1,15 +1,12 @@
 package com.ziyawang.ziya.activity;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -21,18 +18,13 @@ import com.ziyawang.ziya.tools.SystemBarTintManager;
 
 public class MoneyTypeActivity extends BaseActivity {
 
-    private RadioGroup group, group2, group3,group4 ,group5,group6,group7 , group8,group9,group10,group11;
-
+    private RadioGroup group, group2, group3,group4 ,group5,group6,group7 , group8,group9,group10,group11,group12;
     private RadioButton button01 , button02 , button03 ,button001,button04,button05,button06,button07,button08,button09,button10,button11 ,button12,button13,button14,button15;
     private RadioButton button16,button17,button18,button19,button20,button21,button22,button23,button24 ,button25,button26,button27,button28,button29;
-    private RadioButton button30,button31,button32,button33,button34,button35,button36,button37,button38,button39,button40 ;
-
+    private RadioButton button30,button31,button32,button33,button34,button35,button36,button37,button38,button39,button40 ,v102button1,v102button2,v102button3,v102button4,v102button5,v102button6,v102button7 ;
     private RelativeLayout pre ;
-
     String type  ;
-
     private TextView title ;
-
 
     @Override
     protected void onResume() {
@@ -64,6 +56,7 @@ public class MoneyTypeActivity extends BaseActivity {
         group9 = (RadioGroup)findViewById(R.id.group9) ;
         group10 = (RadioGroup)findViewById(R.id.group10) ;
         group11 = (RadioGroup)findViewById(R.id.group11) ;
+        group12 = (RadioGroup)findViewById(R.id.group12) ;
         button01 = (RadioButton)findViewById(R.id.button01 ) ;
         button02 = (RadioButton)findViewById(R.id.button02 ) ;
         button03 = (RadioButton)findViewById(R.id.button03 ) ;
@@ -105,6 +98,13 @@ public class MoneyTypeActivity extends BaseActivity {
         button38 = (RadioButton)findViewById(R.id.button38 ) ;
         button39 = (RadioButton)findViewById(R.id.button39 ) ;
         button40 = (RadioButton)findViewById(R.id.button40 ) ;
+        v102button1 = (RadioButton)findViewById(R.id.v102button1 ) ;
+        v102button2 = (RadioButton)findViewById(R.id.v102button2 ) ;
+        v102button3 = (RadioButton)findViewById(R.id.v102button3 ) ;
+        v102button4 = (RadioButton)findViewById(R.id.v102button4 ) ;
+        v102button5 = (RadioButton)findViewById(R.id.v102button5 ) ;
+        v102button6 = (RadioButton)findViewById(R.id.v102button6 ) ;
+        v102button7 = (RadioButton)findViewById(R.id.v102button7 ) ;
         pre = (RelativeLayout)findViewById(R.id.pre ) ;
         title = (TextView)findViewById(R.id.title ) ;
 
@@ -197,19 +197,13 @@ public class MoneyTypeActivity extends BaseActivity {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         switch (checkedId){
                             case R.id.button07 :
-                                type = "土地" ;
+                                type = "个人资产" ;
                                 break;
                             case R.id.button08 :
-                                type = "房产" ;
+                                type = "企业资产" ;
                                 break;
                             case R.id.button09 :
-                                type = "汽车" ;
-                                break;
-                            case R.id.button10 :
-                                type = "项目" ;
-                                break;
-                            case R.id.button11 :
-                                type = "其他" ;
+                                type = "法拍资产" ;
                                 break;
                             default:
                                 break;
@@ -309,6 +303,15 @@ public class MoneyTypeActivity extends BaseActivity {
                             case R.id.button22 :
                                 type = "信用" ;
                                 break;
+                            case R.id.v102button1 :
+                                type = "股权" ;
+                                break;
+                            case R.id.v102button2 :
+                                type = "担保" ;
+                                break;
+                            case R.id.v102button3 :
+                                type = "其他" ;
+                                break;
                             default:
                                 break;
                         }
@@ -399,7 +402,7 @@ public class MoneyTypeActivity extends BaseActivity {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         switch (checkedId){
                             case R.id.button30 :
-                                type = "个人债券" ;
+                                type = "个人债权" ;
                                 break;
                             case R.id.button31 :
                                 type = "银行贷款" ;
@@ -491,12 +494,39 @@ public class MoneyTypeActivity extends BaseActivity {
                 });
 
                 break;
+            case "12" :
+                group12.setVisibility(View.VISIBLE);
+                group12.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId){
+                            case R.id.v102button4 :
+                                type = "个人" ;
+                                break;
+                            case R.id.v102button5 :
+                                type = "企业" ;
+                                break;
+                            case R.id.v102button6 :
+                                type = "机构" ;
+                                break;
+                            case R.id.v102button7 :
+                                type = "其他" ;
+                                break;
+                            default:
+                                break;
+                        }
+                        //数据是使用Intent返回
+                        Intent intent = new Intent();
+                        //把返回数据存入Intent
+                        intent.putExtra("result", type );
+                        //设置返回数据
+                        MoneyTypeActivity.this.setResult(RESULT_OK, intent);
+                        //关闭Activity
+                        MoneyTypeActivity.this.finish();
+                    }
+                });
+                break;
         }
-
-
-
-
-
     }
 
 

@@ -1,6 +1,7 @@
 package com.ziyawang.ziya.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -93,10 +94,6 @@ public class MovieThreeFragment extends Fragment {
         }
     };
 
-
-
-
-
     //private MyProgressDialog dialog  ;
     private RelativeLayout movie_search ;
     @Nullable
@@ -114,6 +111,7 @@ public class MovieThreeFragment extends Fragment {
         data.clear();
         initview(view);
         loadData() ;
+
 
         //搜索按钮
         movie_search.setOnClickListener(new View.OnClickListener() {
@@ -150,19 +148,19 @@ public class MovieThreeFragment extends Fragment {
 
         HttpUtils httpUtils = new HttpUtils()  ;
         RequestParams params = new RequestParams() ;
-        params.addQueryStringParameter("pagecount" , "5");
-        params.addQueryStringParameter("VideoLabel" , "tj"  );
-        params.addQueryStringParameter("startpage" , "" + count );
+        params.addQueryStringParameter("pagecount", "5");
+        params.addQueryStringParameter("VideoLabel", "tj");
+        params.addQueryStringParameter("startpage", "" + count);
         httpUtils.configCurrentHttpCacheExpiry(1000);
-        httpUtils.send(HttpRequest.HttpMethod.GET,  Url.GetMovie,params, new RequestCallBack<String>() {
+        httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetMovie, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
-                if (dialog!=null){
+                if (dialog != null) {
                     dialog.dismiss();
                 }
 
-                Log.e("视频", responseInfo.result) ;
+                Log.e("视频", responseInfo.result);
 
                 JSONObject jsonObj = JSON.parseObject(responseInfo.result);
                 JSONArray result = jsonObj.getJSONArray("data");
@@ -175,9 +173,9 @@ public class MovieThreeFragment extends Fragment {
                 List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
 
 
-                data.addAll(list ) ;
+                data.addAll(list);
 
-                adapter = new MovieBigItemAdapter(getActivity() , data ) ;
+                adapter = new MovieBigItemAdapter(getActivity(), data);
                 gridView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
@@ -185,9 +183,9 @@ public class MovieThreeFragment extends Fragment {
             @Override
             public void onFailure(HttpException error, String msg) {
 
-                Log.e("视频" , msg) ;
+                Log.e("视频", msg);
                 error.printStackTrace();
-                if (dialog!=null){
+                if (dialog != null) {
                     dialog.dismiss();
                 }
             }

@@ -17,9 +17,7 @@ import java.util.TimerTask;
 public class StartActivity extends BaseActivity {
 
     private SharedPreferences sp;
-
     private MyApplication app ;
-
     private int recLen = 3;
     Timer timer = new Timer() ;
     private Button start_time ;

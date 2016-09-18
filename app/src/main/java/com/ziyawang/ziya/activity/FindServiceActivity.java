@@ -5,21 +5,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.lidroid.xutils.HttpUtils;
@@ -30,11 +26,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
-import com.ziyawang.ziya.adapter.FindInfoAdapter;
 import com.ziyawang.ziya.adapter.FindServiceAdapter;
-import com.ziyawang.ziya.entity.FindInfoEntity;
 import com.ziyawang.ziya.entity.FindServiceEntity;
-import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.Json_FindService;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -52,40 +45,26 @@ import java.util.List;
 public class FindServiceActivity extends BaseActivity {
 
     private FindServiceAdapter adapter ;
-
     private BenListView listView ;
-
     private RelativeLayout pre ;
-
-
     private List<FindServiceEntity> data  = new ArrayList<FindServiceEntity>();
-
     private int page  ;
     private int count = 1 ;
-
     private Boolean isOK = true ;
-
     private MyProgressDialog dialog ;
-
     private MyScrollView scrollView ;
-
     private TextView part , find_type ;
-
     private String typeName ;
     private String part_a ;
-
     private TextView details_type ;
-
+    private TextView niuniuniuniu ;
     private Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             // TODO 接收消息并且去更新UI线程上的控件内容
             if (msg.what == 202) {
-                // Bundle b = msg.getData();
-                // tv.setText(b.getString("num"));
                 Log.e("HomeINfo", count + "====================================" +page ) ;
-
                 if (isOK){
                     if (count <= page ){
                         isOK = false ;
@@ -133,9 +112,9 @@ public class FindServiceActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_service);
-
+        //实例化组件
         initView() ;
-
+        //get Intent
         Intent intent = getIntent() ;
         if (intent != null ){
             String typeName_a = intent.getStringExtra("typeName");
@@ -186,12 +165,13 @@ public class FindServiceActivity extends BaseActivity {
                 }
             }
         }
-
+        //加载数据
         findService(typeName, part_a) ;
-
+        //获得地区的分类
         find_type.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {typeGet();
+            public void onClick(View v) {
+                typeGet();
             }
         });
 
@@ -215,15 +195,13 @@ public class FindServiceActivity extends BaseActivity {
         details_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailsTypeGet() ;
+                detailsTypeGet();
             }
         });
 
         scrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
             @Override
             public void onScroll(int scrollY) {
-                //Log.e("benben________", scrollY + "");
-
                 View childView = scrollView.getChildAt(0);
                 if (childView.getMeasuredHeight() <= scrollY + scrollView.getHeight()) {
 
@@ -231,7 +209,6 @@ public class FindServiceActivity extends BaseActivity {
                 }
             }
         });
-
     }
 
     private void detailsTypeGet() {
@@ -301,24 +278,36 @@ public class FindServiceActivity extends BaseActivity {
 
                     Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
 
+                    String counts = jsonObject.getString("counts");
+                    if (!TextUtils.isEmpty(counts) && counts.equals("0")){
+                        scrollView.setVisibility(View.GONE);
+                        niuniuniuniu.setVisibility(View.VISIBLE);
+                    }else {
+
+                        scrollView.setVisibility(View.VISIBLE);
+                        niuniuniuniu.setVisibility(View.GONE);
+                        try {
+                            List<FindServiceEntity> list = Json_FindService.getParse(responseInfo.result);
+
+                            data.addAll(list);
+
+                            Log.e("benben_service_info", list.get(0).getServiceID());
+
+                            adapter = new FindServiceAdapter(FindServiceActivity.this, data);
+                            listView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                try {
-                    List<FindServiceEntity> list = Json_FindService.getParse(responseInfo.result);
 
-                    data.addAll(list);
-
-                    Log.e("benben_service_info", list.get(0).getServiceID());
-
-                    adapter = new FindServiceAdapter(FindServiceActivity.this, data);
-                    listView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
 
             @Override
@@ -345,6 +334,7 @@ public class FindServiceActivity extends BaseActivity {
         find_type = (TextView)findViewById(R.id.find_type ) ;
         part = (TextView)findViewById(R.id.part ) ;
         details_type = (TextView) findViewById(R.id.details_type ) ;
+        niuniuniuniu = (TextView) findViewById(R.id.niuniuniuniu ) ;
 
 
 
@@ -940,25 +930,7 @@ public class FindServiceActivity extends BaseActivity {
         getWindow().setAttributes(lp);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent a) {
-//        super.onActivityResult(requestCode, resultCode, a);
-//
-//        switch (requestCode){
-//
-//            case 6:
-//                if (resultCode == RESULT_OK && null != a){
-//                    String result01 = a.getExtras().getString("result");//得到新Activity 关闭后返回的数据
-//                    part.setText(result01);
-//                    part_a = result01 ;
-//                    data.clear();
-//                    count = 1 ;
-//                    findService(typeName, part_a);
-//                }
-//
-//                break;
-//        }
-//    }
+
 
 
 }
