@@ -512,8 +512,8 @@
                         android:id="@+id/release_img_cancel_one"
                         android:layout_gravity="end"
                         android:src="@mipmap/release_cancel"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                 </FrameLayout>
 
@@ -535,8 +535,8 @@
                         android:id="@+id/release_img_cancel_two"
                         android:layout_gravity="end"
                         android:src="@mipmap/release_cancel"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
 
                 </FrameLayout>
@@ -558,8 +558,8 @@
                         android:id="@+id/release_img_cancel_three"
                         android:layout_gravity="end"
                         android:src="@mipmap/release_cancel"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </FrameLayout>
 
                 <TextView

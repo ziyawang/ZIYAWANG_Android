@@ -66,7 +66,7 @@ public class StartActivity extends BaseActivity {
 
     private void changeActivity() {
 
-        sp = getSharedPreferences("isFirst" , 0 ) ;
+        sp = getSharedPreferences("isFirst" , MODE_PRIVATE ) ;
         boolean isFirst = sp.getBoolean("isFirst" , true ) ;
         Intent intent ;
         if (isFirst){

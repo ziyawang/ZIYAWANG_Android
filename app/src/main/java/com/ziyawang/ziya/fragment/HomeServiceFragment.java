@@ -323,9 +323,7 @@ public class HomeServiceFragment extends Fragment {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
-                if (dialog != null ){
-                    dialog.dismiss();
-                }
+
 
                 Log.e("benben", responseInfo.result) ;
 
@@ -353,6 +351,10 @@ public class HomeServiceFragment extends Fragment {
                     adapter = new FindServiceAdapter(getActivity() , data ) ;
                     home_service_listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+
+                    if (dialog != null ){
+                        dialog.dismiss();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

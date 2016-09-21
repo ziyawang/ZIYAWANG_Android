@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -66,7 +67,7 @@ public class VideoActivity extends Activity implements View.OnClickListener {
     TextView movie_submit ;
     EditText movie_edit ;
     TextView movie_share ;
-    ImageView movie_collect ;
+    TextView movie_collect ;
     FindVideoEntity findVideoEntity  ;
     private Boolean isLogin ;
     private static String id ;
@@ -75,6 +76,9 @@ public class VideoActivity extends Activity implements View.OnClickListener {
     private ListView listView  ;
     private RelativeLayout zhu ;
     private MyProgressDialog dialog  ;
+    private TextView niu_top ;
+    private TextView textView_show_noData ;
+
 
     public void onResume() {
         super.onResume();
@@ -195,6 +199,11 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
+                niu_top.setText("热门评论(" + list.size() + ")");
+                if (list.size()==0){
+                    textView_show_noData.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE );
+                }
             }
 
             @Override
@@ -203,6 +212,7 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                 error.printStackTrace();
              }
         }) ;
+
 
     }
 
@@ -259,10 +269,14 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         movie_des.setText("简介：" + findVideoEntity.getVideoDes());
         switch (findVideoEntity.getCollectFlag()) {
             case "0":
-                movie_collect.setImageResource(R.mipmap.collect_un);
+                Drawable drawable02 = getResources().getDrawable(R.mipmap.collect_un);
+                drawable02.setBounds(0, 0, drawable02.getMinimumWidth(), drawable02.getMinimumHeight());
+                movie_collect.setCompoundDrawables(null, drawable02, null, null);
                 break;
             case "1":
-                movie_collect.setImageResource(R.mipmap.collect);
+                Drawable drawable03 = getResources().getDrawable(R.mipmap.collect);
+                drawable03.setBounds(0, 0, drawable03.getMinimumWidth(), drawable03.getMinimumHeight());
+                movie_collect.setCompoundDrawables(null, drawable03, null, null);
                 break;
             default:
                 break;
@@ -300,11 +314,15 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                                 switch (msg) {
                                     case "取消收藏成功！":
                                         Toast.makeText(VideoActivity.this, "取消收藏成功！", Toast.LENGTH_SHORT).show();
-                                        movie_collect.setImageResource(R.mipmap.collect_un);
+                                        Drawable drawable02 = getResources().getDrawable(R.mipmap.collect_un);
+                                        drawable02.setBounds(0, 0, drawable02.getMinimumWidth(), drawable02.getMinimumHeight());
+                                        movie_collect.setCompoundDrawables(null, drawable02, null, null);
                                         break;
                                     case "收藏成功！":
                                         Toast.makeText(VideoActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
-                                        movie_collect.setImageResource(R.mipmap.collect);
+                                        Drawable drawable03 = getResources().getDrawable(R.mipmap.collect);
+                                        drawable03.setBounds(0, 0, drawable03.getMinimumWidth(), drawable03.getMinimumHeight());
+                                        movie_collect.setCompoundDrawables(null, drawable03, null, null);
                                         break;
                                     default:
                                         break;
@@ -339,10 +357,10 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
-        oks.setTitleUrl("http://www.ziyawang.com");
-        oks.setTitle("资芽");
+        oks.setTitleUrl(Url.ShareVideo + findVideoEntity.getVideoID());
+        oks.setTitle(findVideoEntity.getVideoTitle());
         oks.setImageUrl("http://images.ziyawang.com/Applogo/logo.png");
-        oks.setText(findVideoEntity.getVideoTitle());
+        oks.setText(findVideoEntity.getVideoDes());
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(Url.ShareVideo + findVideoEntity.getVideoID());
         // 启动分享GUI
@@ -362,13 +380,15 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         movie_time = (TextView) findViewById(R.id.movie_time) ;
         movie_des = (TextView) findViewById(R.id.movie_des) ;
         movie_submit = (TextView) findViewById(R.id.movie_submit) ;
-        movie_collect = (ImageView) findViewById(R.id.movie_collect) ;
+        movie_collect = (TextView) findViewById(R.id.movie_collect) ;
         movie_share = (TextView) findViewById(R.id.movie_share) ;
         movie_edit = (EditText) findViewById(R.id.movie_edit) ;
         listView = (ListView)findViewById(R.id.listView) ;
         listView.setDivider(new ColorDrawable(Color.argb(0, 244, 244, 244)));
         listView.setDividerHeight(1);
         zhu = (RelativeLayout)findViewById(R.id.zhu ) ;
+        niu_top = (TextView)findViewById(R.id.niu_top ) ;
+        textView_show_noData = (TextView)findViewById(R.id.textView_show_noData ) ;
     }
     /**
      * 播放器的回调函数

@@ -2,19 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="#ffffff"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
 
     <RelativeLayout
-
         android:id="@+id/details_release_head"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="#fdd000">
-
 
         <RelativeLayout
             android:id="@+id/pre"
@@ -41,7 +38,6 @@
 
     </RelativeLayout>
 
-
     <FrameLayout
         android:background="#ffffff"
         android:id="@+id/video_frame"
@@ -61,11 +57,14 @@
             android:id="@+id/video_player_item_1"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:visibility="gone"></com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer>
+            android:visibility="gone">
+
+        </com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer>
 
     </FrameLayout>
 
     <RelativeLayout
+        android:layout_marginTop="5dp"
         android:background="#ffffff"
         android:id="@+id/niu_one"
         android:layout_width="match_parent"
@@ -73,16 +72,24 @@
         android:layout_below="@id/video_frame">
 
         <TextView
+            android:drawablePadding="5dp"
+            android:singleLine="true"
+            android:textSize="10dp"
+            android:drawableTop="@mipmap/info_share"
+            android:text="分享"
             android:layout_centerVertical="true"
             android:id="@+id/movie_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:background="@mipmap/info_share" />
+            android:layout_marginRight="16dp" />
 
-        <ImageView
-            android:src="@mipmap/collect"
+        <TextView
+            android:drawablePadding="5dp"
+            android:singleLine="true"
+            android:textSize="10dp"
+            android:drawableTop="@mipmap/collect_un"
+            android:text="收藏"
             android:id="@+id/movie_collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,7 +99,6 @@
 
 
         <TextView
-            android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="15dp"
             android:id="@+id/movie_title"
@@ -106,46 +112,52 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:textColor="#6d6d6d"
-        android:textSize="12dp"
-        android:drawableLeft="@mipmap/zhu"
-        android:id="@+id/movie_look"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
+    <RelativeLayout
+        android:id="@+id/niu_time"
         android:layout_below="@id/niu_one"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:textColor="#6d6d6d"
+            android:textSize="12dp"
+            android:drawableLeft="@mipmap/zhu"
+            android:id="@+id/movie_look"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="#6d6d6d"
+            android:textSize="12dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/movie_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@+id/movie_look"
+            android:layout_toEndOf="@+id/movie_look" />
+
+    </RelativeLayout>
 
     <TextView
-        android:gravity="center_vertical"
-        android:textColor="#6d6d6d"
-        android:textSize="12dp"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/movie_time"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_below="@+id/niu_one"
-        android:layout_toRightOf="@+id/movie_look"
-        android:layout_toEndOf="@+id/movie_look" />
-
-    <TextView
         android:textSize="12dp"
         android:textColor="#6d6d6d"
-        android:layout_marginBottom="10dp"
         android:id="@+id/movie_des"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/movie_time"
+        android:layout_below="@id/niu_time"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp" />
 
     <TextView
+        android:textSize="13sp"
         android:textColor="#ef8200"
         android:id="@+id/niu_top"
         android:layout_width="match_parent"
@@ -174,7 +186,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="评论" />
+            android:text="发送" />
 
         <EditText
 
@@ -185,13 +197,12 @@
             android:layout_height="match_parent"
             android:layout_toLeftOf="@id/movie_submit"
             android:background="#ffffff"
-            android:hint="请输入热门评论..." />
+            android:hint="输入评论内容..." />
 
 
     </RelativeLayout>
 
     <ListView
-
         android:background="#f4f4f4"
         android:paddingLeft="14dp"
         android:layout_above="@id/zhu"
@@ -202,6 +213,22 @@
 
 
     </ListView>
+
+    <TextView
+        android:visibility="gone"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:text="暂无热门评论"
+        android:background="#f4f4f4"
+        android:paddingLeft="14dp"
+        android:layout_above="@id/zhu"
+        android:id="@+id/textView_show_noData"
+        android:layout_below="@id/niu_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </TextView>
 
 
 

@@ -21,7 +21,7 @@ public class MoneyTypeActivity extends BaseActivity {
     private RadioGroup group, group2, group3,group4 ,group5,group6,group7 , group8,group9,group10,group11,group12;
     private RadioButton button01 , button02 , button03 ,button001,button04,button05,button06,button07,button08,button09,button10,button11 ,button12,button13,button14,button15;
     private RadioButton button16,button17,button18,button19,button20,button21,button22,button23,button24 ,button25,button26,button27,button28,button29;
-    private RadioButton button30,button31,button32,button33,button34,button35,button36,button37,button38,button39,button40 ,v102button1,v102button2,v102button3,v102button4,v102button5,v102button6,v102button7 ;
+    private RadioButton button30,button31,button32,button33,button34,button35,button36,button37,button38,button39,button40 ,v102button1,v102button2,v102button3,v102button4,v102button5,v102button6,v102button7,v103button1 ;
     private RelativeLayout pre ;
     String type  ;
     private TextView title ;
@@ -105,6 +105,7 @@ public class MoneyTypeActivity extends BaseActivity {
         v102button5 = (RadioButton)findViewById(R.id.v102button5 ) ;
         v102button6 = (RadioButton)findViewById(R.id.v102button6 ) ;
         v102button7 = (RadioButton)findViewById(R.id.v102button7 ) ;
+        v103button1 = (RadioButton)findViewById(R.id.v103button1 ) ;
         pre = (RelativeLayout)findViewById(R.id.pre ) ;
         title = (TextView)findViewById(R.id.title ) ;
 
@@ -409,6 +410,9 @@ public class MoneyTypeActivity extends BaseActivity {
                                 break;
                             case R.id.button32 :
                                 type = "企业商账" ;
+                                break;
+                            case R.id.v103button1 :
+                                type = "其他" ;
                                 break;
 
                             default:

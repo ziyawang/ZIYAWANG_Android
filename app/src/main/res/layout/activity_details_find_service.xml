@@ -98,7 +98,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:textColor="#6d6d6d"
-                            android:textSize="10sp" />
+                            android:textSize="12dp" />
 
                 </LinearLayout>
 
@@ -430,6 +430,8 @@
                     android:layout_weight="1" />
 
                 <com.ziyawang.ziya.view.MyImageView
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
                     android:id="@+id/service_img_two"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"

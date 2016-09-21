@@ -11,7 +11,7 @@
         android:background="#fdd000"
         android:id="@+id/release_head"
         android:textColor="#000"
-        android:text="选择发布类型"
+        android:text="发布"
         android:layout_width="match_parent"
         android:layout_height="44dp" />
 

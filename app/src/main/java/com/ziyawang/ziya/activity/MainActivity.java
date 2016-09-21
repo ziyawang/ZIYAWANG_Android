@@ -174,7 +174,45 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                 switch (networkType) {
                                     case NetUtils.NETTYPE_CMNET:
                                     case NetUtils.NETTYPE_CMWAP:
-                                        ToastUtils.shortToast(MainActivity.this, "为了节约您的流量，请连接wifi后下载");
+                                        CustomDialog.Builder customDialog = new CustomDialog.Builder(MainActivity.this) ;
+                                        customDialog.setTitle("亲爱的用户");
+                                        customDialog.setMessage("当前未连接wifi，是否继续下载");
+                                        customDialog.setPositiveButton("继续下载", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                //下载apk
+                                                final ProgressDialog pd;    //进度条对话框
+                                                pd = new ProgressDialog(MainActivity.this);
+                                                pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                                                pd.setMessage("正在下载更新");
+                                                pd.setCancelable(true);//设置进度条是否可以按退回键取消
+
+                                                //设置点击进度对话框外的区域对话框不消失
+                                                pd.setCanceledOnTouchOutside(false);
+                                                pd.show();
+                                                new Thread() {
+                                                    @Override
+                                                    public void run() {
+                                                        try {
+                                                            File file = DownLoadManager.getFileFromServer(Url.FileIP + UpdateUrl, pd);
+                                                            sleep(3000);
+                                                            installApk(file);
+                                                            pd.dismiss(); //结束掉进度条对话框
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                }.start();
+                                            }
+                                        }) ;
+                                        customDialog.setNegativeButton("等待wifi", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }) ;
+                                        customDialog.create().show();
                                         break;
                                     case NetUtils.NETTYPE_WIFI:
 

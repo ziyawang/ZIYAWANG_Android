@@ -122,9 +122,9 @@ public class FindInfoAdapter extends BaseAdapter {
                 holder.niu_one.setImageResource(R.mipmap.icon24);
                 holder.niu_two.setImageResource(R.mipmap.year32);
 
-                holder.money_transfer_area_left.setText("地区：");
-                holder.money_transfer_from_left.setText("方式：");
-                holder.money_transfer_type_left.setText("类型：");
+                holder.money_transfer_area_left.setText("投资地区：");
+                holder.money_transfer_from_left.setText("投资方式：");
+                holder.money_transfer_type_left.setText("投资类型：");
 
                 holder.money_transfer_from_left.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_right.setVisibility(View.VISIBLE);

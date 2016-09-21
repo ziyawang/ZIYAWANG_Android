@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">资芽</string>
-    <string name="login_editText_userName">请输入您的手机号</string>
-    <string name="login_editText_pwd">请输入您的密码</string>
-    <string name="login_login">登陆</string>
+    <string name="login_editText_userName">请输入手机号</string>
+    <string name="login_editText_pwd">请输入密码</string>
+    <string name="login_login">登录</string>
     <string name="login_register">注册</string>
     <string name="login_find_pwd">找回密码?</string>
-    <string name="register_editText_username">手机号</string>
+    <string name="register_editText_username">请输入手机号</string>
     <string name="register_edit_smsCode">请输入验证码</string>
     <string name="register_button_getsmsCode">获取验证码</string>
-    <string name="register_editText_pwd_one">请输入密码</string>
+    <string name="register_editText_pwd_one">请输入新密码</string>
     <string name="register_editText_pwd_two">请再次输入密码</string>
     <string name="register_checkBox">已经阅读并同意《资芽网注册协议》</string>
     <string name="register_button_register">注册</string>
@@ -17,9 +17,9 @@
     <string name="play_error_message">Impossible to play the video.</string>
     <string name="play_progressive_error_message">Impossible to play the progressive video.</string>
 
-
     <!-- 含个省、自治区、直辖市、特别行政区-->
     <string-array name="province_item">
+        <item>全国</item>
         <item>北京市</item>
         <item>天津市</item>
         <item>河北省</item>
@@ -58,6 +58,9 @@
 
 
     <!-- 个地级市-->
+    <string-array name="all_province_item">
+        <item>不限</item>
+    </string-array>
     <string-array name="beijin_province_item">
         <item>不限</item>
         <item>东城区</item>

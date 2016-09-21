@@ -138,7 +138,6 @@
 
                 </LinearLayout>
 
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -171,7 +170,6 @@
                     android:hint="@string/register_editText_pwd_one"
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
-
 
             </RelativeLayout>
 
@@ -208,6 +206,8 @@
             </RelativeLayout>
 
             <Button
+                android:textSize="15dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginRight="55dp"
                 android:layout_marginLeft="55dp"
                 android:layout_marginTop="14dp"
@@ -216,11 +216,9 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/register_button_register"
                 android:layout_below="@id/register_relative_pwd_two"
-                android:text="确定"
+                android:text="@string/findPwd_button_OK"
                 android:layout_width="match_parent"
                 android:layout_height="38dp" />
-
-
 
         </RelativeLayout>
     </ScrollView>

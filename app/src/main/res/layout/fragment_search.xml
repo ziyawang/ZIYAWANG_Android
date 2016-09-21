@@ -10,7 +10,7 @@
         android:background="#fdd000"
         android:id="@+id/release_head"
         android:textColor="#000"
-        android:text="选择查看类别"
+        android:text="查看"
         android:layout_width="match_parent"
         android:layout_height="44dp" />
 

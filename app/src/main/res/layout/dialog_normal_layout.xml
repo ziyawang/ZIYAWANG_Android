@@ -10,13 +10,14 @@
 
 
     <LinearLayout
+        android:background="#fff"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/bg_niu_bombbox"
         android:orientation="vertical">
 
         <TextView
+            android:background="#fdd000"
             android:id="@+id/title"
             style="@style/text_18_ffffff"
             android:layout_width="fill_parent"
@@ -66,7 +67,7 @@
                 style="@style/text_15_ffffff_sdw"
                 android:layout_width="114.0dip"
                 android:layout_height="40.0dip"
-                android:background="#FFCC33"
+                android:background="#fdd000"
                 android:gravity="center"
                 android:text="OK" />
 

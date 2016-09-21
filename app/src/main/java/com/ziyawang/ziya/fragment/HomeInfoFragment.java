@@ -359,9 +359,6 @@ public class HomeInfoFragment extends Fragment {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
-                if (dialog != null ){
-                    dialog.dismiss();
-                }
 
                 Log.e("benben_home_info", responseInfo.result);
                 try {
@@ -389,6 +386,10 @@ public class HomeInfoFragment extends Fragment {
                     adapter = new FindInfoAdapter(getActivity(), data);
                     home_listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+
+                    if (dialog != null ){
+                        dialog.dismiss();
+                    }
 
                     setListViewHeightBasedOnChildren(home_listView) ;
 

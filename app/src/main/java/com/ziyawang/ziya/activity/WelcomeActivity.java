@@ -85,18 +85,7 @@ public class WelcomeActivity extends BenBenActivity {
 
     @Override
     public void initListeners() {
-        adapter = new WelcomeAdapter(this ,list  );
-        viewPager.setAdapter(adapter);
-        viewPager.setOnPageChangeListener(new OnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {select(position);}
 
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {}
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {}
-        });
     }
 
     @Override
@@ -110,6 +99,23 @@ public class WelcomeActivity extends BenBenActivity {
             icons[i].setEnabled(false);
         }
         icons[0].setEnabled(true);
+
+        adapter = new WelcomeAdapter(this ,list  );
+        viewPager.setAdapter(adapter);
+        viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                select(position);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
     }
 
     @Override

@@ -623,7 +623,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         info_details_four.setText(rate1 + "%");
         info_details_five.setText("方式：");
         info_details_six.setText(assetType);
-        info_details_seven.setText("地区:");
+        info_details_seven.setText("地区：");
         info_details_eight.setText(proArea);
         info_details_nine.setVisibility(View.GONE);
         info_details_ten.setVisibility(View.GONE);
@@ -953,8 +953,8 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
-        oks.setTitle("资芽");
-        oks.setTitleUrl("http://www.ziyawang.com");
+        oks.setTitle(wordDes);
+        oks.setTitleUrl(Url.ShareInfo + id);
         oks.setImageUrl("http://images.ziyawang.com/Applogo/logo.png");
         oks.setText(wordDes);
         // url仅在微信（包括好友和朋友圈）中使用
