@@ -32,6 +32,7 @@ import com.ziyawang.ziya.activity.FeedBackActivity;
 import com.ziyawang.ziya.activity.LoginActivity;
 import com.ziyawang.ziya.activity.MainActivity;
 import com.ziyawang.ziya.activity.MyCollectActivity;
+import com.ziyawang.ziya.activity.MyGoldActivity;
 import com.ziyawang.ziya.activity.MyReleaseActivity;
 import com.ziyawang.ziya.activity.MyRushActivity;
 import com.ziyawang.ziya.activity.MySetActivity;
@@ -90,7 +91,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private String number_niu ;
     //用户缓存的是否登陆状态
     private boolean isLogin ;
+    //提醒余额充值的图标
+    private TextView add_pay ;
+    //芽币剩余
+    private String account ;
     //网络请求获取的数据，电话号，服务方名称，电话号，联系人，服务类型，公司所在地，服务介绍，三张图片介绍，服务地区
+    private String username ;
     private String phoneNumber ;
     private String ServiceName ;
     private String ConnectPhone ;
@@ -371,6 +377,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ServiceArea = service01.getString("ServiceArea");
         JSONObject user101 = jsonObject.getJSONObject("user");
         final String userPicture01 = user101.getString("UserPicture");
+        username = user101.getString("username");
         phoneNumber = user101.getString("phonenumber");
         niu_relative.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.VISIBLE);
@@ -421,6 +428,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ServiceArea = service.getString("ServiceArea");
         JSONObject user1 = jsonObject.getJSONObject("user");
         final String userPicture = user1.getString("UserPicture");
+        username = user1.getString("username");
         phoneNumber = user1.getString("phonenumber");
         niu_relative.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.VISIBLE);
@@ -446,10 +454,16 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private void loadReleaseView(JSONObject jsonObject) throws JSONException {
         JSONObject user = jsonObject.getJSONObject("user");
         phoneNumber = user.getString("phonenumber");
+        username = user.getString("username");
         final String UserPicture = user.getString("UserPicture");
         me_change_icon.setVisibility(View.GONE);
         niu_relative.setVisibility(View.VISIBLE);
-        niu_phone.setText(phoneNumber);
+        if ( username!=null && username.equals("")){
+            niu_phone.setText(phoneNumber);
+        }else {
+            niu_phone.setText(username);
+        }
+
         new LoadImageAsyncTask(new LoadImageAsyncTask.CallBack() {
             @Override
             public void setData(final Bitmap bitmap) {
@@ -478,15 +492,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getCount(JSONObject jsonObject) throws JSONException {
-        //我的发布
-        String myProCount = jsonObject.getString("MyProCount");
-        publish_count.setText(myProCount);
+        //我的发布-->我的牙币余额
+        //String myProCount = jsonObject.getString("MyProCount");
+        JSONObject user = jsonObject.getJSONObject("user");
+        account = user.getString("Account");
+        int i = Integer.parseInt(account);
+        if (i <= 10 ){
+            add_pay.setVisibility(View.VISIBLE);
+        }else {
+            add_pay.setVisibility(View.GONE);
+        }
+        publish_count.setText(account);
         //我的收藏
         String myColCount = jsonObject.getString("MyColCount");
         collection_count.setText(myColCount);
-        //我的合作
-        String myCooCount = jsonObject.getString("MyCooCount");
-        cooperation_count.setText(myCooCount);
+        //我的合作--我的发布
+        //String myCooCount = jsonObject.getString("MyCooCount");
+        String myProCount = jsonObject.getString("MyProCount");
+        cooperation_count.setText(myProCount);
     }
 
     private void loadRongIcon(final String chatId ) {
@@ -495,8 +518,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         httpUtils.send(HttpRequest.HttpMethod.POST, String.format(Url.RongIcon, chatId), params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                dealChatIconResult(  chatId , responseInfo.result);
-                Log.e("benben", responseInfo.result);
+                dealChatIconResult(chatId, responseInfo.result);
+                Log.e("RongIcon", responseInfo.result);
             }
 
             @Override
@@ -519,9 +542,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 case RELEASE:
                 case UNSERVICE:
                     String phonenumber = data.getString("phonenumber");
-                    String substring = phonenumber.substring(0, 3);
-                    String substring1 = phonenumber.substring(7, 11);
-                    chatTitle = substring + "****" + substring1;
+                    String username = data.getString("username");
+                    if (!TextUtils.isEmpty(username) && !"".equals(username) ){
+                        chatTitle = username ;
+                    }else {
+                        String substring = phonenumber.substring(0, 3);
+                        String substring1 = phonenumber.substring(7, 11);
+                        chatTitle = substring + "****" + substring1;
+                    }
+
                     break;
                 case SERVICE:
                     chatTitle = serviceName;
@@ -578,6 +607,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         cooperation_relative = (RelativeLayout)v.findViewById(R.id.cooperation_relative ) ;
         collection_relative = (RelativeLayout)v.findViewById(R.id.collection_relative ) ;
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        add_pay = (TextView) v.findViewById(R.id.add_pay ) ;
     }
 
     @Override
@@ -591,13 +621,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.niu_relative :
                 judgeReleaseIconView() ;
                 break;
-            //我的发布按钮
+            //我的发布按钮-->我的牙币
             case R.id.publish_relative :
-                judgePublishView() ;
+                //judgePublishView() ;
+                judgeMyGoldVIew() ;
                 break;
-            //我的合作按钮
+            //我的合作按钮-->我的发布
             case R.id.cooperation_relative :
-                judgeCooperationView() ;
+                //judgeCooperationView() ;
+                judgePublishView() ;
                 break;
             //我的收藏按钮
             case R.id.collection_relative :
@@ -621,6 +653,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void judgeMyGoldVIew() {
+        if (isLogin){
+            goMyGoldActivity() ;
+        }else {
+            goLoginActivity();
         }
     }
 
@@ -691,6 +731,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private void goPersonalInformationActivity() {
         Intent intent = new Intent(getActivity() , PersonalInformationActivity.class ) ;
         intent.putExtra("phoneNumber" , phoneNumber ) ;
+        intent.putExtra("username" , username ) ;
         startActivity(intent);
     }
 
@@ -758,6 +799,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void goSetActivity() {
         Intent intent = new Intent(getActivity() , MySetActivity.class ) ;
+        startActivity(intent);
+    }
+
+    private void goMyGoldActivity() {
+        Intent intent = new Intent(getActivity() , MyGoldActivity.class ) ;
+        intent.putExtra("account" , account ) ;
         startActivity(intent);
     }
 

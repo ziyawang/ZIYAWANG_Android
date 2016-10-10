@@ -8,15 +8,24 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -60,7 +69,7 @@ public class FindInfoActivity extends BaseActivity {
     private TextView details_type ;
     private String  params_three ;
     private String params_four ;
-    private String vip_type  ;
+    private String vip_type = ""  ;
     private TextView find_vip_type ;
     private TextView niuniuniuniu ;
     private Handler mHandler = new Handler() {
@@ -222,9 +231,20 @@ public class FindInfoActivity extends BaseActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_vip_type, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        final Button a = (Button)view.findViewById(R.id.one_one);
-        final Button b = (Button)view.findViewById(R.id.one_two);
-        final Button c = (Button)view.findViewById(R.id.one_three);
+        final RadioButton a = (RadioButton)view.findViewById(R.id.one_one);
+        final RadioButton b = (RadioButton)view.findViewById(R.id.one_two);
+        final RadioButton c = (RadioButton)view.findViewById(R.id.one_three);
+        final RadioButton d = (RadioButton)view.findViewById(R.id.one_four);
+        if ("0".equals(vip_type)){
+            b.setChecked(true);
+        }else if ("1".equals(vip_type)){
+            c.setChecked(true);
+        }else if ("2".equals(vip_type)){
+            d.setChecked(true);
+        }else if ("".equals(vip_type)){
+            a.setChecked(true);
+        }
+
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,7 +252,7 @@ public class FindInfoActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 vip_type = "" ;
-                find_vip_type.setText("全部");
+                //find_vip_type.setText("全部");
                 findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
@@ -243,7 +263,7 @@ public class FindInfoActivity extends BaseActivity {
                 data.clear();
                 count = 1;
                 vip_type = "0";
-                find_vip_type.setText("普通");
+                //find_vip_type.setText("普通");
                 findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
@@ -252,9 +272,20 @@ public class FindInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 window.dismiss();
                 data.clear();
-                count = 1 ;
-                vip_type = "1" ;
-                find_vip_type.setText("VIP");
+                count = 1;
+                vip_type = "1";
+                //find_vip_type.setText("VIP");
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                vip_type = "2";
+                //find_vip_type.setText("收费");
                 findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
         });
@@ -335,6 +366,137 @@ public class FindInfoActivity extends BaseActivity {
         final Button i = (Button)view.findViewById(R.id.one_nine);
         final Button j = (Button)view.findViewById(R.id.one_ten);
         final Button k = (Button)view.findViewById(R.id.one_eleven);
+
+        final Button v104_01 = (Button)view.findViewById(R.id.v104_01);
+        final Button v104_02 = (Button)view.findViewById(R.id.v104_02);
+        final Button v104_03 = (Button)view.findViewById(R.id.v104_03);
+        final Button v104_04 = (Button)view.findViewById(R.id.v104_04);
+        final Button v104_05 = (Button)view.findViewById(R.id.v104_05);
+        final Button v104_06 = (Button)view.findViewById(R.id.v104_06);
+        final Button v104_07 = (Button)view.findViewById(R.id.v104_07);
+        final Button v104_08 = (Button)view.findViewById(R.id.v104_08);
+        final Button v104_09 = (Button)view.findViewById(R.id.v104_09);
+        final Button v104_10 = (Button)view.findViewById(R.id.v104_10);
+        v104_01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.clear();
+                count = 1;
+                details_type.setText(v104_01.getText().toString());
+                params_three = v104_01.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+                window.dismiss();
+            }
+        });
+        v104_02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_02.getText().toString());
+                params_three = v104_02.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_03.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_03.getText().toString());
+                params_three = v104_03.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_04.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_04.getText().toString());
+                params_three = v104_04.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_05.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_05.getText().toString());
+                params_three = v104_05.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_06.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_06.getText().toString());
+                params_three = v104_06.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_07.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_07.getText().toString());
+                params_three = v104_07.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_08.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_08.getText().toString());
+                params_three = v104_08.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_09.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_09.getText().toString());
+                params_three = v104_09.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        v104_10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(v104_10.getText().toString());
+                params_three = v104_10.getText().toString().replace("年" ,"");
+                params_four = "Year";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -468,6 +630,7 @@ public class FindInfoActivity extends BaseActivity {
         final Button f = (Button)view.findViewById(R.id.one_six);
         final Button g = (Button)view.findViewById(R.id.one_seven);
         final Button h = (Button)view.findViewById(R.id.one_eight);
+        final Button k = (Button)view.findViewById(R.id.one_104);
         final Button i = (Button)view.findViewById(R.id.one_nine);
         final Button j = (Button)view.findViewById(R.id.one_ten);
         a.setOnClickListener(new View.OnClickListener() {
@@ -560,8 +723,20 @@ public class FindInfoActivity extends BaseActivity {
                 window.dismiss();
                 data.clear();
                 count = 1;
-                details_type.setText(e.getText().toString());
-                params_three = e.getText().toString();
+                details_type.setText(h.getText().toString());
+                params_three = h.getText().toString();
+                params_four = "Rate";
+                findinfo(typeName, part_a, params_three, params_four, vip_type);
+            }
+        });
+        k.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                details_type.setText(k.getText().toString());
+                params_three = k.getText().toString();
                 params_four = "Rate";
                 findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
@@ -572,8 +747,8 @@ public class FindInfoActivity extends BaseActivity {
                 window.dismiss();
                 data.clear();
                 count = 1;
-                details_type.setText(f.getText().toString());
-                params_three = f.getText().toString();
+                details_type.setText(i.getText().toString());
+                params_three = i.getText().toString();
                 params_four = "Status";
                 findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
@@ -584,8 +759,8 @@ public class FindInfoActivity extends BaseActivity {
                 window.dismiss();
                 data.clear();
                 count = 1;
-                details_type.setText(g.getText().toString());
-                params_three = g.getText().toString();
+                details_type.setText(j.getText().toString());
+                params_three = j.getText().toString();
                 params_four = "Status";
                 findinfo(typeName, part_a, params_three, params_four, vip_type);
             }
@@ -1558,6 +1733,22 @@ public class FindInfoActivity extends BaseActivity {
         details_type = (TextView)findViewById(R.id.details_type ) ;
         find_vip_type = (TextView)findViewById(R.id.find_vip_type ) ;
         niuniuniuniu = (TextView)findViewById(R.id.niuniuniuniu ) ;
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton)findViewById(R.id.fab) ;
+        assert floatingActionButton != null;
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goSearchActivity();
+            }
+        });
+    }
+
+    private void goSearchActivity() {
+        Intent intent = new Intent( this, SearchActivity.class);
+        intent.putExtra("type", "信息");
+        intent.putExtra("title", "搜索信息");
+        startActivity(intent);
     }
 
     private void typeGet() {
@@ -1860,6 +2051,22 @@ public class FindInfoActivity extends BaseActivity {
         Button ee = (Button)view.findViewById(R.id.ee);
         Button ff = (Button)view.findViewById(R.id.ff);
 
+//        AutoCompleteTextView act=(AutoCompleteTextView) findViewById(R.id.AutoCompleteTextView01);
+//        List<String> countries = new ArrayList<String>();
+//        countries.add("Afghanistan");
+//        countries.add("Albania");
+//        countries.add("Algeria");
+//        countries.add("American");
+//        countries.add("Andorra");
+//        countries.add("Anguilla");
+//        countries.add("Angola");
+//        countries.add("Antarctica");
+//        countries.add("China");
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+//
+//        assert act != null;
+//        act.setAdapter(adapter);
 
         a.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2257,5 +2464,4 @@ public class FindInfoActivity extends BaseActivity {
         lp.alpha = bgAlpha;
         getWindow().setAttributes(lp);
     }
-
 }

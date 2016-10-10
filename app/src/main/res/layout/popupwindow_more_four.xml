@@ -10,7 +10,7 @@
         android:layout_height="44dp"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
-        android:text="资产包类型" />
+        android:text="买方性质" />
     <LinearLayout
         android:background="#f4f4f4"
         android:layout_width="match_parent"

@@ -25,6 +25,7 @@ public class FromWhereActivity extends BaseActivity {
     private RadioButton button01 , button02 ,button03,button04,button05 ,button06,button07,button08,button09,button10,button11,button13,button14,button15,button16,button17,button18,button12;
     private RadioButton button19,button20,button21,button22,button23,button24,button25,button26 ;
     private RadioButton v102button1,v102button2,v102button3,v102button4,v102button5,v102button6,v102button7,v102button8,v102button9,v102button10 ;
+    private RadioButton v104button1 ;
     String fromWhere  ;
     private TextView title ;
 
@@ -216,6 +217,9 @@ public class FromWhereActivity extends BaseActivity {
                                 break;
                             case R.id.button16:
                                 fromWhere = "50%以上";
+                                break;
+                            case R.id.v104button1:
+                                fromWhere = "面议";
                                 break;
 
                             default:
@@ -450,6 +454,7 @@ public class FromWhereActivity extends BaseActivity {
         v102button8 = (RadioButton)findViewById(R.id.v102button8 ) ;
         v102button9 = (RadioButton)findViewById(R.id.v102button9 ) ;
         v102button10 = (RadioButton)findViewById(R.id.v102button10 ) ;
+        v104button1 = (RadioButton)findViewById(R.id.v104button1 ) ;
 
     }
 

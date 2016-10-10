@@ -8,12 +8,14 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
@@ -71,6 +73,10 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
     private static String login;
     //联系电话显示组件
     private TextView phoneNumber_textView ;
+    //修改昵称的显示组件
+    private TextView userName ;
+    //昵称的点击组件
+    private RelativeLayout userName_relative ;
 
     public void onResume() {
         super.onResume();
@@ -116,6 +122,8 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
         basic_change_icon = (RelativeLayout) findViewById(R.id.basic_change_icon);
         my_icon = (MyIconImageView) findViewById(R.id.my_icon);
         phoneNumber_textView = (TextView)findViewById(R.id.phoneNumber ) ;
+        userName = (TextView)findViewById(R.id.userName ) ;
+        userName_relative = (RelativeLayout)findViewById(R.id.userName_relative ) ;
     }
 
     @Override
@@ -123,6 +131,7 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
         basic_change_icon.setOnClickListener(this);
         pre.setOnClickListener(this);
         basic_changePwd.setOnClickListener(this);
+        userName_relative.setOnClickListener(this);
     }
 
     @Override
@@ -131,7 +140,15 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
         //拿到传过来的intent
         Intent intent = getIntent() ;
         String phoneNumber = intent.getStringExtra("phoneNumber");
+        String username = intent.getStringExtra("username");
+        if ( TextUtils.isEmpty(username) && username.equals("")){
+            userName.setText("您还未设置您的昵称");
+            userName.setTextColor(Color.rgb(253,208,0));
+        }else {
+            userName.setText(username);
+        }
         phoneNumber_textView.setText(phoneNumber);
+
     }
 
     private void iconGet() {
@@ -316,6 +333,7 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
                                     ToastUtils.shortToast(PersonalInformationActivity.this, "网络连接异常");
                                 }
                             }
+
                             @Override
                             public void onFailure(HttpException error, String msg) {
                                 error.printStackTrace();
@@ -325,6 +343,16 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
                     }
                 } else {
                     Toast.makeText(PersonalInformationActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 12:
+                if (resultCode == Activity.RESULT_OK && null != data ) {
+
+                    String username = data.getStringExtra("username");
+                    userName.setText(username);
+                    userName.setTextColor(Color.rgb(0, 0, 0));
+                } else {
+                    Toast.makeText(PersonalInformationActivity.this, "请重新修改昵称", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -347,9 +375,19 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
             case R.id.basic_changePwd :
                 goChangePwdActivity() ;
                 break;
+            //更改昵称
+            case R.id.userName_relative :
+                goChangeNickNameActivity() ;
+                break;
             default:
                 break;
         }
+    }
+
+    private void goChangeNickNameActivity() {
+        Intent intent = new Intent(PersonalInformationActivity.this ,ChangeNickNameActivity.class  ) ;
+        intent.putExtra("username" , userName.getText().toString() ) ;
+        startActivityForResult(intent, 12);
     }
 
     private void goChangePwdActivity() {

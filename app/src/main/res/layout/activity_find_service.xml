@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="44dp">
 
-
         <RelativeLayout
             android:id="@+id/pre"
             android:layout_width="50dp"
@@ -37,6 +36,21 @@
             android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:id="@+id/search_service"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon09" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

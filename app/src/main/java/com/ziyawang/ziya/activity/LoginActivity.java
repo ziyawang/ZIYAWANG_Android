@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,6 +27,7 @@ import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyProgressDialog;
+import com.ziyawang.ziya.view.XEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +35,8 @@ import org.json.JSONObject;
 public class LoginActivity extends BenBenActivity implements View.OnClickListener {
 
     //用户名输入框
-    private EditText userName  ;
+    //private EditText userName  ;
+    private XEditText userName  ;
     //密码输入框
     private EditText pwd ;
     //注册按钮
@@ -44,6 +48,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
     private SharedPreferences isLogin ;
     private SharedPreferences myNumber ;
     private SharedPreferences role ;
+    private SharedPreferences userId ;
     //数据加载
     private MyProgressDialog dialog  ;
     //找回密码按钮
@@ -63,7 +68,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
 
     @Override
     public void initViews() {
-        userName = (EditText)findViewById(R.id.userName) ;
+        userName = (XEditText)findViewById(R.id.userName) ;
         userName.setInputType(EditorInfo.TYPE_CLASS_PHONE);
         pwd = (EditText)findViewById(R.id.pwd) ;
         register = (Button)findViewById(R.id.register) ;
@@ -82,48 +87,9 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
 
     @Override
     public void initData() {
-        //为账号的格式添加监听事件
-        userName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s == null || s.length() == 0) return;
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < s.length(); i++) {
-                    if (i != 3 && i != 8 && s.charAt(i) == ' ') {
-                        continue;
-                    } else {
-                        sb.append(s.charAt(i));
-                        if ((sb.length() == 4 || sb.length() == 9) && sb.charAt(sb.length() - 1) != ' ') {
-                            sb.insert(sb.length() - 1, ' ');
-                        }
-                    }
-                }
-                if (!sb.toString().equals(s.toString())) {
-                    int index = start + 1;
-                    if (sb.charAt(start) == ' ') {
-                        if (before == 0) {
-                            index++;
-                        } else {
-                            index--;
-                        }
-                    } else {
-                        if (before == 1) {
-                            index--;
-                        }
-                    }
-                    userName.setText(sb.toString());
-                    userName.setSelection(index);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        userName.setSeparator(" ");
+        userName.setPattern(new int[]{3, 4, 4});
     }
 
     private void goFindPwdActivity() {
@@ -166,7 +132,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
                 //打印失败毁掉的log
                 error.printStackTrace();
                 //提示用户
-                ToastUtils.shortToast(LoginActivity.this , "网络加载异常");
+                ToastUtils.shortToast(LoginActivity.this , "网络连接异常");
             }
         });
     }
@@ -181,12 +147,13 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
                     initSp(jsonObject) ;
                     //登陆成功，跳转到主页面,并关闭此页面
                     goLoginActivity() ;
+                    ToastUtils.shortToast(LoginActivity.this , "登录成功");
                     break;
                 case "404":
                     ToastUtils.shortToast(LoginActivity.this, "用户名或密码错误");
                     break;
                 case "406":
-                    ToastUtils.shortToast(LoginActivity.this , "用户不存在");
+                    ToastUtils.shortToast(LoginActivity.this , "账号不存在");
                     break;
                 case "502":
                     ToastUtils.shortToast(LoginActivity.this , "服务器异常，请稍后重试。");
@@ -214,11 +181,13 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
         isLogin = getSharedPreferences("isLogin" , MODE_PRIVATE ) ;
         myNumber = getSharedPreferences("myNumber" , MODE_PRIVATE ) ;
         role = getSharedPreferences("role" , MODE_PRIVATE ) ;
+        userId = getSharedPreferences("userId" , MODE_PRIVATE ) ;
 
         loginCode.edit().putString("loginCode", ticket).commit();
         isLogin.edit().putBoolean("isLogin", true).commit();
-        myNumber.edit().putString("myNumber", userName.getText().toString().replace(" " , "").trim()).commit();
+        myNumber.edit().putString("myNumber", userName.getText().toString().replace(" ", "").trim()).commit();
         role.edit().putString("role", role_a).commit();
+        userId.edit().putString("userId", userID).commit();
     }
 
     private void hiddenDialog() {
@@ -236,7 +205,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
 
     private boolean judgePwd(String edit_phoneNumber) {
         if (TextUtils.isEmpty(edit_phoneNumber)){
-            ToastUtils.longToast(LoginActivity.this, "请输入您的用户名");
+            ToastUtils.longToast(LoginActivity.this, "请输入手机号");
             return false ;
         }
         if (!edit_phoneNumber.matches("^(0|86|17951)?(13[0-9]|15[012356789]|17[3678]|18[0-9]|14[57])[0-9]{8}$")){
@@ -244,15 +213,15 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
             return false ;
         }
         if (TextUtils.isEmpty(pwd.getText().toString())){
-            ToastUtils.longToast(LoginActivity.this , "请输入您的密码");
+            ToastUtils.longToast(LoginActivity.this , "请输入密码");
             return false ;
         }
         if (pwd.getText().toString().length() < 6){
-            ToastUtils.longToast(LoginActivity.this, "您输入的密码过短");
+            ToastUtils.longToast(LoginActivity.this, "请至少输入6位密码");
             return false ;
         }
         if (pwd.getText().toString().length() > 16){
-            ToastUtils.longToast(LoginActivity.this, "您输入的密码过长");
+            ToastUtils.longToast(LoginActivity.this, "至多输入16位密码");
             return false ;
         }
         return true ;

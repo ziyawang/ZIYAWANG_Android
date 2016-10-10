@@ -154,6 +154,7 @@ public class MyReleaseAdapter extends BaseAdapter {
         holder.wordDes.setText(list.get(position).getWordDes());
         switch (list.get(position).getTypeName()){
             case "投资需求" :
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.niu_three.setText("%");
                 holder.niu_four.setText("年");
                 holder.money_transfer_no.setText(list.get(position).getProjectNumber());
@@ -185,6 +186,7 @@ public class MyReleaseAdapter extends BaseAdapter {
                 break;
             case "资产包转让" :
 
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_left.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_right.setVisibility(View.VISIBLE);
                 holder.money_transfer_area_left.setText("地区：");
@@ -213,6 +215,7 @@ public class MyReleaseAdapter extends BaseAdapter {
 
                 break;
             case "委外催收" :
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_left.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_right.setVisibility(View.VISIBLE);
                 holder.niu_three.setText("万");
@@ -243,6 +246,7 @@ public class MyReleaseAdapter extends BaseAdapter {
                 //holder.money_transfer_money_02_down.setCompoundDrawables(drawable01, null, null, null);
                 break;
             case "法律服务" :
+                holder.niu.setVisibility(View.GONE);
                 holder.niu_three.setText("万");
                 holder.money_transfer_no.setText(list.get(position).getProjectNumber());
                 holder.money_transfer_title.setText(list.get(position).getTypeName());
@@ -485,6 +489,10 @@ public class MyReleaseAdapter extends BaseAdapter {
         String member = list.get(position).getMember();
         if ( member.equals("1")){
             holder.info_vip.setVisibility(View.VISIBLE);
+            holder.info_vip.setImageResource(R.mipmap.icon1010);
+        }else if (member.equals("2")){
+            holder.info_vip.setVisibility(View.VISIBLE);
+            holder.info_vip.setImageResource(R.mipmap.icon1011);
         }else {
             holder.info_vip.setVisibility(View.INVISIBLE);
         }

@@ -77,7 +77,7 @@ public class SystemAdapter extends BaseAdapter {
 
         //未读消息
         if ("0".equals(list.get(position).getStatus())){
-            convertView.setBackgroundColor(Color.rgb(220, 220, 220));
+            convertView.setBackgroundColor(Color.rgb(255,253,242));
             TextPaint tp = holder.time.getPaint();
             tp.setFakeBoldText(true);
             TextPaint tp1 = holder.title.getPaint() ;

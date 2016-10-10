@@ -50,6 +50,15 @@
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp" />
 
+        <TextView
+            android:visibility="gone"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/info_account"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
     <!--滚动详情页面-->
@@ -65,7 +74,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <!--基本信息页面-->
             <RelativeLayout
@@ -92,7 +100,6 @@
                     android:layout_toRightOf="@id/info_icon"
                     android:orientation="vertical">
 
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -112,7 +119,6 @@
                             android:layout_marginTop="15dp"
                             android:textColor="#6d6d6d"
                             android:textSize="13dp" />
-
 
                     </LinearLayout>
 
@@ -162,7 +168,6 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_centerVertical="true"
                     android:background="#ffffff"
@@ -198,7 +203,6 @@
                         android:singleLine="true"
                         android:text="分享"
                         android:textSize="10dp" />
-
 
                 </LinearLayout>
 
@@ -279,7 +283,6 @@
                         android:textColor="#ef8200"
                         android:textSize="15dp" />
 
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -296,7 +299,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp">
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -405,6 +407,62 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/info_des_text" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/member_linear"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--备注信息描述页面-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp">
+                </RelativeLayout>
+
+                <TextView
+                    android:textSize="15dp"
+                    android:textColor="#000"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:background="#ffffff"
+                    android:id="@+id/company_des_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:text="备注信息" />
+
+                <LinearLayout
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+
+                    <LinearLayout
+                        android:background="#9b9b9b"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/company_text_des"
+                    android:textSize="14dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="#ffffff"
+                    android:textColor="#6d6d6d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+
+            </LinearLayout>
 
             <!--语音描述页面-->
 
@@ -584,12 +642,12 @@
             android:gravity="center"
             android:textSize="15dp"
             android:textColor="#fff"
-            android:text="查看抢单人"
+            android:text="查看约谈人"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 
     </LinearLayout>
-    <!--联系方式、抢单、私聊-->
+    <!--约谈、抢单、私聊-->
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/linearLayout"
@@ -610,12 +668,12 @@
 
             <TextView
                 android:drawablePadding="10dp"
-                android:drawableLeft="@mipmap/info_call"
+                android:drawableLeft="@mipmap/yuetan"
                 android:textColor="#000"
                 android:layout_marginLeft="10dp"
                 android:background="#ffffff"
                 android:textSize="17dp"
-                android:text="联系方式"
+                android:text="约谈"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -633,8 +691,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-
             <TextView
+                android:visibility="gone"
                 android:drawablePadding="10dp"
                 android:drawableLeft="@mipmap/icon34"
                 android:textColor="#000"
@@ -673,7 +731,7 @@
 
         </RelativeLayout>
     </LinearLayout>
-    <!--发布方进入后不是投资和融资需求显示显示组件联系方式、抢单、私聊-->
+    <!--发布方进入后不是投资和融资需求显示显示组件约谈、抢单、私聊-->
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/show_info_register"
@@ -691,7 +749,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:src="@mipmap/info_call"
+                android:src="@mipmap/yuetan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -703,7 +761,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="#ffffff"
                 android:textSize="17dp"
-                android:text="联系方式"
+                android:text="约谈"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -713,6 +771,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:gravity="center"
             android:background="#ea6155"
             android:layout_weight="1"

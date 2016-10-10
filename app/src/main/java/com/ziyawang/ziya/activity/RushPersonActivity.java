@@ -82,7 +82,6 @@ public class RushPersonActivity extends BaseActivity {
 
         myPerson_listView = (ListView)findViewById(R.id.myPerson_listView ) ;
         pre = (RelativeLayout)findViewById(R.id.pre ) ;
-
         niuniuniuniu = (TextView)findViewById(R.id.niuniuniuniu ) ;
     }
 
@@ -91,7 +90,7 @@ public class RushPersonActivity extends BaseActivity {
         String urls = String.format(Url.RushList, id, login);
         HttpUtils utils = new HttpUtils()  ;
         RequestParams params = new RequestParams() ;
-        params.addBodyParameter("pagecount" ,"1000" );
+        params.addQueryStringParameter("pagecount" , "100000");
         utils.configCurrentHttpCacheExpiry(1000) ;
         utils.send(HttpRequest.HttpMethod.GET, urls, params, new RequestCallBack<String>() {
             @Override

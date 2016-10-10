@@ -56,11 +56,21 @@ public class DetailsSystemInfoActivity extends BenBenActivity implements View.On
             String textId = intent.getStringExtra("textId");
             String text = intent.getStringExtra("text");
             String status = intent.getStringExtra("status");
-            details_title.setText(text);
+            if (text.contains("或者直接点击")){
+                //ToastUtils.shortToast(this, "benben");
+                int a = text.indexOf("或者直接点击");
+                //ToastUtils.shortToast(this, "benben" + a );
+                String substring = text.substring(0, a);
+                //ToastUtils.shortToast(this, substring );
+                details_title.setText(substring);
+            }else {
+                details_title.setText(text);
+            }
+
             details_time.setText(time);
             //未读消息
             if (status.equals("0")){
-                changeStatus(textId  ) ;
+                changeStatus(textId) ;
             }
         }
     }

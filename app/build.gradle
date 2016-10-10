@@ -33,4 +33,7 @@ dependencies {
     compile project(':videoplayer')
     compile project(':RongYun')
     compile 'com.alibaba:fastjson:1.2.14'
+    compile 'com.android.support:design:23.4.0'
+    compile project(':lib:pingpp')
+    compile project(':lib:bdwallet_pay_sdk')
 }

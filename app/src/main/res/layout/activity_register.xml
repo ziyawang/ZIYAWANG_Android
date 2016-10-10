@@ -74,7 +74,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
-                <EditText
+                <com.ziyawang.ziya.view.XEditText
+                    android:paddingRight="5dp"
                     android:textColorHint="#ccc"
                     android:paddingLeft="15dp"
                     android:textColor="#ccc"
@@ -115,6 +116,7 @@
                     android:layout_height="50dp">
 
                     <EditText
+                        android:inputType="phone"
                         android:textColorHint="#ccc"
                         android:paddingLeft="15dp"
                         android:textColor="#ccc"
@@ -160,8 +162,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
-                <EditText
-
+                <com.ziyawang.ziya.view.XEditText
+                    android:maxLength="16"
+                    android:paddingRight="5dp"
                     android:textColorHint="#ccc"
                     android:paddingLeft="15dp"
                     android:textColor="#ccc"
@@ -170,7 +173,7 @@
                     android:inputType="textPassword"
                     android:layout_toRightOf="@id/register_imageView_pwd_one"
                     android:id="@+id/register_editText_pwd_one"
-                    android:hint="@string/register_editText_pwd_one"
+                    android:hint="@string/register_editText_pwd_one_new"
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
 
@@ -194,7 +197,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
-                <EditText
+                <com.ziyawang.ziya.view.XEditText
+                    android:maxLength="16"
+                    android:paddingRight="5dp"
                     android:textColorHint="#ccc"
                     android:paddingLeft="15dp"
                     android:textColor="#ccc"
@@ -223,17 +228,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="38dp" />
 
-            <CheckBox
-                android:paddingLeft="6dp"
-                style="@style/CustomCheckboxTheme"
-                android:textColor="#ccc"
-                android:id="@+id/register_checkBox"
+            <LinearLayout
                 android:gravity="center"
-                android:text="@string/register_checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
                 android:layout_below="@+id/register_button_register"
-                android:layout_centerHorizontal="true" />
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:checked="true"
+                    android:paddingLeft="6dp"
+                    style="@style/CustomCheckboxTheme"
+                    android:textColor="#ccc"
+                    android:id="@+id/register_checkBox"
+                    android:gravity="center"
+                    android:text="@string/register_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/register_rule"
+                    android:gravity="center"
+                    android:textColor="#fdd000"
+                    android:text="《资芽网注册协议》"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
 
 
         </RelativeLayout>

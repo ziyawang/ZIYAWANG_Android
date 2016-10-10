@@ -28,13 +28,11 @@
                 android:src="@mipmap/pre" />
         </RelativeLayout>
         <TextView
-
             android:id="@+id/info_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="资芽公约"
             android:textColor="#000"
             android:textSize="18dp" />
 

@@ -132,6 +132,7 @@ public class MySetActivity extends BaseActivity implements PlatformActionListene
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MySetActivity.this , MyRuleActivity.class ) ;
+                intent.putExtra("type" , "rule" ) ;
                 startActivity(intent);
             }
         });

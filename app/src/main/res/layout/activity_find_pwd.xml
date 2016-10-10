@@ -72,7 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
-                <EditText
+                <com.ziyawang.ziya.view.XEditText
+                    android:paddingRight="5dp"
                     android:textColorHint="#ccc"
                     android:paddingLeft="15dp"
                     android:textColor="#ccc"
@@ -113,6 +114,7 @@
                     android:layout_height="50dp">
 
                     <EditText
+                        android:inputType="phone"
                         android:textColorHint="#ccc"
                         android:paddingLeft="15dp"
                         android:textColor="#ccc"
@@ -157,8 +159,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
-                <EditText
-
+                <com.ziyawang.ziya.view.XEditText
+                    android:maxLength="16"
+                    android:paddingRight="5dp"
                     android:textColorHint="#ccc"
                     android:paddingLeft="15dp"
                     android:textColor="#ccc"
@@ -190,7 +193,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
-                <EditText
+                <com.ziyawang.ziya.view.XEditText
+                    android:maxLength="16"
+                    android:paddingRight="5dp"
                     android:textColorHint="#ccc"
                     android:paddingLeft="15dp"
                     android:textColor="#ccc"

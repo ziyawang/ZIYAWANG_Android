@@ -88,7 +88,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
+            <com.ziyawang.ziya.view.XEditText
+                android:paddingRight="5dp"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:paddingLeft="10dp"
@@ -129,5 +130,15 @@
 
 
     </com.ziyawang.ziya.view.MyScrollView>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/niuniuniuniu"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:paddingTop="150dp"
+        android:text="没有更多数据"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

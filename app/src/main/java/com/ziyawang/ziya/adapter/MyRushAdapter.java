@@ -180,8 +180,12 @@ public class MyRushAdapter extends BaseAdapter {
             }
         });
 
-        if ("1".equals(list.get(position).getMember())){
+        if ( list.get(position).getMember().equals("1")){
             holder.info_vip.setVisibility(View.VISIBLE);
+            holder.info_vip.setImageResource(R.mipmap.icon1010);
+        }else if (list.get(position).getMember().equals("2")){
+            holder.info_vip.setVisibility(View.VISIBLE);
+            holder.info_vip.setImageResource(R.mipmap.icon1011);
         }else {
             holder.info_vip.setVisibility(View.GONE);
         }
@@ -194,6 +198,7 @@ public class MyRushAdapter extends BaseAdapter {
         holder.wordDes.setText(list.get(position).getWordDes());
         switch (list.get(position).getTypeName()){
             case "投资需求" :
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.niu_three.setText("%");
                 holder.niu_four.setText("年");
                 holder.money_transfer_no.setText(list.get(position).getProjectNumber());
@@ -224,7 +229,7 @@ public class MyRushAdapter extends BaseAdapter {
 
                 break;
             case "资产包转让" :
-
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_left.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_right.setVisibility(View.VISIBLE);
                 holder.money_transfer_area_left.setText("地区：");
@@ -253,6 +258,7 @@ public class MyRushAdapter extends BaseAdapter {
 
                 break;
             case "委外催收" :
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_left.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_right.setVisibility(View.VISIBLE);
                 holder.niu_three.setText("万");

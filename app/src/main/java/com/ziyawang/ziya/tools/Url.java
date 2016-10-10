@@ -8,29 +8,35 @@ import java.io.File;
 public class Url {
     
     //测试服数据接口
-//    private static final String IP = "http://apitest.ziyawang.com" ;
-//    public static final String FileIP =  "http://imagestest.ziyawang.com";
-//    public static final String FileIPAudio =  "http://filestest.ziyawang.com";
-//    public static final String FileIPVideos =  "http://videos.ziyawang.com";
-    //正式服数据接口
-    public static final String FileIP =  "http://images.ziyawang.com";
-    public static final String FileIPAudio =  "http://files.ziyawang.com";
+    private static final String IP = "http://apitest.ziyawang.com" ;
+    public static final String FileIP =  "http://imagestest.ziyawang.com";
+    public static final String FileIPAudio =  "http://filestest.ziyawang.com";
     public static final String FileIPVideos =  "http://videos.ziyawang.com";
-    private static final String IP = "http://api.ziyawang.com" ;
+    //正式服数据接口
+//    public static final String FileIP =  "http://images.ziyawang.com";
+//    public static final String FileIPAudio =  "http://files.ziyawang.com";
+//    public static final String FileIPVideos =  "http://videos.ziyawang.com";
+//    private static final String IP = "http://api.ziyawang.com" ;
     /**
      * benben
      */
     public static final String Rule = "http://files.ziyawang.com/law.html" ;
+    public static final String Gold = "http://files.ziyawang.com/rechargeproto.html" ;
     public static final String ShareVideo = "http://ziyawang.com/video/" ;
     public static final String ShareInfo = "http://ziyawang.com/project/" ;
     public static final String ShareService = "http://ziyawang.com/service/" ;
-    
+
+    public static final String PayCharge = IP + "/v1/pay?access_token=token&token=%s" ;
+    public static final String ChangeNickName = IP + "/v1/auth/chusername?access_token=token&token=%s" ;
+    public static final String GoldDetails = IP + "/v1/mybill?access_token=token&token=%s" ;
+    public static final String RechargeType = IP + "/v1/pay/list?access_token=token" ;
+    public static final String Pay = IP + "/v1/app/consume?access_token=token&token=%s" ;
     public static final String Login = IP + "/v1/auth/login";
     public static final String GetSMS = IP + "/v1/auth/getsmscode";
     public static final String Register = IP + "/v1/auth/register";
     public static final String FindPwd = IP + "/v1/auth/resetpwd";
     public static final String ChangeIcon = IP + "/v1/upload?access_token=token&token=%s" ;
-    public static final String GetInfo = IP + "/v1/project/list?access_token=token";
+    public static final String GetInfo = IP + "/v1/project/lists?access_token=token";
     public static final String Details_info = IP + "/v1/project/list/%s?token=%s";
     public static final String GetService = IP + "/v1/service/list?access_token=token";
     public static final String Details_service = IP + "/v1/service/list/%s?token=%s";

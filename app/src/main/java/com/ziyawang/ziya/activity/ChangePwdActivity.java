@@ -21,6 +21,7 @@ import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.view.MyProgressDialog;
+import com.ziyawang.ziya.view.XEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +36,7 @@ public class ChangePwdActivity extends BenBenActivity implements View.OnClickLis
     //返回按钮
     private RelativeLayout pre;
     //编写密码的文本框
-    private EditText changePwd_editText;
+    private XEditText changePwd_editText;
     //用户登录的ticket值
     private String login;
     //数据加载的dialog
@@ -59,7 +60,7 @@ public class ChangePwdActivity extends BenBenActivity implements View.OnClickLis
     public void initViews() {
         changePwd_ok = (TextView) findViewById(R.id.changePwd_ok);
         pre = (RelativeLayout) findViewById(R.id.pre);
-        changePwd_editText = (EditText) findViewById(R.id.changePwd_editText);
+        changePwd_editText = (XEditText) findViewById(R.id.changePwd_editText);
     }
 
     @Override

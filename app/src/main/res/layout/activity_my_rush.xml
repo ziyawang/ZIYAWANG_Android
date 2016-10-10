@@ -29,7 +29,7 @@
         </RelativeLayout>
 
         <TextView
-            android:text="我的抢单"
+            android:text="我的约谈"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="#000"

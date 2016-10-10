@@ -125,7 +125,7 @@ public class FindInfoAdapter extends BaseAdapter {
                 holder.money_transfer_area_left.setText("投资地区：");
                 holder.money_transfer_from_left.setText("投资方式：");
                 holder.money_transfer_type_left.setText("投资类型：");
-
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_left.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_right.setVisibility(View.VISIBLE);
 
@@ -146,6 +146,7 @@ public class FindInfoAdapter extends BaseAdapter {
                 holder.money_transfer_area_left.setText("地区：");
                 holder.money_transfer_from_left.setText("来源：");
                 holder.money_transfer_type_left.setText("类型：");
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.niu_four.setText("万");
                 holder.niu_three.setText("万");
                 holder.money_transfer_no.setText( list.get(position).getProjectNumber());
@@ -169,6 +170,7 @@ public class FindInfoAdapter extends BaseAdapter {
 
                 break;
             case "委外催收" :
+                holder.niu.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_left.setVisibility(View.VISIBLE);
                 holder.money_transfer_from_right.setVisibility(View.VISIBLE);
                 holder.niu_three.setText("万");
@@ -442,6 +444,10 @@ public class FindInfoAdapter extends BaseAdapter {
         String member = list.get(position).getMember();
         if ( member.equals("1")){
             holder.info_vip.setVisibility(View.VISIBLE);
+            holder.info_vip.setImageResource(R.mipmap.icon1010);
+        }else if (member.equals("2")){
+            holder.info_vip.setVisibility(View.VISIBLE);
+            holder.info_vip.setImageResource(R.mipmap.icon1011);
         }else {
             holder.info_vip.setVisibility(View.GONE);
         }

@@ -51,6 +51,8 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     private static String ConnectPhone;
     //缓存到本地的用户的ticket
     private static String login;
+    //缓存到本地的用户的userID
+    private static String spUserId ;
     //缓存到本地的用户的否登陆
     private static boolean isLogin;
     //缓存到本地的用户的级别
@@ -198,6 +200,8 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         root = GetBenSharedPreferences.getRole(this);
         //获得用户的isLogin
         isLogin = GetBenSharedPreferences.getIsLogin(this);
+        //获取用户的spUserId
+        spUserId = GetBenSharedPreferences.getUserId(this ) ;
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
     }
@@ -295,6 +299,9 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             //是自己发布显示抢单人页面,否则不显示
             if (judgeMyself()){
                 showMyselfView() ;
+            }else {
+                linearLayout.setVisibility(View.VISIBLE);
+                search_person.setVisibility(View.GONE);
             }
         }
     }
@@ -313,7 +320,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     }
 
     private boolean judgeMyself() {
-        if (spphoneNumber.equals(ConnectPhone)){
+        if (spUserId.equals(UserID)){
             return true ;
         }else {
             return false ;
@@ -324,7 +331,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         if (!isLogin){
             return false ;
         }
-        if (TextUtils.isEmpty(spphoneNumber)){
+        if (TextUtils.isEmpty(spUserId)){
             return false ;
         }else {
             return true;
@@ -540,7 +547,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             @Override
             public void onFailure(HttpException error, String msg) {
                 error.printStackTrace();
-                ToastUtils.shortToast(DetailsFindServiceActivity.this, "收藏失败");
+                ToastUtils.shortToast(DetailsFindServiceActivity.this, "网络连接异常");
             }
         });
     }
@@ -551,11 +558,11 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             String msg = object.getString("msg");
             switch (msg) {
                 case "取消收藏成功！":
-                    Toast.makeText(DetailsFindServiceActivity.this, "取消收藏成功！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsFindServiceActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
                     unCollect();
                     break;
                 case "收藏成功！":
-                    Toast.makeText(DetailsFindServiceActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsFindServiceActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                     collect();
                     break;
                 default:

@@ -38,6 +38,16 @@ public class GetBenSharedPreferences {
         return root ;
     }
     /**
+     * 得到用户的userId
+     * @param context 静态上下文
+     * @return userId
+     */
+    public static String getUserId(Context context){
+        final SharedPreferences userId = context.getSharedPreferences("userId", context.MODE_PRIVATE);
+        String userID = userId.getString("userId", null);
+        return userID ;
+    }
+    /**
      * 得到用户的ticket
      * @param context 静态上下文
      * @return login

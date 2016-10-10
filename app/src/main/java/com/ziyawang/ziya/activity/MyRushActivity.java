@@ -152,6 +152,7 @@ public class MyRushActivity extends BaseActivity {
 
         HttpUtils httpUtils = new HttpUtils() ;
         RequestParams params = new RequestParams() ;
+        params.addQueryStringParameter("startpage" , "" + count );
         httpUtils.configCurrentHttpCacheExpiry(1000) ;
         httpUtils.send(HttpRequest.HttpMethod.GET, urls, params, new RequestCallBack<String>() {
             @Override

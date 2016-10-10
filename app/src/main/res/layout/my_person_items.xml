@@ -15,7 +15,7 @@
         android:layout_marginTop="10dp"
         android:src="@mipmap/default_icon" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginLeft="10dp"
         android:id="@+id/my_person_title"
         android:layout_toRightOf="@id/my_person_icon"
@@ -23,48 +23,61 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="编号：" />
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/my_person_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="编号：" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/my_person_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="电话：" />
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/my_person_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电话：" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/my_person_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
+
+
 
         <TextView
             android:textColor="#6d6d6d"
@@ -74,7 +87,18 @@
             android:id="@+id/text_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <TextView
+            android:textColor="#6d6d6d"
+            android:drawableTop="@mipmap/zhaoxinxi_yuetan"
+            android:layout_marginRight="16dp"
+            android:layout_toRightOf="@id/text_one"
+            android:text="约谈"
+            android:id="@+id/text_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:visibility="gone"
             android:textColor="#6d6d6d"
             android:drawableTop="@mipmap/icon101"
             android:layout_marginRight="16dp"
@@ -87,7 +111,7 @@
             android:textColor="#6d6d6d"
             android:drawableTop="@mipmap/icon103"
             android:layout_marginRight="16dp"
-            android:layout_toRightOf="@id/text_two"
+            android:layout_toRightOf="@id/text_call"
             android:text="私聊"
             android:id="@+id/text_three"
             android:layout_width="wrap_content"

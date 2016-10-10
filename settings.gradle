@@ -1,1 +1,1 @@
-include ':app', 'videoplayer', 'RongYun'
+include ':app', 'videoplayer', 'RongYun', ':lib:bdwallet_pay_sdk', ':lib:pingpp'

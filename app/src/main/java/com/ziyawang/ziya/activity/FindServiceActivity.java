@@ -44,6 +44,8 @@ import java.util.List;
 
 public class FindServiceActivity extends BaseActivity {
 
+    //搜索服务方的按钮
+    private RelativeLayout search_service ;
     private FindServiceAdapter adapter ;
     private BenListView listView ;
     private RelativeLayout pre ;
@@ -279,10 +281,10 @@ public class FindServiceActivity extends BaseActivity {
                     Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
 
                     String counts = jsonObject.getString("counts");
-                    if (!TextUtils.isEmpty(counts) && counts.equals("0")){
+                    if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
                         scrollView.setVisibility(View.GONE);
                         niuniuniuniu.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
 
                         scrollView.setVisibility(View.VISIBLE);
                         niuniuniuniu.setVisibility(View.GONE);
@@ -336,8 +338,22 @@ public class FindServiceActivity extends BaseActivity {
         details_type = (TextView) findViewById(R.id.details_type ) ;
         niuniuniuniu = (TextView) findViewById(R.id.niuniuniuniu ) ;
 
+        search_service = (RelativeLayout)findViewById(R.id.search_service ) ;
+        search_service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goSearchActivity() ;
+            }
+        });
 
 
+    }
+
+    private void goSearchActivity() {
+        Intent intent = new Intent( this, SearchActivity.class);
+        intent.putExtra("type", "服务");
+        intent.putExtra("title", "搜索服务");
+        startActivity(intent);
     }
 
     private void typeGet() {

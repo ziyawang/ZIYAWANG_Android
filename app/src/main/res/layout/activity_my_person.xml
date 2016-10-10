@@ -8,7 +8,6 @@
     android:background="#f4f4f4"
     tools:context=".activity.RushPersonActivity">
 
-
     <!--标题页面-->
     <RelativeLayout
         android:id="@+id/details_info_head"
@@ -36,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="抢单人"
+            android:text="查看约谈人"
             android:textColor="#000"
             android:textSize="18dp" />
 

@@ -50,6 +50,7 @@ import java.util.List;
 
 public class SearchVideoActivity extends BaseActivity {
 
+    private TextView niuniuniuniu ;
     private int page;
     private int count = 1;
     private RelativeLayout pre;
@@ -84,7 +85,7 @@ public class SearchVideoActivity extends BaseActivity {
                             }
                         }).start();
                     } else {
-                        ToastUtils.shortToast(SearchVideoActivity.this, "信息没有更多数据");
+                        ToastUtils.shortToast(SearchVideoActivity.this, "没有更多数据");
                     }
                 }
             }
@@ -163,34 +164,38 @@ public class SearchVideoActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                     Log.e("benben", responseInfo.result);
-
+                    JSONObject jsonObject = null;
                     try {
-                        JSONObject jsonObject = new JSONObject(responseInfo.result);
+                        jsonObject = new JSONObject(responseInfo.result);
                         String pages = jsonObject.getString("pages");
-                        String counts = jsonObject.getString("counts");
-                        if (counts.equals("0")) {
-                            ToastUtils.shortToast(SearchVideoActivity.this, "没有数据");
-                        }
-
                         page = Integer.parseInt(pages);
                         count++;
-
                         Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
+
+                        String counts = jsonObject.getString("counts");
+                        if (counts.equals("0")) {
+                            scrollView.setVisibility(View.GONE);
+                            niuniuniuniu.setVisibility(View.VISIBLE);
+                        }else {
+
+                            scrollView.setVisibility(View.VISIBLE);
+                            niuniuniuniu.setVisibility(View.GONE);
+
+                            com.alibaba.fastjson.JSONObject jsonObj = JSON.parseObject(responseInfo.result);
+                            JSONArray result = jsonObj.getJSONArray("data");
+                            List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
+
+                            data.addAll(list);
+
+                            adapter = new MovieBigItemAdapter(SearchVideoActivity.this, data);
+                            listView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                    com.alibaba.fastjson.JSONObject jsonObj = JSON.parseObject(responseInfo.result);
-                    JSONArray result = jsonObj.getJSONArray("data");
-                    List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
-
-                    data.addAll(list);
-
-                    adapter = new MovieBigItemAdapter(SearchVideoActivity.this, data);
-                    listView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-
                 }
 
                 @Override
@@ -203,7 +208,6 @@ public class SearchVideoActivity extends BaseActivity {
                 }
             });
 
-
         } else {
             ToastUtils.shortToast(SearchVideoActivity.this, "请输入您想要索搜的关键字");
         }
@@ -213,6 +217,7 @@ public class SearchVideoActivity extends BaseActivity {
 
         pre = (RelativeLayout) findViewById(R.id.pre);
 
+        niuniuniuniu = (TextView) findViewById(R.id.niuniuniuniu);
         search_text = (TextView) findViewById(R.id.search_text);
         search_edit = (EditText) findViewById(R.id.search_edit);
         search_button = (ImageView) findViewById(R.id.search_button);

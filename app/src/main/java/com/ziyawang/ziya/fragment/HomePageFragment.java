@@ -81,8 +81,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
 
     private ViewPager home_viewPager;
 
-    public HomePageFragment() {
-    }
+    public HomePageFragment() {}
 
     private FrameLayout home_frame;
 
@@ -406,29 +405,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 });
                 list.add(img4);
 
-//                ImageView img5 = new ImageView(getActivity());
-//                bitmapUitl.display(img5, Url.FileIP + list01.get(2).getBannerLink());
-//                img5.setScaleType(ImageView.ScaleType.FIT_XY);
-//                img5.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-//                        startActivity(intent);
-//                    }
-//                });
-//                list.add(img5);
-//
-//                ImageView img6 = new ImageView(getActivity());
-//                bitmapUitl.display(img6, Url.FileIP + list01.get(0).getBannerLink());
-//                img6.setScaleType(ImageView.ScaleType.FIT_XY);
-//                img6.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-//                        startActivity(intent);
-//                    }
-//                });
-//                list.add(img6);
 
                 //实例化适配器
                 adapter = new HeadpagerAdapter(list, getActivity());

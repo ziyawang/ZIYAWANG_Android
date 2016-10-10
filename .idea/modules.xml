@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/RongYun/RongYun.iml" filepath="$PROJECT_DIR$/RongYun/RongYun.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZIYAWANG_Android.iml" filepath="$PROJECT_DIR$/ZIYAWANG_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/bdwallet_pay_sdk/bdwallet_pay_sdk.iml" filepath="$PROJECT_DIR$/lib/bdwallet_pay_sdk/bdwallet_pay_sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/pingpp/pingpp.iml" filepath="$PROJECT_DIR$/lib/pingpp/pingpp.iml" />
       <module fileurl="file://$PROJECT_DIR$/videoplayer/videoplayer.iml" filepath="$PROJECT_DIR$/videoplayer/videoplayer.iml" />
     </modules>
   </component>

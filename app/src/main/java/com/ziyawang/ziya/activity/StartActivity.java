@@ -104,30 +104,6 @@ public class StartActivity extends BaseActivity {
 
     }
 
-
-//    private void changeActivity() {
-//        sp = this.getSharedPreferences("isFirst", 0);
-//        Timer timer = new Timer();
-//        TimerTask task = new TimerTask() {
-//            public void run() {
-//                boolean isFirst = sp.getBoolean("isFirst", true);
-//                Intent intent;
-//                if(isFirst) {
-//                    sp.edit().putBoolean("isFirst", false).commit();
-//                    intent = new Intent(StartActivity.this, WelcomeActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    intent = new Intent(StartActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//
-//            }
-//        };
-//        timer.schedule(task, 1100L);
-//    }
-
 }
 
 

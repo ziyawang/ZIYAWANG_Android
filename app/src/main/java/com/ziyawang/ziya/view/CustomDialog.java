@@ -49,7 +49,7 @@ public class CustomDialog extends Dialog {
         /**
          * Set the Dialog message from resource
          *
-         * @param title
+         * @param
          * @return
          */
         public Builder setMessage(int message) {
@@ -194,7 +194,7 @@ public class CustomDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setCancelable(false);// 设置点击屏幕Dialog不消失
+        //this.setCancelable(false);// 设置点击屏幕Dialog不消失
     }
 }
 

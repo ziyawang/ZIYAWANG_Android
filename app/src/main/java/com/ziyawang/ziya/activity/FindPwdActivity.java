@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,13 +26,17 @@ import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyProgressDialog;
+import com.ziyawang.ziya.view.XEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class FindPwdActivity extends BenBenActivity implements View.OnClickListener {
     //手机号输入框
-    private EditText register_editText_userName ;
+    private XEditText register_editText_userName ;
     //验证码输入框
     private EditText register_editText_smsCode ;
     //首次输入密码
@@ -50,8 +56,13 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
     private SharedPreferences isLogin ;
     private SharedPreferences myNumber ;
     private SharedPreferences role ;
+    private SharedPreferences userId ;
     //返回按钮
     private RelativeLayout pre ;
+
+    //发送验证阿60s后，才可以再次发送。
+    private int recLen =60;
+    Timer timer = new Timer() ;
 
     public void onResume() {
         super.onResume();
@@ -81,10 +92,10 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
 
     @Override
     public void initViews() {
-        register_editText_userName = (EditText)findViewById(R.id.register_username) ;
+        register_editText_userName = (XEditText)findViewById(R.id.register_username) ;
         register_editText_userName.setInputType(EditorInfo.TYPE_CLASS_PHONE);
         register_editText_smsCode = (EditText)findViewById(R.id.register_editText_smsCode) ;
-        register_editText_smsCode.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+        //register_editText_smsCode.setInputType(EditorInfo.TYPE_CLASS_PHONE);
         register_editText_pwd_one = (EditText)findViewById(R.id.register_editText_pwd_one) ;
         register_editText_pwd_two = (EditText)findViewById(R.id.register_editText_pwd_two) ;
         register_button_smsCode = (Button)findViewById(R.id.register_button_get_smsCode) ;
@@ -102,52 +113,8 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
     @Override
     public void initData() {
         //为账号的格式添加监听事件,每三个加空格。
-        judgeUserName() ;
-    }
-
-    private void judgeUserName() {
-        register_editText_userName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s == null || s.length() == 0) return;
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < s.length(); i++) {
-                    if (i != 3 && i != 8 && s.charAt(i) == ' ') {
-                        continue;
-                    } else {
-                        sb.append(s.charAt(i));
-                        if ((sb.length() == 4 || sb.length() == 9) && sb.charAt(sb.length() - 1) != ' ') {
-                            sb.insert(sb.length() - 1, ' ');
-                        }
-                    }
-                }
-                if (!sb.toString().equals(s.toString())) {
-                    int index = start + 1;
-                    if (sb.charAt(start) == ' ') {
-                        if (before == 0) {
-                            index++;
-                        } else {
-                            index--;
-                        }
-                    } else {
-                        if (before == 1) {
-                            index--;
-                        }
-                    }
-                    register_editText_userName.setText(sb.toString());
-                    register_editText_userName.setSelection(index);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        register_editText_userName.setSeparator(" ");
+        register_editText_userName.setPattern(new int[]{3, 4, 4});
     }
 
     //注册操作
@@ -188,10 +155,29 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
                 //打印失败回调log
                 error.printStackTrace();
                 //提示用户
-                ToastUtils.shortToast(FindPwdActivity.this , "网络加载异常");
+                ToastUtils.shortToast(FindPwdActivity.this , "网络连接异常");
             }
         });
     }
+
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    recLen--;
+                    register_button_smsCode.setText(recLen + " s");
+                    if (recLen == 0){
+                        timer.cancel();
+                        register_button_smsCode.setOnClickListener(FindPwdActivity.this);
+                        register_button_smsCode.setText(R.string.register_button_getsmsCode);
+                    }
+                }
+            });
+        }
+    };
 
     private void dealResult(String result) {
         try {
@@ -203,12 +189,13 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
                     initSp(jsonObject) ;
                     //直接跳转到主页面,并关闭当前页面
                     goLoginActivity() ;
+                    ToastUtils.shortToast(FindPwdActivity.this, "登录成功");
                     break;
                 case "404":
-                    ToastUtils.shortToast(FindPwdActivity.this, "登陆失败");
+                    ToastUtils.shortToast(FindPwdActivity.this, "找回密码失败");
                     break;
                 case "405":
-                    ToastUtils.shortToast(FindPwdActivity.this , "您还未注册成为我们的会员。");
+                    ToastUtils.shortToast(FindPwdActivity.this , "账号不存在");
                     break;
                 case "401":
                     ToastUtils.shortToast(FindPwdActivity.this , "参数错误");
@@ -217,7 +204,7 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
                     ToastUtils.shortToast(FindPwdActivity.this , "手机验证码错误");
                     break;
                 case "504":
-                    ToastUtils.shortToast(FindPwdActivity.this , "服务器异常，请稍后重试。");
+                    ToastUtils.shortToast(FindPwdActivity.this , "服务器异常，请稍后重试");
                     break;
             }
         } catch (JSONException e) {
@@ -236,10 +223,12 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
         isLogin = getSharedPreferences("isLogin" , MODE_PRIVATE ) ;
         myNumber = getSharedPreferences("myNumber" , MODE_PRIVATE ) ;
         role = getSharedPreferences("role" , MODE_PRIVATE ) ;
+        userId = getSharedPreferences("userId" , MODE_PRIVATE ) ;
         loginCode.edit().putString("loginCode", ticket).commit();
         isLogin.edit().putBoolean("isLogin", true).commit();
         myNumber.edit().putString("myNumber", register_editText_userName.getText().toString().replace(" ","")).commit();
         role.edit().putString("role", role_a).commit();
+        userId.edit().putString("userId", userID).commit();
     }
 
     private void goLoginActivity() {
@@ -262,7 +251,7 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
 
     private boolean judgePhoneNumber(String edit_phoneNumber) {
         if (TextUtils.isEmpty(edit_phoneNumber)){
-            ToastUtils.longToast(FindPwdActivity.this, "请输入您的用户名");
+            ToastUtils.longToast(FindPwdActivity.this, "请输入手机号");
             return false ;
         }
         if (!edit_phoneNumber.matches("^(0|86|17951)?(13[0-9]|15[012356789]|17[3678]|18[0-9]|14[57])[0-9]{8}$")){
@@ -270,19 +259,23 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
             return false ;
         }
         if (TextUtils.isEmpty(register_editText_smsCode.getText().toString().replace(" ", ""))){
-            ToastUtils.longToast(FindPwdActivity.this, "请输入您的验证码");
+            ToastUtils.longToast(FindPwdActivity.this, "请输入验证码");
             return false ;
         }
         if (TextUtils.isEmpty(register_editText_pwd_one.getText().toString())){
-            ToastUtils.longToast(FindPwdActivity.this, "请输入您的密码");
+            ToastUtils.longToast(FindPwdActivity.this, "请输入密码");
             return false ;
         }
         if (register_editText_pwd_one.getText().toString().length() < 6){
-            ToastUtils.longToast(FindPwdActivity.this, "您输入的密码过短");
+            ToastUtils.longToast(FindPwdActivity.this, "请至少输入6位密码");
             return false ;
         }
         if (register_editText_pwd_one.getText().toString().length() > 16){
-            ToastUtils.longToast(FindPwdActivity.this , "您输入的密码过长");
+            ToastUtils.longToast(FindPwdActivity.this , "至多输入16位密码");
+            return false ;
+        }
+        if (TextUtils.isEmpty(register_editText_pwd_two.getText().toString())){
+            ToastUtils.longToast(FindPwdActivity.this, "请再次输入密码");
             return false ;
         }
         if (!register_editText_pwd_one.getText().toString().equals(register_editText_pwd_two.getText().toString())){
@@ -308,7 +301,7 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
                 ToastUtils.longToast(FindPwdActivity.this , "请输入正确的手机号码");
             }
         }else {
-            ToastUtils.longToast(FindPwdActivity.this, "请输入您的用户名");
+            ToastUtils.longToast(FindPwdActivity.this, "请输入手机号");
         }
     }
 
@@ -345,6 +338,8 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
             switch (status_code) {
                 case "200":
                     ToastUtils.longToast(FindPwdActivity.this, "验证码发送成功");
+                    timer.schedule(task, 1000, 1000);
+                    register_button_smsCode.setOnClickListener(null);
                     break;
                 case "401":
                     ToastUtils.longToast(FindPwdActivity.this, "参数不正确");
@@ -353,10 +348,10 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
                     ToastUtils.longToast(FindPwdActivity.this, "验证码发送失败");
                     break;
                 case "406":
-                    ToastUtils.longToast(FindPwdActivity.this, "手机号码不存在，请核验。");
+                    ToastUtils.longToast(FindPwdActivity.this, "账号不存在");
                     break;
                 case "503":
-                    ToastUtils.longToast(FindPwdActivity.this, "服务器错误，验证码发送失败。");
+                    ToastUtils.longToast(FindPwdActivity.this, "服务器错误，验证码发送失败");
                     break;
             }
         } catch (JSONException e) {

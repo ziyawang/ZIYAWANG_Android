@@ -30,6 +30,8 @@
 
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.NFC" />
+
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -52,6 +54,7 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -178,10 +181,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ChangePwdActivity"
-            android:screenOrientation="portrait" >
-
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MoneyTypeActivity"
             android:screenOrientation="portrait" />
@@ -237,6 +237,36 @@
             android:name=".activity.SearchVideoActivity"
             android:screenOrientation="portrait" />
 
+        <!-- Ping++ SDK -->
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 微信支付 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind" />
+
+        <!-- 银联支付 sdk -->
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize" />
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="57b1225667e58ece28000118" />
@@ -246,7 +276,12 @@
 
         <activity android:name=".activity.SystemInformationActivity" />
         <activity android:name=".activity.DetailsSystemInfoActivity" />
-        <activity android:name=".activity.BenBenActivity"></activity>
+        <activity android:name=".activity.BenBenActivity" />
+        <activity android:name=".activity.MyGoldActivity" />
+        <activity android:name=".activity.RechargeActivity" />
+        <activity android:name=".activity.GoldDetailsActivity" />
+        <activity android:name=".activity.GoldDetails02Activity" />
+        <activity android:name=".activity.ChangeNickNameActivity"></activity>
     </application>
 
 </manifest>

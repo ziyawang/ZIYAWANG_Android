@@ -1,6 +1,7 @@
 package com.ziyawang.ziya.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -159,8 +161,11 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                         String status_code = jsonObject.getString("status_code");
                         switch (status_code){
                             case "200" :
-                                ToastUtils.shortToast(VideoActivity.this  , "评论发表成功");
+                                ToastUtils.shortToast(VideoActivity.this, "评论发表成功");
                                 movie_edit.setText("");
+                                //movie_edit.clearFocus();
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(movie_edit.getWindowToken(), 0);
                                 loadComment();
                                 break;
                             default:
@@ -203,6 +208,9 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                 if (list.size()==0){
                     textView_show_noData.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.GONE );
+                }else {
+                    textView_show_noData.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE );
                 }
             }
 
@@ -313,13 +321,13 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                                 String msg = object.getString("msg");
                                 switch (msg) {
                                     case "取消收藏成功！":
-                                        Toast.makeText(VideoActivity.this, "取消收藏成功！", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VideoActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
                                         Drawable drawable02 = getResources().getDrawable(R.mipmap.collect_un);
                                         drawable02.setBounds(0, 0, drawable02.getMinimumWidth(), drawable02.getMinimumHeight());
                                         movie_collect.setCompoundDrawables(null, drawable02, null, null);
                                         break;
                                     case "收藏成功！":
-                                        Toast.makeText(VideoActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VideoActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                                         Drawable drawable03 = getResources().getDrawable(R.mipmap.collect);
                                         drawable03.setBounds(0, 0, drawable03.getMinimumWidth(), drawable03.getMinimumHeight());
                                         movie_collect.setCompoundDrawables(null, drawable03, null, null);
@@ -335,7 +343,7 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                         @Override
                         public void onFailure(HttpException error, String msg) {
                             error.printStackTrace();
-                            ToastUtils.shortToast(VideoActivity.this, "收藏失败");
+                            ToastUtils.shortToast(VideoActivity.this, "网络连接异常");
                         }
                     });
                 } else {
