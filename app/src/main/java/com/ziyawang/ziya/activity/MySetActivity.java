@@ -105,8 +105,9 @@ public class MySetActivity extends BaseActivity implements PlatformActionListene
                         RongIM.getInstance().logout();
                     }
 
-                    Intent intent = new Intent(MySetActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(MySetActivity.this, MainActivity.class);
+                    //startActivity(intent);
+                    finish();
 
                     ToastUtils.shortToast(MySetActivity.this , "退出登录成功");
 

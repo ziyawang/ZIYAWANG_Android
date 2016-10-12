@@ -8,15 +8,15 @@ import java.io.File;
 public class Url {
     
     //测试服数据接口
-    private static final String IP = "http://apitest.ziyawang.com" ;
-    public static final String FileIP =  "http://imagestest.ziyawang.com";
-    public static final String FileIPAudio =  "http://filestest.ziyawang.com";
-    public static final String FileIPVideos =  "http://videos.ziyawang.com";
-    //正式服数据接口
-//    public static final String FileIP =  "http://images.ziyawang.com";
-//    public static final String FileIPAudio =  "http://files.ziyawang.com";
+//    private static final String IP = "http://apitest.ziyawang.com" ;
+//    public static final String FileIP =  "http://imagestest.ziyawang.com";
+//    public static final String FileIPAudio =  "http://filestest.ziyawang.com";
 //    public static final String FileIPVideos =  "http://videos.ziyawang.com";
-//    private static final String IP = "http://api.ziyawang.com" ;
+    //正式服数据接口
+    public static final String FileIP =  "http://images.ziyawang.com";
+    public static final String FileIPAudio =  "http://files.ziyawang.com";
+    public static final String FileIPVideos =  "http://videos.ziyawang.com";
+    private static final String IP = "http://api.ziyawang.com" ;
     /**
      * benben
      */
@@ -35,7 +35,7 @@ public class Url {
     public static final String GetSMS = IP + "/v1/auth/getsmscode";
     public static final String Register = IP + "/v1/auth/register";
     public static final String FindPwd = IP + "/v1/auth/resetpwd";
-    public static final String ChangeIcon = IP + "/v1/upload?access_token=token&token=%s" ;
+    public static final String ChangeIcon = IP + "/v1/upload?access_token=token  &token=%s" ;
     public static final String GetInfo = IP + "/v1/project/lists?access_token=token";
     public static final String Details_info = IP + "/v1/project/list/%s?token=%s";
     public static final String GetService = IP + "/v1/service/list?access_token=token";

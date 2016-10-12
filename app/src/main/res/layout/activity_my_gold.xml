@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.ziyawang.ziya.activity.MyGoldActivity">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/my_gold_relative"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="我的芽币"
+            android:id="@+id/service_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/gold_details"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:textColor="#000"
+            android:textSize="16dp"
+            android:text="明细"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/my_gold_gold"
+        android:layout_marginTop="44dp"
+        android:layout_below="@id/my_gold_relative"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/gold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="#000"
+        android:id="@+id/my_gold_title"
+        android:textSize="20sp"
+        android:layout_below="@id/my_gold_gold"
+        android:text="账户余额"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="13dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/my_gold_title"
+        android:id="@+id/my_gold_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/my_gold_balance_textView"
+            android:textColor="#000"
+            android:textSize="40sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="30sp"
+            android:text="芽币"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#fdd000"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:layout_marginTop="44dp"
+        android:layout_below="@id/my_gold_balance"
+        android:id="@+id/recharge"
+        android:text="充 值"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/my_gold_des"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/recharge"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="充值1元，可购买10芽币。芽币玩转资芽的法宝。"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/my_gold_rule"
+        android:textColor="#01a6bb"
+        android:layout_below="@id/my_gold_des"
+        android:layout_marginTop="14dp"
+        android:layout_centerHorizontal="true"
+        android:text="《资芽网芽币使用协议》"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

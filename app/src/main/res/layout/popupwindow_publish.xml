@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_marginLeft="44dp"
+    android:layout_marginRight="44dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fdd000"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/pay_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/pay_cancel"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:src="@mipmap/popup_cuowu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/pay_img"
+            android:src="@mipmap/yuetan_popup_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/pay_img"
+            android:id="@+id/info_type"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:text="该信息为普通资源"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="11dp"
+            android:layout_below="@id/info_type"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/info_title"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:text="无需消耗芽币可查看对方联系方式"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="#fff"
+        android:layout_below="@id/pay_one"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--消耗信息展示-->
+        <LinearLayout
+            android:visibility="gone"
+            android:paddingLeft="30dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:id="@+id/shejian_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/yuetan_goldcoin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="18dp"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:text="消耗： "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/shejian_price"
+                android:textSize="22sp"
+                android:textColor="#ff9000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:text=" 芽币"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <!--余额信息展示-->
+        <LinearLayout
+            android:paddingLeft="30dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/shejian_two"
+            android:id="@+id/shejian_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/yuetan_goldcoin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="18dp"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:text="余额： "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/shejian_balance"
+                android:textSize="22sp"
+                android:textColor="#ff9000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:text=" 芽币"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:textSize="16sp"
+                android:id="@+id/balance_type"
+                android:textColor="#c70017"
+                android:text="（余额不足）"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_below="@id/pay_one"
+            android:layout_gravity=""
+            android:text="确  定"
+            android:background="#fdd000"
+            android:id="@+id/shejian_pay"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Button
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginBottom="26dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:text="充  值"
+            android:layout_below="@id/shejian_pay"
+            android:background="@drawable/details_info_pay"
+            android:id="@+id/shejian_recharge"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/chongzhijian"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

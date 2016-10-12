@@ -135,12 +135,23 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("MyFragment  onResume", "=========MyFragment  onResume=======") ;
         //当Fragment执行OnResume方法时，自动从内存中，加载头像。
         initIcon() ;
+        getSpData();
+        loadData();
+        if (!GetBenSharedPreferences.getIsLogin(getActivity())){
+            showReleaseViews() ;
+            collection_count.setText("0");
+            publish_count.setText("0");
+            cooperation_count.setText("0");
+            niu_icon.setImageResource(R.mipmap.user2);
+            niu_phone.setText("未登录");
+        }
     }
 
     private void initIcon() {
-        if (isLogin){
+        if (GetBenSharedPreferences.getIsLogin(getContext())){
             //先拿到用户的缓存的头像,存在进行加载，不能重新操作。
             File files = new File(Url.IconPath);
             if (files.exists()) {
@@ -155,7 +166,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        loadData();
+        //getSpData();
+        //loadData();
+        Log.e("MyFragment  onResume" , "=========MyFragment  onHiddenChanged=======") ;
     }
 
     @Nullable
@@ -183,6 +196,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                getSpData() ;
                 //加载数据
                 loadData();
             }
@@ -284,7 +298,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void loadData() {
         if (GetBenSharedPreferences.getIsLogin(getActivity())){
-            String urls = String.format(Url.Myicon, login) ;
+            String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(getActivity())) ;
             Log.e("benbne", login);
             HttpUtils utils = new HttpUtils() ;
             RequestParams params = new RequestParams() ;

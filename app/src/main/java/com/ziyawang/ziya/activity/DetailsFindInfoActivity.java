@@ -88,6 +88,8 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     private TextView textView6 ;
     //是否存在语音
     private TextView voice_status ;
+    //是否是委托发布的标识
+    private ImageView info_image_publisher ;
     //title
     private String title ;
     private TextView info_details_one;
@@ -183,6 +185,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     private static String pictureDes3 ;
     private static String time ;
     private static String view_count ;
+    private static String Publisher ;
     private float DownX = 0;
     //作为发布方进入的页面，并非投资和融资模块
     private LinearLayout show_info_register ;
@@ -274,6 +277,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         company_text_des = (TextView) findViewById(R.id.company_text_des);
         member_linear = (LinearLayout) findViewById(R.id.member_linear);
         player = new Player();
+        info_image_publisher = (ImageView)findViewById(R.id.info_image_publisher) ;
     }
 
     @Override
@@ -405,6 +409,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             pictureDes3 = jsonObject.getString("PictureDes3");
             time = jsonObject.getString("PublishTime");
             view_count = jsonObject.getString("ViewCount");
+            Publisher = jsonObject.getString("Publisher");
             //根据请求的数据，进行页面的显示
             showData(jsonObject) ;
         } catch (JSONException e) {
@@ -416,6 +421,12 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         //根据数据请求过来PayFlag来正确显示是否约谈过
         if ("1".equals(PayFlag)){
             textView6.setText("已约谈");
+        }
+        //根据数据请求过来Publisher来正确显示是否是委托发布
+        if ("1".equals(Publisher)){
+            info_image_publisher.setVisibility(View.VISIBLE);
+        }else {
+            info_image_publisher.setVisibility(View.GONE);
         }
         //根据数据请求过来account来正确显示账户余额
         showAccount(Account) ;
@@ -1029,6 +1040,16 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
 
     public void onResume() {
         super.onResume();
+        //获得用户的ticket
+        login = GetBenSharedPreferences.getTicket(this);
+        //获得用户的spphoneNumber
+        spphoneNumber = GetBenSharedPreferences.getSpphoneNumber(this) ;
+        //获得用户的root
+        root = GetBenSharedPreferences.getRole(this) ;
+        //获取用户的userId
+        spUserId = GetBenSharedPreferences.getUserId(this) ;
+        //获得用户的isLogin
+        isLogin = GetBenSharedPreferences.getIsLogin(this) ;
         //统计页面
         MobclickAgent.onPageStart("找信息详情页面");
         //统计时长

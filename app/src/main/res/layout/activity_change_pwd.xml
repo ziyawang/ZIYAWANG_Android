@@ -43,9 +43,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="保存"
-            android:textColor="#6d6d6d"
+            android:textColor="#000"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

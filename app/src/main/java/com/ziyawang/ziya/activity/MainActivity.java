@@ -40,6 +40,7 @@ import com.ziyawang.ziya.fragment.MyFragment;
 import com.ziyawang.ziya.fragment.ReleaseFragment;
 import com.ziyawang.ziya.fragment.SearchFragment;
 import com.ziyawang.ziya.tools.DownLoadManager;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.NetUtils;
 import com.ziyawang.ziya.tools.PermissionsUtil;
 import com.ziyawang.ziya.tools.SystemBarTintManager;
@@ -657,9 +658,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             //information 页面
             case R.id.button_information:
 
-                SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
-                boolean isLogin = sp.getBoolean("isLogin", false);
-                if (isLogin){
+                if (GetBenSharedPreferences.getIsLogin(this)){
                     selectTab(3);
                     if (!informationFragment.isAdded()) {
                         if (homePageFragment.isVisible()) {

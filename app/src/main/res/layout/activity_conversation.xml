@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:id="@+id/textView"
             android:gravity="center"
-            android:text="聊天详情"
+            android:text="私聊"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

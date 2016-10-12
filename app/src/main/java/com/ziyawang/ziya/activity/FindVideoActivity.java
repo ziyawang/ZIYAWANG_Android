@@ -173,6 +173,7 @@ public class FindVideoActivity extends FragmentActivity implements View.OnClickL
     /**
      * 初始化layout控件
      */
+    @TargetApi(Build.VERSION_CODES.M)
     private void initView() {
 
         search_video = (RelativeLayout)findViewById(R.id.search_video ) ;

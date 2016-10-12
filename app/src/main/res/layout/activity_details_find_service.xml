@@ -468,7 +468,7 @@
             android:gravity="center"
             android:textSize="15dp"
             android:textColor="#333"
-            android:text="我的抢单"
+            android:text="我的约谈"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -476,7 +476,6 @@
 
     <!--悬停页面-->
     <LinearLayout
-        android:visibility="gone"
         android:background="#ffffff"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

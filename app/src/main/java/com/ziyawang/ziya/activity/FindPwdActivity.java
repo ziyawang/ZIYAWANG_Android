@@ -2,6 +2,7 @@ package com.ziyawang.ziya.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -23,6 +24,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
+import com.ziyawang.ziya.application.MyApplication;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyProgressDialog;
@@ -33,6 +35,10 @@ import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 public class FindPwdActivity extends BenBenActivity implements View.OnClickListener {
     //手机号输入框
@@ -59,6 +65,8 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
     private SharedPreferences userId ;
     //返回按钮
     private RelativeLayout pre ;
+
+    private SharedPreferences r_token ;
 
     //发送验证阿60s后，才可以再次发送。
     private int recLen =60;
@@ -185,11 +193,14 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
             final String status_code = jsonObject.getString("status_code");
             switch(status_code){
                 case "200" :
+                    final String ticket = jsonObject.getString("token");
                     //将找回密码得到的数据存储到sp里面。
                     initSp(jsonObject) ;
+
+                    connect(ticket);
                     //直接跳转到主页面,并关闭当前页面
-                    goLoginActivity() ;
-                    ToastUtils.shortToast(FindPwdActivity.this, "登录成功");
+                    //goLoginActivity() ;
+                    //ToastUtils.shortToast(FindPwdActivity.this, "登录成功");
                     break;
                 case "404":
                     ToastUtils.shortToast(FindPwdActivity.this, "找回密码失败");
@@ -393,4 +404,119 @@ public class FindPwdActivity extends BenBenActivity implements View.OnClickListe
                 break;
         }
     }
+
+    private void connect(final String ticket) {
+
+        r_token = getSharedPreferences("r_token", MODE_PRIVATE);
+        final String cloud_token = r_token.getString("r_token", "");
+        RongIM.connect(cloud_token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                //Connect Token 失效的状态处理，需要重新获取 Token
+                String urls = String.format(Url.RCToken, ticket);
+                HttpUtils utils = new HttpUtils();
+                RequestParams params = new RequestParams();
+                utils.configCurrentHttpCacheExpiry(1000);
+                utils.send(HttpRequest.HttpMethod.GET, urls, params, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        Log.e("benben", responseInfo.result);
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseInfo.result);
+                            String status_code = jsonObject.getString("status_code");
+                            switch (status_code) {
+                                case "200":
+                                    String rcToken = jsonObject.getString("rcToken");
+                                    r_token.edit().putString("r_token", rcToken).commit();
+                                    connect(ticket);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        error.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(String userId) {
+                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                    @Override
+                    public UserInfo getUserInfo(final String userId) {
+                        HttpUtils httpUtils = new HttpUtils();
+                        RequestParams params = new RequestParams();
+                        httpUtils.send(HttpRequest.HttpMethod.POST, String.format(Url.RongIcon, userId), params, new RequestCallBack<String>() {
+                            @Override
+                            public void onSuccess(ResponseInfo<String> responseInfo) {
+                                Log.e("benben", responseInfo.result);
+                                try {
+
+                                    String a = "";
+                                    JSONObject jsonObject = new JSONObject(responseInfo.result);
+                                    JSONObject data = jsonObject.getJSONObject("data");
+                                    String userPicture = data.getString("UserPicture");
+                                    String serviceName = data.getString("ServiceName");
+                                    String role = data.getString("role");
+                                    switch (role) {
+                                        case "0":
+                                        case "2":
+                                            String phonenumber = data.getString("phonenumber");
+                                            String substring = phonenumber.substring(0, 3);
+                                            String substring1 = phonenumber.substring(7, 11);
+                                            a = substring + "****" + substring1;
+                                            break;
+                                        case "1":
+                                            a = serviceName;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    Uri uir = Uri.parse(Url.FileIP + userPicture);
+                                    RongIM.getInstance().refreshUserInfoCache(new UserInfo(userId, a, uir));
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(HttpException error, String msg) {
+
+                                error.printStackTrace();
+                            }
+                        });
+                        Log.e("MainActivity", "UserId is ：" + userId);
+                        //return null;
+                        //return new UserInfo( userId , "牛牛" ,  uir ) ;
+                        return null;
+                    }
+                }, true);
+
+                Log.e("benben", "—--------------------------------—onSuccess—--------------------------------" + userId);
+
+                finish();
+                MyApplication.finishSingleActivityByClass(LoginActivity.class);
+                ToastUtils.shortToast(FindPwdActivity.this, "登录成功");
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+                Log.e("benben", "——----------------------onError—-------------------------------" + errorCode);
+            }
+        });
+
+        /**********************************************************************************************/
+
+    }
+
 }

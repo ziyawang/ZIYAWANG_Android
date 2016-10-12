@@ -46,7 +46,7 @@
             android:layout_marginRight="16dp"
             android:text="保存"
             android:textColor="#000"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
     </RelativeLayout>
 

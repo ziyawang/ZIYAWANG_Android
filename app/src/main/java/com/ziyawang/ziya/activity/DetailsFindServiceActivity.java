@@ -449,6 +449,16 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     }
 
     public void onResume() {
+        //获得用户的ticket
+        login = GetBenSharedPreferences.getTicket(this);
+        //获得用户的spphoneNumber
+        spphoneNumber = GetBenSharedPreferences.getSpphoneNumber(this) ;
+        //获得用户的root
+        root = GetBenSharedPreferences.getRole(this) ;
+        //获取用户的userId
+        spUserId = GetBenSharedPreferences.getUserId(this) ;
+        //获得用户的isLogin
+        isLogin = GetBenSharedPreferences.getIsLogin(this) ;
         super.onResume();
         //统计页面
         MobclickAgent.onPageStart("找服务详情页面");

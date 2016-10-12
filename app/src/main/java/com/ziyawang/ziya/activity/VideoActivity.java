@@ -83,6 +83,10 @@ public class VideoActivity extends Activity implements View.OnClickListener {
 
 
     public void onResume() {
+        //获得用户的ticket
+        login = GetBenSharedPreferences.getTicket(this);
+        //获得用户的isLogin
+        isLogin = GetBenSharedPreferences.getIsLogin(this) ;
         super.onResume();
         //统计页面
         MobclickAgent.onPageStart("视频详情页面");
@@ -216,11 +220,9 @@ public class VideoActivity extends Activity implements View.OnClickListener {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-
                 error.printStackTrace();
              }
         }) ;
-
 
     }
 

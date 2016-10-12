@@ -292,4 +292,10 @@ public class ReleaseFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //获得用户的isLogin
+        isLogin = GetBenSharedPreferences.getIsLogin(getActivity()) ;
+    }
 }

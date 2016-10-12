@@ -1,8 +1,12 @@
 package com.ziyawang.ziya.activity;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,6 +46,10 @@ import org.json.JSONObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
+
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
     private XEditText register_editText_userName ;
@@ -63,6 +71,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private int recLen =60;
     Timer timer = new Timer() ;
     private TextView register_rule ;
+
+    private SharedPreferences r_token ;
+
 
 
     public void onResume() {
@@ -97,6 +108,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         app = (MyApplication) getApplication();
         this.getApplication() ;
         app.addActivity(this);
+
 
         //实例化组件
         initView() ;
@@ -196,7 +208,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                                 final String status_code = jsonObject.getString("status_code");
                                                 switch(status_code){
                                                     case "200" :
-                                                        ToastUtils.shortToast(RegisterActivity.this , "注册成功");
+                                                        //ToastUtils.shortToast(RegisterActivity.this , "注册成功");
                                                         final String ticket = jsonObject.getString("token");
                                                         String role_a = jsonObject.getString("role");
 
@@ -215,9 +227,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                                         role.edit().putString("role", role_a).commit();
                                                         userId.edit().putString("userId", userID).commit();
 
-                                                        Intent intent = new Intent(RegisterActivity.this , MainActivity.class ) ;
-                                                        startActivity(intent);
-                                                        finish();
+                                                        connect(ticket);
+                                                        //Intent intent = new Intent(RegisterActivity.this , MainActivity.class ) ;
+                                                        //startActivity(intent);
+                                                        //finish();
 
                                                         break;
                                                     case "405":
@@ -421,4 +434,119 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             timer.cancel();
         }
     }
+
+    private void connect(final String ticket) {
+
+        r_token = getSharedPreferences("r_token", MODE_PRIVATE);
+        final String cloud_token = r_token.getString("r_token", "");
+        RongIM.connect(cloud_token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                //Connect Token 失效的状态处理，需要重新获取 Token
+                String urls = String.format(Url.RCToken, ticket);
+                HttpUtils utils = new HttpUtils();
+                RequestParams params = new RequestParams();
+                utils.configCurrentHttpCacheExpiry(1000);
+                utils.send(HttpRequest.HttpMethod.GET, urls, params, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        Log.e("benben", responseInfo.result);
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseInfo.result);
+                            String status_code = jsonObject.getString("status_code");
+                            switch (status_code) {
+                                case "200":
+                                    String rcToken = jsonObject.getString("rcToken");
+                                    r_token.edit().putString("r_token", rcToken).commit();
+                                    connect(ticket);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        error.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(String userId) {
+                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                    @Override
+                    public UserInfo getUserInfo(final String userId) {
+                        HttpUtils httpUtils = new HttpUtils();
+                        RequestParams params = new RequestParams();
+                        httpUtils.send(HttpRequest.HttpMethod.POST, String.format(Url.RongIcon, userId), params, new RequestCallBack<String>() {
+                            @Override
+                            public void onSuccess(ResponseInfo<String> responseInfo) {
+                                Log.e("benben", responseInfo.result);
+                                try {
+
+                                    String a = "";
+                                    JSONObject jsonObject = new JSONObject(responseInfo.result);
+                                    JSONObject data = jsonObject.getJSONObject("data");
+                                    String userPicture = data.getString("UserPicture");
+                                    String serviceName = data.getString("ServiceName");
+                                    String role = data.getString("role");
+                                    switch (role) {
+                                        case "0":
+                                        case "2":
+                                            String phonenumber = data.getString("phonenumber");
+                                            String substring = phonenumber.substring(0, 3);
+                                            String substring1 = phonenumber.substring(7, 11);
+                                            a = substring + "****" + substring1;
+                                            break;
+                                        case "1":
+                                            a = serviceName;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    Uri uir = Uri.parse(Url.FileIP + userPicture);
+                                    RongIM.getInstance().refreshUserInfoCache(new UserInfo(userId, a, uir));
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(HttpException error, String msg) {
+
+                                error.printStackTrace();
+                            }
+                        });
+                        Log.e("MainActivity", "UserId is ：" + userId);
+                        //return null;
+                        //return new UserInfo( userId , "牛牛" ,  uir ) ;
+                        return null;
+                    }
+                }, true);
+
+                Log.e("benben", "—--------------------------------—onSuccess—--------------------------------" + userId);
+
+                finish();
+                MyApplication.finishSingleActivityByClass(LoginActivity.class ) ;
+                ToastUtils.shortToast(RegisterActivity.this, "注册成功");
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+                Log.e("benben", "——----------------------onError—-------------------------------" + errorCode);
+            }
+        });
+
+        /**********************************************************************************************/
+
+    }
+
 }
