@@ -27,6 +27,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.tools.CheckCache;
 import com.ziyawang.ziya.tools.DownLoadManager;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.NetUtils;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -82,34 +83,23 @@ public class MySetActivity extends BaseActivity implements PlatformActionListene
             logout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    final CustomDialog.Builder builder = new CustomDialog.Builder(MySetActivity.this);
+                    builder.setTitle("温馨提示") ;
+                    builder.setMessage("退出后不会删除任何历史数据，下次登录依然可以使用本账号。");
+                    builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            benLogout();
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }) ;
+                    builder.create().show();
 
-                    r_token = getSharedPreferences("r_token", MODE_PRIVATE);
-                    loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
-                    sharedPreferences = getSharedPreferences("isLogin", MODE_PRIVATE);
-                    myNumber = getSharedPreferences("myNumber", MODE_PRIVATE);
-                    role = getSharedPreferences("role", MODE_PRIVATE);
-
-                    //将ticket的值擦除
-                    r_token.edit().putString("r_token", null).commit();
-                    //sharedPreferences.edit().putBoolean("isLogin", false).commit();
-                    loginCode.edit().putString("loginCode", null).commit();
-                    myNumber.edit().putString("myNumber", null).commit();
-                    role.edit().putString("role", null).commit();
-
-                    SharedPreferences isLogin = getSharedPreferences("isLogin" , MODE_PRIVATE);
-                    isLogin.edit().putBoolean("isLogin", false).commit();
-
-                    MobclickAgent.onProfileSignOff() ;
-
-                    if (RongIM.getInstance() != null) {
-                        RongIM.getInstance().logout();
-                    }
-
-                    //Intent intent = new Intent(MySetActivity.this, MainActivity.class);
-                    //startActivity(intent);
-                    finish();
-
-                    ToastUtils.shortToast(MySetActivity.this , "退出登录成功");
 
                 }
             });
@@ -330,12 +320,49 @@ public class MySetActivity extends BaseActivity implements PlatformActionListene
         });
     }
 
+    private void benLogout() {
+        r_token = getSharedPreferences("r_token", MODE_PRIVATE);
+        loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("isLogin", MODE_PRIVATE);
+        myNumber = getSharedPreferences("myNumber", MODE_PRIVATE);
+        role = getSharedPreferences("role", MODE_PRIVATE);
+
+        //将ticket的值擦除
+        r_token.edit().putString("r_token", "").commit();
+        loginCode.edit().putString("loginCode", "").commit();
+        myNumber.edit().putString("myNumber", "").commit();
+        role.edit().putString("role", "").commit();
+
+        SharedPreferences isLogin = getSharedPreferences("isLogin" , MODE_PRIVATE);
+        isLogin.edit().putBoolean("isLogin", false).commit();
+
+        MobclickAgent.onProfileSignOff() ;
+
+        if (RongIM.getInstance() != null) {
+            RongIM.getInstance().logout();
+        }
+
+        //Intent intent = new Intent(MySetActivity.this, MainActivity.class);
+        //startActivity(intent);
+        //finish();
+
+        Intent intent = new Intent(MySetActivity.this , LoginActivity.class ) ;
+        startActivity(intent );
+
+        ToastUtils.shortToast(MySetActivity.this , "退出登录成功");
+    }
+
     public void onResume() {
         super.onResume();
         //统计页面
         MobclickAgent.onPageStart("设置页面");
         //统计时长
         MobclickAgent.onResume(this);
+        if (GetBenSharedPreferences.getIsLogin(MySetActivity.this)){
+            logout.setVisibility(View.VISIBLE );
+        }else {
+            logout.setVisibility(View.GONE );
+        }
     }
     public void onPause() {
         super.onPause();

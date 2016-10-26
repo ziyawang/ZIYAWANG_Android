@@ -1,19 +1,27 @@
 package com.ziyawang.ziya.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -49,6 +57,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     //缓存到本地的用户的电话号
     private static String spphoneNumber;
     private static String ConnectPhone;
+    private static String ConnectPerson;
     //缓存到本地的用户的ticket
     private static String login;
     //缓存到本地的用户的userID
@@ -120,6 +129,10 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     private static String ViewCount;
     private static String time;
     private float DownX = 0;
+    //头像的popupwindow
+    private PopupWindow popupWindow ;
+    //举报按钮
+    private TextView report ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,6 +192,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         service_sendMessage = (RelativeLayout) findViewById(R.id.service_sendMessage);
         search_person = (LinearLayout) findViewById(R.id.search_person);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        report = (TextView) findViewById(R.id.report);
     }
 
     @Override
@@ -188,6 +202,8 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         service_share.setOnClickListener(this);
         service_collect.setOnClickListener(this);
         service_sendMessage.setOnClickListener(this);
+        service_icon.setOnClickListener(this);
+        report.setOnClickListener(this);
     }
 
     @Override
@@ -243,6 +259,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         try {
             JSONObject object = new JSONObject(result);
             ConnectPhone = object.getString("ConnectPhone");
+            ConnectPerson = object.getString("ConnectPerson");
             ServiceName = object.getString("ServiceName");
             ServiceIntroduction = object.getString("ServiceIntroduction");
             ServiceLocation = object.getString("ServiceLocation");
@@ -287,7 +304,9 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         //服务类型的描述
         service_des_type.setText(ServiceType);
         //公司名称
-        service_details_two.setText(ServiceName);
+        service_details_two.setText(ServiceName
+                //+ "___(" + ConnectPerson + ")"
+        );
         //服务方所在地
         service_details_four.setText(ServiceLocation);
         //服务方的服务等级
@@ -299,9 +318,11 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             //是自己发布显示抢单人页面,否则不显示
             if (judgeMyself()){
                 showMyselfView() ;
+                report.setVisibility(View.GONE);
             }else {
                 linearLayout.setVisibility(View.VISIBLE);
                 search_person.setVisibility(View.GONE);
+                report.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -511,9 +532,81 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             case R.id.service_sendMessage :
                 goSendMessage() ;
                 break;
+            //头像按钮的监听事件
+            case R.id.service_icon :
+                goShowIcon() ;
+                break;
+            //举报的监听事件
+            case R.id.report :
+                goReportActivity() ;
+                break;
             default:
                 break;
         }
+    }
+
+    private void goReportActivity() {
+        if (GetBenSharedPreferences.getIsLogin(this)){
+            Intent intent = new Intent(DetailsFindServiceActivity.this , ReportActivity.class ) ;
+            intent.putExtra("type" , "service") ;
+            intent.putExtra("id" , id ) ;
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(DetailsFindServiceActivity.this , LoginActivity.class ) ;
+            startActivity(intent ) ;
+        }
+
+    }
+
+
+    private void goShowIcon() {
+
+        //获取布局加载器对象
+        View contentView = getLayoutInflater().inflate(R.layout.popupwindow_show_icon, null);
+        //实例化组件
+        ImageView imageView = (ImageView) contentView.findViewById(R.id.popupwindow_image);
+
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        service_icon.setDrawingCacheEnabled(true);
+        Bitmap bm = service_icon.getDrawingCache();
+        imageView.setImageBitmap(bm);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        //创建一个PopupWindow放入到容器内
+        popupWindow = new PopupWindow(contentView, getWindowManager().getDefaultDisplay().getWidth(), getWindowManager().getDefaultDisplay().getWidth() );
+        //对PopupWindow的弹出窗进行设置
+        popupWindow.setAnimationStyle(R.style.animation_01);
+        //取得焦点
+        popupWindow.setFocusable(true);
+        //点击空白的地方关闭PopupWindow
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        //弹出位置
+        popupWindow.showAsDropDown(service_icon, 0, 0);
+        //popupWindow.showAtLocation( mGameView, Gravity.CENTER, 0, 20);
+
+        backgroundAlpha(0.5f);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     */
+    public void backgroundAlpha(float bgAlpha){
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        getWindow().setAttributes(lp);
     }
 
     private void goSendMessage() {
@@ -594,9 +687,12 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     }
 
     private void showCustomDialog() {
+        //计数
+        sendAccount() ;
+        //开启拨打电话的dialog
         final CustomDialog.Builder builder01 = new CustomDialog.Builder(DetailsFindServiceActivity.this);
         builder01.setTitle("亲爱的用户");
-        builder01.setMessage("您确定要联系" + ConnectPhone + "?");
+        builder01.setMessage("您确定要联系  " + ConnectPerson + ":" + ConnectPhone + "?");
         builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {goCallNumber() ;
@@ -609,6 +705,25 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             }
         });
         builder01.create().show();
+    }
+
+    private void sendAccount() {
+        String urls = String.format(Url.ServiceAccount, GetBenSharedPreferences.getTicket(this)) ;
+        HttpUtils httpUtils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        params.addBodyParameter("ServiceID" , id ) ;
+        params.addBodyParameter("Channel" , "ANDROID" ) ;
+        httpUtils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+            }
+              @Override
+            public void onFailure(HttpException error, String msg) {
+
+            }
+
+        }) ;
     }
 
     private void goCallNumber() {

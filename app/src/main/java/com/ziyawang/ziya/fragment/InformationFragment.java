@@ -49,6 +49,12 @@ public class InformationFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadConversationList();
+    }
+
     private void loadConversationList() {
         ConversationListFragment fragment = (ConversationListFragment) getChildFragmentManager().findFragmentById(R.id.conversationlist);
         Uri uri = Uri.parse("rong://" + getActivity().getApplicationInfo().packageName).buildUpon()

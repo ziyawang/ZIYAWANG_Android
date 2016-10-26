@@ -37,13 +37,38 @@
 
         <ImageView
             android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/money_transfer_no"
             android:id="@+id/info_vip"
-            android:layout_marginRight="9dp"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon1010"
+            android:src="@mipmap/vipresources"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/info_account_linear"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/info_account_textView"
+                android:layout_marginRight="4dp"
+                android:textColor="#ef8200"
+                android:textSize="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="芽币"
+                android:textColor="#6d6d6d"
+                android:textSize="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
 
     </RelativeLayout>
@@ -52,226 +77,239 @@
         android:layout_marginLeft="10dp"
         android:background="#9b9b9b"
         android:layout_width="match_parent"
-        android:layout_height="1dp"></LinearLayout>
+        android:layout_height="1px">
 
-    <TextView
-        android:id="@+id/wordDes"
-        android:ellipsize="end"
-        android:textColor="#6d6d6d"
-        android:textSize="12dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:singleLine="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/my_temawork_relative02"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/money_transfer_linear"
-        android:background="#ffffff">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_marginLeft="16dp"
-            android:id="@+id/money_transfer_info"
-            android:layout_width="120dp"
-            android:layout_height="80dp"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:gravity="bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:textColor="#6d6d6d"
-                    android:textSize="12dp"
-                    android:id="@+id/money_transfer_area_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="地区：" />
-
-                <TextView
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:textColor="#6d6d6d"
-                    android:textSize="12dp"
-                    android:id="@+id/money_transfer_area_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="bottom"
-                android:id="@+id/niu"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:textColor="#6d6d6d"
-                    android:textSize="12dp"
-                    android:id="@+id/money_transfer_from_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="来源：" />
-
-                <TextView
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:textColor="#6d6d6d"
-                    android:textSize="12dp"
-                    android:id="@+id/money_transfer_from_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/money_transfer_from_left"
-                    android:layout_toRightOf="@+id/money_transfer_from_left" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:textColor="#6d6d6d"
-                    android:textSize="12dp"
-                    android:id="@+id/money_transfer_type_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="类型：" />
-
-                <TextView
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:textColor="#6d6d6d"
-                    android:textSize="12dp"
-                    android:id="@+id/money_transfer_type_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <!--android:layout_alignBottom="@+id/money_transfer_info"-->
-        <LinearLayout
-            android:layout_marginBottom="20dp"
-            android:gravity="center_vertical"
-            android:id="@+id/money_transfer_info_02"
-            android:orientation="vertical"
-            android:layout_toRightOf="@id/money_transfer_info"
-            android:layout_width="85dp"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/niu_one"
-                android:src="@mipmap/icon16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:gravity="bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:maxLength="8"
-                    android:textStyle="bold"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:id="@+id/money_transfer_money_top"
-                    android:textSize="16dp"
-                    android:textColor="#ef8200"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/niu_three"
-                    android:layout_marginLeft="1dp"
-                    android:textSize="9dp"
-                    android:textColor="#ef8200"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@id/money_transfer_money_top"
-                    android:text="万"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginBottom="20dp"
-            android:gravity="center_vertical"
-            android:id="@+id/money_transfer_info_03"
-            android:orientation="vertical"
-            android:layout_toRightOf="@id/money_transfer_info_02"
-            android:layout_width="85dp"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/niu_two"
-                android:src="@mipmap/icon17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:gravity="bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:maxLength="8"
-                    android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:id="@+id/money_transfer_money_02_up"
-                    android:textSize="16dp"
-                    android:textColor="#ef8200"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/niu_four"
-                    android:layout_marginLeft="1dp"
-                    android:textSize="9dp"
-                    android:textColor="#ef8200"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@id/money_transfer_money_top"
-                    android:text="万"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <ImageView
+        <!--信息的描述-->
+        <TextView
+            android:id="@+id/wordDes"
+            android:ellipsize="end"
+            android:textColor="#000"
+            android:textSize="14dp"
             android:layout_marginRight="16dp"
-            android:src="@mipmap/info_right"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/imageView2"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/my_temawork_relative02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wordDes"
+            android:background="#ffffff">
+
+            <LinearLayout
+                android:layout_marginLeft="16dp"
+                android:id="@+id/money_transfer_info"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="#6d6d6d"
+                        android:textSize="13dp"
+                        android:id="@+id/money_transfer_area_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="地区：" />
+
+                    <TextView
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textColor="#6d6d6d"
+                        android:textSize="13dp"
+                        android:id="@+id/money_transfer_area_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/niu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="#6d6d6d"
+                        android:textSize="13dp"
+                        android:id="@+id/money_transfer_from_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="来源：" />
+
+                    <TextView
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textColor="#6d6d6d"
+                        android:textSize="13dp"
+                        android:id="@+id/money_transfer_from_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/money_transfer_from_left"
+                        android:layout_toRightOf="@+id/money_transfer_from_left" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="#6d6d6d"
+                        android:textSize="13dp"
+                        android:id="@+id/money_transfer_type_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="类型：" />
+
+                    <TextView
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textColor="#6d6d6d"
+                        android:textSize="13dp"
+                        android:id="@+id/money_transfer_type_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!--信息的左边标注-->
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_vertical"
+                android:id="@+id/money_transfer_info_02"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/money_transfer_info"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/niu_one"
+                    android:src="@mipmap/icon16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:gravity="bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:maxLength="8"
+                        android:textStyle="bold"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:id="@+id/money_transfer_money_top"
+                        android:textSize="16dp"
+                        android:textColor="#ef8200"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/niu_three"
+                        android:layout_marginLeft="1dp"
+                        android:textSize="9dp"
+                        android:textColor="#ef8200"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/money_transfer_money_top"
+                        android:text="万"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+            <!--信息的右边标注-->
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_vertical"
+                android:id="@+id/money_transfer_info_03"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/money_transfer_info_02"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/niu_two"
+                    android:src="@mipmap/icon17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:gravity="bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:maxLength="8"
+                        android:textStyle="bold"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:id="@+id/money_transfer_money_02_up"
+                        android:textSize="16dp"
+                        android:textColor="#ef8200"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/niu_four"
+                        android:layout_marginLeft="1dp"
+                        android:textSize="9dp"
+                        android:textColor="#ef8200"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/money_transfer_money_top"
+                        android:text="万"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--信息的向右箭头-->
+            <ImageView
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/info_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
+    <!--信息的下方美化三角-->
     <TextView
         android:background="@mipmap/icon31"
         android:layout_width="match_parent"

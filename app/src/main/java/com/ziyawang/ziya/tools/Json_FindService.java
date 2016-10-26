@@ -32,8 +32,9 @@ public class Json_FindService {
             String ServiceLocation = object.getString("ServiceArea") ;
             String ServiceType = object.getString("ServiceType") ;
             String ServiceLevel = object.getString("ServiceLevel") ;
+            String ConnectPerson = object.getString("ConnectPerson") ;
 
-            findServiceEntity = new FindServiceEntity(ServiceID ,ServiceName , ServiceLocation,ServiceType , ServiceLevel) ;
+            findServiceEntity = new FindServiceEntity(ServiceID ,ServiceName , ServiceLocation,ServiceType , ServiceLevel , ConnectPerson ) ;
             data.add(findServiceEntity) ;
 
 

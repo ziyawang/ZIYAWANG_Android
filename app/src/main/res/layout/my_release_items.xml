@@ -36,18 +36,19 @@
             android:layout_toRightOf="@+id/money_transfer_title" />
 
         <ImageView
-            android:visibility="invisible"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/money_transfer_no"
             android:id="@+id/info_vip"
-            android:layout_marginRight="9dp"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon1010"
+            android:src="@mipmap/vipresources"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
             android:visibility="gone"
+            android:layout_alignParentRight="true"
             android:id="@+id/a_one"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/info_vip"
             android:src="@mipmap/icon94"
@@ -55,9 +56,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:layout_alignParentRight="true"
             android:visibility="gone"
             android:id="@+id/a_two"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/info_vip"
             android:src="@mipmap/icon95"
@@ -65,9 +67,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:layout_alignParentRight="true"
             android:visibility="gone"
             android:id="@+id/a_three"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/info_vip"
             android:src="@mipmap/icon96"

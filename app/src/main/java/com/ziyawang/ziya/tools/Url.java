@@ -35,8 +35,8 @@ public class Url {
     public static final String GetSMS = IP + "/v1/auth/getsmscode";
     public static final String Register = IP + "/v1/auth/register";
     public static final String FindPwd = IP + "/v1/auth/resetpwd";
-    public static final String ChangeIcon = IP + "/v1/upload?access_token=token  &token=%s" ;
-    public static final String GetInfo = IP + "/v1/project/lists?access_token=token";
+    public static final String ChangeIcon = IP + "/v1/upload?access_token=token&token=%s" ;
+    public static final String GetInfo = IP + "/v1/project/lists?access_token=token&token=%s";
     public static final String Details_info = IP + "/v1/project/list/%s?token=%s";
     public static final String GetService = IP + "/v1/service/list?access_token=token";
     public static final String Details_service = IP + "/v1/service/list/%s?token=%s";
@@ -58,7 +58,7 @@ public class Url {
     public static final String Myicon = IP + "/v1/auth/me?access_token=token&token=%s" ;
     public static final String ChangePwd = IP + "/v1/auth/chpwd?access_token=token&token=%s" ;
     public static final String FeedBack = IP + "/v1/app/advice?access_token=token&token=%s" ;
-    public static final String Search = IP + "/v1/search?access_token=token" ;
+    public static final String Search = IP + "/v1/searchs?access_token=token" ;
     public static final String Banner = IP + "/v1/app/banner?access_token=token" ;
     public static final String BannerTWO = IP + "/v1/app/twobanner?access_token=token" ;
     public static final String VideoCommentList = IP + "/v1/video/comment/list?access_token=token" ;
@@ -69,6 +69,9 @@ public class Url {
     public static final String GetMessage = IP + "/v1/getmessage?access_token=token&token=%s" ;
     public static final String ReadMessage = IP + "/v1/readmessage?access_token=token&token=%s" ;
     public static final String DelMessage = IP + "/v1/delmessage?access_token=token&token=%s" ;
+    public static final String ISPay = IP + "/v1/ispay?access_token=token&token=%s" ;
+    public static final String Report = IP + "/v1/report?access_token=token&token=%s" ;
+    public static final String ServiceAccount = IP + "/v1/count/service?access_token=token&token=%s" ;
 
     //头像路径
     public static final String IconPath = SDUtil.getSDPath() + File.separator + "ziya"+ File.separator + "icon.png" ;

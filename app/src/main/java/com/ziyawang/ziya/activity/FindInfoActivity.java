@@ -37,6 +37,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.FindInfoAdapter;
 import com.ziyawang.ziya.entity.FindInfoEntity;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -1659,6 +1660,12 @@ public class FindInfoActivity extends BaseActivity {
         dialog = new MyProgressDialog(FindInfoActivity.this , "数据加载中，请稍后。。。");
         dialog.setCancelable(false);// 不可以用“返回键”取消
         dialog.show();
+        String urls ;
+        if (GetBenSharedPreferences.getIsLogin(FindInfoActivity.this)){
+            urls = String.format(Url.GetInfo, GetBenSharedPreferences.getTicket(FindInfoActivity.this) ) ;
+        }else {
+            urls = String.format(Url.GetInfo, "" ) ;
+        }
         HttpUtils httpUtils = new HttpUtils();
         RequestParams params = new RequestParams();
         params.addQueryStringParameter("Vip", vip);
@@ -1673,7 +1680,7 @@ public class FindInfoActivity extends BaseActivity {
             params.addQueryStringParameter(params_four , params_three );
         }
         httpUtils.configCurrentHttpCacheExpiry(1000);
-        httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetInfo, params, new RequestCallBack<String>() {
+        httpUtils.send(HttpRequest.HttpMethod.GET, urls , params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 if (dialog != null) {
@@ -1708,6 +1715,7 @@ public class FindInfoActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(HttpException error, String msg) {
                 if (dialog != null) {
@@ -1757,24 +1765,61 @@ public class FindInfoActivity extends BaseActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_type, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        Button a = (Button)view.findViewById(R.id.a);
-        Button b = (Button)view.findViewById(R.id.b);
-        Button c = (Button)view.findViewById(R.id.c);
-        Button d = (Button)view.findViewById(R.id.d);
-        Button e = (Button)view.findViewById(R.id.e);
-        Button f = (Button)view.findViewById(R.id.f);
-        Button g = (Button)view.findViewById(R.id.g);
-        Button h = (Button)view.findViewById(R.id.h);
-        Button i = (Button)view.findViewById(R.id.i);
-        Button j = (Button)view.findViewById(R.id.j);
-        Button k = (Button)view.findViewById(R.id.k);
-        Button l = (Button)view.findViewById(R.id.l);
-        Button m = (Button)view.findViewById(R.id.m);
+        final Button a = (Button)view.findViewById(R.id.a);
+        final Button b = (Button)view.findViewById(R.id.b);
+        final Button c = (Button)view.findViewById(R.id.c);
+        final Button d = (Button)view.findViewById(R.id.d);
+        final Button e = (Button)view.findViewById(R.id.e);
+        final Button f = (Button)view.findViewById(R.id.f);
+        final Button g = (Button)view.findViewById(R.id.g);
+        final Button h = (Button)view.findViewById(R.id.h);
+        final Button i = (Button)view.findViewById(R.id.i);
+        final Button j = (Button)view.findViewById(R.id.j);
+        final Button k = (Button)view.findViewById(R.id.k);
+        final Button l = (Button)view.findViewById(R.id.l);
+        final Button m = (Button)view.findViewById(R.id.m);
+
+        switch (find_type.getText().toString()){
+            case "资产包转让" :
+                a.setSelected(true);
+                break;
+            case "债权转让" :
+                b.setSelected(true);
+                break;
+            case "固产转让" :
+                c.setSelected(true);
+                break;
+            case "商业保理" :
+                d.setSelected(true);
+                break;
+            case "融资需求" :
+                g.setSelected(true);
+                break;
+            case "悬赏信息" :
+                h.setSelected(true);
+                break;
+            case "尽职调查" :
+                i.setSelected(true);
+                break;
+            case "委外催收" :
+                j.setSelected(true);
+                break;
+            case "法律服务" :
+                k.setSelected(true);
+                break;
+            case "资产求购" :
+                l.setSelected(true);
+                break;
+            case "投资需求" :
+                m.setSelected(true);
+                break;
+            default:
+                break;
+        }
 
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 params_four = "";
                 find_type.setText("资产包转让");
                 window.dismiss();

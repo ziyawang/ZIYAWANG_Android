@@ -95,11 +95,11 @@
 
     <TextView
         android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#fdd000"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_miao"
         android:textColor="#000"
-        android:textSize="18sp"
+        android:textSize="15dp"
         android:layout_marginTop="44dp"
         android:layout_below="@id/my_gold_balance"
         android:id="@+id/recharge"

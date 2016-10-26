@@ -50,7 +50,7 @@ public class GetBenSharedPreferences {
     /**
      * 得到用户的ticket
      * @param context 静态上下文
-     * @return login
+     * @return isLogin
      */
     public static boolean getIsLogin(Context context){
         SharedPreferences sp = context.getSharedPreferences("isLogin", context.MODE_PRIVATE);

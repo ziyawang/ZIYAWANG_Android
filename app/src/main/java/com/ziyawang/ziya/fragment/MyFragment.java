@@ -147,6 +147,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             cooperation_count.setText("0");
             niu_icon.setImageResource(R.mipmap.user2);
             niu_phone.setText("未登录");
+            niu_phone.setBackgroundResource(R.drawable.my_login);
+        }else {
+            switch (GetBenSharedPreferences.getRole(getActivity())){
+                case RELEASE :
+                    //发布方的展示组件
+                    showReleaseViews() ;
+                    break;
+                case SERVICE :
+                    //服务方的展示组件
+                    showServiceViews() ;
+                    break;
+                case UNSERVICE :
+                    //未审核通过的服务放的展示组件
+                    showUnServiceViews() ;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -393,7 +411,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         final String userPicture01 = user101.getString("UserPicture");
         username = user101.getString("username");
         phoneNumber = user101.getString("phonenumber");
-        niu_relative.setVisibility(View.GONE);
+        niu_relative.setVisibility(View.GONE) ;
         me_change_icon.setVisibility(View.VISIBLE);
         //更改头像
         new LoadImageAsyncTask(new LoadImageAsyncTask.CallBack() {
@@ -409,7 +427,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 SDUtil.saveDataInfoSDCard(icon_data, "ziya", "icon.png");
             }
         }).execute(Url.FileIP + userPicture01);
-        my_name.setText(phoneNumber);
+
+        if ( username!=null && username.equals("")){
+            my_name.setText(phoneNumber);
+        }else {
+            my_name.setText(username);
+        }
+
+
+        //my_name.setText(phoneNumber);
         textView8.setText(ServiceLocation);
         textView9.setText(ServiceName);
     }
@@ -460,7 +486,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 SDUtil.saveDataInfoSDCard(icon_data, "ziya", "icon.png");
             }
         }).execute(Url.FileIP + userPicture);
-        my_name.setText(phoneNumber);
+
+        if ( username!=null && username.equals("")){
+            my_name.setText(phoneNumber);
+        }else {
+            my_name.setText(username);
+        }
+
         textView8.setText(ServiceLocation);
         textView9.setText(ServiceName);
     }

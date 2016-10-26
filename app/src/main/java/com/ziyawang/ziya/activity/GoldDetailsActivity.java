@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -235,9 +236,24 @@ public class GoldDetailsActivity extends BenBenActivity implements View.OnClickL
         View view = inflater.inflate(R.layout.popupwindow_gold_type, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         RelativeLayout my_gold_relative = (RelativeLayout)findViewById(R.id.my_gold_relative) ;
-        final Button a = (Button)view.findViewById(R.id.one_one);
-        final Button b = (Button)view.findViewById(R.id.one_two);
-        final Button c = (Button)view.findViewById(R.id.one_three);
+        final CheckBox a = (CheckBox)view.findViewById(R.id.one_one);
+        final CheckBox b = (CheckBox)view.findViewById(R.id.one_two);
+        final CheckBox c = (CheckBox)view.findViewById(R.id.one_three);
+
+        Log.e("GoldDetailsActivitys" , gold_type.getText().toString() ) ;
+        switch (gold_type.getText().toString()){
+            case "全部" :
+                a.setChecked(true);
+                break;
+            case "充值" :
+                b.setChecked(true);
+                break;
+            case "付费" :
+                c.setChecked(true);
+                break;
+            default:
+                break;
+        }
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -189,6 +189,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                     RequestParams params = new RequestParams();
                                     //将用户名和密码封装到Post体里面
                                     params.addBodyParameter("access_token" , "token");
+                                    params.addBodyParameter("Channel" , "ANDROID");
                                     params.addBodyParameter("phonenumber" , muserName);
                                     params.addBodyParameter("password" , mpwd );
                                     params.addBodyParameter("smscode" , smsCode );

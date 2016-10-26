@@ -10,15 +10,25 @@ public class FindServiceEntity {
     private String ServiceLocation ;
     private String ServiceType ;
     private String ServiceLevel ;
+    private String ConnectPerson ;
 
     public FindServiceEntity(){}
 
-    public FindServiceEntity(String serviceID, String serviceName, String serviceLocation, String serviceType, String serviceLevel) {
+    public FindServiceEntity(String serviceID, String serviceName, String serviceLocation, String serviceType, String serviceLevel , String connectPerson) {
         ServiceID = serviceID;
         ServiceName = serviceName;
         ServiceLocation = serviceLocation;
         ServiceType = serviceType;
         ServiceLevel = serviceLevel;
+        ConnectPerson = connectPerson ;
+    }
+
+    public String getConnectPerson() {
+        return ConnectPerson;
+    }
+
+    public void setConnectPerson(String connectPerson) {
+        ConnectPerson = connectPerson;
     }
 
     public String getServiceID() {

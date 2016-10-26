@@ -182,10 +182,10 @@ public class MyRushAdapter extends BaseAdapter {
 
         if ( list.get(position).getMember().equals("1")){
             holder.info_vip.setVisibility(View.VISIBLE);
-            holder.info_vip.setImageResource(R.mipmap.icon1010);
+            holder.info_vip.setImageResource(R.mipmap.vipresources);
         }else if (list.get(position).getMember().equals("2")){
             holder.info_vip.setVisibility(View.VISIBLE);
-            holder.info_vip.setImageResource(R.mipmap.icon1011);
+            holder.info_vip.setImageResource(R.mipmap.moneyresources);
         }else {
             holder.info_vip.setVisibility(View.GONE);
         }
@@ -272,6 +272,7 @@ public class MyRushAdapter extends BaseAdapter {
                 holder.money_transfer_money_top.setText(list.get(position).getTotalMoney());
                 //holder.money_transfer_money_down.setText("金额");
                 holder.money_transfer_money_02_up.setText(list.get(position).getRate());
+                holder.money_transfer_money_02_up.setVisibility(View.VISIBLE);
                 holder.niu_four.setVisibility(View.GONE);
 
                 holder.niu_one.setImageResource(R.mipmap.icon16);
@@ -356,6 +357,7 @@ public class MyRushAdapter extends BaseAdapter {
                 holder.money_transfer_money_top.setText(list.get(position).getTotalMoney());
                 //holder.money_transfer_money_down.setText("金额");
                 holder.money_transfer_money_02_up.setText(list.get(position).getRate()+"%");
+                holder.money_transfer_money_02_up.setVisibility(View.VISIBLE);
                 //holder.money_transfer_money_02_down.setText("回报率");
                 //Drawable drawable02= context.getResources().getDrawable(R.mipmap.info_re_rata);
                 /// 这一步必须要做,否则不会显示.
@@ -516,6 +518,7 @@ public class MyRushAdapter extends BaseAdapter {
                 holder.money_transfer_money_top.setText(list.get(position).getTotalMoney());
                 //holder.money_transfer_money_down.setText("总金额");
                 holder.money_transfer_money_02_up.setText(list.get(position).getTransferMoney());
+                holder.money_transfer_money_02_up.setVisibility(View.VISIBLE);
                 holder.niu_one.setImageResource(R.mipmap.icon16);
                 holder.niu_two.setImageResource(R.mipmap.icon17);
                 holder.niu_one.setVisibility(View.VISIBLE);

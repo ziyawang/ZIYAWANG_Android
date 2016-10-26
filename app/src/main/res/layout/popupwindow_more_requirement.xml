@@ -1,274 +1,323 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
+        android:background="@mipmap/find_info_type_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:text="投资类型" />
             <LinearLayout
-                android:background="#f4f4f4"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
+                android:layout_height="match_parent">
 
-            <RadioButton
-                android:id="@+id/one_one"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="个人" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="投资类型" />
+                <LinearLayout
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/one_two"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="企业" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/one_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="个人" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/one_three"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="机构" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/one_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="企业" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/one_four"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="其他" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/one_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="机构" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
 
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:text="投资方式" />
-            <LinearLayout
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-
-            <RadioButton
-                android:id="@+id/one_nine"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="债权" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-
-            <RadioButton
-                android:id="@+id/one_ten"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="股权" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/one_eleven"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="其他" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:text="投资期限" />
-            <LinearLayout
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-
-            <RadioButton
-                android:id="@+id/v104_01"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="1年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-
-            <RadioButton
-                android:id="@+id/v104_02"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="2年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_03"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="3年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_04"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="4年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_05"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="5年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_06"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="6年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_07"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="7年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_08"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="8年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_09"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="9年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/v104_10"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="16dp"
-                android:text="10年" />
-            <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:background="#f4f4f4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-            </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/one_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="其他" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
 
 
-        </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="投资方式" />
+                <LinearLayout
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/one_nine"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="债权" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/one_ten"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="股权" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/one_eleven"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="其他" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="投资期限" />
+                <LinearLayout
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_01"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="1年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_02"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="2年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_03"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="3年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_04"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="4年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_05"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="5年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_06"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="6年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_07"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="7年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_08"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="8年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_09"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="9年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/CustomRadioButtonTheme"
+                    android:id="@+id/v104_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="10年" />
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:background="#f4f4f4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
 
 
-    </ScrollView>
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

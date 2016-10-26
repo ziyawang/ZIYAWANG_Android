@@ -47,9 +47,12 @@ public class Json_FindInfo {
             String wordDes = object.getString("WordDes");
             String investType = object.getString("InvestType");
             String year = object.getString("Year");
+            String userID = object.getString("UserID");
+            String price = object.getString("Price");
+            String payFlag = object.getString("PayFlag");
 
             findInfoEntity = new FindInfoEntity(projectId , proArea,fromWhere,assetType,totalMoney,transferMoney,status,rate,requirement,buyerNature,
-                    informant,buyer,typeName,projectNumber,member,certifyState , publishState ,Corpore,wordDes , investType, year );
+                    informant,buyer,typeName,projectNumber,member,certifyState , publishState ,Corpore,wordDes , investType, year , userID , price , payFlag );
             data.add(findInfoEntity) ;
         }
         return data;

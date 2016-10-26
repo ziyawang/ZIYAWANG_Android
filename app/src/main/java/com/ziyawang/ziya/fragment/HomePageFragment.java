@@ -39,6 +39,7 @@ import com.ziyawang.ziya.adapter.HeadpagerAdapter;
 import com.ziyawang.ziya.entity.BannerEntity;
 import com.ziyawang.ziya.entity.FindVideoEntity;
 import com.ziyawang.ziya.tools.FixedSpeedScroller;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyScrollView;
 
@@ -139,6 +140,26 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_homepager, container, false);
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        if (!GetBenSharedPreferences.getIsLoad(getActivity())){
+//            switch (homepage_change.getText().toString()) {
+//                case "找信息":
+//                    sendMessageToFrame(12345);
+//                    break;
+//                case "找服务":
+//                    sendMessageToServ(12345);
+//                    break;
+//                default:
+//                    break;
+//            }
+//            isLoad = getActivity().getSharedPreferences("isLoad" , getActivity().MODE_PRIVATE ) ;
+//            isLoad.edit().putBoolean("isLoad", true).commit();
+//        }
+//    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

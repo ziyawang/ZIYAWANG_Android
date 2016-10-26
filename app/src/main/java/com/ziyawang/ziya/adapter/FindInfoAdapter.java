@@ -1,22 +1,50 @@
 package com.ziyawang.ziya.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.DetailsFindInfoActivity;
+import com.ziyawang.ziya.activity.FindInfoActivity;
+import com.ziyawang.ziya.activity.LoginActivity;
+import com.ziyawang.ziya.activity.RechargeActivity;
+import com.ziyawang.ziya.application.MyApplication;
 import com.ziyawang.ziya.entity.FindInfoEntity;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
+import com.ziyawang.ziya.tools.ToastUtils;
+import com.ziyawang.ziya.tools.Url;
+import com.ziyawang.ziya.view.CustomDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Member;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,16 +53,18 @@ import java.util.List;
  */
 public class FindInfoAdapter extends BaseAdapter {
 
-    private Context context ;
+    private Activity context ;
     private List<FindInfoEntity> list ;
 
     public FindInfoAdapter(){}
 
-    public FindInfoAdapter(Context context , List<FindInfoEntity> list ){
+    public FindInfoAdapter(Activity context , List<FindInfoEntity> list ){
         super();
         this.context = context;
         this.list = list;
     }
+
+
     @Override
     public int getCount() {
         return list.size();
@@ -52,6 +82,7 @@ public class FindInfoAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         ViewHolder holder ;
         if(convertView == null ){
             convertView = LayoutInflater.from(context).inflate(R.layout.find_info_items, parent , false);
@@ -79,6 +110,15 @@ public class FindInfoAdapter extends BaseAdapter {
             holder.money_transfer_info_02 = (LinearLayout)convertView.findViewById(R.id.money_transfer_info_02 ) ;
             holder.money_transfer_info_03 = (LinearLayout)convertView.findViewById(R.id.money_transfer_info_03 ) ;
             holder.wordDes = (TextView)convertView.findViewById(R.id.wordDes) ;
+            holder.info_account_textView = (TextView)convertView.findViewById(R.id.info_account_textView) ;
+            holder.info_account_linear = (LinearLayout)convertView.findViewById(R.id.info_account_linear) ;
+            //字体加粗设置
+            TextPaint tp = holder.info_account_textView.getPaint();
+            tp.setFakeBoldText(true);
+            TextPaint tp1 = holder.money_transfer_money_top.getPaint();
+            tp1.setFakeBoldText(true);
+            TextPaint tp2 = holder.money_transfer_money_02_up.getPaint();
+            tp2.setFakeBoldText(true);
 
             convertView.setTag(holder);
 
@@ -87,16 +127,33 @@ public class FindInfoAdapter extends BaseAdapter {
 
         }
 
+        final View finalConvertView = convertView;
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = list.get(position).getProjectID() ;
-                Intent intent = new Intent(context , DetailsFindInfoActivity.class ) ;
-                intent.putExtra("id" ,id) ;
-                intent.putExtra("title" , list.get(position).getTypeName()) ;
-                Log.e("benben01", list.get(position).getProjectID()) ;
-                Log.e("benben01" , list.get(position).getTypeName() ) ;
-                context.startActivity(intent);
+                //未登录，去登陆，登陆之后，判断是否是收费资源，是收费资源，那么直接调用anthme 的接口，自己的
+                finalConvertView.setEnabled(false);
+                if ("2".equals(list.get(position).getMember())){
+                    if (GetBenSharedPreferences.getIsLogin(context)){
+                        //调用authme的接口，拿到自己的role 和 account
+                        loadData(position , finalConvertView) ;
+
+                    }else {
+                        Intent intent = new Intent(context , LoginActivity.class ) ;
+                        context.startActivity(intent );
+                        finalConvertView.setEnabled(true);
+                    }
+
+                }else {
+                    String id = list.get(position).getProjectID();
+                    Intent intent = new Intent(context, DetailsFindInfoActivity.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("title", list.get(position).getTypeName());
+                    Log.e("benben01", list.get(position).getProjectID());
+                    Log.e("benben01", list.get(position).getTypeName());
+                    context.startActivity(intent);
+                    finalConvertView.setEnabled(true);
+                }
 
             }
         });
@@ -184,6 +241,7 @@ public class FindInfoAdapter extends BaseAdapter {
                 holder.money_transfer_money_top.setText(list.get(position).getTotalMoney());
                 //holder.money_transfer_money_down.setText("金额");
                 holder.money_transfer_money_02_up.setText(list.get(position).getRate());
+                holder.money_transfer_money_02_up.setVisibility(View.VISIBLE);
                 holder.niu_four.setVisibility(View.GONE);
 
                 holder.niu_one.setImageResource(R.mipmap.icon16);
@@ -268,6 +326,7 @@ public class FindInfoAdapter extends BaseAdapter {
                 holder.money_transfer_money_top.setText(list.get(position).getTotalMoney());
                 //holder.money_transfer_money_down.setText("金额");
                 holder.money_transfer_money_02_up.setText(list.get(position).getRate()+"%");
+                holder.money_transfer_money_02_up.setVisibility(View.VISIBLE);
                 //holder.money_transfer_money_02_down.setText("回报率");
                 //Drawable drawable02= context.getResources().getDrawable(R.mipmap.info_re_rata);
                 /// 这一步必须要做,否则不会显示.
@@ -429,6 +488,7 @@ public class FindInfoAdapter extends BaseAdapter {
                 holder.money_transfer_money_top.setText(list.get(position).getTotalMoney());
                 //holder.money_transfer_money_down.setText("总金额");
                 holder.money_transfer_money_02_up.setText(list.get(position).getTransferMoney());
+                holder.money_transfer_money_02_up.setVisibility(View.VISIBLE);
                 holder.niu_one.setImageResource(R.mipmap.icon16);
                 holder.niu_two.setImageResource(R.mipmap.icon17);
                 holder.niu_one.setVisibility(View.VISIBLE);
@@ -444,19 +504,261 @@ public class FindInfoAdapter extends BaseAdapter {
         String member = list.get(position).getMember();
         if ( member.equals("1")){
             holder.info_vip.setVisibility(View.VISIBLE);
-            holder.info_vip.setImageResource(R.mipmap.icon1010);
+            holder.info_vip.setImageResource(R.mipmap.vipresources);
+            holder.info_account_linear.setVisibility(View.GONE);
         }else if (member.equals("2")){
             holder.info_vip.setVisibility(View.VISIBLE);
-            holder.info_vip.setImageResource(R.mipmap.icon1011);
+            holder.info_vip.setImageResource(R.mipmap.moneyresources);
+            holder.info_account_linear.setVisibility(View.VISIBLE);
+            holder.info_account_textView.setText(list.get(position).getPrice());
         }else {
             holder.info_vip.setVisibility(View.GONE);
+            holder.info_account_linear.setVisibility(View.GONE);
         }
 
 
         return convertView;
     }
 
-    static class  ViewHolder{
+    private void loadData(final int position, final View finalConvertView) {
+        if (GetBenSharedPreferences.getIsLogin(context)){
+            String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(context)) ;
+            HttpUtils utils = new HttpUtils() ;
+            final RequestParams params = new RequestParams() ;
+            utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    //处理请求成功后的数据
+                    try {
+                        final JSONObject jsonObject = new JSONObject(responseInfo.result);
+                        JSONObject user = jsonObject.getJSONObject("user");
+                        final String account = user.getString("Account");
+                        String role = jsonObject.getString("role");
+                        if (GetBenSharedPreferences.getUserId(context).equals(list.get(position).getUserID())) {
+                            String id = list.get(position).getProjectID();
+                            Intent intent = new Intent(context, DetailsFindInfoActivity.class);
+                            intent.putExtra("id", id);
+                            intent.putExtra("title", list.get(position).getTypeName());
+                            Log.e("benben01", list.get(position).getProjectID());
+                            Log.e("benben01", list.get(position).getTypeName());
+                            context.startActivity(intent);
+                            finalConvertView.setEnabled(true);
+                        } else {
+                            if ("1".equals(role)) {
+//                                if ("1".equals(list.get(position).getPayFlag())){
+//                                    String id = list.get(position).getProjectID();
+//                                    Intent intent = new Intent(context, DetailsFindInfoActivity.class);
+//                                    intent.putExtra("id", id);
+//                                    intent.putExtra("title", list.get(position).getTypeName());
+//                                    Log.e("benben01", list.get(position).getProjectID());
+//                                    Log.e("benben01", list.get(position).getTypeName());
+//                                    context.startActivity(intent);
+//                                }else {
+//                                    showPopUpWindow(position, account);
+//                                }
+                                String urls = String.format(Url.ISPay, GetBenSharedPreferences.getTicket(context));
+                                HttpUtils httpUtils = new HttpUtils();
+                                RequestParams params1 = new RequestParams();
+                                params1.addBodyParameter("ProjectID", list.get(position).getProjectID());
+                                httpUtils.send(HttpRequest.HttpMethod.POST, urls, params1, new RequestCallBack<String>() {
+                                    @Override
+                                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                                        try {
+                                            JSONObject jsonObject1 = new JSONObject(responseInfo.result);
+                                            String payFlag = jsonObject1.getString("PayFlag");
+                                            if ("1".equals(payFlag)) {
+                                                String id = list.get(position).getProjectID();
+                                                Intent intent = new Intent(context, DetailsFindInfoActivity.class);
+                                                intent.putExtra("id", id);
+                                                intent.putExtra("title", list.get(position).getTypeName());
+                                                Log.e("benben01", list.get(position).getProjectID());
+                                                Log.e("benben01", list.get(position).getTypeName());
+                                                context.startActivity(intent);
+                                                finalConvertView.setEnabled(true);
+                                            } else {
+                                                showPopUpWindow(position, account, finalConvertView);
+
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(HttpException error, String msg) {
+                                        finalConvertView.setEnabled(true);
+                                    }
+                                });
+
+                            } else {
+                                ToastUtils.shortToast(context, "您需要先通过服务方认证才可查看收费类信息");
+                                finalConvertView.setEnabled(true);
+                            }
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(HttpException error, String msg) {
+                    //打印用户的失败回调
+                    error.printStackTrace();
+                    ToastUtils.shortToast(context, "网络连接异常");
+                 }
+            }) ;
+        }else {
+            Intent intent = new Intent(context , LoginActivity.class ) ;
+            context.startActivity(intent);
+        }
+    }
+
+    private void showPopUpWindow(final int position, String account, final View convertView) {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.popupwindow_publish, null);
+        final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        RelativeLayout relative = (RelativeLayout)view.findViewById(R.id.relative ) ;
+        final TextView info_type = (TextView)view.findViewById(R.id.info_type ) ;
+        final TextView info_title = (TextView)view.findViewById(R.id.info_title ) ;
+        final TextView shejian_price = (TextView)view.findViewById(R.id.shejian_price ) ;
+        final TextView shejian_balance = (TextView)view.findViewById(R.id.shejian_balance ) ;
+        final TextView balance_type = (TextView)view.findViewById(R.id.balance_type ) ;
+        final Button shejian_pay = (Button)view.findViewById(R.id.shejian_pay ) ;
+        final Button shejian_recharge = (Button)view.findViewById(R.id.shejian_recharge ) ;
+        final ImageButton pay_cancel = (ImageButton)view.findViewById(R.id.pay_cancel ) ;
+        final LinearLayout shejian_two = (LinearLayout)view.findViewById(R.id.shejian_two ) ;
+        TextPaint tp = shejian_price.getPaint();
+        tp.setFakeBoldText(true);
+        TextPaint tp01 = shejian_balance.getPaint();
+        tp01.setFakeBoldText(true);
+
+        //消费
+        shejian_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //去消费
+                goPay(window , position );
+            }
+        });
+        //充值
+        shejian_recharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到充值页面
+                goRechargeActivity(window) ;
+            }
+        });
+
+        //Member 2收费信息 其他为不收费信息
+        info_type.setText("该信息为付费资源");
+        info_title.setText("消耗芽币可查看详细信息");
+        shejian_two.setVisibility(View.VISIBLE);
+        shejian_price.setText(list.get(position).getPrice());
+        shejian_balance.setText(account);
+        if (Integer.parseInt(account) < Integer.parseInt(list.get(position).getPrice())){
+            balance_type.setVisibility(View.VISIBLE);
+        }else {
+            balance_type.setVisibility(View.GONE);
+        }
+
+        pay_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+            }
+        });
+        window.setFocusable(true);
+        //点击空白的地方关闭PopupWindow
+        window.setBackgroundDrawable(new BitmapDrawable());
+        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.showAtLocation(relative, Gravity.CENTER, 0, 0);
+        // 设置popWindow的显示和消失动画
+
+        backgroundAlpha(0.2f);
+        convertView.setEnabled(true);
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+                convertView.setEnabled(true);
+            }
+        });
+
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        context.getWindow().setAttributes(lp);
+    }
+
+    private void goPay(final PopupWindow window, final int position) {
+        String url = String.format(Url.Pay, GetBenSharedPreferences.getTicket(context) ) ;
+        HttpUtils httpUtils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        params.addBodyParameter("ProjectID" , list.get(position).getProjectID() );
+        httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Log.e("benben" , responseInfo.result ) ;
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(responseInfo.result);
+                    String status_code = jsonObject.getString("status_code");
+                    switch (status_code){
+                        case "200" :
+                            list.get(position).setPayFlag("1");
+                            window.dismiss();
+                            ToastUtils.shortToast(context, "购买成功");
+                            String id = list.get(position).getProjectID();
+                            Intent intent = new Intent(context, DetailsFindInfoActivity.class);
+                            intent.putExtra("id", id);
+                            intent.putExtra("title", list.get(position).getTypeName());
+                            Log.e("benben01", list.get(position).getProjectID());
+                            Log.e("benben01", list.get(position).getTypeName());
+                            context.startActivity(intent);
+                            break;
+                        case "416" :
+                            ToastUtils.shortToast(context , "非收费信息");
+                            break;
+                        case "417" :
+                            ToastUtils.shortToast(context , "您已经支付过该条信息");
+                            break;
+                        case "418" :
+                            ToastUtils.shortToast(context , "余额不足，请充值。");
+                            break;
+                        default:
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                error.printStackTrace();
+                ToastUtils.shortToast( context , "网络连接异常，支付失败");
+            }
+        }) ;
+    }
+
+    private void goRechargeActivity(PopupWindow window) {
+        Intent intent = new Intent(context , RechargeActivity.class ) ;
+        context.startActivity(intent);
+        window.dismiss();
+    }
+
+
+    static class ViewHolder{
 
         TextView money_transfer_title ;
         TextView money_transfer_no ;
@@ -479,6 +781,8 @@ public class FindInfoAdapter extends BaseAdapter {
         LinearLayout money_transfer_info_03 ;
 
         LinearLayout niu ;
+        LinearLayout info_account_linear ;
+        TextView info_account_textView ;
 
         TextView wordDes ;
 

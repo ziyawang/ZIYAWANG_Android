@@ -35,7 +35,7 @@ public class BaseActivity extends Activity {
             setTranslucentStatus(true);
         }
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintEnabled(true) ;
         //通知栏所需颜色
         tintManager.setStatusBarTintResource(R.color.aaa);
     }
@@ -43,7 +43,7 @@ public class BaseActivity extends Activity {
     private void getActivityTask() {
         app = (MyApplication) getApplication();
         this.getApplication() ;
-        app.addActivity(this);
+        app.addActivity(this) ;
     }
 
     @TargetApi(19)

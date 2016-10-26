@@ -50,7 +50,7 @@
 
     <style name="text_18_ffffff">
         <item name="android:textSize">18.0dip</item>
-        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textColor">#ff333333</item>
     </style>
 
     <style name="text_16_666666">
@@ -70,6 +70,10 @@
     </style>
 
     <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
+    <style name="CustomRadioButtonTheme" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:button">@drawable/checkbox_style</item>
     </style>
 
@@ -122,6 +126,11 @@
         <item name="android:textSize">14.0sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="animation_01">
+        <item name="android:windowEnterAnimation">@anim/puzzle_enter</item>
+        <item name="android:windowExitAnimation">@anim/puzzle_out</item>
     </style>
 
 

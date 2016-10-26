@@ -1,5 +1,6 @@
 package com.ziyawang.ziya.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,8 +18,10 @@ import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.LoginActivity;
 import com.ziyawang.ziya.activity.ReleaseDetailsActivity;
+import com.ziyawang.ziya.activity.ServiceRegisterActivity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.ToastUtils;
+import com.ziyawang.ziya.view.CustomDialog;
 
 /**
  * Created by 牛海丰 on 2016/7/19.
@@ -159,19 +162,46 @@ public class ReleaseFragment extends Fragment implements View.OnClickListener {
 
     private void judgexv() {
         if (isLogin){
-            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-            intent.putExtra("title", "投资需求");
-            startActivity(intent);
+            if ("1".equals(GetBenSharedPreferences.getRole(getActivity()))){
+                Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+                intent.putExtra("title", "投资需求");
+                startActivity(intent);
+            }else {
+                goServiceRegisterActivity() ;
+            }
+
         }else {
             goLoginActivity() ;
         }
     }
 
+    private void goServiceRegisterActivity() {
+        final CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
+        builder.setTitle("温馨提示") ;
+        if ("0".equals(GetBenSharedPreferences.getRole(getActivity()))){
+            builder.setMessage("您需要先通过服务方认证才可在该版块发布信息");
+        }else if ("2".equals(GetBenSharedPreferences.getRole(getActivity()))){
+            builder.setMessage("您需要先通过服务方认证才可在该版块发布信息");
+        }
+        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }) ;
+        builder.create().show();
+    }
+
+
     private void judgelvxing() {
         if (isLogin){
-            Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
-            intent.putExtra("title", "资产求购");
-            startActivity(intent);
+            if ("1".equals(GetBenSharedPreferences.getRole(getActivity()))){
+                Intent intent = new Intent(getActivity(), ReleaseDetailsActivity.class);
+                intent.putExtra("title", "资产求购");
+                startActivity(intent);
+            }else {
+                goServiceRegisterActivity() ;
+            }
         }else {
             goLoginActivity() ;
         }

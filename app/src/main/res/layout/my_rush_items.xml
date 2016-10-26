@@ -39,11 +39,11 @@
 
         <ImageView
             android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/money_transfer_no"
             android:id="@+id/info_vip"
-            android:layout_marginRight="9dp"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon1010"
+            android:src="@mipmap/vipresources"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

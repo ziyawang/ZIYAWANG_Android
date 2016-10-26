@@ -116,9 +116,10 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#fdd000"
+        android:textSize="15dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_miao"
         android:textColor="#000"
         android:layout_marginTop="20dp"
         android:id="@+id/feedBack_submit"

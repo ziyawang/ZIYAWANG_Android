@@ -605,6 +605,8 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                 //scrollView.setFocusable(true);
                                 float moveY = DownY - event.getY();//y轴距离
                                 Log.e("benben", "" + moveY);
+                                //int maxAmplitude = mMediaRecorder.getMaxAmplitude();
+                                //Log.e("voice" , maxAmplitude + "" ) ;
                                 if (moveY > 200) {
                                     Log.e("benben", "----------------------上划取消-----------------------");
                                     window.dismiss();
@@ -863,7 +865,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                     //状态
                     String s7 = text_status.getText().toString().trim();
 
-
                     Log.e("benben", login);
 
                     switch (title_t) {
@@ -877,7 +878,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                         if (!TextUtils.isEmpty(s4)) {
 
                                             //if (release_frame_one.getVisibility() == View.VISIBLE) {
-
 
                                                 dialog = new MyProgressDialog(ReleaseDetailsActivity.this, "正在发布中。。。");
                                                 dialog.show();
@@ -914,7 +914,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                 case "200":
                                                                     final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                     builder01.setTitle("发布成功，等待审核。");
-                                                                    builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                    builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                     builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(DialogInterface dialog, int which) {
@@ -1010,7 +1010,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                             case "200":
                                                                 final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                 builder01.setTitle("发布成功，等待审核。");
-                                                                builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                 builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(DialogInterface dialog, int which) {
@@ -1068,7 +1068,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
 
                                                     if (release_frame_one.getVisibility() == View.VISIBLE) {
 
-
                                                         dialog = new MyProgressDialog(ReleaseDetailsActivity.this, "正在发布中。。。");
                                                         dialog.show();
                                                         HttpUtils utils = new HttpUtils();
@@ -1106,7 +1105,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                         case "200":
                                                                             final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                             builder01.setTitle("发布成功，等待审核。");
-                                                                            builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                            builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                             builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
@@ -1203,7 +1202,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                             case "200":
                                                                 final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                 builder01.setTitle("发布成功，等待审核。");
-                                                                builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                 builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(DialogInterface dialog, int which) {
@@ -1294,7 +1293,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                 case "200":
                                                                     final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                     builder01.setTitle("发布成功，等待审核。");
-                                                                    builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                    builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                     builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(DialogInterface dialog, int which) {
@@ -1385,7 +1384,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                 case "200":
                                                                     final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                     builder01.setTitle("发布成功，等待审核。");
-                                                                    builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                    builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                     builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(DialogInterface dialog, int which) {
@@ -1481,7 +1480,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                             case "200":
                                                                 final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                 builder01.setTitle("发布成功，等待审核。");
-                                                                builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                 builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(DialogInterface dialog, int which) {
@@ -1572,7 +1571,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                             case "200":
                                                                 final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                 builder01.setTitle("发布成功，等待审核。");
-                                                                builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                 builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(DialogInterface dialog, int which) {
@@ -1668,7 +1667,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                     case "200":
                                                                         final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                         builder01.setTitle("发布成功，等待审核。");
-                                                                        builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                        builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                         builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                             @Override
                                                                             public void onClick(DialogInterface dialog, int which) {
@@ -1768,7 +1767,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                     case "200":
                                                                         final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                         builder01.setTitle("发布成功，等待审核。");
-                                                                        builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                        builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                         builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                             @Override
                                                                             public void onClick(DialogInterface dialog, int which) {
@@ -1872,7 +1871,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                         case "200":
                                                                             final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                             builder01.setTitle("发布成功，等待审核。");
-                                                                            builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                            builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                             builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
@@ -1972,7 +1971,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                             case "200":
                                                                 final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                 builder01.setTitle("发布成功，等待审核。");
-                                                                builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                 builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(DialogInterface dialog, int which) {
@@ -2066,7 +2065,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                                                         case "200":
                                                                             final CustomDialog.Builder builder01 = new CustomDialog.Builder(ReleaseDetailsActivity.this);
                                                                             builder01.setTitle("发布成功，等待审核。");
-                                                                            builder01.setMessage("请到个人中心“我发布的”板块去查看");
+                                                                            builder01.setMessage("请到个人中心“我的发布”板块去查看");
                                                                             builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                                                                 @Override
                                                                                 public void onClick(DialogInterface dialog, int which) {
@@ -2305,6 +2304,24 @@ public class ReleaseDetailsActivity extends BaseActivity {
         window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         final Button audio = (Button)view.findViewById(R.id.audio);
 
+//        final Timer timer1 = new Timer() ;
+//        timer1.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (left_time <= 5){
+//                            timer1.cancel();
+//                        }else {
+//                            int maxAmplitude = mMediaRecorder.getMaxAmplitude();
+//                            audio.setText("当前音量" + maxAmplitude + "分贝");
+//                        }
+//
+//                    }
+//                });
+//            }
+//        } , 0 , 500 );
         final Timer timer = new Timer() ;
         timer.schedule(new TimerTask() {
             @Override
@@ -2313,10 +2330,10 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        left_time -- ;
-                        if (left_time <= 5 ){
-                            audio.setText("剩余时间" + left_time +"s");
-                            if (left_time == 0){
+                        left_time--;
+                        if (left_time <= 5) {
+                            audio.setText("剩余时间" + left_time + "s");
+                            if (left_time == 0) {
                                 timer.cancel();
                                 audio.setText("录制时间过长");
                                 stopRecorder();
@@ -2341,6 +2358,7 @@ public class ReleaseDetailsActivity extends BaseActivity {
             public void onDismiss() {
                 left_time = 30 ;
                 timer.cancel();
+                //timer1.cancel();
             }
         });
     }

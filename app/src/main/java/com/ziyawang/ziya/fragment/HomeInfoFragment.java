@@ -31,6 +31,7 @@ import com.ziyawang.ziya.activity.FindInfoActivity;
 import com.ziyawang.ziya.adapter.FindInfoAdapter;
 import com.ziyawang.ziya.adapter.HomeViewPagerAdapter;
 import com.ziyawang.ziya.entity.FindInfoEntity;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -347,7 +348,22 @@ public class HomeInfoFragment extends Fragment {
 
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        data.clear();
+//        count = 1 ;
+//        findinfo();
+//    }
+
     private void findinfo() {
+
+        String urls ;
+        if (GetBenSharedPreferences.getIsLogin(getActivity())){
+              urls = String.format(Url.GetInfo, GetBenSharedPreferences.getTicket(getActivity()) ) ;
+        }else {
+              urls = String.format(Url.GetInfo, "" ) ;
+        }
 
         HttpUtils httpUtils = new HttpUtils();
         RequestParams params = new RequestParams();
@@ -355,7 +371,7 @@ public class HomeInfoFragment extends Fragment {
         params.addQueryStringParameter("startpage" , "" + count );
         httpUtils.configCurrentHttpCacheExpiry(1000);
 
-        httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetInfo, params, new RequestCallBack<String>() {
+        httpUtils.send(HttpRequest.HttpMethod.GET, urls , params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 

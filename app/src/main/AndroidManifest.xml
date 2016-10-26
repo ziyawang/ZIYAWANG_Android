@@ -281,7 +281,8 @@
         <activity android:name=".activity.RechargeActivity" />
         <activity android:name=".activity.GoldDetailsActivity" />
         <activity android:name=".activity.GoldDetails02Activity" />
-        <activity android:name=".activity.ChangeNickNameActivity"></activity>
+        <activity android:name=".activity.ChangeNickNameActivity" />
+        <activity android:name=".activity.ReportActivity"></activity>
     </application>
 
 </manifest>

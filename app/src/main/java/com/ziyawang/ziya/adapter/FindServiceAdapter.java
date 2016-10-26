@@ -65,7 +65,7 @@ public class FindServiceAdapter extends BaseAdapter {
 
         }
 
-        holder.service_title.setText(list.get(position).getServiceName());
+        holder.service_title.setText(list.get(position).getServiceName() + "(" + list.get(position).getConnectPerson() + ")");
         holder.service_part.setText(list.get(position).getServiceLocation());
         holder.service_type.setText(list.get(position).getServiceType());
         holder.service_level.setText(list.get(position).getServiceLevel());

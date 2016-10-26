@@ -19,6 +19,7 @@
     <color name="two">#ff0000</color>
     <color name="three">#00ffff</color>
     <color name="four">#0000ff</color>
+    <color name="logoutRed">#ea6155</color>
 
     <color name="progressDialog">#883a3a3b</color>
 

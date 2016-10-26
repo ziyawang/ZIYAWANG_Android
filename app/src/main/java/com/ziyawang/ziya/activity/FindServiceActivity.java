@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -373,6 +374,42 @@ public class FindServiceActivity extends BaseActivity {
         Button i = (Button)view.findViewById(R.id.i);
         Button j = (Button)view.findViewById(R.id.j);
 
+        Log.e("benbne" , find_type.getText().toString() ) ;
+
+        switch (find_type.getText().toString()){
+            case "资产包收购" :
+                a.setSelected(true);
+                break;
+            case "催收机构" :
+                b.setSelected(true);
+                break;
+            case "律师事务所" :
+                c.setSelected(true);
+                break;
+            case "保理公司" :
+                d.setSelected(true);
+                break;
+            case "资产收购" :
+                i.setSelected(true);
+                break;
+            case "债权收购" :
+                j.setSelected(true);
+                break;
+            case "投融资服务" :
+                g.setSelected(true);
+                break;
+            case "尽职调查" :
+                h.setSelected(true);
+                break;
+            case "担保公司" :
+                f.setSelected(true);
+                break;
+            case "典当公司" :
+                e.setSelected(true);
+                break;
+            default:
+                break;
+        }
 
         a.setOnClickListener(new View.OnClickListener() {
             @Override

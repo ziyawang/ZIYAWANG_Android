@@ -26,10 +26,13 @@ public class FindInfoEntity {
     private String WordDes ;
     private String InvestType ;
     private String Year ;
+    private String UserID ;
+    private String Price ;
+    private String PayFlag ;
 
     public FindInfoEntity(){}
 
-    public FindInfoEntity(String projectID , String proArea, String fromWhere, String assetType, String totalMoney, String transferMoney, String status, String rate, String requirement, String buyerNature, String informant, String buyer,String typeName,String projectNumber , String member , String certifyState , String publishState , String corpore , String wordDes ,String investType , String year) {
+    public FindInfoEntity(String projectID , String proArea, String fromWhere, String assetType, String totalMoney, String transferMoney, String status, String rate, String requirement, String buyerNature, String informant, String buyer,String typeName,String projectNumber , String member , String certifyState , String publishState , String corpore , String wordDes ,String investType , String year , String userID , String price , String payFlag ) {
         super();
         ProjectID = projectID ;
         ProArea = proArea;
@@ -52,6 +55,33 @@ public class FindInfoEntity {
         WordDes = wordDes ;
         InvestType = investType ;
         Year = year ;
+        UserID = userID ;
+        Price = price ;
+        PayFlag = payFlag ;
+    }
+
+    public String getPayFlag() {
+        return PayFlag;
+    }
+
+    public void setPayFlag(String payFlag) {
+        PayFlag = payFlag;
+    }
+
+    public String getPrice() {
+        return Price;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
+    }
+
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String userID) {
+        UserID = userID;
     }
 
     public String getWordDes() {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.text.Html;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
@@ -180,6 +182,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     private static String corpore ;
     private static String voiceDes ;
     private static String CompanyDes ;
+    private static String CompanyDesPC ;
     private static String pictureDes1 ;
     private static String pictureDes2 ;
     private static String pictureDes3 ;
@@ -191,6 +194,10 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     private LinearLayout show_info_register ;
     //账户余额
     private TextView info_account ;
+    //头像的popupwindow
+    private PopupWindow popupWindow ;
+    //举报按钮
+    private TextView report ;
 
 
     @Override
@@ -278,6 +285,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         member_linear = (LinearLayout) findViewById(R.id.member_linear);
         player = new Player();
         info_image_publisher = (ImageView)findViewById(R.id.info_image_publisher) ;
+        report = (TextView)findViewById(R.id.report) ;
     }
 
     @Override
@@ -291,6 +299,8 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         info_sendMessage.setOnClickListener(this);
         info_audio_des.setOnClickListener(this);
         show_info_register.setOnClickListener(this);
+        info_icon.setOnClickListener(this);
+        report.setOnClickListener(this);
     }
 
     @Override
@@ -404,6 +414,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             corpore = jsonObject.getString("Corpore");
             voiceDes = jsonObject.getString("VoiceDes");
             CompanyDes = jsonObject.getString("CompanyDes");
+            CompanyDesPC = jsonObject.getString("CompanyDesPC");
             pictureDes1 = jsonObject.getString("PictureDes1");
             pictureDes2 = jsonObject.getString("PictureDes2");
             pictureDes3 = jsonObject.getString("PictureDes3");
@@ -420,7 +431,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     private void showData(JSONObject jsonObject) throws JSONException {
         //根据数据请求过来PayFlag来正确显示是否约谈过
         if ("1".equals(PayFlag)){
-            textView6.setText("已约谈");
+            //textView6.setText("已约谈");
         }
         //根据数据请求过来Publisher来正确显示是否是委托发布
         if ("1".equals(Publisher)){
@@ -431,7 +442,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         //根据数据请求过来account来正确显示账户余额
         showAccount(Account) ;
         //根据数据请求过来的Member来正确显示是否是VIP资源
-        showVipStatus(Member , CompanyDes) ;
+        showVipStatus(Member , CompanyDesPC) ;
         //根据数据请求过来的collectFlag来正确显示是否是收藏
         showCollectStatus(collectFlag) ;
         //根据数据请求过来的userPicture来正确显示头像
@@ -465,8 +476,10 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             if (judgeMyself()){
                 Log.e("judgeMyself" , "自己发布的信息") ;
                 showMyselfView() ;
+                report.setVisibility(View.GONE);
             }else {
                 showNotMyselfVIew(rushFlag) ;
+                report.setVisibility(View.VISIBLE);
             }
         }
         //设置不同的类型显示不同的信息
@@ -959,7 +972,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     }
 
     private void showNo(String projectNumber) {
-        info_no.setText("---" + projectNumber);
+        info_no.setText( " " + projectNumber);
     }
 
     private void showTitle(String typeName) {
@@ -1007,9 +1020,9 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     /**
      * 根据数据请求过来的Member来正确显示是否是VIP资源
      * @param member
-     * @param CompanyDes
+     * @param CompanyDesPC
      */
-    private void showVipStatus(String member, String CompanyDes) {
+    private void showVipStatus(String member, String CompanyDesPC) {
         if (!TextUtils.isEmpty(Member) && Member.equals("1")) {
             info_vip.setVisibility(View.VISIBLE);
             info_vip.setImageResource(R.mipmap.icon1010);
@@ -1017,7 +1030,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             info_vip.setVisibility(View.VISIBLE);
             info_vip.setImageResource(R.mipmap.icon1011);
             member_linear.setVisibility(View.VISIBLE);
-            company_text_des.setText(CompanyDes);
+            company_text_des.setText(Html.fromHtml(CompanyDesPC));
         }else {
             info_vip.setVisibility(View.GONE);
         }
@@ -1101,14 +1114,77 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             case R.id.show_info_register :
                 goServiceRegister() ;
                 break;
+            //头像的监听事件
+            case R.id.info_icon:
+                goShowIcon() ;
+                break;
+            //举报的监听事件
+            case R.id.report :
+                goReportActivity() ;
+                break;
             default:
                 break;
         }
     }
 
+    private void goReportActivity() {
+        if (GetBenSharedPreferences.getIsLogin(this)){
+            Intent intent = new Intent(DetailsFindInfoActivity.this , ReportActivity.class ) ;
+            intent.putExtra("type" , "info") ;
+            intent.putExtra("id" , id ) ;
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(DetailsFindInfoActivity.this , LoginActivity.class ) ;
+            startActivity(intent ) ;
+        }
+
+
+    }
+
+    private void goShowIcon() {
+
+        //获取布局加载器对象
+        View contentView = getLayoutInflater().inflate(R.layout.popupwindow_show_icon, null);
+        //实例化组件
+        ImageView imageView = (ImageView) contentView.findViewById(R.id.popupwindow_image);
+
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        info_icon.setDrawingCacheEnabled(true);
+        Bitmap bm = info_icon.getDrawingCache();
+        imageView.setImageBitmap(bm);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        //创建一个PopupWindow放入到容器内
+        popupWindow = new PopupWindow(contentView, getWindowManager().getDefaultDisplay().getWidth(), getWindowManager().getDefaultDisplay().getWidth() );
+        //对PopupWindow的弹出窗进行设置
+        popupWindow.setAnimationStyle(R.style.animation_01);
+        //取得焦点
+        popupWindow.setFocusable(true);
+        //点击空白的地方关闭PopupWindow
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        //弹出位置
+        popupWindow.showAsDropDown(info_icon, 0, 0);
+        //popupWindow.showAtLocation( mGameView, Gravity.CENTER, 0, 20);
+
+        backgroundAlpha(0.5f);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+    }
+
     private void goServiceRegister() {
         //ToastUtils.shortToast(DetailsFindInfoActivity.this, "通过认证的服务方才能查看联系方式、申请抢单、私聊。");
-        ToastUtils.shortToast(DetailsFindInfoActivity.this, "通过认证的服务方才能约谈和私聊。");
+        ToastUtils.shortToast(DetailsFindInfoActivity.this, "建议您通过认证后再进行约谈、私聊");
     }
 
     private void goAudioDes() {
@@ -1262,30 +1338,70 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             builder01.create().show();
 
         }else {
-            //还未支付过
-            showPopUpWindow() ;
+            //还未支付过,是否是收费信息，若是收费信息，直接拨打电话，不是收费信息，则调用接口拨打电话。
+            //showPopUpWindow() ;
+            //1.0.5版本。收费信息到此页面，一定是支付过，未支付的信息为不收费信息。
+            String url = String.format(Url.Pay, login ) ;
+            HttpUtils httpUtils = new HttpUtils() ;
+            RequestParams params = new RequestParams() ;
+            params.addBodyParameter("ProjectID" , id );
+            httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    Log.e("benben" , responseInfo.result ) ;
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(responseInfo.result);
+                        String status_code = jsonObject.getString("status_code");
+                        switch (status_code){
+                            case "200" :
+                                PayFlag = "1" ;
+                                //textView6.setText("已约谈");
+                                final CustomDialog.Builder builder01 = new CustomDialog.Builder(DetailsFindInfoActivity.this);
+                                builder01.setTitle("亲爱的用户");
+                                builder01.setMessage("您确定要联系" + phoneNumber + "?");
+                                builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {goCallNumber() ;
 
-//            final CustomDialog.Builder builder01 = new CustomDialog.Builder(DetailsFindInfoActivity.this);
-//            builder01.setTitle("亲爱的用户");
-//            builder01.setMessage("您是否要花费" + Price + "牙币，永久性购买此条信息。");
-//            builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {goPay();
-//
-//                }
-//            });
-//            builder01.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                }
-//            });
-//            builder01.create().show();
+                                    }
+                                });
+                                builder01.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builder01.create().show();
+                                break;
+                            case "416" :
+                                ToastUtils.shortToast(DetailsFindInfoActivity.this , "非收费信息");
+                                break;
+                            case "417" :
+                                ToastUtils.shortToast(DetailsFindInfoActivity.this , "您已经支付过该条信息");
+                                break;
+                            case "418" :
+                                ToastUtils.shortToast(DetailsFindInfoActivity.this , "余额不足，请充值。");
+                                break;
+                            default:
+                                break;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
+                }
+
+                @Override
+                public void onFailure(HttpException error, String msg) {
+                    error.printStackTrace();
+                    ToastUtils.shortToast( DetailsFindInfoActivity.this , "网络连接异常");
+                }
+            }) ;
         }
 
     }
-
+    //1.0.4版本的支付方法。还未支付过，直接显示余额，充值和消费，不收费则确定显示电话号码。
     private void showPopUpWindow() {
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -1402,7 +1518,7 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
                             String balance = jsonObject.getString("Account");
                             info_account.setText(balance + "牙币");
                             PayFlag = "1" ;
-                            textView6.setText("已约谈");
+                            //textView6.setText("已约谈");
                             final CustomDialog.Builder builder01 = new CustomDialog.Builder(DetailsFindInfoActivity.this);
                             builder01.setTitle("亲爱的用户");
                             builder01.setMessage("您确定要联系" + phoneNumber + "?");

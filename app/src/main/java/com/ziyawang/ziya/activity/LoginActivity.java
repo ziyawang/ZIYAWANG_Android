@@ -52,6 +52,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
     private SharedPreferences myNumber ;
     private SharedPreferences role ;
     private SharedPreferences userId ;
+    private SharedPreferences isLoad ;
     //数据加载
     private MyProgressDialog dialog  ;
     //找回密码按钮

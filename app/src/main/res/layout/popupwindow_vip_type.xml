@@ -19,6 +19,8 @@
     </LinearLayout>
 
     <RadioButton
+        android:paddingLeft="10dp"
+        style="@style/CustomRadioButtonTheme"
         android:id="@+id/one_one"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -32,6 +34,8 @@
     </LinearLayout>
 
     <RadioButton
+        android:paddingLeft="10dp"
+        style="@style/CustomRadioButtonTheme"
         android:id="@+id/one_two"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -45,6 +49,8 @@
     </LinearLayout>
 
     <RadioButton
+        android:paddingLeft="10dp"
+        style="@style/CustomRadioButtonTheme"
         android:id="@+id/one_three"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -58,6 +64,8 @@
     </LinearLayout>
 
     <RadioButton
+        android:paddingLeft="10dp"
+        style="@style/CustomRadioButtonTheme"
         android:layout_marginBottom="16dp"
         android:id="@+id/one_four"
         android:layout_width="match_parent"
