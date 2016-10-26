@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#eee"
+    android:fitsSystemWindows="true"
+    tools:context="com.ziyawang.ziya.activity.ReportActivity">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_service_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/service_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="选择举报原因"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="#fff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/report_one"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:text="服务方描述与事实不符"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:background="#eee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <CheckBox
+            android:id="@+id/report_two"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:text="虚假信息"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:background="#eee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <CheckBox
+            android:id="@+id/report_three"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:text="泄露私密"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:background="#eee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <CheckBox
+            android:id="@+id/report_four"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:text="垃圾广告"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:background="#eee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <CheckBox
+            android:id="@+id/report_five"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:text="人身攻击"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:background="#eee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <CheckBox
+            android:id="@+id/report_six"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:text="无法联系"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/report_submit"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="15sp"
+        android:textColor="#333"
+        android:text="确认举报"
+        android:background="@drawable/button"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:layout_marginTop="14dp"
+        android:letterSpacing="0.2"
+        android:textSize="11sp"
+        android:textColor="#333"
+        android:text="资芽网全国服务热线 400-898-8557"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+
+</LinearLayout>
