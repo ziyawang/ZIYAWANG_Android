@@ -17,6 +17,12 @@ import android.widget.TextView;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.LoginActivity;
+import com.ziyawang.ziya.activity.PublishAssetsActivity;
+import com.ziyawang.ziya.activity.PublishCompanyActivity;
+import com.ziyawang.ziya.activity.PublishFinanceActivity;
+import com.ziyawang.ziya.activity.PublishFixedActivity;
+import com.ziyawang.ziya.activity.PublishPersonActivity;
+import com.ziyawang.ziya.activity.PublishRuleActivity;
 import com.ziyawang.ziya.activity.ReleaseDetailsActivity;
 import com.ziyawang.ziya.activity.ServiceRegisterActivity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
@@ -56,6 +62,8 @@ public class ReleaseFragment extends Fragment implements View.OnClickListener {
     private Button xu ;
     //用户缓存的isLogin的状态
     private boolean isLogin ;
+
+    private Button niu_106_6 , niu_106_5 , niu_106_4 , niu_106_3 , niu_106_2 , niu_106_1 ;
     //无参构造
     public ReleaseFragment() {}
 
@@ -90,6 +98,13 @@ public class ReleaseFragment extends Fragment implements View.OnClickListener {
         tuangou.setOnClickListener(this);
         lvxing.setOnClickListener(this);
         xu.setOnClickListener(this);
+
+        niu_106_6.setOnClickListener(this);
+        niu_106_5.setOnClickListener(this);
+        niu_106_4.setOnClickListener(this);
+        niu_106_3.setOnClickListener(this);
+        niu_106_2.setOnClickListener(this);
+        niu_106_1.setOnClickListener(this);
     }
 
     private void initData() {
@@ -110,6 +125,13 @@ public class ReleaseFragment extends Fragment implements View.OnClickListener {
         tuangou = (Button) v.findViewById(R.id.tuangou);
         lvxing = (Button) v.findViewById(R.id.lvxing);
         xu = (Button) v.findViewById(R.id.xv);
+
+        niu_106_6 = (Button) v.findViewById(R.id.niu_106_6);
+        niu_106_5 = (Button) v.findViewById(R.id.niu_106_5);
+        niu_106_4 = (Button) v.findViewById(R.id.niu_106_4);
+        niu_106_3 = (Button) v.findViewById(R.id.niu_106_3);
+        niu_106_2 = (Button) v.findViewById(R.id.niu_106_2);
+        niu_106_1 = (Button) v.findViewById(R.id.niu_106_1);
     }
 
     @Override
@@ -154,12 +176,58 @@ public class ReleaseFragment extends Fragment implements View.OnClickListener {
             case R.id.xv :
                 judgexv() ;
                 break;
+            case R.id.niu_106_6 :
+                if (isLogin){
+                    Intent intent6 = new Intent(getActivity(), PublishFixedActivity.class);
+                    startActivity(intent6);
+                }else {
+                    goLoginActivity() ;
+                }
+                break;
+            case R.id.niu_106_5 :
+                if (isLogin){
+                    Intent intent5 = new Intent(getActivity(), PublishRuleActivity.class);
+                    startActivity(intent5);
+                }else {
+                    goLoginActivity() ;
+                }
+                break;
+            case R.id.niu_106_4 :
+                if (isLogin){
+                    Intent intent4 = new Intent(getActivity(), PublishFinanceActivity.class);
+                    startActivity(intent4);
+                }else {
+                    goLoginActivity() ;
+                }
+                break;
+            case R.id.niu_106_3 :
+                if (isLogin){
+                    Intent intent3 = new Intent(getActivity(), PublishCompanyActivity.class);
+                    startActivity(intent3);
+                }else {
+                    goLoginActivity() ;
+                }
+                break;
+            case R.id.niu_106_2 :
+                if (isLogin){
+                    Intent intent2 = new Intent(getActivity(), PublishPersonActivity.class);
+                    startActivity(intent2);
+                }else {
+                    goLoginActivity() ;
+                }
+                break;
+            case R.id.niu_106_1 :
+                if (isLogin){
+                    Intent intent1 = new Intent(getActivity(), PublishAssetsActivity.class);
+                    startActivity(intent1);
+                }else {
+                    goLoginActivity() ;
+                }
+                break;
             default:
                 break;
-
         }
     }
-
     private void judgexv() {
         if (isLogin){
             if ("1".equals(GetBenSharedPreferences.getRole(getActivity()))){

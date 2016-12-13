@@ -264,7 +264,6 @@ public class MyPersonAdapter extends BaseAdapter {
             }
         });
 
-
         holder.text_three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

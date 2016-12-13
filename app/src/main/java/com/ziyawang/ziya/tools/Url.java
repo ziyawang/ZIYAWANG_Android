@@ -25,6 +25,7 @@ public class Url {
     public static final String ShareVideo = "http://ziyawang.com/video/" ;
     public static final String ShareInfo = "http://ziyawang.com/project/" ;
     public static final String ShareService = "http://ziyawang.com/service/" ;
+    public static final String ShareNews = "http://ziyawang.com/news/" ;
 
     public static final String PayCharge = IP + "/v1/pay?access_token=token&token=%s" ;
     public static final String ChangeNickName = IP + "/v1/auth/chusername?access_token=token&token=%s" ;
@@ -36,8 +37,8 @@ public class Url {
     public static final String Register = IP + "/v1/auth/register";
     public static final String FindPwd = IP + "/v1/auth/resetpwd";
     public static final String ChangeIcon = IP + "/v1/upload?access_token=token&token=%s" ;
-    public static final String GetInfo = IP + "/v1/project/lists?access_token=token&token=%s";
-    public static final String Details_info = IP + "/v1/project/list/%s?token=%s";
+    public static final String NOGetInfo = IP + "/v1/project/list?access_token=token&token=%s";
+
     public static final String GetService = IP + "/v1/service/list?access_token=token";
     public static final String Details_service = IP + "/v1/service/list/%s?token=%s";
     public static final String GetMovie = IP + "/v1/video/list?access_token=token";
@@ -62,7 +63,9 @@ public class Url {
     public static final String Banner = IP + "/v1/app/banner?access_token=token" ;
     public static final String BannerTWO = IP + "/v1/app/twobanner?access_token=token" ;
     public static final String VideoCommentList = IP + "/v1/video/comment/list?access_token=token" ;
+    public static final String NewsCommentList = IP + "/v1/news/comment/list?access_token=token" ;
     public static final String VideoCommentSend = IP + "/v1/video/comment/create?access_token=token&token=%s" ;
+    public static final String NewsCommentSend = IP + "/v1/news/comment/create?access_token=token&token=%s" ;
     public static final String CheckUpdata = IP + "/v1/app/update?access_token=token" ;
     public static final String RCToken = IP + "/v1/rctoken?access_token=token&token=%s" ;
     public static final String RongIcon = IP + "/v1/app/uinfo?access_token=token&UserID=%s" ;
@@ -72,10 +75,19 @@ public class Url {
     public static final String ISPay = IP + "/v1/ispay?access_token=token&token=%s" ;
     public static final String Report = IP + "/v1/report?access_token=token&token=%s" ;
     public static final String ServiceAccount = IP + "/v1/count/service?access_token=token&token=%s" ;
+    public static final String NewsLists = IP + "/v1/news/list?access_token=token" ;
+    public static final String DetailsNews = IP + "/v1/news/list/%s?access_token=token&token=%s" ;
+    public static final String GetQuestions = IP + "/v1/test/paper?access_token=token" ;
+    public static final String SubmitQuestions = IP + "/v1/test/result?access_token=token&token=%s" ;
 
     //头像路径
     public static final String IconPath = SDUtil.getSDPath() + File.separator + "ziya"+ File.separator + "icon.png" ;
 
-
+    //资芽V2的新接口
+    public static final String V2Publish = IP + "/v1/uploadfile?access_token=token&token=%s";
+    public static final String V2OtherPublish = IP + "/v1/v2/entrust?access_token=token&token=%s";
+    public static final String GetInfo = IP + "/v1/v2/project/list?access_token=token&token=%s";
+    public static final String V2MyCollectList = IP + "/v1/v2/app/collect/list?access_token=token&token=%s";
+    public static final String Details_info = IP + "/v1/v2/project/list/%s?token=%s";
 
 }

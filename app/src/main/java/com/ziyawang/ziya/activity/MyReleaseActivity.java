@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -21,7 +22,10 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.MyReleaseAdapter;
+import com.ziyawang.ziya.adapter.V2FindInfoAdapter;
+import com.ziyawang.ziya.adapter.V2MyReleaseAdapter;
 import com.ziyawang.ziya.entity.FindInfoEntity;
+import com.ziyawang.ziya.entity.V2InfoEntity;
 import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -37,11 +41,10 @@ import java.util.List;
 
 public class MyReleaseActivity extends BaseActivity {
 
-
-    private List<FindInfoEntity> list ;
-    private MyReleaseAdapter adapter ;
+    private List<V2InfoEntity> list ;
+    private V2MyReleaseAdapter adapter ;
     private TextView niuniuniuniu ;
-    private List<FindInfoEntity> data  = new ArrayList<FindInfoEntity>();
+    private List<V2InfoEntity> data  = new ArrayList<V2InfoEntity>();
     private int page  ;
     private int count = 1 ;
     private Boolean isOK = true ;
@@ -166,6 +169,7 @@ public class MyReleaseActivity extends BaseActivity {
         HttpUtils httpUtils = new HttpUtils();
         RequestParams params = new RequestParams();
         params.addQueryStringParameter("startpage" , "" + count );
+        params.addQueryStringParameter("pagecount", "10" );
         httpUtils.configCurrentHttpCacheExpiry(1000);
         httpUtils.send(HttpRequest.HttpMethod.GET, urls , params, new RequestCallBack<String>() {
             @Override
@@ -174,36 +178,23 @@ public class MyReleaseActivity extends BaseActivity {
                     dialog.dismiss();
                 }
                 Log.e("benben_myRelease", responseInfo.result);
-                try {
-                    JSONObject jsonObject = new JSONObject(responseInfo.result);
-                    String pages = jsonObject.getString("pages");
-                    String counts = jsonObject.getString("counts");
-                    if (!TextUtils.isEmpty(counts) && counts.equals("0")){
-                        scrollView.setVisibility(View.GONE);
-                        niuniuniuniu.setVisibility(View.VISIBLE);
-                    }else {
-
-                        scrollView.setVisibility(View.VISIBLE);
-                        niuniuniuniu.setVisibility(View.GONE);
-
-                        page = Integer.parseInt(pages);
-                        count++;
-                        Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
-
-                        try {
-                            List<FindInfoEntity> list = Json_FindInfo.getParse(responseInfo.result);
-                            data.addAll(list);
-                            Log.e("benben", "数据的个数" + data.size());
-                            adapter = new MyReleaseAdapter(MyReleaseActivity.this, data);
-                            listView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                String pages = object.getString("pages");
+                page = Integer.parseInt(pages);
+                count++;
+                String counts = object.getString("counts");
+                if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
+                    scrollView.setVisibility(View.GONE);
+                    niuniuniuniu.setVisibility(View.VISIBLE);
+                } else {
+                    scrollView.setVisibility(View.VISIBLE);
+                    niuniuniuniu.setVisibility(View.GONE);
+                    com.alibaba.fastjson.JSONArray data01 = object.getJSONArray("data");
+                    List<V2InfoEntity> v2InfoEntities = JSON.parseArray(data01.toJSONString(), V2InfoEntity.class);
+                    data.addAll(v2InfoEntities);
+                    adapter = new V2MyReleaseAdapter(MyReleaseActivity.this, data);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetInvalidated();
                 }
 
             }

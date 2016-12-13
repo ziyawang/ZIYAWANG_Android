@@ -19,6 +19,7 @@ import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.FindInfoActivity;
 import com.ziyawang.ziya.activity.FindServiceActivity;
 import com.ziyawang.ziya.activity.FindVideoActivity;
+import com.ziyawang.ziya.activity.V2FindInfoActivity;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.view.NiuLinear;
 
@@ -97,7 +98,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     }
 
     private void goFindInfoActivity() {
-        Intent intent = new Intent(getActivity() , FindInfoActivity.class ) ;
+        Intent intent = new Intent(getActivity() , V2FindInfoActivity.class ) ;
         startActivity(intent);
     }
 

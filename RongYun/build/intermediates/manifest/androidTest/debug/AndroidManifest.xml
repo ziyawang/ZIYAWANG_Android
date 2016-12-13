@@ -94,6 +94,8 @@
  <!-- 必选： SDK 核心功能 -->
         <!-- end -->
         <!-- imlib config begin -->
+        <!-- 测试4z3hlwrv33a0t -->
+        <!-- 正式服25wehl3uww96w -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="25wehl3uww96w" />

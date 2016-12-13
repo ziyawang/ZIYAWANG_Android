@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -28,9 +29,12 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.FindInfoActivity;
+import com.ziyawang.ziya.activity.V2FindInfoActivity;
 import com.ziyawang.ziya.adapter.FindInfoAdapter;
 import com.ziyawang.ziya.adapter.HomeViewPagerAdapter;
+import com.ziyawang.ziya.adapter.V2FindInfoAdapter;
 import com.ziyawang.ziya.entity.FindInfoEntity;
+import com.ziyawang.ziya.entity.V2InfoEntity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.ToastUtils;
@@ -45,6 +49,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imageloader.core.ImageLoader;
+
 /**
  * Created by 牛海丰 on 2016/7/28.
  */
@@ -52,15 +58,14 @@ public class HomeInfoFragment extends Fragment {
 
     private ViewPager home_info_viewPager;
     private List<View> viewList = new ArrayList<View>();
-    private FindInfoAdapter adapter;
-    //private BenListView home_listView;
-    private ListView home_listView;
+    private V2FindInfoAdapter adapter;
+    private BenListView home_listView;
 
     private ImageView five , six ;
 
     private LayoutInflater inflater;
 
-    private List<FindInfoEntity> data  = new ArrayList<FindInfoEntity>();
+    private List<V2InfoEntity> data  = new ArrayList<V2InfoEntity>();
 
     private int page  ;
     private int count = 1 ;
@@ -149,117 +154,63 @@ public class HomeInfoFragment extends Fragment {
         viewList.get(0).findViewById(R.id.info_one).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.e("benben", "_____________资产包转让________________");
-                Intent intent = new Intent(getActivity(), FindInfoActivity.class);
-                intent.putExtra("typeName", "01");
+                Log.e("benben", "_____________资产包________________");
+                Intent intent = new Intent(getActivity(), V2FindInfoActivity.class);
+                intent.putExtra("type", "资产包");
                 startActivity(intent);
             }
         });
         viewList.get(0).findViewById(R.id.info_two).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.e("benben", "_____________2________________");
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "14" ) ;
+                Log.e("benben", "_____________融资信息________________");
+                Intent intent = new Intent(getActivity() , V2FindInfoActivity.class  )  ;
+                intent.putExtra("type" , "融资信息" ) ;
                 startActivity(intent);
             }
         });
         viewList.get(0).findViewById(R.id.info_three).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("benben" , "_____________3________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "12" ) ;
+                Log.e("benben" , "_____________固定资产________________") ;
+                Intent intent = new Intent(getActivity() , V2FindInfoActivity.class  )  ;
+                intent.putExtra("type" , "固定资产" ) ;
                 startActivity(intent);
             }
         });
         viewList.get(0).findViewById(R.id.info_four).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("benben" , "_____________4________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "04" ) ;
+                Log.e("benben" , "_____________个人债权________________") ;
+                Intent intent = new Intent(getActivity() , V2FindInfoActivity.class  )  ;
+                intent.putExtra("type" , "个人债权" ) ;
                 startActivity(intent);
             }
         });
-//        viewList.get(0).findViewById(R.id.info_five).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e("benben" , "_____________5________________") ;
-//                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-//                intent.putExtra("typeName" , "05" ) ;
-//                startActivity(intent);
-//            }
-//        });
-        viewList.get(0).findViewById(R.id.info_six).setOnClickListener(new View.OnClickListener() {
+        viewList.get(1).findViewById(R.id.info_five).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("benben" , "_____________6________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "06" ) ;
+                Log.e("benben" , "_____________企业商账________________") ;
+                Intent intent = new Intent(getActivity() , V2FindInfoActivity.class  )  ;
+                intent.putExtra("type" , "企业商账" ) ;
+                startActivity(intent);
+            }
+        });
+        viewList.get(1).findViewById(R.id.info_six).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("benben" , "_____________法拍资产________________") ;
+                Intent intent = new Intent(getActivity() , V2FindInfoActivity.class  )  ;
+                intent.putExtra("type" , "法拍资产" ) ;
                 startActivity(intent);
             }
         });
         viewList.get(1).findViewById(R.id.info_seven).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("benben" , "_____________7________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "09" ) ;
-                startActivity(intent);
-            }
-        });
-        viewList.get(0).findViewById(R.id.info_eight).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("benben" , "_____________8________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "10" ) ;
-                startActivity(intent);
-            }
-        });
-        viewList.get(0).findViewById(R.id.info_nine).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("benben" , "_____________9________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "02" ) ;
-                startActivity(intent);
-            }
-        });
-        viewList.get(1).findViewById(R.id.info_ten).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("benben" , "_____________10________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "03" ) ;
-                startActivity(intent);
-            }
-        });
-        viewList.get(1).findViewById(R.id.info_eleven).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("benben" , "_____________11________________") ;
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "13" ) ;
-                startActivity(intent);
-            }
-        });
-//        viewList.get(1).findViewById(R.id.info_twelve).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e("benben", "_____________12________________");
-//                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-//                intent.putExtra("typeName" , "ben" ) ;
-//                startActivity(intent);
-//            }
-//        });
-        viewList.get(0).findViewById(R.id.info_requirement).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("benben", "_____________15________________");
-                Intent intent = new Intent(getActivity() , FindInfoActivity.class  )  ;
-                intent.putExtra("typeName" , "15" ) ;
+                Log.e("benben" , "_____________处置公告________________") ;
+                Intent intent = new Intent(getActivity() , V2FindInfoActivity.class  )  ;
+                intent.putExtra("type" , "处置公告" ) ;
                 startActivity(intent);
             }
         });
@@ -269,9 +220,8 @@ public class HomeInfoFragment extends Fragment {
     private void initView(View view) {
 
         home_info_viewPager = (ViewPager) view.findViewById(R.id.home_info_viewPager);
-        //home_listView = (BenListView) view.findViewById(R.id.home_listView);
-        home_listView = (ListView) view.findViewById(R.id.home_listView);
-        home_listView.setDivider(new ColorDrawable(Color.argb(0, 244,244,244)));
+        home_listView = (BenListView) view.findViewById(R.id.home_listView);
+        home_listView.setDivider(new ColorDrawable(Color.argb(0, 244, 244, 244)));
         home_listView.setDividerHeight(1);
         five = (ImageView)view.findViewById(R.id.five ) ;
         six = (ImageView)view.findViewById(R.id.six ) ;
@@ -309,7 +259,7 @@ public class HomeInfoFragment extends Fragment {
                         handler01.sendEmptyMessage(8081);
                         break;
                 }
-                return false ;
+                return false;
             }
         });
 
@@ -342,8 +292,6 @@ public class HomeInfoFragment extends Fragment {
 
             }
         });
-        //刷新适配器
-        //adapter.notifyDataSetChanged();
 
 
     }
@@ -369,6 +317,7 @@ public class HomeInfoFragment extends Fragment {
         RequestParams params = new RequestParams();
         //params.addBodyParameter("access_token", "token");
         params.addQueryStringParameter("startpage" , "" + count );
+        params.addQueryStringParameter("pagecount", "10" );
         httpUtils.configCurrentHttpCacheExpiry(1000);
 
         httpUtils.send(HttpRequest.HttpMethod.GET, urls , params, new RequestCallBack<String>() {
@@ -389,17 +338,17 @@ public class HomeInfoFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                try {
-                    List<FindInfoEntity> list = Json_FindInfo.getParse(responseInfo.result);
-
-                    data.addAll(list) ;
+                    com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                    com.alibaba.fastjson.JSONArray data01 = object.getJSONArray("data");
+                    List<V2InfoEntity> v2InfoEntities = JSON.parseArray(data01.toJSONString(), V2InfoEntity.class);
+                    data.addAll(v2InfoEntities);
 
                     Log.e("benben", "数据的个数" + data.size()) ;
 
                     //home_listView.setDivider(new ColorDrawable(Color.GRAY));
 
 
-                    adapter = new FindInfoAdapter(getActivity(), data);
+                    adapter = new V2FindInfoAdapter(getActivity(), data);
                     home_listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 
@@ -407,11 +356,8 @@ public class HomeInfoFragment extends Fragment {
                         dialog.dismiss();
                     }
 
-                    setListViewHeightBasedOnChildren(home_listView) ;
+                    //setListViewHeightBasedOnChildren(home_listView) ;
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
 
             @Override

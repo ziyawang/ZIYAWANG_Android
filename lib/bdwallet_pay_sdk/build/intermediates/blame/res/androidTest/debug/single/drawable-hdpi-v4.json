@@ -52,12 +52,12 @@
         "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_result_success.png"
     },
     {
-        "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png",
-        "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png"
-    },
-    {
         "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_result_success_benefit.9.png",
         "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_result_success_benefit.9.png"
+    },
+    {
+        "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png",
+        "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png"
     },
     {
         "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_bank_item_bg.9.png",
@@ -104,12 +104,12 @@
         "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ebpay_pwdpay_next_gray.png"
     },
     {
-        "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_pwdpay_submit_bg_pressed.9.png",
-        "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_pwdpay_submit_bg_pressed.9.png"
-    },
-    {
         "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_btn_default_off.png",
         "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_btn_default_off.png"
+    },
+    {
+        "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_pwdpay_submit_bg_pressed.9.png",
+        "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_pwdpay_submit_bg_pressed.9.png"
     },
     {
         "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_info_hover.png",

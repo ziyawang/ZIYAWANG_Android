@@ -6,12 +6,17 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -19,6 +24,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,11 +51,14 @@ import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyProgressDialog;
+import com.ziyawang.ziya.view.NotificationButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -66,17 +75,16 @@ public class VideoActivity extends Activity implements View.OnClickListener {
     TextView movie_look ;
     TextView movie_time ;
     TextView movie_des ;
-    TextView movie_submit ;
-    EditText movie_edit ;
-    TextView movie_share ;
-    TextView movie_collect ;
+    private RelativeLayout relative_commit ;
+    private RelativeLayout relative_collect ;
+    private RelativeLayout relative_share ;
+    private ImageView movie_collect ;
     FindVideoEntity findVideoEntity  ;
     private Boolean isLogin ;
     private static String id ;
     private String login ;
     private VideoCommentsAdapter adapter ;
     private ListView listView  ;
-    private RelativeLayout zhu ;
     private MyProgressDialog dialog  ;
     private TextView niu_top ;
     private TextView textView_show_noData ;
@@ -128,12 +136,79 @@ public class VideoActivity extends Activity implements View.OnClickListener {
             }
         });
         //发送评论的按钮
-        movie_submit.setOnClickListener(new View.OnClickListener() {
+        relative_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendComments();
+                showCommitWindow() ;
             }
         });
+
+    }
+
+    private void showCommitWindow() {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.popupwindow_comment, null);
+        final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final EditText editText = (EditText)view.findViewById(R.id.editText);
+        final TextView text_commit = (TextView)view.findViewById(R.id.text_commit ) ;
+        text_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendComments(editText, window);
+            }
+        });
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                InputMethodManager inputManager = (InputMethodManager)editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.showSoftInput(editText, 0);
+            }
+
+        }, 100);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString())){
+                    text_commit.setSelected(true);
+                }else {
+                    text_commit.setSelected(false);
+                }
+            }
+        });
+        //点击空白的地方关闭PopupWindow
+        window.setBackgroundDrawable(new BitmapDrawable());
+        // 设置popWindow的显示和消失动画
+        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.setFocusable(true);
+        window.showAtLocation(details_release_head, Gravity.BOTTOM, 0, 0);
+        backgroundAlpha(0.5f);
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        getWindow().setAttributes(lp);
     }
 
     private void initData() {
@@ -149,13 +224,13 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         app.addActivity(this);
     }
 
-    private void sendComments() {
-        if (!TextUtils.isEmpty(movie_edit.getText().toString().trim())){
+    private void sendComments(EditText editText, final PopupWindow window) {
+        if (!TextUtils.isEmpty(editText.getText().toString().trim())){
             String urls = String.format(Url.VideoCommentSend, login ) ;
             HttpUtils httpUtils = new HttpUtils() ;
             RequestParams params = new RequestParams() ;
             params.addBodyParameter("VideoID" , id );
-            params.addBodyParameter("Content" , movie_edit.getText().toString().trim() );
+            params.addBodyParameter("Content" , editText.getText().toString().trim() );
             httpUtils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -166,11 +241,8 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                         switch (status_code){
                             case "200" :
                                 ToastUtils.shortToast(VideoActivity.this, "评论发表成功");
-                                movie_edit.setText("");
-                                //movie_edit.clearFocus();
-                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm.hideSoftInputFromWindow(movie_edit.getWindowToken(), 0);
                                 loadComment();
+                                window.dismiss();
                                 break;
                             default:
                                 break;
@@ -279,28 +351,24 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         movie_des.setText("简介：" + findVideoEntity.getVideoDes());
         switch (findVideoEntity.getCollectFlag()) {
             case "0":
-                Drawable drawable02 = getResources().getDrawable(R.mipmap.collect_un);
-                drawable02.setBounds(0, 0, drawable02.getMinimumWidth(), drawable02.getMinimumHeight());
-                movie_collect.setCompoundDrawables(null, drawable02, null, null);
+                movie_collect.setImageResource(R.mipmap.v2shoucang);
                 break;
             case "1":
-                Drawable drawable03 = getResources().getDrawable(R.mipmap.collect);
-                drawable03.setBounds(0, 0, drawable03.getMinimumWidth(), drawable03.getMinimumHeight());
-                movie_collect.setCompoundDrawables(null, drawable03, null, null);
+                movie_collect.setImageResource(R.mipmap.v2shouc);
                 break;
             default:
                 break;
         }
 
         //分享按钮
-        movie_share.setOnClickListener(new View.OnClickListener() {
+        relative_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showShare();
             }
         });
         //收藏按钮的监听
-        movie_collect.setOnClickListener(new View.OnClickListener() {
+        relative_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isLogin) {
@@ -324,15 +392,11 @@ public class VideoActivity extends Activity implements View.OnClickListener {
                                 switch (msg) {
                                     case "取消收藏成功！":
                                         Toast.makeText(VideoActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
-                                        Drawable drawable02 = getResources().getDrawable(R.mipmap.collect_un);
-                                        drawable02.setBounds(0, 0, drawable02.getMinimumWidth(), drawable02.getMinimumHeight());
-                                        movie_collect.setCompoundDrawables(null, drawable02, null, null);
+                                        movie_collect.setImageResource(R.mipmap.v2shoucang);
                                         break;
                                     case "收藏成功！":
                                         Toast.makeText(VideoActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-                                        Drawable drawable03 = getResources().getDrawable(R.mipmap.collect);
-                                        drawable03.setBounds(0, 0, drawable03.getMinimumWidth(), drawable03.getMinimumHeight());
-                                        movie_collect.setCompoundDrawables(null, drawable03, null, null);
+                                        movie_collect.setImageResource(R.mipmap.v2shouc);
                                         break;
                                     default:
                                         break;
@@ -389,14 +453,13 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         movie_look = (TextView) findViewById(R.id.movie_look) ;
         movie_time = (TextView) findViewById(R.id.movie_time) ;
         movie_des = (TextView) findViewById(R.id.movie_des) ;
-        movie_submit = (TextView) findViewById(R.id.movie_submit) ;
-        movie_collect = (TextView) findViewById(R.id.movie_collect) ;
-        movie_share = (TextView) findViewById(R.id.movie_share) ;
-        movie_edit = (EditText) findViewById(R.id.movie_edit) ;
+        relative_share = (RelativeLayout)findViewById(R.id.relative_share ) ;
+        relative_collect = (RelativeLayout)findViewById(R.id.relative_collect ) ;
+        movie_collect = (ImageView) findViewById(R.id.movie_collect) ;
+        relative_commit = (RelativeLayout) findViewById(R.id.relative_commit) ;
         listView = (ListView)findViewById(R.id.listView) ;
         listView.setDivider(new ColorDrawable(Color.argb(0, 244, 244, 244)));
         listView.setDividerHeight(1);
-        zhu = (RelativeLayout)findViewById(R.id.zhu ) ;
         niu_top = (TextView)findViewById(R.id.niu_top ) ;
         textView_show_noData = (TextView)findViewById(R.id.textView_show_noData ) ;
     }
@@ -465,7 +528,7 @@ public class VideoActivity extends Activity implements View.OnClickListener {
             mSuperVideoPlayer.getLayoutParams().height = (int) width;
             mSuperVideoPlayer.getLayoutParams().width = (int) height;
             details_release_head.setVisibility(View.GONE);
-            zhu.setVisibility(View.GONE);
+            relative_commit.setVisibility(View.GONE);
         } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             final WindowManager.LayoutParams attrs = getWindow().getAttributes();
             attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -476,7 +539,7 @@ public class VideoActivity extends Activity implements View.OnClickListener {
             mSuperVideoPlayer.getLayoutParams().height = (int) height;
             mSuperVideoPlayer.getLayoutParams().width = (int) width;
             details_release_head.setVisibility(View.VISIBLE);
-            zhu.setVisibility(View.VISIBLE);
+            relative_commit.setVisibility(View.VISIBLE);
         }
     }
     /***

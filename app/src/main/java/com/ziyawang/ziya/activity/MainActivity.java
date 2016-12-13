@@ -37,6 +37,7 @@ import com.ziyawang.ziya.application.MyApplication;
 import com.ziyawang.ziya.fragment.HomePageFragment;
 import com.ziyawang.ziya.fragment.InformationFragment;
 import com.ziyawang.ziya.fragment.MyFragment;
+import com.ziyawang.ziya.fragment.NewsFragment;
 import com.ziyawang.ziya.fragment.ReleaseFragment;
 import com.ziyawang.ziya.fragment.SearchFragment;
 import com.ziyawang.ziya.tools.DownLoadManager;
@@ -47,6 +48,7 @@ import com.ziyawang.ziya.tools.SystemBarTintManager;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.CustomDialog;
+import com.ziyawang.ziya.view.CustomDialogVersion;
 import com.ziyawang.ziya.view.NotificationButton;
 
 import org.json.JSONArray;
@@ -65,16 +67,18 @@ import io.rong.imlib.model.UserInfo;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
+    private SharedPreferences isThree ;
     private FrameLayout button_release;
     private LinearLayout linear;
-    private NotificationButton button_information;
+    private NotificationButton button_me;
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private static Boolean isQuit = false;
     private Timer timer = new Timer();
     private MyApplication app;
     private HomePageFragment homePageFragment;
-    private InformationFragment informationFragment;
+    //private InformationFragment informationFragment;
+    private NewsFragment newsFragment ;
     private MyFragment myFragment;
     private ReleaseFragment releaseFragment;
     private SearchFragment searchFragment;
@@ -164,7 +168,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     final int num_local = packInfo.versionCode;
 
                     if (num_web > num_local) {
-                        final CustomDialog.Builder builder = new CustomDialog.Builder(MainActivity.this);
+                        final CustomDialogVersion.Builder builder = new CustomDialogVersion.Builder(MainActivity.this);
                         builder.setTitle(UpdateTitle);
                         builder.setMessage(UpdateDes);
                         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -243,15 +247,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                 }
                             }
                         });
-                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
                         builder.create().show();
-                    } else {
-                        //ToastUtils.shortToast(MainActivity.this , "已经是最新版本");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -499,7 +495,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void onMessageIncreased(int count) {
             Log.e("benben", "----------------------------------" + count);
-            button_information.setNotificationNumber(count);
+            button_me.setNotificationNumber(count);
             sendBadgeNumber(count);
         }
     }
@@ -553,7 +549,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initView() {
-        button_information = (NotificationButton) findViewById(R.id.button_information);
+        button_me = (NotificationButton) findViewById(R.id.button_me);
         button_release = (FrameLayout) findViewById(R.id.button_release);
         linear = (LinearLayout) findViewById(R.id.linear);
         for (int i = 0; i < linear.getChildCount(); i++) {
@@ -567,7 +563,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         homePageFragment = new HomePageFragment();
         transaction.add(R.id.main_frameyout, homePageFragment);
         transaction.commit();
-        informationFragment = new InformationFragment();
+        //informationFragment = new InformationFragment();
+        newsFragment = new NewsFragment() ;
         myFragment = new MyFragment();
         releaseFragment = new ReleaseFragment();
         searchFragment = new SearchFragment();
@@ -586,8 +583,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (!homePageFragment.isAdded()) {
                     if (releaseFragment.isVisible()) {
                         transaction.hide(releaseFragment).add(R.id.main_frameyout, homePageFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).add(R.id.main_frameyout, homePageFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).add(R.id.main_frameyout, homePageFragment).commit();
                     } else if (myFragment.isVisible()) {
                         transaction.hide(myFragment).add(R.id.main_frameyout, homePageFragment).commit();
                     } else if (searchFragment.isVisible()) {
@@ -598,8 +595,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         transaction.hide(releaseFragment).show(homePageFragment).commit();
                     } else if (myFragment.isVisible()) {
                         transaction.hide(myFragment).show(homePageFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).show(homePageFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).show(homePageFragment).commit();
                     } else if (searchFragment.isVisible()) {
                         transaction.hide(searchFragment).show(homePageFragment).commit();
                     }
@@ -611,8 +608,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (!searchFragment.isAdded()) {
                     if (homePageFragment.isVisible()) {
                         transaction.hide(homePageFragment).add(R.id.main_frameyout, searchFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).add(R.id.main_frameyout, searchFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).add(R.id.main_frameyout, searchFragment).commit();
                     } else if (myFragment.isVisible()) {
                         transaction.hide(myFragment).add(R.id.main_frameyout, searchFragment).commit();
                     } else if (releaseFragment.isVisible()) {
@@ -621,8 +618,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 } else {
                     if (homePageFragment.isVisible()) {
                         transaction.hide(homePageFragment).show(searchFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).show(searchFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).show(searchFragment).commit();
                     } else if (myFragment.isVisible()) {
                         transaction.hide(myFragment).show(searchFragment).commit();
                     } else if (releaseFragment.isVisible()) {
@@ -636,8 +633,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (!releaseFragment.isAdded()) {
                     if (homePageFragment.isVisible()) {
                         transaction.hide(homePageFragment).add(R.id.main_frameyout, releaseFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).add(R.id.main_frameyout, releaseFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).add(R.id.main_frameyout, releaseFragment).commit();
                     } else if (myFragment.isVisible()) {
                         transaction.hide(myFragment).add(R.id.main_frameyout, releaseFragment).commit();
                     } else if (searchFragment.isVisible()) {
@@ -646,8 +643,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 } else {
                     if (homePageFragment.isVisible()) {
                         transaction.hide(homePageFragment).show(releaseFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).show(releaseFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).show(releaseFragment).commit();
                     } else if (myFragment.isVisible()) {
                         transaction.hide(myFragment).show(releaseFragment).commit();
                     } else if (searchFragment.isVisible()) {
@@ -658,34 +655,55 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             //information 页面
             case R.id.button_information:
 
-                if (GetBenSharedPreferences.getIsLogin(this)){
+//                if (GetBenSharedPreferences.getIsLogin(this)){
+//                    selectTab(3);
+//                    if (!informationFragment.isAdded()) {
+//                        if (homePageFragment.isVisible()) {
+//                            transaction.hide(homePageFragment).add(R.id.main_frameyout, informationFragment).commit();
+//                        } else if (releaseFragment.isVisible()) {
+//                            transaction.hide(releaseFragment).add(R.id.main_frameyout, informationFragment).commit();
+//                        } else if (myFragment.isVisible()) {
+//                            transaction.hide(myFragment).add(R.id.main_frameyout, informationFragment).commit();
+//                        } else if (searchFragment.isVisible()) {
+//                            transaction.hide(searchFragment).add(R.id.main_frameyout, informationFragment).commit();
+//                        }
+//                    } else {
+//                        if (homePageFragment.isVisible()) {
+//                            transaction.hide(homePageFragment).show(informationFragment).commit();
+//                        } else if (releaseFragment.isVisible()) {
+//                            transaction.hide(releaseFragment).show(informationFragment).commit();
+//                        } else if (myFragment.isVisible()) {
+//                            transaction.hide(myFragment).show(informationFragment).commit();
+//                        } else if (searchFragment.isVisible()) {
+//                            transaction.hide(searchFragment).show(informationFragment).commit();
+//                        }
+//                    }
+//                }else {
+//                    Intent intent = new Intent( MainActivity.this , LoginActivity.class ) ;
+//                    startActivity(intent);
+//                }
                     selectTab(3);
-                    if (!informationFragment.isAdded()) {
+                    if (!newsFragment.isAdded()) {
                         if (homePageFragment.isVisible()) {
-                            transaction.hide(homePageFragment).add(R.id.main_frameyout, informationFragment).commit();
+                            transaction.hide(homePageFragment).add(R.id.main_frameyout, newsFragment).commit();
                         } else if (releaseFragment.isVisible()) {
-                            transaction.hide(releaseFragment).add(R.id.main_frameyout, informationFragment).commit();
+                            transaction.hide(releaseFragment).add(R.id.main_frameyout, newsFragment).commit();
                         } else if (myFragment.isVisible()) {
-                            transaction.hide(myFragment).add(R.id.main_frameyout, informationFragment).commit();
+                            transaction.hide(myFragment).add(R.id.main_frameyout, newsFragment).commit();
                         } else if (searchFragment.isVisible()) {
-                            transaction.hide(searchFragment).add(R.id.main_frameyout, informationFragment).commit();
+                            transaction.hide(searchFragment).add(R.id.main_frameyout, newsFragment).commit();
                         }
                     } else {
                         if (homePageFragment.isVisible()) {
-                            transaction.hide(homePageFragment).show(informationFragment).commit();
+                            transaction.hide(homePageFragment).show(newsFragment).commit();
                         } else if (releaseFragment.isVisible()) {
-                            transaction.hide(releaseFragment).show(informationFragment).commit();
+                            transaction.hide(releaseFragment).show(newsFragment).commit();
                         } else if (myFragment.isVisible()) {
-                            transaction.hide(myFragment).show(informationFragment).commit();
+                            transaction.hide(myFragment).show(newsFragment).commit();
                         } else if (searchFragment.isVisible()) {
-                            transaction.hide(searchFragment).show(informationFragment).commit();
+                            transaction.hide(searchFragment).show(newsFragment).commit();
                         }
                     }
-                }else {
-                    Intent intent = new Intent( MainActivity.this , LoginActivity.class ) ;
-                    startActivity(intent);
-                }
-
                 break;
             //我的页面
             case R.id.button_me:
@@ -695,8 +713,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         transaction.hide(homePageFragment).add(R.id.main_frameyout, myFragment).commit();
                     } else if (releaseFragment.isVisible()) {
                         transaction.hide(releaseFragment).add(R.id.main_frameyout, myFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).add(R.id.main_frameyout, myFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).add(R.id.main_frameyout, myFragment).commit();
                     } else if (searchFragment.isVisible()) {
                         transaction.hide(searchFragment).add(R.id.main_frameyout, myFragment).commit();
                     }
@@ -705,8 +723,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         transaction.hide(homePageFragment).show(myFragment).commit();
                     } else if (releaseFragment.isVisible()) {
                         transaction.hide(releaseFragment).show(myFragment).commit();
-                    } else if (informationFragment.isVisible()) {
-                        transaction.hide(informationFragment).show(myFragment).commit();
+                    } else if (newsFragment.isVisible()) {
+                        transaction.hide(newsFragment).show(myFragment).commit();
                     } else if (searchFragment.isVisible()) {
                         transaction.hide(searchFragment).show(myFragment).commit();
                     }
@@ -798,6 +816,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        if (GetBenSharedPreferences.getisThree(this)){
+            selectTab(2);
+            manager = getSupportFragmentManager();
+            transaction = manager.beginTransaction();
+            if (!releaseFragment.isAdded()) {
+                transaction.hide(homePageFragment).add(R.id.main_frameyout, releaseFragment).commit();
+            }else {
+                transaction.hide(homePageFragment).show(releaseFragment).commit();
+            }
+            isThree = getSharedPreferences("isThree" , MODE_PRIVATE ) ;
+            isThree.edit().putBoolean("isThree", false).commit();
+        }
+
     }
 
     @Override

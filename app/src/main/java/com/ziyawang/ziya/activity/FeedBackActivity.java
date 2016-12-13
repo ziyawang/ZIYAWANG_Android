@@ -205,10 +205,8 @@ public class FeedBackActivity extends BenBenActivity implements View.OnClickList
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);//裁剪框比例
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 128);// 输出图片大小
-        intent.putExtra("outputY", 128);
+        intent.putExtra("outputX", 300);// 输出图片大小
+        intent.putExtra("outputY", 300);
         intent.putExtra("noFaceDetection", true);// 取消人脸识别
         intent.putExtra("return-data", true);
         return intent;

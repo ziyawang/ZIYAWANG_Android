@@ -63,6 +63,9 @@ public class MyRuleActivity extends BaseActivity {
         }else if ("gold".equals(type)){
             info_title.setText("充值协议");
             web = Url.Gold ;
+        }else if ("other".equals(type)){
+            info_title.setText(intent.getStringExtra("title"));
+            web = intent.getStringExtra("url");
         }
 
         webView.loadUrl(web);

@@ -96,17 +96,20 @@
             android:background="#000000"
             android:drawableTop="@drawable/information"
             android:paddingTop="5dp"
-            android:text="消息"
+            android:text="资讯"
             android:textColor="@drawable/color"
             android:textSize="12sp" />
 
-        <Button
+        <com.ziyawang.ziya.view.NotificationButton
             android:layout_gravity="bottom"
-            android:background="#000000"
+            notButton:circleBgColor="@android:color/holo_red_light"
+            notButton:circleSize="8dp"
+            notButton:textColor="@android:color/white"
             android:id="@+id/button_me"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="53dp"
-            android:layout_weight="1"
+            android:background="#000000"
             android:drawableTop="@drawable/me"
             android:paddingTop="5dp"
             android:text="我的"

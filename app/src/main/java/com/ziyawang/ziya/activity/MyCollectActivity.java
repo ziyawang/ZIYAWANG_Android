@@ -22,6 +22,7 @@ import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.CollectListAdapter;
 import com.ziyawang.ziya.entity.MyCollectListEntity;
 import com.ziyawang.ziya.tools.Json_MyCollectList;
+import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 
 import org.json.JSONException;
@@ -71,6 +72,7 @@ public class MyCollectActivity extends BaseActivity {
 
     }
 
+
     private void initView() {
 
         listView = (ListView)findViewById(R.id.listView ) ;
@@ -87,6 +89,9 @@ public class MyCollectActivity extends BaseActivity {
         MobclickAgent.onPageStart("我的收藏页面");
         //统计时长
         MobclickAgent.onResume(this);
+
+        loadData() ;
+
     }
     public void onPause() {
         super.onPause();
@@ -99,7 +104,7 @@ public class MyCollectActivity extends BaseActivity {
 
     private void loadData() {
 
-        String urls = String.format(Url.MyCollectList, login ) ;
+        String urls = String.format(Url.V2MyCollectList, login ) ;
 
         Log.e("benben" , login ) ;
 
@@ -110,7 +115,7 @@ public class MyCollectActivity extends BaseActivity {
         httpUtils.send(HttpRequest.HttpMethod.GET, urls, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Log.e("benben", responseInfo.result) ;
+                Log.e("V2MyCollectList", responseInfo.result) ;
 
                 try {
                     JSONObject object = new JSONObject(responseInfo.result) ;
@@ -119,17 +124,13 @@ public class MyCollectActivity extends BaseActivity {
                         listView.setVisibility(View.GONE);
                         niuniuniuniu.setVisibility(View.VISIBLE);
                     }else {
-
                         listView.setVisibility(View.VISIBLE);
                         niuniuniuniu.setVisibility(View.GONE);
-
                         try {
                             list = Json_MyCollectList.getParse(responseInfo.result);
-
                             for (int i = 0; i < list.size(); i++) {
                                 Log.e("benben" ,list.get(i).getWordDes() ) ;
                             }
-
                             adapter = new CollectListAdapter(MyCollectActivity.this , list ) ;
                             listView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
@@ -145,8 +146,8 @@ public class MyCollectActivity extends BaseActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-
                 error.printStackTrace();
+                ToastUtils.shortToast(MyCollectActivity.this , "网络连接异常");
             }
         }) ;
     }

@@ -28,7 +28,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="1dp"></LinearLayout>
+            android:layout_height="1px"></LinearLayout>
 
         <RelativeLayout
             android:orientation="vertical"

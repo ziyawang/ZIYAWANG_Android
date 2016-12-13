@@ -38,7 +38,7 @@ public class ChangeNickNameActivity extends BenBenActivity implements View.OnCli
 
     @Override
     public void setContentView() {
-        setContentView(R.layout.activity_change_nick_name);
+        setContentView(R.layout.activity_change_nick_name );
     }
 
     @Override
@@ -46,7 +46,6 @@ public class ChangeNickNameActivity extends BenBenActivity implements View.OnCli
         pre = (RelativeLayout)findViewById(R.id.pre ) ;
         changeUserName_ok = (TextView)findViewById(R.id.changeUserName_ok ) ;
         changeUserName_editText = (EmojiEditText)findViewById(R.id.changeUserName_editText ) ;
-
     }
 
     @Override
@@ -63,7 +62,6 @@ public class ChangeNickNameActivity extends BenBenActivity implements View.OnCli
             changeUserName_editText.setText(username);
             changeUserName_editText.setSelection(username.length());
         }
-
     }
 
     @Override
@@ -83,7 +81,7 @@ public class ChangeNickNameActivity extends BenBenActivity implements View.OnCli
     private void submitUserName() {
 
         if (judge()){
-            String urls = String.format(Url.ChangeNickName, GetBenSharedPreferences.getTicket(this)) ;
+            String urls = String.format(Url.ChangeNickName , GetBenSharedPreferences.getTicket(this)) ;
             HttpUtils httpUtils = new HttpUtils() ;
             RequestParams params = new RequestParams() ;
             params.addBodyParameter("username", changeUserName_editText.getText().toString().trim() );

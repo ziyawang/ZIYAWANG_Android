@@ -83,10 +83,26 @@
                     android:layout_height="58dp"
                     android:background="#f4f4f4">
 
+                    <!--风险评测-->
                     <FrameLayout
-                        android:id="@+id/homepage_video"
+                        android:id="@+id/homepage_sys"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="78dp"
+                        android:layout_height="38dp">
+
+                        <ImageView
+                            android:background="@drawable/v2_sys"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </FrameLayout>
+                    <!--资芽视频-->
+                    <FrameLayout
+                        android:layout_toLeftOf="@id/homepage_sys"
+                        android:id="@+id/homepage_video"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="78dp"
                         android:layout_height="38dp">
@@ -104,7 +120,7 @@
                             android:layout_height="wrap_content" />
 
                     </FrameLayout>
-
+                    <!--搜索框-->
                     <RelativeLayout
                         android:layout_toLeftOf="@id/homepage_video"
                         android:layout_width="match_parent"
@@ -167,10 +183,26 @@
         android:background="#f4f4f4"
         android:visibility="invisible">
 
+        <!--风险评测-->
         <FrameLayout
-            android:id="@+id/homepage_video_02"
+            android:id="@+id/homepage_sys02"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="78dp"
+            android:layout_height="38dp">
+
+            <ImageView
+                android:background="@drawable/v2_sys"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_toLeftOf="@id/homepage_sys02"
+            android:id="@+id/homepage_video_02"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_width="78dp"
             android:layout_height="38dp">

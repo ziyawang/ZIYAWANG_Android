@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -28,8 +29,10 @@ import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.FindInfoAdapter;
 import com.ziyawang.ziya.adapter.FindServiceAdapter;
+import com.ziyawang.ziya.adapter.V2FindInfoAdapter;
 import com.ziyawang.ziya.entity.FindInfoEntity;
 import com.ziyawang.ziya.entity.FindServiceEntity;
+import com.ziyawang.ziya.entity.V2InfoEntity;
 import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.Json_FindService;
 import com.ziyawang.ziya.tools.NetUtils;
@@ -44,12 +47,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SearchActivity extends BaseActivity {
 
-    private List<FindInfoEntity> data = new ArrayList<FindInfoEntity>();
+    private List<V2InfoEntity> data = new ArrayList<V2InfoEntity>();
     private List<FindServiceEntity> data01 = new ArrayList<FindServiceEntity>();
-    private FindInfoAdapter adapter;
+    private V2FindInfoAdapter adapter;
     private FindServiceAdapter adapter01;
     private int page;
     private int count = 1;
@@ -82,7 +87,6 @@ public class SearchActivity extends BaseActivity {
                         loadData();
                         new Thread(new Runnable() {
                             public void run() {
-
                                 try {
                                     Thread.sleep(2000);
                                     isOK = true;
@@ -128,7 +132,17 @@ public class SearchActivity extends BaseActivity {
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                }
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    public void run() {
+                        finish();
+                    }
+
+                }, 100);
             }
         });
         //获得title和type
@@ -218,38 +232,23 @@ public class SearchActivity extends BaseActivity {
                         if (dialog != null) {
                             dialog.dismiss();
                         }
-                        try {
-                            JSONObject jsonObject = new JSONObject(responseInfo.result);
-                            String pages = jsonObject.getString("pages");
-
-
-                            page = Integer.parseInt(pages);
-                            count++;
-
-                            Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
-
-                            String counts = jsonObject.getString("counts");
-                            if (!TextUtils.isEmpty(counts) && counts.equals("0")){
-                                scrollView.setVisibility(View.GONE);
-                                niuniuniuniu.setVisibility(View.VISIBLE);
-                            }else {
-
-                                scrollView.setVisibility(View.VISIBLE);
-                                niuniuniuniu.setVisibility(View.GONE);
-
-                                try {
-                                    List<FindInfoEntity> list = Json_FindInfo.getParse(responseInfo.result);
-                                    data.addAll(list);
-                                    Log.e("benben", "数据的个数" + data.size());
-                                    adapter = new FindInfoAdapter(SearchActivity.this, data);
-                                    listView.setAdapter(adapter);
-                                    adapter.notifyDataSetChanged();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                        String pages = object.getString("pages");
+                        page = Integer.parseInt(pages);
+                        count++;
+                        String counts = object.getString("counts");
+                        if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
+                            scrollView.setVisibility(View.GONE);
+                            niuniuniuniu.setVisibility(View.VISIBLE);
+                        } else {
+                            scrollView.setVisibility(View.VISIBLE);
+                            niuniuniuniu.setVisibility(View.GONE);
+                            com.alibaba.fastjson.JSONArray data01 = object.getJSONArray("data");
+                            List<V2InfoEntity> v2InfoEntities = JSON.parseArray(data01.toJSONString(), V2InfoEntity.class);
+                            data.addAll(v2InfoEntities);
+                            adapter = new V2FindInfoAdapter(SearchActivity.this, data);
+                            listView.setAdapter(adapter);
+                            adapter.notifyDataSetInvalidated();
                         }
 
                     }

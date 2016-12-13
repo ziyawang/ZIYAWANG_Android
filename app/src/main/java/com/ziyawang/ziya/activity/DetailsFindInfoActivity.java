@@ -199,7 +199,6 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
     //举报按钮
     private TextView report ;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -505,7 +504,6 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             }
 
         }
-
     }
 
     private void showTypeName(String typeName, JSONObject jsonObject) throws JSONException {
@@ -1137,8 +1135,6 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
             Intent intent = new Intent(DetailsFindInfoActivity.this , LoginActivity.class ) ;
             startActivity(intent ) ;
         }
-
-
     }
 
     private void goShowIcon() {
@@ -1562,7 +1558,6 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         }) ;
     }
 
-
     private void goCallNumber() {
         String str = "tel:" + phoneNumber;
         //直接拨打电话
@@ -1579,4 +1574,5 @@ public class DetailsFindInfoActivity extends BenBenActivity implements View.OnCl
         super.onDestroy();
         player.stop();
     }
+
 }

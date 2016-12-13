@@ -121,10 +121,6 @@ public class PartActivity extends BaseActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-
-
-
                         String s = city_adapter.getItem(position).toString();
 
                         Log.e("benben" ,provice + "--------------" + s )  ;

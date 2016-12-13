@@ -26,8 +26,9 @@ public class Json_RechargeType {
             String realMoney = object.getString("RealMoney") ;
             String ybCount = object.getString("YBCount");
             String selected = object.getString("selected");
+            String add = object.getString("add");
 
-            rechargeTypeEntity = new RechargeTypeEntity( realMoney , ybCount , selected );
+            rechargeTypeEntity = new RechargeTypeEntity( realMoney , ybCount , selected , add  );
             data.add(rechargeTypeEntity) ;
         }
         return data;

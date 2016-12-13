@@ -58,6 +58,7 @@ public class RechargeTypeAdapter extends BaseAdapter {
             holder.recharge_type_yabi = (TextView) convertView.findViewById(R.id.recharge_type_yabi);
             holder.recharge_type_renminbi = (TextView) convertView.findViewById(R.id.recharge_type_renminbi);
             holder.recharge_type_select = (ImageView) convertView.findViewById(R.id.recharge_type_select);
+            holder.recharge_add_yabi = (TextView) convertView.findViewById(R.id.recharge_add_yabi);
             convertView.setTag(holder);
 
         } else {
@@ -71,6 +72,11 @@ public class RechargeTypeAdapter extends BaseAdapter {
         }else {
             holder.recharge_type_select.setVisibility(View.GONE);
         }
+        if ("0".equals(list.get(position).getAdd())){
+            holder.recharge_add_yabi.setText("");
+        }else {
+            holder.recharge_add_yabi.setText("（赠送" + list.get(position).getAdd() + "芽币）");
+        }
 
         return convertView;
     }
@@ -79,6 +85,7 @@ public class RechargeTypeAdapter extends BaseAdapter {
         TextView recharge_type_yabi ;
         TextView recharge_type_renminbi ;
         ImageView recharge_type_select ;
+        TextView recharge_add_yabi ;
     }
 
     public void addAll(Collection<? extends RechargeTypeEntity> collection) {

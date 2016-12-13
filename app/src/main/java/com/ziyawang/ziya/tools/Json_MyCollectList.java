@@ -38,7 +38,7 @@ public class Json_MyCollectList {
                     String projectNumber = object.getString("ProjectNumber");
 
                     myCollectListEntity = new MyCollectListEntity(typeID , collectTime , itemID , typeName , proArea , wordDes , pictureDes1 ,
-                            projectNumber , "" , "" , "" , "" , "" , "" , "" , "") ;
+                            projectNumber , "" , "" , "" , "" , "" , "" , "" , "" , "" , "" , "") ;
                     data.add(myCollectListEntity) ;
 
 
@@ -52,7 +52,7 @@ public class Json_MyCollectList {
 
                     myCollectListEntity = new MyCollectListEntity(typeID , collectTime , itemID , "" , "" , "" , "" , "" ,
                             videoTitle , viewCount , videoDes , videoLogo ,
-                            "" , "" , "" , "") ;
+                            "" , "" , "" , "" , "" , "" , "") ;
                     data.add(myCollectListEntity) ;
 
                     break;
@@ -64,19 +64,22 @@ public class Json_MyCollectList {
                     String userPicture = object.getString("UserPicture");
 
                     myCollectListEntity = new MyCollectListEntity(typeID , collectTime , itemID , "" , "" , "" , "" ,
-                            "" , "" , "" , "" , "" , serviceName , serviceType , serviceArea , userPicture ) ;
+                            "" , "" , "" , "" , "" , serviceName , serviceType , serviceArea , userPicture  , "" , "" , "") ;
                     data.add(myCollectListEntity) ;
+                    break;
+                case "3":
+                    //收藏新闻模块
+                    String newsTitle = object.getString("NewsTitle");
+                    String brief = object.getString("Brief");
+                    String newsLogo = object.getString("NewsLogo");
 
+                    myCollectListEntity = new MyCollectListEntity(typeID , collectTime , itemID , "" , "" , "" , "" ,
+                            "" , "" , "" , "" , "" , "" , "" , "" , ""  , newsTitle , brief , newsLogo ) ;
+                    data.add(myCollectListEntity) ;
                     break;
                 default:
                     break;
             }
-
-
-            //myCollectListEntity = new MyCollectListEntity();
-
-            //data.add(myCollectListEntity);
-
 
         }
         return data;

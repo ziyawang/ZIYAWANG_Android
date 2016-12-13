@@ -8,13 +8,15 @@ public class RechargeTypeEntity {
     private String RealMoney ;
     private String YBCount ;
     private String selected ;
+    private String add ;
 
     public RechargeTypeEntity(){}
 
-    public RechargeTypeEntity(String realMoney, String YBCount , String selected ) {
-        RealMoney = realMoney ;
-        this.YBCount = YBCount ;
-        this.selected = selected ;
+    public RechargeTypeEntity(String realMoney, String YBCount, String selected, String add) {
+        RealMoney = realMoney;
+        this.YBCount = YBCount;
+        this.selected = selected;
+        this.add = add;
     }
 
     public String getRealMoney() {
@@ -39,5 +41,13 @@ public class RechargeTypeEntity {
 
     public void setSelected(String selected) {
         this.selected = selected;
+    }
+
+    public String getAdd() {
+        return add;
+    }
+
+    public void setAdd(String add) {
+        this.add = add;
     }
 }

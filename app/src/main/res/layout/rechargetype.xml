@@ -26,11 +26,18 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:textColor="#ff2f2f"
+                android:textSize="10sp"
+                android:layout_below="@id/recharge_type_yabi"
+                android:id="@+id/recharge_add_yabi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:textColor="#6d6d6d"
                 android:textSize="11sp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:layout_below="@id/recharge_type_yabi"
+                android:layout_below="@id/recharge_add_yabi"
                 android:id="@+id/recharge_type_renminbi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

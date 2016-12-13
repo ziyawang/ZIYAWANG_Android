@@ -57,8 +57,6 @@ public class StartActivity extends BaseActivity {
                 timer.cancel();
             }
         });
-
-
     }
 
     TimerTask task = new TimerTask() {

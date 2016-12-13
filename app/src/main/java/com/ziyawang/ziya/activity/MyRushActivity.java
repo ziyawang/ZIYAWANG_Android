@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -21,7 +22,9 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.MyRushAdapter;
+import com.ziyawang.ziya.adapter.V2FindInfoAdapter;
 import com.ziyawang.ziya.entity.FindInfoEntity;
+import com.ziyawang.ziya.entity.V2InfoEntity;
 import com.ziyawang.ziya.tools.Json_FindInfo;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -38,9 +41,9 @@ import java.util.List;
 public class MyRushActivity extends BaseActivity {
 
 
-    private List<FindInfoEntity> list ;
-    private MyRushAdapter adapter ;
-    private List<FindInfoEntity> data  = new ArrayList<FindInfoEntity>();
+    private List<V2InfoEntity> list ;
+    private V2FindInfoAdapter adapter ;
+    private List<V2InfoEntity> data  = new ArrayList<V2InfoEntity>();
     private static String login;
     private int page  ;
     private int count = 1 ;
@@ -147,12 +150,11 @@ public class MyRushActivity extends BaseActivity {
     }
 
     private void loadData() {
-
         String urls = String.format(Url.MyRush, login);
-
         HttpUtils httpUtils = new HttpUtils() ;
         RequestParams params = new RequestParams() ;
         params.addQueryStringParameter("startpage" , "" + count );
+        params.addQueryStringParameter("pagecount", "10" );
         httpUtils.configCurrentHttpCacheExpiry(1000) ;
         httpUtils.send(HttpRequest.HttpMethod.GET, urls, params, new RequestCallBack<String>() {
             @Override
@@ -161,44 +163,24 @@ public class MyRushActivity extends BaseActivity {
                 if (dialog != null) {
                     dialog.dismiss();
                 }
-
-                Log.e("benben" , responseInfo.result ) ;
-
-                //Log.e("benben_myTeamWork", responseInfo.result);
-                try {
-                    JSONObject jsonObject = new JSONObject(responseInfo.result);
-                    String pages = jsonObject.getString("pages");
-
-                    String counts = jsonObject.getString("counts");
-                    if (!TextUtils.isEmpty(counts) && counts.equals("0")){
-                        scrollView.setVisibility(View.GONE);
-                        niuniuniuniu.setVisibility(View.VISIBLE);
-                    }else {
-                        page = Integer.parseInt(pages);
-                        count++;
-                        Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
-
-                        try {
-                            List<FindInfoEntity> list = Json_FindInfo.getParse(responseInfo.result);
-                            data.addAll(list);
-                            Log.e("benben", "数据的个数" + data.size());
-
-                            for (int i = 0; i < list.size(); i++) {
-                                String member = list.get(i).getMember();
-                                Log.e("benben" , member ) ;
-                            }
-                            adapter = new MyRushAdapter(MyRushActivity.this, data , login );
-
-                            listView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                Log.e("GetInfo", responseInfo.result);
+                com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                String pages = object.getString("pages");
+                page = Integer.parseInt(pages);
+                count++;
+                String counts = object.getString("counts");
+                if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
+                    scrollView.setVisibility(View.GONE);
+                    niuniuniuniu.setVisibility(View.VISIBLE);
+                } else {
+                    scrollView.setVisibility(View.VISIBLE);
+                    niuniuniuniu.setVisibility(View.GONE);
+                    com.alibaba.fastjson.JSONArray data01 = object.getJSONArray("data");
+                    List<V2InfoEntity> v2InfoEntities = JSON.parseArray(data01.toJSONString(), V2InfoEntity.class);
+                    data.addAll(v2InfoEntities);
+                    adapter = new V2FindInfoAdapter(MyRushActivity.this, data);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetInvalidated();
                 }
             }
             @Override
@@ -209,6 +191,5 @@ public class MyRushActivity extends BaseActivity {
                 }
             }
         }) ;
-
     }
 }

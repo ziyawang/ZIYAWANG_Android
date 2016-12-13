@@ -98,24 +98,24 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4a8fef86c2d7a23a"
-        AppSecret="93b35acf87d6b3149ab74ca7c2a1c0d4"
+        AppId="wxd414950a5c59eded"
+        AppSecret="57f1002133d3c239e660f2e925943306"
         BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4a8fef86c2d7a23a"
-        AppSecret="93b35acf87d6b3149ab74ca7c2a1c0d4"
+        AppId="wxd414950a5c59eded"
+        AppSecret="57f1002133d3c239e660f2e925943306"
         BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wx4a8fef86c2d7a23a"
-        AppSecret="93b35acf87d6b3149ab74ca7c2a1c0d4"
+        AppId="wxd414950a5c59eded"
+        AppSecret="57f1002133d3c239e660f2e925943306"
         Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->

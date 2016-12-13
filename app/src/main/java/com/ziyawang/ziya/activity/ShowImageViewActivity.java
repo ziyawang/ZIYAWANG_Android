@@ -115,19 +115,22 @@ public class ShowImageViewActivity extends Activity {
         String pic3 = intent.getStringExtra("pic3");
 
         list = new ArrayList<ImageView>();
-        BitmapUtils bitmapUitl = new BitmapUtils(this);
+        BitmapUtils bitmapUtil = new BitmapUtils(this);
+        bitmapUtil.configDefaultLoadFailedImage(R.mipmap.error_imgs) ;
         ImageView img1 = new ImageView(this);
-        bitmapUitl.display(img1, pic1);
+        bitmapUtil.display(img1, pic1);
         list.add(img1);
 
         ImageView img2 = new ImageView(this);
-        BitmapUtils bitmapUitl02 = new BitmapUtils(this);
-        bitmapUitl02.display(img2, pic2);
+        BitmapUtils bitmapUtil02 = new BitmapUtils(this);
+        bitmapUtil02.configDefaultLoadFailedImage(R.mipmap.error_imgs ) ;
+        bitmapUtil02.display(img2, pic2);
         list.add(img2);
 
         ImageView img3 = new ImageView(this);
-        BitmapUtils bitmapUitl03 = new BitmapUtils(this);
-        bitmapUitl03.display(img3, pic3);
+        BitmapUtils bitmapUtil03 = new BitmapUtils(this);
+        bitmapUtil03.configDefaultLoadFailedImage(R.mipmap.error_imgs ) ;
+        bitmapUtil03.display(img3, pic3);
         list.add(img3);
 
         loadData(list , THREE) ;

@@ -9,63 +9,64 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/home_info_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:background="#ffffff"></android.support.v4.view.ViewPager>
 
-    <LinearLayout
-        android:gravity="center"
+
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:background="#ffffff">
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="#ffffff">
 
 
-        <ImageView
-            android:id="@+id/five"
-            android:layout_marginRight="13dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/viewpager02" />
+            <ImageView
+                android:id="@+id/five"
+                android:layout_marginRight="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/viewpager02" />
 
-        <ImageView
-            android:id="@+id/six"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/viewpager02" />
+            <ImageView
+                android:id="@+id/six"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/viewpager02" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <RelativeLayout
-        android:background="@mipmap/icon19"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="16dp"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/jing"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:paddingLeft="16dp"-->
-            <!--android:text="精选"-->
-            <!--android:textColor="#FFCC33" />-->
+        <com.ziyawang.ziya.view.BenListView
+            android:layout_marginTop="27dp"
+            android:background="#fff"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/home_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false">
+        </com.ziyawang.ziya.view.BenListView>
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_toRightOf="@id/jing"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:text="信息"-->
-            <!--android:textColor="#000000" />-->
+        <RelativeLayout
+            android:layout_marginTop="4dp"
+            android:background="@mipmap/icon19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </RelativeLayout>
 
-    </RelativeLayout>
 
-    <ListView
-        android:layout_marginLeft="14dp"
-        android:id="@+id/home_listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="false">
+    </FrameLayout>
 
-    </ListView>
+
 
 
 </LinearLayout>

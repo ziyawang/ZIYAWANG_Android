@@ -17,8 +17,7 @@ public class NewsFragmentPagerAdapter extends FragmentPagerAdapter {
 		this.fm = fm;
 	}
 
-	public NewsFragmentPagerAdapter(FragmentManager fm,
-									ArrayList<Fragment> fragments) {
+	public NewsFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
 		super(fm);
 		this.fm = fm;
 		this.fragments = fragments;
@@ -55,8 +54,20 @@ public class NewsFragmentPagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
-		Object obj = super.instantiateItem(container, position);
-		return obj;
+		Object object = super.instantiateItem(container, position);
+		return object;
 	}
 
+	@Override
+	public CharSequence getPageTitle(int position) {
+		switch (position) {
+			case 0:
+				return "行业资讯";
+			case 1:
+				return "资芽讲堂";
+			case 2:
+				return "行业研究";
+		}
+		return null;
+	}
 }

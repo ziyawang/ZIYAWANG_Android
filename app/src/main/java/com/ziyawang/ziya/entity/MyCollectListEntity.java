@@ -33,9 +33,15 @@ public class MyCollectListEntity {
     private String ServiceArea ;
     private String UserPicture ;
 
+    //4收藏新闻
+    private String NewsTitle ;
+    private String Brief ;
+    private String NewsLogo ;
+
     public MyCollectListEntity(){}
 
-    public MyCollectListEntity(String typeID, String collectTime, String itemID, String typeName, String proArea, String wordDes, String pictureDes1, String projectNumber, String videoTitle, String viewCount, String videoDes, String videoLogo, String serviceName, String serviceType, String serviceArea, String userPicture) {
+    public MyCollectListEntity(String typeID, String collectTime, String itemID, String typeName, String proArea, String wordDes, String pictureDes1, String projectNumber, String videoTitle, String viewCount, String videoDes, String videoLogo, String serviceName, String serviceType, String serviceArea, String userPicture, String newsTitle, String brief, String newsLogo) {
+        super();
         TypeID = typeID;
         CollectTime = collectTime;
         ItemID = itemID;
@@ -52,6 +58,33 @@ public class MyCollectListEntity {
         ServiceType = serviceType;
         ServiceArea = serviceArea;
         UserPicture = userPicture;
+        NewsTitle = newsTitle;
+        Brief = brief;
+        NewsLogo = newsLogo;
+    }
+
+    public String getNewsTitle() {
+        return NewsTitle;
+    }
+
+    public void setNewsTitle(String newsTitle) {
+        NewsTitle = newsTitle;
+    }
+
+    public String getBrief() {
+        return Brief;
+    }
+
+    public void setBrief(String brief) {
+        Brief = brief;
+    }
+
+    public String getNewsLogo() {
+        return NewsLogo;
+    }
+
+    public void setNewsLogo(String newsLogo) {
+        NewsLogo = newsLogo;
     }
 
     public String getTypeID() {

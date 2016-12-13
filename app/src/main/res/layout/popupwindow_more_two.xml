@@ -20,7 +20,7 @@
             android:layout_height="44dp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="类型" />
+            android:text="融资方式" />
         <LinearLayout
             android:background="#f4f4f4"
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginLeft="16dp"
-            android:text="个人债权" />
+            android:text="债权融资" />
         <LinearLayout
             android:layout_marginLeft="16dp"
             android:background="#f4f4f4"
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginLeft="16dp"
-            android:text="企业商账" />
+            android:text="股权融资" />
         <LinearLayout
             android:layout_marginLeft="16dp"
             android:background="#f4f4f4"
@@ -57,20 +57,7 @@
             android:layout_height="1dp">
         </LinearLayout>
 
-        <RadioButton
-            android:paddingLeft="10dp"
-            style="@style/CustomRadioButtonTheme"
-            android:id="@+id/one_three"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginLeft="16dp"
-            android:text="其他" />
-        <LinearLayout
-            android:layout_marginLeft="16dp"
-            android:background="#f4f4f4"
-            android:layout_width="match_parent"
-            android:layout_height="1dp">
-        </LinearLayout>
+
     </LinearLayout>
 
 

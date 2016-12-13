@@ -124,7 +124,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
         utils.send(HttpRequest.HttpMethod.POST, Url.Login, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Log.e("benben", responseInfo.result) ;
+                Log.e("Login", responseInfo.result) ;
                 //隐藏dialog
                 hiddenDialog() ;
                 //处理result
@@ -155,6 +155,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
 
                     connect(ticket);
                     //登陆成功，跳转到主页面,并关闭此页面
+
                     //goLoginActivity() ;
                     //ToastUtils.shortToast(LoginActivity.this , "登录成功");
                     break;

@@ -50,6 +50,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.tools.CashierInputFilter;
+import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.MusicPlayer;
 import com.ziyawang.ziya.tools.SDUtil;
 import com.ziyawang.ziya.tools.SystemBarTintManager;
@@ -70,66 +71,113 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ReleaseDetailsActivity extends BaseActivity {
+public class ReleaseDetailsActivity extends BenBenActivity implements View.OnClickListener {
 
+    //录音倒计时30秒
     private int left_time = 30 ;
+    //录音时的弹窗
     private PopupWindow window;
+    //声音文件
     private File file_upload;
+    //通过相机暂时存储的图片文件
     private File file;
+    //发布时的图片1
     private File file_img01;
+    //发布时的图片2
     private File file_img02;
+    //发布时的图片3
     private File file_img03;
-    private TextView niu_three;
-    private TextView title, release_audio_des_duration;
+    //发布的title
+    private TextView title ;
+    //音频的时长
+    private TextView release_audio_des_duration;
+    //返回按钮
     private RelativeLayout pre;
+    //语音描述页面
     private RelativeLayout release_audio_relative;
+    //语音是否录制完毕
     private static Boolean isOK = true;
+    //是否存在声音
     private Boolean hasVoice = false;
-    private MediaRecorder mMediaRecorder;
-    private File recAudioFile;
     private MusicPlayer mPlayer;
+    private MediaRecorder mMediaRecorder;
+    //音频缓存文件
+    private File recAudioFile;
+    //上划移动的Y轴距离
     private float DownY = 0;
+    //按下的时间间隔
     private long currentMS;
+    //录音按钮
     private Button release_audio_des;
+    //语音撤销按钮
     private TextView release_audio_cancel;
-    private LinearLayout release_img_linear;
+    // 图片1,2,3
     private ImageView release_img_one, release_img_two, release_img_three;
+    //取消图片1,2,3
     private ImageView release_img_cancel_one, release_img_cancel_two, release_img_cancel_three;
+    //图片区域1,2,3
     private FrameLayout release_frame_one, release_frame_two, release_frame_three;
+    //增加图片按钮
     private TextView release_img_add;
+    //图片的后缀名
     private String imgstr;
+    //类型区域
     private RelativeLayout relative_type;
+    //类型
     private TextView textView_type;
+    //来源区域
     private RelativeLayout relative_from;
+    //来源
     private TextView text_from;
+    //地区区域
     private RelativeLayout relative_part;
+    //地区
     private TextView text_part;
-    private EditText release_edit;
-    private TextView release_foot;
-    private static String title_t;
-    private TextView release_one;
-    private RelativeLayout relative_total;
-    private TextView text_trans;
-    private TextView text_total;
-    private RelativeLayout relative_trans;
-    private TextView text_from_a;
-    private EditText trans_edit;
+    //地区的文字
     private TextView release_text_part;
+    //发布的内容描述
+    private EditText release_edit;
+    //发布的类型
+    private static String title_t;
+    //类型区域的显示文字
+    private TextView release_one;
+    //总金额区域
+    private RelativeLayout relative_total;
+    //总金额文字
+    private TextView text_total;
+    //总金额文字编辑区域
+    private EditText total_money;
+    //转让价区域
+    private RelativeLayout relative_trans;
+    //转让价文字
+    private TextView text_trans;
+    //来源文字
+    private TextView text_from_a;
+    //转让价文字编辑区域
+    private EditText trans_edit;
+    //佣金区域 状态区域
     private RelativeLayout relative_yognjin, relative_status;
-    private TextView yognjin, text_yongjin, text_status, status;
+    //佣金 状态
+    private TextView yognjin, text_yongjin, text_status ;
+
     private RelativeLayout relative_head01;
     private TextView head01;
     private TextView linearLayout_release;
+    //ticket
     private static String login;
+    //是否登录状态
     private static boolean isLogin;
+    //dialog
     private MyProgressDialog dialog;
-    private EditText total_money;
+    //第一个文字
     private TextView release_wan;
+    //第二个文字
     private TextView release_wan01;
-    private ScrollView scrollView;
+    //声音撤销按钮
     private TextView voice_cancel;
+    //清单上传区域
     private RelativeLayout info_upload;
-    private TextView audio_one ;
+    //intent 开启
     private static final int REQUEST_PERMISSION_SETTING = 0x002;
 
     public void onResume() {
@@ -152,19 +200,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_release_details);
-
-        //设置通知栏的颜色
-        changeTitleCocor();
-
-        //实例化组件
-        initView();
-
-        SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
-        isLogin = sp.getBoolean("isLogin", false);
-
-        final SharedPreferences loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
-        login = loginCode.getString("loginCode", null);
 
         //添加对页面的回退事件
         pre.setOnClickListener(new View.OnClickListener() {
@@ -173,9 +208,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 finish();
             }
         });
-
-        //通过页面跳转，拿到该页面的title，并进行显示
-        loadTitle();
 
         //点击PC提示
         info_upload.setOnClickListener(new View.OnClickListener() {
@@ -189,13 +221,11 @@ public class ReleaseDetailsActivity extends BaseActivity {
         relative_part.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivityForResult(new Intent(ReleaseDetailsActivity.this, PartActivity.class), 6);
             }
         });
 
         //如果判断语音框没有信息，点击这个布局出现。
-
         release_audio_relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,11 +234,9 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 }
             }
         });
-
         //根据title拿到不同的类型
         switch (title_t) {
             case "资产包转让":
-
                 //获得资产包的类型
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -227,11 +255,9 @@ public class ReleaseDetailsActivity extends BaseActivity {
                         intent.putExtra("title", "来源");
                         intent.putExtra("type", "1");
                         startActivityForResult(intent, 5);
-
                     }
                 });
                 info_upload.setVisibility(View.VISIBLE);
-
                 break;
 
             case "债权转让":
@@ -240,7 +266,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "类型");
                         intent.putExtra("type", "2");
@@ -254,7 +279,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "类型");
                         intent.putExtra("type", "3");
@@ -280,7 +304,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "买方性质");
                         intent.putExtra("type", "4");
@@ -316,7 +339,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "方式");
                         intent.putExtra("type", "6");
@@ -334,11 +356,9 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 trans_edit.setHint("悬赏佣金");
                 release_text_part.setHint("目标地区");
                 release_wan.setText("元");
-
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "类型");
                         intent.putExtra("type", "7");
@@ -349,15 +369,12 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 break;
             case "尽职调查":
                 release_text_part.setHint("目标地区");
-
                 release_one.setText("类型");
                 relative_total.setVisibility(View.GONE);
                 relative_trans.setVisibility(View.GONE);
-
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "类型");
                         intent.putExtra("type", "8");
@@ -377,7 +394,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 break;
 
             case "委外催收":
-
                 release_one.setText("类型");
                 relative_from.setVisibility(View.GONE);
                 relative_total.setVisibility(View.GONE);
@@ -404,7 +420,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                         startActivityForResult(intent, 8);
                     }
                 });
-
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -428,7 +443,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 text_trans.setText("金额");
                 break;
             case "法律服务":
-
                 release_one.setText("类型");
                 relative_total.setVisibility(View.GONE);
                 relative_trans.setVisibility(View.GONE);
@@ -436,7 +450,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "民事");
                         intent.putExtra("type", "10");
@@ -452,7 +465,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                         startActivityForResult(intent, 5);
                     }
                 });
-
                 break;
             case "资产求购":
                 release_one.setText("类型");
@@ -461,7 +473,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "类型");
                         intent.putExtra("type", "11");
@@ -478,15 +489,12 @@ public class ReleaseDetailsActivity extends BaseActivity {
                     }
                 });
                 text_from_a.setText("求购方");
-
                 break;
-
             case "投资需求":
                 release_one.setText("投资类型");
                 relative_type.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(ReleaseDetailsActivity.this, MoneyTypeActivity.class);
                         intent.putExtra("title", "投资类型");
                         intent.putExtra("type", "12");
@@ -502,7 +510,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                         startActivityForResult(intent, 5);
                     }
                 });
-
                 text_from_a.setText("投资方式");
                 text_total.setText("预期回报率");
                 //text_trans.setText("投资期限");
@@ -510,7 +517,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                 //release_wan.setText("年");
                 total_money.setHint("请输入回报率");
                 //trans_edit.setHint("输入投资期限");
-
                 relative_trans.setVisibility(View.GONE);
                 relative_yognjin.setVisibility(View.VISIBLE);
                 yognjin.setText("投资期限");
@@ -524,43 +530,34 @@ public class ReleaseDetailsActivity extends BaseActivity {
 
                     }
                 });
-
                 break;
 
         }
-
         /***********************************************************获取图片的页面*************************/
-
         release_img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 picGet01();
             }
         });
-
         release_img_cancel_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (release_frame_two.getVisibility() == View.VISIBLE && release_frame_three.getVisibility() == View.VISIBLE) {
                     ToastUtils.shortToast(ReleaseDetailsActivity.this, "无法删除第一张图片");
                 } else {
                     release_frame_one.setVisibility(View.GONE);
                 }
-
             }
         });
         release_img_cancel_two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (release_frame_three.getVisibility() == View.VISIBLE) {
                     ToastUtils.shortToast(ReleaseDetailsActivity.this, "无法删除第二张图片");
                 } else {
                     release_frame_two.setVisibility(View.GONE);
                 }
-
             }
         });
         release_img_cancel_three.setOnClickListener(new View.OnClickListener() {
@@ -568,13 +565,11 @@ public class ReleaseDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 release_frame_three.setVisibility(View.GONE);
                 release_img_add.setVisibility(View.VISIBLE);
-
             }
         });
         /***********************************************************获取图片的页面*************************/
 
         /***************************************录音 上划取消*****************************************/
-
         //检查广播录制的权限
         if (ActivityCompat.checkSelfPermission(ReleaseDetailsActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ToastUtils.shortToast(ReleaseDetailsActivity.this, "请在管理中心，给予录音相应权限。");
@@ -649,7 +644,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
                                     release_audio_cancel.setVisibility(View.VISIBLE);
                                     voice_cancel.setVisibility(View.VISIBLE);
                                     release_audio_des_duration.setText("30'");
-
                                     //final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.amr";
                                     final String path = SDUtil.getSDPath() + File.separator + "ziya" + File.separator + "temp.aac";
                                     file_upload = new File(path);
@@ -2129,6 +2123,93 @@ public class ReleaseDetailsActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void setContentView() {
+        setContentView(R.layout.activity_release_details);
+    }
+
+    @Override
+    public void initViews() {
+        total_money = (EditText) findViewById(R.id.total_money);
+        total_money.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+        InputFilter[] filters = {new CashierInputFilter()};
+        total_money.setFilters(filters);
+        relative_status = (RelativeLayout) findViewById(R.id.relative_status);
+        info_upload = (RelativeLayout) findViewById(R.id.info_upload);
+        relative_yognjin = (RelativeLayout) findViewById(R.id.relative_yognjin);
+        relative_head01 = (RelativeLayout) findViewById(R.id.relative_head01);
+        yognjin = (TextView) findViewById(R.id.yognjin);
+        release_audio_des_duration = (TextView) findViewById(R.id.release_audio_des_duration);
+        head01 = (TextView) findViewById(R.id.head01);
+        text_yongjin = (TextView) findViewById(R.id.text_yongjin);
+        text_status = (TextView) findViewById(R.id.text_status);
+        release_text_part = (TextView) findViewById(R.id.release_text_part);
+        //niu_audio = (TextView)findViewById(R.id.niu_audio) ;
+        trans_edit = (EditText) findViewById(R.id.trans_edit);
+        trans_edit.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+        trans_edit.setFilters(filters);
+        title = (TextView) findViewById(R.id.title);
+        voice_cancel = (TextView) findViewById(R.id.voice_cancel);
+        pre = (RelativeLayout) findViewById(R.id.pre);
+        //details_audio_get = (ImageView)findViewById(R.id.details_audio_get) ;
+        //details_pic_get = (ImageView)findViewById(R.id.details_pic_get) ;
+        release_audio_relative = (RelativeLayout) findViewById(R.id.release_audio_relative);
+        release_audio_des = (Button) findViewById(R.id.release_audio_des);
+        release_audio_cancel = (TextView) findViewById(R.id.release_audio_cancel);
+        release_frame_one = (FrameLayout) findViewById(R.id.release_frame_one);
+        release_frame_two = (FrameLayout) findViewById(R.id.release_frame_two);
+        release_frame_three = (FrameLayout) findViewById(R.id.release_frame_three);
+        release_img_one = (ImageView) findViewById(R.id.release_img_one);
+        release_img_two = (ImageView) findViewById(R.id.release_img_two);
+        release_img_three = (ImageView) findViewById(R.id.release_img_three);
+        release_img_cancel_one = (ImageView) findViewById(R.id.release_img_cancel_one);
+        release_img_cancel_two = (ImageView) findViewById(R.id.release_img_cancel_two);
+        release_img_cancel_three = (ImageView) findViewById(R.id.release_img_cancel_three);
+        release_img_add = (TextView) findViewById(R.id.release_img_add);
+        relative_type = (RelativeLayout) findViewById(R.id.relative_type);
+        textView_type = (TextView) findViewById(R.id.textView_type);
+        text_from = (TextView) findViewById(R.id.text_from);
+        relative_from = (RelativeLayout) findViewById(R.id.relative_from);
+        text_part = (TextView) findViewById(R.id.text_part);
+        relative_part = (RelativeLayout) findViewById(R.id.relative_part);
+        relative_total = (RelativeLayout) findViewById(R.id.relative_total);
+        release_edit = (EditText) findViewById(R.id.release_edit);
+        release_one = (TextView) findViewById(R.id.release_one);
+        text_trans = (TextView) findViewById(R.id.text_trans);
+        text_total = (TextView) findViewById(R.id.text_total);
+        relative_trans = (RelativeLayout) findViewById(R.id.relative_trans);
+        text_from_a = (TextView) findViewById(R.id.text_from_a);
+        linearLayout_release = (TextView) findViewById(R.id.linearLayout_release);
+        release_wan01 = (TextView) findViewById(R.id.release_wan01);
+        release_wan = (TextView) findViewById(R.id.release_wan);
+        // 当文件不存在的时候创建文件
+        String path = SDUtil.getSDPath() + File.separator + "ziya";
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        //recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.amr");
+        recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.aac");
+    }
+
+    @Override
+    public void initListeners() {
+
+    }
+
+    @Override
+    public void initData() {
+        isLogin = GetBenSharedPreferences.getIsLogin(this ) ;
+        login = GetBenSharedPreferences.getTicket(this ) ;
+        //通过页面跳转，拿到该页面的title，并进行显示
+        loadTitle();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
 
     public class MyRunnable implements Runnable {
         public void run() {
@@ -2197,104 +2278,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
         win.setAttributes(winParams);
     }
 
-    private void initView() {
-
-        audio_one = (TextView)findViewById(R.id.audio_one ) ;
-
-        niu_three = (TextView) findViewById(R.id.niu_three);
-
-        scrollView = (ScrollView) findViewById(R.id.niuniuniu);
-
-        total_money = (EditText) findViewById(R.id.total_money);
-        total_money.setInputType(EditorInfo.TYPE_CLASS_PHONE);
-
-        InputFilter[] filters = {new CashierInputFilter()};
-        total_money.setFilters(filters);
-
-        relative_status = (RelativeLayout) findViewById(R.id.relative_status);
-        info_upload = (RelativeLayout) findViewById(R.id.info_upload);
-        relative_yognjin = (RelativeLayout) findViewById(R.id.relative_yognjin);
-        relative_head01 = (RelativeLayout) findViewById(R.id.relative_head01);
-
-        yognjin = (TextView) findViewById(R.id.yognjin);
-        release_audio_des_duration = (TextView) findViewById(R.id.release_audio_des_duration);
-        head01 = (TextView) findViewById(R.id.head01);
-        text_yongjin = (TextView) findViewById(R.id.text_yongjin);
-        status = (TextView) findViewById(R.id.status);
-        text_status = (TextView) findViewById(R.id.text_status);
-
-        release_text_part = (TextView) findViewById(R.id.release_text_part);
-        //niu_audio = (TextView)findViewById(R.id.niu_audio) ;
-        trans_edit = (EditText) findViewById(R.id.trans_edit);
-        trans_edit.setInputType(EditorInfo.TYPE_CLASS_PHONE);
-        trans_edit.setFilters(filters);
-        title = (TextView) findViewById(R.id.title);
-        voice_cancel = (TextView) findViewById(R.id.voice_cancel);
-        pre = (RelativeLayout) findViewById(R.id.pre);
-
-        //details_audio_get = (ImageView)findViewById(R.id.details_audio_get) ;
-        //details_pic_get = (ImageView)findViewById(R.id.details_pic_get) ;
-
-        release_audio_relative = (RelativeLayout) findViewById(R.id.release_audio_relative);
-
-        release_audio_des = (Button) findViewById(R.id.release_audio_des);
-
-        release_audio_cancel = (TextView) findViewById(R.id.release_audio_cancel);
-
-        release_img_linear = (LinearLayout) findViewById(R.id.release_img_linear);
-
-        release_frame_one = (FrameLayout) findViewById(R.id.release_frame_one);
-        release_frame_two = (FrameLayout) findViewById(R.id.release_frame_two);
-        release_frame_three = (FrameLayout) findViewById(R.id.release_frame_three);
-
-        release_img_one = (ImageView) findViewById(R.id.release_img_one);
-        release_img_two = (ImageView) findViewById(R.id.release_img_two);
-        release_img_three = (ImageView) findViewById(R.id.release_img_three);
-
-        release_img_cancel_one = (ImageView) findViewById(R.id.release_img_cancel_one);
-        release_img_cancel_two = (ImageView) findViewById(R.id.release_img_cancel_two);
-        release_img_cancel_three = (ImageView) findViewById(R.id.release_img_cancel_three);
-
-        release_img_add = (TextView) findViewById(R.id.release_img_add);
-
-        relative_type = (RelativeLayout) findViewById(R.id.relative_type);
-        textView_type = (TextView) findViewById(R.id.textView_type);
-
-        text_from = (TextView) findViewById(R.id.text_from);
-        relative_from = (RelativeLayout) findViewById(R.id.relative_from);
-
-        text_part = (TextView) findViewById(R.id.text_part);
-        relative_part = (RelativeLayout) findViewById(R.id.relative_part);
-        relative_total = (RelativeLayout) findViewById(R.id.relative_total);
-
-        release_edit = (EditText) findViewById(R.id.release_edit);
-        release_foot = (TextView) findViewById(R.id.release_foot);
-
-        release_one = (TextView) findViewById(R.id.release_one);
-
-        text_trans = (TextView) findViewById(R.id.text_trans);
-        text_total = (TextView) findViewById(R.id.text_total);
-
-        relative_trans = (RelativeLayout) findViewById(R.id.relative_trans);
-        text_from_a = (TextView) findViewById(R.id.text_from_a);
-
-        linearLayout_release = (TextView) findViewById(R.id.linearLayout_release);
-
-        release_wan01 = (TextView) findViewById(R.id.release_wan01);
-        release_wan = (TextView) findViewById(R.id.release_wan);
-
-
-        // 当文件不存在的时候创建文件
-        String path = SDUtil.getSDPath() + File.separator + "ziya";
-        File file = new File(path);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        //recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.amr");
-        recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.aac");
-
-
-    }
 
     private void andioGet() {
 
@@ -2362,8 +2345,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
             }
         });
     }
-
-
 
 
     private void picGet01() {
@@ -2583,8 +2564,6 @@ public class ReleaseDetailsActivity extends BaseActivity {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 500);//裁剪框比例
-        intent.putExtra("aspectY", 500);
         intent.putExtra("outputX", 300);// 输出图片大小
         intent.putExtra("outputY", 300);
         intent.putExtra("noFaceDetection", true);// 取消人脸识别
@@ -2619,16 +2598,5 @@ public class ReleaseDetailsActivity extends BaseActivity {
         return bytes;
     }
 
-
-//    public Bitmap zoomBitmap(Bitmap bitmap, int width, int height) {
-//        int w = bitmap.getWidth();
-//        int h = bitmap.getHeight();
-//        Matrix matrix = new Matrix();
-//        float scaleWidth = ((float) width / w);
-//        float scaleHeight = ((float) height / h);
-//        matrix.postScale(scaleWidth, scaleHeight);// 利用矩阵进行缩放不会造成内存溢出
-//        Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
-//        return newbmp;
-//    }
 
 }

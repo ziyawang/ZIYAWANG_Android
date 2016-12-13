@@ -64,11 +64,11 @@ public class NotificationButton extends Button {
         paint.setColor(circleColor);
         if (rectF == null || isChange) {
             if (notificationNumber < 10) {
-                rectF = new RectF(getWidth() - redCircleSize * 2, 0, getWidth(), redCircleSize * 2);
+                rectF = new RectF(getWidth() - redCircleSize * 2 - 20 , 0, getWidth() - 20 , redCircleSize * 2);
             } else if (notificationNumber < 100) {
-                rectF = new RectF(getWidth() - redCircleSize * 3, 0, getWidth(), redCircleSize * 2);
+                rectF = new RectF(getWidth() - redCircleSize * 3 - 30 , 0, getWidth() - 30 , redCircleSize * 2);
             } else {
-                rectF = new RectF(getWidth() - redCircleSize * 4, 0, getWidth(), redCircleSize * 2);
+                rectF = new RectF(getWidth() - redCircleSize * 4 - 40 , 0, getWidth() - 40, redCircleSize * 2);
             }
         }
         canvas.drawRoundRect(rectF, redCircleSize, redCircleSize, paint);
@@ -78,9 +78,9 @@ public class NotificationButton extends Button {
         Paint.FontMetricsInt fontMetrics = paint.getFontMetricsInt();
         int baseline = (int) ((rectF.bottom + rectF.top - fontMetrics.bottom - fontMetrics.top) / 2);
         if (notificationNumber < 100) {
-            canvas.drawText(String.valueOf(notificationNumber), getWidth() - rectF.width() / 2 + 1, baseline - 2, paint);
+            canvas.drawText(String.valueOf(notificationNumber), getWidth() - rectF.width() - 1 / 2 + 1, baseline - 2, paint);
         } else {
-            canvas.drawText("99+", getWidth() - rectF.width() / 2 + 1, baseline - 2, paint);
+            canvas.drawText("99+", getWidth() - rectF.width() - 5 / 2 + 1, baseline - 2, paint);
         }
     }
 

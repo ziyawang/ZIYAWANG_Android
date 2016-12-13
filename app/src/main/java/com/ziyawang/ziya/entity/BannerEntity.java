@@ -10,15 +10,35 @@ public class BannerEntity {
     private String TypeID ;
     private String DetailID ;
     private String type ;
+    private String Url ;
+    private String Title ;
 
     public BannerEntity(){}
 
-    public BannerEntity(String bannerID, String bannerLink, String typeID, String detailID , String type) {
+    public BannerEntity(String bannerID, String bannerLink, String typeID, String detailID, String type, String url, String title) {
         BannerID = bannerID;
         BannerLink = bannerLink;
         TypeID = typeID;
         DetailID = detailID;
-        this.type = type ;
+        this.type = type;
+        Url = url;
+        Title = title;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
     }
 
     public String getBannerID() {

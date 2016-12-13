@@ -33,7 +33,9 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
+import com.ziyawang.ziya.activity.EvaluateActivity_start;
 import com.ziyawang.ziya.activity.FindVideoActivity;
+import com.ziyawang.ziya.activity.MyRuleActivity;
 import com.ziyawang.ziya.activity.SearchActivity;
 import com.ziyawang.ziya.adapter.HeadpagerAdapter;
 import com.ziyawang.ziya.entity.BannerEntity;
@@ -48,6 +50,8 @@ import org.json.JSONException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.rong.imageloader.core.ImageLoader;
 
 /**
  * Created by 牛海丰 on 2016/7/19.
@@ -78,6 +82,10 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     private FrameLayout homepage_video ;
     //跳转到搜索视频的页面的悬停按钮
     private FrameLayout homepage_video_02 ;
+    //跳转到测评系统的页面的按钮
+    private FrameLayout homepage_sys ;
+    //跳转到测评系统的页面的悬停按钮
+    private FrameLayout homepage_sys02 ;
     private RelativeLayout search01;
 
     private ViewPager home_viewPager;
@@ -134,6 +142,11 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     @Nullable
     @Override
@@ -289,26 +302,26 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
         HttpUtils httpUtils = new HttpUtils()  ;
         RequestParams params = new RequestParams() ;
 
-        params.addQueryStringParameter("pagecount" , "1");
+        params.addQueryStringParameter("pagecount", "1");
         httpUtils.configCurrentHttpCacheExpiry(1000);
-        httpUtils.send(HttpRequest.HttpMethod.GET,  Url.GetMovie,params, new RequestCallBack<String>() {
+        httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetMovie, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 JSONObject jsonObj = JSON.parseObject(responseInfo.result);
                 JSONArray result = jsonObj.getJSONArray("data");
                 List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
-                if (list.size() == 1){
+                if (list.size() == 1) {
                     String videoID = list.get(0).getVideoID();
-                    Log.e("benben", "VideoID======" + videoID) ;
+                    Log.e("benben", "VideoID======" + videoID);
                     //拿到用户缓存的spVideoID的值,用户看过的最新的VideoID
-                    spVideoID = getActivity().getSharedPreferences("VideoID", getActivity().MODE_PRIVATE );
+                    spVideoID = getActivity().getSharedPreferences("VideoID", getActivity().MODE_PRIVATE);
                     String spVideoIDString = spVideoID.getString("VideoID", "");
                     //boolean isLook1 = isLook.getBoolean("isLook", false);
-                    Log.e("benben", "spVideoID======" + spVideoIDString) ;
-                    if (!spVideoIDString.equals(videoID)){
+                    Log.e("benben", "spVideoID======" + spVideoIDString);
+                    if (!spVideoIDString.equals(videoID)) {
                         red_point.setVisibility(View.VISIBLE);
                         red_point02.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         red_point.setVisibility(View.GONE);
                         red_point02.setVisibility(View.GONE);
                     }
@@ -326,6 +339,8 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     private void initListeners() {
         homepage_video.setOnClickListener(this);
         homepage_video_02.setOnClickListener(this);
+        homepage_sys.setOnClickListener(this);
+        homepage_sys02.setOnClickListener(this);
     }
 
     private void judgeGoView(TextView tv ) {
@@ -384,8 +399,17 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                        startActivity(intent);
+                        if ("5".equals(list01.get(0).getTypeID())){
+                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                            intent.putExtra("type" , "other" ) ;
+                            intent.putExtra("url" , list01.get(0).getUrl() ) ;
+                            intent.putExtra("title" , list01.get(0).getTitle() ) ;
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
+                            startActivity(intent);
+                        }
+
                     }
                 });
                 list.add(img1);
@@ -396,8 +420,16 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                        startActivity(intent);
+                        if ("5".equals(list01.get(1).getTypeID())){
+                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                            intent.putExtra("type" , "other" ) ;
+                            intent.putExtra("url" , list01.get(1).getUrl() ) ;
+                            intent.putExtra("title" , list01.get(1).getTitle() ) ;
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 });
                 list.add(img2);
@@ -408,8 +440,16 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                        startActivity(intent);
+                        if ("5".equals(list01.get(2).getTypeID())){
+                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                            intent.putExtra("type" , "other" ) ;
+                            intent.putExtra("url" , list01.get(2).getUrl() ) ;
+                            intent.putExtra("title" , list01.get(2).getTitle() ) ;
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 });
                 list.add(img3);
@@ -420,12 +460,19 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                        startActivity(intent);
+                        if ("5".equals(list01.get(3).getTypeID())){
+                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                            intent.putExtra("type" , "other" ) ;
+                            intent.putExtra("url" , list01.get(3).getUrl() ) ;
+                            intent.putExtra("title" , list01.get(3).getTitle() ) ;
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 });
                 list.add(img4);
-
 
                 //实例化适配器
                 adapter = new HeadpagerAdapter(list, getActivity());
@@ -529,6 +576,8 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
         homepage_search02 = (RelativeLayout) view.findViewById(R.id.homepage_search02);
         homepage_video = (FrameLayout) view.findViewById(R.id.homepage_video);
         homepage_video_02 = (FrameLayout) view.findViewById(R.id.homepage_video_02);
+        homepage_sys = (FrameLayout) view.findViewById(R.id.homepage_sys);
+        homepage_sys02 = (FrameLayout) view.findViewById(R.id.homepage_sys02);
         search01 = (RelativeLayout) view.findViewById(R.id.search01);
         niu_head = (RelativeLayout) view.findViewById(R.id.niu_head);
         mys = (MyScrollView) view.findViewById(R.id.mys);
@@ -596,9 +645,18 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 //跳转到播放视频页面
                 goFindVideoActivity() ;
                 break;
+            case R.id.homepage_sys:
+            case R.id.homepage_sys02:
+                goEvaluateActivity_start() ;
+                break;
             default:
                 break;
         }
+    }
+
+    private void goEvaluateActivity_start() {
+        Intent intent = new Intent(getActivity() , EvaluateActivity_start.class ) ;
+        startActivity(intent);
     }
 
     private void goFindVideoActivity() {

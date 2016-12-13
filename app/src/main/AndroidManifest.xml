@@ -282,7 +282,54 @@
         <activity android:name=".activity.GoldDetailsActivity" />
         <activity android:name=".activity.GoldDetails02Activity" />
         <activity android:name=".activity.ChangeNickNameActivity" />
-        <activity android:name=".activity.ReportActivity"></activity>
+        <activity android:name=".activity.ReportActivity" />
+        <activity
+            android:name=".activity.InformationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.ziyawang.ziya"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.DetailsNewsActivity" />
+        <activity android:name=".activity.EvaluateActivity_start" />
+        <activity android:name=".activity.EvaluateActivity_ing" />
+        <activity android:name=".activity.EvaluateActivity_end" />
+        <activity android:name=".activity.EvaluateResultActivity" />
+        <activity android:name=".activity.EvaluateActivity_ing02" />
+        <activity
+            android:name=".activity.PublishAssetsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.PublishPersonActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.PublishCompanyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.PublishFinanceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.PublishRuleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.PublishFixedActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.V2DetailsFindInfoActivity"></activity>
+        <activity android:name=".activity.V2FindInfoActivity"></activity>
     </application>
 
 </manifest>

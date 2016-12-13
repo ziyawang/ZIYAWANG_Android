@@ -74,7 +74,6 @@
 
     <!--滚动详情页面-->
     <ScrollView
-        android:visibility="gone"
         android:layout_marginBottom="44dp"
         android:id="@+id/info_scroll"
         android:layout_width="match_parent"

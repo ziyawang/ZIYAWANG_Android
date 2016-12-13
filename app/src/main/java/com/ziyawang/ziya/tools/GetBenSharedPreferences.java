@@ -57,4 +57,15 @@ public class GetBenSharedPreferences {
         boolean isLogin = sp.getBoolean("isLogin", false);
         return isLogin ;
     }
+
+    /**
+     * 得到用户的ticket
+     * @param context 静态上下文
+     * @return isThree
+     */
+    public static boolean getisThree(Context context){
+        SharedPreferences sp = context.getSharedPreferences("isThree", context.MODE_PRIVATE);
+        boolean isThree = sp.getBoolean("isThree", false);
+        return isThree ;
+    }
 }

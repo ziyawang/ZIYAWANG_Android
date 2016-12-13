@@ -17,7 +17,6 @@
     <!-- 获取机型信息权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 录音 -->
-
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -94,6 +93,10 @@
 
 
         <!-- imlib config begin -->
+
+
+        <!-- 测试4z3hlwrv33a0t -->
+        <!-- 正式服25wehl3uww96w -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="25wehl3uww96w" />

@@ -29,7 +29,9 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.DetailsFindInfoActivity;
 import com.ziyawang.ziya.activity.DetailsFindServiceActivity;
+import com.ziyawang.ziya.activity.DetailsNewsActivity;
 import com.ziyawang.ziya.activity.MovieListActivity;
+import com.ziyawang.ziya.activity.V2DetailsFindInfoActivity;
 import com.ziyawang.ziya.activity.VideoActivity;
 import com.ziyawang.ziya.entity.MyCollectListEntity;
 import com.ziyawang.ziya.tools.ToastUtils;
@@ -104,6 +106,7 @@ public class CollectListAdapter extends BaseAdapter {
         String typeID = list.get(position).getTypeID();
         switch (typeID){
 
+            //收藏信息
             case "1" :
                 holder.relative_01.setVisibility(View.VISIBLE);
                 holder.relative_02.setVisibility(View.GONE);
@@ -113,14 +116,27 @@ public class CollectListAdapter extends BaseAdapter {
                 holder.collect_part.setText(list.get(position).getProArea());
                 holder.collect_des.setText(list.get(position).getWordDes());
                 break;
+            //收藏视频
             case "2" :
                 holder.relative_01.setVisibility(View.GONE);
                 holder.relative_02.setVisibility(View.VISIBLE);
                 BitmapUtils bitmapUtils = new BitmapUtils(context) ;
-                bitmapUtils.display(holder.collect_movie_img , Url.FileIP +list.get(position).getVideoLogo());
+                bitmapUtils.configDefaultLoadFailedImage(R.mipmap.error_imgs_big) ;
+                bitmapUtils.display(holder.collect_movie_img, Url.FileIP + list.get(position).getVideoLogo());
                 holder.collect_movie_title.setText(list.get(position).getVideoTitle());
                 holder.collect_movie_des.setText(list.get(position).getVideoDes());
                 break;
+            //收藏新闻
+            case "3" :
+                holder.relative_01.setVisibility(View.GONE);
+                holder.relative_02.setVisibility(View.VISIBLE);
+                BitmapUtils bitmapUtils01 = new BitmapUtils(context) ;
+                bitmapUtils01.configDefaultLoadFailedImage(R.mipmap.error_imgs_big ) ;
+                bitmapUtils01.display(holder.collect_movie_img , Url.FileIP +list.get(position).getNewsLogo());
+                holder.collect_movie_title.setText(list.get(position).getNewsTitle());
+                holder.collect_movie_des.setText(list.get(position).getBrief());
+                break;
+            //收藏服务
             case "4" :
                 holder.relative_01.setVisibility(View.VISIBLE);
                 holder.relative_02.setVisibility(View.GONE);
@@ -141,16 +157,19 @@ public class CollectListAdapter extends BaseAdapter {
                 String typeID = list.get(position).getTypeID();
                 switch (typeID){
                     case "1" :
-                        Intent intent = new Intent(context , DetailsFindInfoActivity.class  ) ;
+                        Intent intent = new Intent(context , V2DetailsFindInfoActivity.class  ) ;
                         intent.putExtra("id" , list.get(position).getItemID() ) ;
-                        intent.putExtra("title" , list.get(position).getTypeName() ) ;
                         context.startActivity(intent);
-
                         break;
                     case "2" :
                         Intent intent02 = new Intent(context , VideoActivity.class  ) ;
                         intent02.putExtra("id" , list.get(position).getItemID() ) ;
                         context.startActivity(intent02);
+                        break;
+                    case "3" :
+                        Intent intent03 = new Intent(context , DetailsNewsActivity.class  ) ;
+                        intent03.putExtra("id" , list.get(position).getItemID() ) ;
+                        context.startActivity(intent03);
                         break;
                     case "4" :
                         Intent intent04 = new Intent(context , DetailsFindServiceActivity.class  ) ;

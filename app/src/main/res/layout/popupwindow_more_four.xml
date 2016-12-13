@@ -21,7 +21,7 @@
             android:layout_height="44dp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="买方性质" />
+            android:text="处置方式" />
         <LinearLayout
             android:background="#f4f4f4"
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginLeft="16dp"
-            android:text="国企" />
+            android:text="诉讼催收" />
         <LinearLayout
             android:layout_marginLeft="16dp"
             android:background="#f4f4f4"
@@ -50,37 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginLeft="16dp"
-            android:text="民企" />
-        <LinearLayout
-            android:layout_marginLeft="16dp"
-            android:background="#f4f4f4"
-            android:layout_width="match_parent"
-            android:layout_height="1dp">
-        </LinearLayout>
-
-        <RadioButton
-            android:paddingLeft="10dp"
-            style="@style/CustomRadioButtonTheme"
-            android:id="@+id/one_three"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginLeft="16dp"
-            android:text="上市公司" />
-        <LinearLayout
-            android:layout_marginLeft="16dp"
-            android:background="#f4f4f4"
-            android:layout_width="match_parent"
-            android:layout_height="1dp">
-        </LinearLayout>
-
-        <RadioButton
-            android:paddingLeft="10dp"
-            style="@style/CustomRadioButtonTheme"
-            android:id="@+id/one_four"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginLeft="16dp"
-            android:text="其他" />
+            android:text="非诉讼催收" />
         <LinearLayout
             android:layout_marginLeft="16dp"
             android:background="#f4f4f4"

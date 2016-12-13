@@ -29,6 +29,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.FeedBackActivity;
+import com.ziyawang.ziya.activity.InformationActivity;
 import com.ziyawang.ziya.activity.LoginActivity;
 import com.ziyawang.ziya.activity.MainActivity;
 import com.ziyawang.ziya.activity.MyCollectActivity;
@@ -108,6 +109,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private String ConfirmationP2 ;
     private String ConfirmationP3 ;
     private String ServiceArea ;
+    //消息中心按钮
+    private TextView my_fragment_information ;
     //意见反馈按钮
     private TextView feedBack ;
     //设置按钮
@@ -214,7 +217,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getSpData() ;
+                getSpData();
                 //加载数据
                 loadData();
             }
@@ -312,6 +315,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         collection_relative.setOnClickListener(this);
         niu_relative.setOnClickListener(this);
         me_change_icon.setOnClickListener(this);
+        my_fragment_information.setOnClickListener(this);
     }
 
     private void loadData() {
@@ -654,6 +658,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         collection_relative = (RelativeLayout)v.findViewById(R.id.collection_relative ) ;
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         add_pay = (TextView) v.findViewById(R.id.add_pay ) ;
+        my_fragment_information = (TextView) v.findViewById(R.id.my_fragment_information ) ;
     }
 
     @Override
@@ -689,6 +694,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.my_rush :
                 judgeMyRushView();
                 break;
+            //消息中心按钮
+            case R.id.my_fragment_information :
+                judgeInformationView();
+                break;
             //意见反馈按钮
             case R.id.feedBack :
                 judgeFeedBackView();
@@ -700,6 +709,19 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void judgeInformationView() {
+        if (isLogin){
+            goInformationActivity() ;
+        }else {
+            goLoginActivity();
+        }
+    }
+
+    private void goInformationActivity() {
+        Intent intent = new Intent(getActivity() , InformationActivity.class ) ;
+        startActivity( intent );
     }
 
     private void judgeMyGoldVIew() {
