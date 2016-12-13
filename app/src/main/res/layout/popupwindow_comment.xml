@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#EEE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editText"
+        android:textColor="#333"
+        android:maxLines="4"
+        android:paddingTop="7dp"
+        android:paddingLeft="10dp"
+        android:gravity="left|top"
+        android:textColorHint="#999"
+        android:hint="请输入评论内容"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_commit"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+    <TextView
+        android:id="@+id/text_commit"
+        android:layout_marginBottom="10dp"
+        android:textColor="#fff"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="end"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/commit"
+        android:text="发表"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

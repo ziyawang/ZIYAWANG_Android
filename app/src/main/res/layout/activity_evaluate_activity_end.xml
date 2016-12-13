@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#f4f4f4"
+    android:id="@+id/whole"
+    tools:context="com.ziyawang.ziya.activity.EvaluateActivity_start">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_info_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="债权风险评估系统"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:background="#fff"
+        android:paddingTop="30dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:text="评估结束!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:background="#fff"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:text="请输入电话号码以便查询评估结果。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.ziyawang.ziya.view.XEditText
+        android:paddingRight="16dp"
+        android:id="@+id/editText"
+        android:paddingLeft="15dp"
+        android:hint="电话号码"
+        android:layout_marginTop="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:maxLength="11"
+        android:digits="0123456789"
+        android:textSize="15dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_miao"
+        android:textColor="#000"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="4dp"
+        android:id="@+id/evaluate_submit"
+        android:gravity="center"
+        android:text="获取评估结果"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+
+</LinearLayout>
+

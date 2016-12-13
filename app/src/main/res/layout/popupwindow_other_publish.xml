@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_marginLeft="44dp"
+    android:layout_marginRight="44dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/other_publish"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/pay_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/pay_cancel"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:src="@mipmap/popup_cuowu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/pay_img"
+            android:src="@mipmap/v2_other_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@drawable/other_publish_white"
+        android:layout_below="@id/pay_one"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ziyawang.ziya.view.JustifyTextView
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:text="请您留下姓名及联系方式以便资芽网客服人员与您联系,帮您发布。"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#333"
+                android:textSize="15sp"
+                android:layout_marginLeft="22dp"
+                android:text="客服电话："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="400-898-8557"
+                android:textColor="#333"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#f4f4f4"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+
+        <LinearLayout
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <TextView
+                android:textColor="#333"
+                android:textSize="15sp"
+                android:text="联系人姓名："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/person"
+                android:singleLine="true"
+                android:textColor="#999"
+                android:textSize="15sp"
+                android:hint="请输入联系人姓名"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#f4f4f4"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+
+        <LinearLayout
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <TextView
+                android:textColor="#333"
+                android:textSize="15sp"
+                android:text="联系方式："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/phone"
+                android:maxLength="11"
+                android:digits="0123456789"
+                android:singleLine="true"
+                android:textColor="#999"
+                android:textSize="15sp"
+                android:hint="请输入联系方式"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#f4f4f4"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+
+        <Button
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:text="委托发布"
+            android:background="#fdd000"
+            android:id="@+id/submit"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Button
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginBottom="26dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:text="取  消"
+            android:background="@drawable/details_info_pay"
+            android:id="@+id/cancel"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/chongzhijian"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

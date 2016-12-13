@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:notButton="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#fff"
+    tools:context="com.ziyawang.ziya.activity.DetailsNewsActivity">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_news_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="资讯详情"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+    <!--文章页面-->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_marginBottom="44dp"
+        android:layout_below="@id/details_news_head"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/news_title"
+                android:textSize="23sp"
+                android:textColor="#272727"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/ben_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/news_from"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="来源：资芽网"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/news_time"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/news_from"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="时间："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:background="#ebebeb"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/news_brief"
+                android:layout_marginTop="20dp"
+                android:text="摘要"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <WebView
+                android:layout_marginRight="13dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="10dp"
+                android:scrollbars="vertical"
+                android:id="@+id/details_news_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="13sp"
+                android:textColor="#ef8200"
+                android:id="@+id/niu_top"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#fcfcfc"
+                android:gravity="center_vertical"
+                android:paddingLeft="13dp"
+                android:text="热门评论" />
+
+            <com.ziyawang.ziya.view.BenListView
+                android:background="#f4f4f4"
+                android:paddingLeft="14dp"
+                android:id="@+id/listView"
+                android:layout_below="@id/niu_top"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.ziyawang.ziya.view.BenListView>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:text="暂无热门评论"
+                android:background="#f4f4f4"
+                android:paddingLeft="14dp"
+                android:id="@+id/textView_show_noData"
+                android:layout_below="@id/niu_top"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+            </TextView>
+
+        </LinearLayout>
+
+    </ScrollView>
+    <!--评论页面-->
+    <RelativeLayout
+        android:background="#EEE"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:background="#333"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+
+        <LinearLayout
+            android:id="@+id/up_ben"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/info_rate"
+            android:gravity="end|center_vertical">
+            <RelativeLayout
+                android:background="#333"
+                android:gravity="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+                <RelativeLayout
+                    android:gravity="center"
+                    android:background="#EEE"
+                    android:layout_marginTop="1px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.ziyawang.ziya.view.NotificationButton02
+                        android:background="@mipmap/v2_acount"
+                        android:layout_gravity="center"
+                        notButton:circleBgColor="@android:color/holo_red_light"
+                        notButton:circleSize="4dp"
+                        notButton:textColor="@android:color/white"
+                        android:id="@+id/button_up"
+                        android:layout_width="25dp"
+                        android:layout_height="19dp"
+                        android:textColor="@drawable/color"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_collect"
+                android:gravity="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+                <ImageView
+                    android:id="@+id/news_collect"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_share"
+                android:gravity="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+                <ImageView
+                    android:src="@mipmap/v2fenxiang"
+                    android:id="@+id/news_share"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/write"
+            android:layout_toLeftOf="@id/up_ben"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/text_commit"
+            android:text="写评论..."
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

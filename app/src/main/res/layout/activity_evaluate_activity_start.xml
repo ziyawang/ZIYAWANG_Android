@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#f4f4f4"
+    android:id="@+id/whole"
+    tools:context="com.ziyawang.ziya.activity.EvaluateActivity_start">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_info_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="债权风险评估系统"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ziyawang.ziya.view.JustifyTextView
+            android:background="#fff"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="本测评系统根据您提交的选项及填写的资料进行，相关内容需真实、有效、合法、完整。我们做出的测评结果仅供参考，不具有任何法律效力。建议您及时收回款项，保证您的债权。"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:id="@+id/text_total"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:text="债权金额："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="#ef8200"
+            android:textSize="9dp"
+            android:gravity="bottom"
+            android:layout_alignBottom="@id/text_total"
+            android:layout_marginRight="20dp"
+            android:id="@+id/release_wan01"
+            android:text="万"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <EditText
+            android:maxLength="11"
+            android:digits="0123456789."
+            android:numeric="decimal"
+            android:textSize="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/release_wan01"
+            android:layout_toRightOf="@id/text_total"
+            android:gravity="end|center"
+            android:textColorHint="#6d6d6d"
+            android:textColor="#000"
+            android:id="@+id/total_money"
+            android:hint="请输入债权金额"
+            android:background="#ffffff"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/evaluate_from_relative"
+        android:layout_marginTop="1px"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:id="@+id/evaluate_from"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:text="债权人所在地："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/evaluate_from_right"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon83"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="15dp"
+            android:id="@+id/evaluate_from_text"
+            android:gravity="end"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/evaluate_from_right"
+            android:layout_toRightOf="@id/evaluate_from"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/evaluate_type_relative"
+        android:layout_marginTop="1px"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:id="@+id/niuniu"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:text="债权类型："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/niu_niu"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon83"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="15dp"
+            android:id="@+id/evaluate_type_text"
+            android:gravity="end"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/niu_niu"
+            android:layout_toRightOf="@id/niuniu"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ping_ce_one"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/aaa"
+            android:gravity="center"
+            android:text="个人债权"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:background="#fff"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <TextView
+            android:id="@+id/bbb"
+            android:gravity="center"
+            android:text="企业商账"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:background="#fff"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/evaluate_person_type_relative"
+        android:layout_marginTop="1px"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:id="@+id/ca"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:text="债务人类型："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/cao"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon83"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="15dp"
+            android:id="@+id/evaluate_person_type_text"
+            android:gravity="end"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/cao"
+            android:layout_toRightOf="@id/ca"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ping_ce_two"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ccc"
+            android:gravity="center"
+            android:text="个人"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:background="#fff"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <TextView
+            android:id="@+id/ddd"
+            android:gravity="center"
+            android:text="企业"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:background="#fff"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:textSize="15dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_miao"
+        android:textColor="#000"
+        android:layout_marginTop="45dp"
+        android:id="@+id/evaluate_start"
+        android:gravity="center"
+        android:text="开始评测"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+
+</LinearLayout>

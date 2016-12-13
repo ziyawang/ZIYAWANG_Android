@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_marginLeft="44dp"
+    android:layout_marginRight="44dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/other_publish"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/pay_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/pay_cancel"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:src="@mipmap/popup_cuowu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/pay_img"
+            android:src="@mipmap/v2_other_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@drawable/other_publish_white"
+        android:layout_below="@id/pay_one"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="重要提示"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <com.ziyawang.ziya.view.JustifyTextView
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:text="您是否对您发布的信息进行真实性承诺，承诺后更能吸引服务方主动联系您，更有助于达成您的需求。无论承诺与否都不影响您的正常发布。"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:text="承诺"
+            android:background="#fdd000"
+            android:id="@+id/submit"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Button
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginBottom="26dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:text="不承诺"
+            android:background="@drawable/details_info_pay"
+            android:id="@+id/cancel"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/chongzhijian"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

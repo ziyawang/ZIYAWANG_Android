@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#f4f4f4"
+    android:orientation="vertical"
+    tools:context="com.ziyawang.ziya.activity.EvaluateActivity_ing">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_info_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+
+
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="债权风险评估系统"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/question_id"
+                android:textColor="#333"
+                android:textSize="18sp"
+                android:background="#fff"
+                android:paddingLeft="16dp"
+                android:paddingTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:paddingLeft="16dp"
+                android:paddingTop="15dp"
+                android:background="#fff"
+                android:textColor="#333"
+                android:textSize="16sp"
+                android:paddingBottom="20dp"
+                android:text="(根据您债权实际情况的不同，本测评共20——41题不等)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/question_des"
+                android:paddingBottom="16dp"
+                android:paddingTop="13dp"
+                android:textColor="#333"
+                android:textSize="18sp"
+                android:background="#fff"
+                android:paddingLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/answer_edit"
+                android:layout_marginTop="1px"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:background="#fff"
+                android:paddingBottom="13dp"
+                android:paddingTop="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:id="@+id/linear_01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/checkbox_01"
+                    android:layout_marginTop="1dp"
+                    android:drawablePadding="13dp"
+                    android:paddingBottom="13dp"
+                    android:paddingTop="13dp"
+                    android:paddingLeft="10dp"
+                    style="@style/CustomCheckboxTheme"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#fff"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:background="#f4f4f4"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_01"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_02"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_03"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_04"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_05"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_06"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_07"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:visibility="gone"
+                        android:id="@+id/radio_button_08"
+                        android:layout_marginTop="1dp"
+                        android:drawablePadding="13dp"
+                        android:paddingBottom="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingLeft="10dp"
+                        style="@style/CustomCheckboxTheme"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <Button
+                android:text="上一题"
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:id="@+id/question_left"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/button"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="44dp" />
+
+            <Button
+                android:visibility="gone"
+                android:text="下一题"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:id="@+id/question_right"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/button"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="44dp" />
+
+            <Button
+                android:visibility="gone"
+                android:text="提交"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:id="@+id/question_submit"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="17dp"
+                android:background="@drawable/button"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="44dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>

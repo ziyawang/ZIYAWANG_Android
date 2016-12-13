@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#f4f4f4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--文字描述布局-->
+    <TextView
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:textSize="18sp"
+        android:textColor="#333"
+        android:text="文字描述"
+        android:layout_width="match_parent"
+        android:layout_height="46dp" />
+    <!--1dp的分割线-->
+    <TextView
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="#eee"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <!--文字描述的EditText-->
+    <EditText
+        android:gravity="top|left"
+        android:minHeight="100dp"
+        android:textColorHint="#999"
+        android:id="@+id/edit_des"
+        android:textSize="15sp"
+        android:textColor="#999"
+        android:background="#fff"
+        android:padding="15dp"
+        android:hint="请输入相关信息"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--语音描述页面-->
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/release_audio_relative"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <TextView
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:id="@+id/audio_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="语音描述" />
+
+        <Button
+            android:drawablePadding="5dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:drawableLeft="@mipmap/icon_luyin"
+            android:background="@drawable/login_register"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/release_audio_des"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/audio_one"
+            android:textColor="#fdd000"
+            android:text="长按录入语音" />
+
+        <TextView
+            android:id="@+id/release_audio_des_duration"
+            android:textSize="10dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#afafaf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/release_audio_des" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/release_audio_cancel"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/release_audio_des_duration"
+            android:text="播放"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/voice_cancel"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/release_audio_cancel"
+            android:text="撤销"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <!--1dp的分割线-->
+    <TextView
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="#eee"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
+    <!--图片获取页面-->
+    <LinearLayout
+        android:background="#ffffff"
+        android:id="@+id/release_img_linear"
+        android:layout_width="match_parent"
+        android:layout_height="110dp">
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/release_frame_one"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp">
+
+            <ImageView
+                android:id="@+id/release_img_one"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:id="@+id/release_img_cancel_one"
+                android:layout_gravity="end"
+                android:src="@mipmap/release_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/release_frame_two"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp">
+
+            <ImageView
+                android:id="@+id/release_img_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:id="@+id/release_img_cancel_two"
+                android:layout_gravity="end"
+                android:src="@mipmap/release_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/release_frame_three"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp">
+
+            <ImageView
+                android:id="@+id/release_img_three"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/release_img_cancel_three"
+                android:layout_gravity="end"
+                android:src="@mipmap/release_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:background="@drawable/release_add_img"
+            android:paddingTop="10dp"
+            android:textColor="#fdd000"
+            android:drawableTop="@mipmap/icon51"
+            android:id="@+id/release_img_add"
+            android:gravity="center"
+            android:text="添加凭证"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp" />
+    </LinearLayout>
+    <!--联系人姓名-->
+    <RelativeLayout
+        android:paddingLeft="15dp"
+        android:layout_marginTop="1px"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+        <TextView
+            android:id="@+id/name_publish"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:text="联系人姓名"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:textColorHint="#999"
+            android:id="@+id/edit_name"
+            android:layout_marginRight="15dp"
+            android:gravity="end|center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:hint="请输入联系人姓名"
+            android:background="#fff"
+            android:layout_toRightOf="@id/name_publish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+    <!--联系人电话-->
+    <RelativeLayout
+        android:paddingLeft="15dp"
+        android:layout_marginTop="1px"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+        <TextView
+            android:id="@+id/phone_publish"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:text="联系方式"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:textColorHint="#999"
+            android:digits="0123456789"
+            android:maxLength="11"
+            android:inputType="phone"
+            android:id="@+id/edit_phone"
+            android:layout_marginRight="15dp"
+            android:gravity="end|center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:hint="请输入联系方式"
+            android:background="#fff"
+            android:layout_toRightOf="@id/phone_publish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <!--确认发布按钮-->
+    <Button
+        android:id="@+id/publish"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button"
+        android:textSize="18sp"
+        android:textColor="#333"
+        android:text="确认发布"
+        android:layout_width="match_parent"
+        android:layout_height="46dp" />
+
+</LinearLayout>
