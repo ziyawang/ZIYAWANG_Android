@@ -39,8 +39,8 @@ public class Url {
     public static final String ChangeIcon = IP + "/v1/upload?access_token=token&token=%s" ;
     public static final String NOGetInfo = IP + "/v1/project/list?access_token=token&token=%s";
 
-    public static final String GetService = IP + "/v1/service/list?access_token=token";
-    public static final String Details_service = IP + "/v1/service/list/%s?token=%s";
+    public static final String GetService = IP + "/v1/v2/service/list?access_token=token";
+    public static final String Details_service = IP + "/v1/v2/service/list/%s?token=%s";
     public static final String GetMovie = IP + "/v1/video/list?access_token=token";
     public static final String Details_movie = IP + "/v1/video/list/%s?token=%s";
     public static final String ReleaseInfo = IP + "/v1/uploadfile?access_token=token&token=%s";
@@ -56,7 +56,7 @@ public class Url {
     public static final String MyGoTeam = IP + "/v1/project/cooperate?access_token=token&token=%s";
     public static final String ServiceRegister = IP + "/v1/app/service/confirm?access_token=token&token=%s" ;
     public static final String ServiceReRegister = IP + "/v1/app/service/reconfirm?access_token=token&token=%s" ;
-    public static final String Myicon = IP + "/v1/auth/me?access_token=token&token=%s" ;
+    public static final String Myicon = IP + "/v1/v2/auth/me?access_token=token&token=%s" ;
     public static final String ChangePwd = IP + "/v1/auth/chpwd?access_token=token&token=%s" ;
     public static final String FeedBack = IP + "/v1/app/advice?access_token=token&token=%s" ;
     public static final String Search = IP + "/v1/searchs?access_token=token" ;
@@ -89,5 +89,11 @@ public class Url {
     public static final String GetInfo = IP + "/v1/v2/project/list?access_token=token&token=%s";
     public static final String V2MyCollectList = IP + "/v1/v2/app/collect/list?access_token=token&token=%s";
     public static final String Details_info = IP + "/v1/v2/project/list/%s?token=%s";
+
+    public static final String V202PayCharge = IP + "/v1/v2/pay?access_token=token&token=%s" ;
+    public static final String V202VipRecord = IP + "/v1/v2/pay/member/list?access_token=token&token=%s" ;
+    public static final String V203StarRegister04 = IP + "/v1/v2/lds/star?access_token=token&token=%s" ;
+
+    public static final String V203StarList = IP + "/v1/v2/star/list?access_token=token" ;
 
 }

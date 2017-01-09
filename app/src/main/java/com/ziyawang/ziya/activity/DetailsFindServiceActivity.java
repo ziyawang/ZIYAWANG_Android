@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,8 +84,6 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     private TextView service_details_two;
     //服务方的所在地
     private TextView service_details_four;
-    //服务方的服务等级
-    private TextView service_details_six;
     //服务放的简介
     private TextView service_text_des;
     //服务地区
@@ -117,7 +116,6 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     private static String ServiceIntroduction;
     private static String ServiceLocation;
     private static String ServiceType;
-    private static String ServiceLevel;
     private static String ServiceArea;
     private static String UserPicture;
     private static String ServiceNumber;
@@ -128,7 +126,26 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     private static String UserID;
     private static String ViewCount;
     private static String time;
+    private static String insider;
+    private static String Founds;
+    private static String Size;
+    private TextView service_size;
+    private TextView service_money;
+    private TextView service_person;
     private float DownX = 0;
+    private ImageView image_01 ;
+    private ImageView image_02 ;
+    private ImageView image_03 ;
+    private ImageView image_04 ;
+    private ImageView image_05 ;
+    private ImageView image_06 ;
+    private ImageView image_07 ;
+    private ImageView image_08 ;
+    private ImageView image_09 ;
+    private ImageView image_10 ;
+    private TextView ben ;
+    //查看详情
+    private TextView details_search ;
     //头像的popupwindow
     private PopupWindow popupWindow ;
     //举报按钮
@@ -159,7 +176,6 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
                     default:
                         break;
                 }
-
                 return false;
             }
         });
@@ -181,7 +197,6 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         service_share = (TextView) findViewById(R.id.service_share);
         service_details_two = (TextView) findViewById(R.id.service_details_two);
         service_details_four = (TextView) findViewById(R.id.service_details_four);
-        service_details_six = (TextView) findViewById(R.id.service_details_six);
         service_text_des = (TextView) findViewById(R.id.service_text_des);
         service_for_part = (TextView) findViewById(R.id.service_for_part);
         service_des_type = (TextView) findViewById(R.id.service_des_type);
@@ -193,6 +208,22 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         search_person = (LinearLayout) findViewById(R.id.search_person);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         report = (TextView) findViewById(R.id.report);
+        service_size = (TextView) findViewById(R.id.service_size);
+        service_money = (TextView) findViewById(R.id.service_money);
+        service_person = (TextView) findViewById(R.id.service_person);
+        image_01 = (ImageView) findViewById(R.id.image_01);
+        image_02 = (ImageView) findViewById(R.id.image_02);
+        image_03 = (ImageView) findViewById(R.id.image_03);
+        image_04 = (ImageView) findViewById(R.id.image_04);
+        image_05 = (ImageView) findViewById(R.id.image_05);
+        image_06 = (ImageView) findViewById(R.id.image_06);
+        image_07 = (ImageView) findViewById(R.id.image_07);
+        image_08 = (ImageView) findViewById(R.id.image_08);
+        image_09 = (ImageView) findViewById(R.id.image_09);
+        image_10 = (ImageView) findViewById(R.id.image_10);
+        ben = (TextView)findViewById(R.id.ben ) ;
+        details_search = (TextView)findViewById(R.id.details_search ) ;
+        details_search.setText(Html.fromHtml("<u>" + "查看详情" + "</u>"));
     }
 
     @Override
@@ -204,6 +235,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         service_sendMessage.setOnClickListener(this);
         service_icon.setOnClickListener(this);
         report.setOnClickListener(this);
+        details_search.setOnClickListener(this);
     }
 
     @Override
@@ -264,7 +296,6 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             ServiceIntroduction = object.getString("ServiceIntroduction");
             ServiceLocation = object.getString("ServiceLocation");
             ServiceType = object.getString("ServiceType");
-            ServiceLevel = object.getString("ServiceLevel");
             ServiceArea = object.getString("ServiceArea");
             UserPicture = object.getString("UserPicture");
             ServiceNumber = object.getString("ServiceNumber");
@@ -275,6 +306,15 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             UserID = object.getString("UserID");
             ViewCount = object.getString("ViewCount");
             time = object.getString("created_at");
+            insider = object.getString("insider");
+            Size = object.getString("Size");
+            Founds = object.getString("Founds");
+            String right = object.getString("right");
+            String level = object.getString("Level");
+            //加载会员类型
+            loadRight(right ) ;
+            //加载认证的类型
+            loadLevel(level) ;
             //根据获得的数据进行页面的显示
             showData() ;
         } catch (JSONException e) {
@@ -282,7 +322,74 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         }
     }
 
+    private void loadLevel(String level) {
+        if (!TextUtils.isEmpty(level) ){
+            String[] split = level.split(",");
+            for (int i = 0; i < split.length; i++) {
+                if ("1".equals(split[i].toString())){
+                    image_01.setImageResource(R.mipmap.v203_0101);
+                }
+                if ("2".equals(split[i].toString())){
+                    image_02.setImageResource(R.mipmap.v203_0102);
+                }
+                if ("3".equals(split[i].toString()) ){
+                    image_03.setImageResource(R.mipmap.v203_0103);
+                }
+                if ("4".equals(split[i].toString()) ){
+                    image_04.setImageResource(R.mipmap.v203_0104);
+                }
+                if ("5".equals(split[i].toString())){
+                    image_05.setImageResource(R.mipmap.v203_0105);
+                }
+            }
+        }
+    }
+
+    private void loadRight(String right) {
+        if (!TextUtils.isEmpty(right) ){
+            String[] split = right.split(",");
+            for (int i = 0; i < split.length; i++) {
+                if ("1".equals(split[i].toString())){
+                    image_06.setVisibility(View.VISIBLE);
+                    ben.setVisibility(View.GONE);
+                }
+                if ("18".equals(split[i].toString())){
+                    image_07.setVisibility(View.VISIBLE);
+                    ben.setVisibility(View.GONE);
+                }
+                if ("12".equals(split[i].toString()) ){
+                    image_08.setVisibility(View.VISIBLE);
+                    ben.setVisibility(View.GONE);
+                }
+                if ("6".equals(split[i].toString()) ){
+                    image_09.setVisibility(View.VISIBLE);
+                    ben.setVisibility(View.GONE);
+                }
+                if ("19".equals(split[i].toString())){
+                    image_10.setVisibility(View.VISIBLE);
+                    ben.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
+
     private void showData() {
+        if ("0".equals(Size)){
+            service_size.setText("未填写");
+        }else {
+            service_size.setText(Size);
+        }
+        if ("0".equals(Founds)){
+            service_money.setText("未填写");
+        }else {
+            service_money.setText(Founds);
+        }
+//        if ("0000-00-00 00:00:00".equals(Regtime)){
+//            text_time.setText("");
+//        }else {
+//            text_time.setText(Regtime);
+//        }
+        service_person.setText(ConnectPerson);
         //根据数据请求过来的collectFlag来正确显示是否是收藏
         showCollectStatus(CollectFlag) ;
         //根据数据请求过来的userPicture来正确显示头像
@@ -309,8 +416,6 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         );
         //服务方所在地
         service_details_four.setText(ServiceLocation);
-        //服务方的服务等级
-        service_details_six.setText(ServiceLevel);
         //服务方的浏览次数
         service_no.setText(time +"  浏览：" + ViewCount   );
         //根据数据判断，已经登陆状态下sp不空
@@ -411,7 +516,7 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(confirmationP1)) {
-                    subData("1") ;
+                    subData("1");
                 }
             }
         });
@@ -540,9 +645,19 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
             case R.id.report :
                 goReportActivity() ;
                 break;
+            case R.id.details_search :
+                //Intent intent = new Intent()
+                goDetailsStarRegisterActivity() ;
+                break;
             default:
                 break;
         }
+    }
+
+    private void goDetailsStarRegisterActivity() {
+        Intent intent = new Intent(DetailsFindServiceActivity.this , DetailsStarRegisterActivity.class ) ;
+        intent.putExtra("id" , id ) ;
+        startActivity(intent);
     }
 
     private void goReportActivity() {
@@ -687,24 +802,29 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
     }
 
     private void showCustomDialog() {
-        //计数
-        sendAccount() ;
-        //开启拨打电话的dialog
-        final CustomDialog.Builder builder01 = new CustomDialog.Builder(DetailsFindServiceActivity.this);
-        builder01.setTitle("亲爱的用户");
-        builder01.setMessage("您确定要联系  " + ConnectPerson + ":" + ConnectPhone + "?");
-        builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {goCallNumber() ;
-            }
-        });
-        builder01.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder01.create().show();
+        if ("1".equals(insider)){
+            //计数
+            sendAccount() ;
+            //开启拨打电话的dialog
+            final CustomDialog.Builder builder01 = new CustomDialog.Builder(DetailsFindServiceActivity.this);
+            builder01.setTitle("亲爱的用户");
+            builder01.setMessage("您确定要联系  " + ConnectPerson + ":" + ConnectPhone + "?");
+            builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {goCallNumber() ;
+                }
+            });
+            builder01.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder01.create().show();
+        }else {
+            ToastUtils.shortToast(DetailsFindServiceActivity.this , "该服务方未办理会员，无法查看其联系方式");
+        }
+
     }
 
     private void sendAccount() {

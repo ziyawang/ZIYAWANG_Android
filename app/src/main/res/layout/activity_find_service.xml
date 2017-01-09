@@ -55,34 +55,83 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/find_type"
-            android:gravity="center"
-            android:text="服务类型"
-            android:background="@mipmap/find_find"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/part"
-            android:gravity="center"
-            android:text="地区"
-            android:background="@mipmap/find_find"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/details_type"
-            android:gravity="center"
-            android:text="VIP1"
-            android:background="@mipmap/find_find"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <RelativeLayout
+                android:id="@+id/relative_find_type"
+                android:background="#fff"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="#000"
+                    android:id="@+id/find_type"
+                    android:gravity="center"
+                    android:text="服务类型"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_marginLeft="12dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/find_type"
+                    android:src="@mipmap/v2find_info_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_part"
+                android:gravity="center"
+                android:background="#fff"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="#000"
+                    android:id="@+id/part"
+                    android:gravity="center"
+                    android:text="地区"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_marginLeft="12dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/part"
+                    android:src="@mipmap/v2find_info_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_details_type"
+                android:gravity="center"
+                android:background="#fff"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="#000"
+                    android:id="@+id/details_type"
+                    android:gravity="center"
+                    android:text="等级"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_marginLeft="12dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/details_type"
+                    android:src="@mipmap/v2find_info_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -93,26 +142,15 @@
 
     </LinearLayout>
 
-    <com.ziyawang.ziya.view.MyScrollView
-        android:id="@+id/scrollView"
+    <ListView
+        android:scrollbars="none"
+        android:background="#fff"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.ziyawang.ziya.view.BenListView
-                android:layout_marginLeft="14dp"
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </com.ziyawang.ziya.view.BenListView>
-
-        </LinearLayout>
-
-
-    </com.ziyawang.ziya.view.MyScrollView>
+    </ListView>
 
     <TextView
         android:visibility="gone"

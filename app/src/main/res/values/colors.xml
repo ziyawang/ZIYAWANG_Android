@@ -25,5 +25,7 @@
     <color name="other_publish">#5dc1d0</color>
     <color name="edit_bg">#fff</color>
     <color name="un_commit">#666</color>
+    <color name="vip_center">#e0e0e0</color>
+    <color name="star_register_button">#10BAEA</color>
 
 </resources>

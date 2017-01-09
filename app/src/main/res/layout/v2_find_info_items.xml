@@ -112,7 +112,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/login_uesrname"
+                android:background="@drawable/find_info_prolabel_style"
                 android:textColor="#868686"
                 android:textSize="11sp"
                 android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/login_uesrname"
+                android:background="@drawable/find_info_prolabel_style"
                 android:textColor="#868686"
                 android:textSize="11sp"
                 android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/login_uesrname"
+                android:background="@drawable/find_info_prolabel_style"
                 android:textColor="#868686"
                 android:textSize="11sp"
                 android:layout_width="wrap_content"
@@ -229,7 +229,7 @@
 
         <TextView
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="2"
             android:id="@+id/news_des"
             android:layout_below="@id/czgg_title"
             android:layout_marginRight="25dp"
@@ -240,16 +240,28 @@
             android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
         <TextView
-            android:textColor="#868686"
-            android:textSize="11sp"
-            android:layout_marginBottom="15dp"
             android:layout_below="@id/news_des"
             android:layout_marginTop="4dp"
-            android:id="@+id/news_time"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/czgg_image"
+            android:id="@+id/new_author"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#868686"
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@id/new_author"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/czgg_image"
+            android:layout_marginRight="35dp"
+            android:textColor="#868686"
+            android:textSize="11sp"
+            android:id="@+id/news_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

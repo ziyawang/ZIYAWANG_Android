@@ -18,6 +18,7 @@ import com.ziyawang.ziya.adapter.HeadpagerAdapter;
 import com.ziyawang.ziya.adapter.WelcomeAdapter;
 import com.ziyawang.ziya.application.MyApplication;
 import com.ziyawang.ziya.tools.SDUtil;
+import com.ziyawang.ziya.tools.ToastUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -124,6 +125,7 @@ public class ShowImageViewActivity extends Activity {
         ImageView img2 = new ImageView(this);
         BitmapUtils bitmapUtil02 = new BitmapUtils(this);
         bitmapUtil02.configDefaultLoadFailedImage(R.mipmap.error_imgs ) ;
+        //Log.e("benbne" , pic2 ) ;
         bitmapUtil02.display(img2, pic2);
         list.add(img2);
 

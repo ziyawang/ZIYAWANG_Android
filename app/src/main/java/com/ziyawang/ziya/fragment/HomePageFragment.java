@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,15 +36,21 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.EvaluateActivity_start;
 import com.ziyawang.ziya.activity.FindVideoActivity;
+import com.ziyawang.ziya.activity.LoginActivity;
+import com.ziyawang.ziya.activity.MainActivity;
 import com.ziyawang.ziya.activity.MyRuleActivity;
 import com.ziyawang.ziya.activity.SearchActivity;
+import com.ziyawang.ziya.activity.ServiceRegisterActivity;
+import com.ziyawang.ziya.activity.VipCenterActivity;
 import com.ziyawang.ziya.adapter.HeadpagerAdapter;
 import com.ziyawang.ziya.entity.BannerEntity;
 import com.ziyawang.ziya.entity.FindVideoEntity;
 import com.ziyawang.ziya.tools.FixedSpeedScroller;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
+import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyScrollView;
+import com.ziyawang.ziya.view.NotificationButton;
 
 import org.json.JSONException;
 
@@ -58,6 +65,9 @@ import io.rong.imageloader.core.ImageLoader;
  */
 public class HomePageFragment extends Fragment implements View.OnClickListener{
 
+    public static final String RELEASE = "0" ;
+    public static final String SERVICE = "1" ;
+    public static final String UNSERVICE = "2" ;
 
     private SharedPreferences spVideoID ;
 
@@ -293,7 +303,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     }
 
     private void isShowRedPoint() {
-
         //拿到现在最新的存在的VideoID
         LoadVideoID() ;
     }
@@ -405,6 +414,21 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                             intent.putExtra("url" , list01.get(0).getUrl() ) ;
                             intent.putExtra("title" , list01.get(0).getTitle() ) ;
                             startActivity(intent);
+                        }else if ("6".equals(list01.get(0).getTypeID())) {
+                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                switch (GetBenSharedPreferences.getRole(getActivity())){
+                                    case "1" :
+                                        goVipCenterActivity() ;
+                                        break;
+                                    default:
+                                        goServiceRegisterActivity() ;
+                                        break;
+
+                                }
+                            }else {
+                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+                                startActivity(intent);
+                            }
                         }else {
                             Intent intent = new Intent(getActivity(), FindVideoActivity.class);
                             startActivity(intent);
@@ -426,6 +450,22 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                             intent.putExtra("url" , list01.get(1).getUrl() ) ;
                             intent.putExtra("title" , list01.get(1).getTitle() ) ;
                             startActivity(intent);
+                        }else if ("6".equals(list01.get(1).getTypeID())) {
+                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                switch (GetBenSharedPreferences.getRole(getActivity())){
+                                    case "1" :
+                                        goVipCenterActivity() ;
+                                        break;
+                                    default:
+                                        goServiceRegisterActivity() ;
+                                        break;
+
+                                }
+                            }else {
+                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+                                startActivity(intent);
+                            }
+
                         }else {
                             Intent intent = new Intent(getActivity(), FindVideoActivity.class);
                             startActivity(intent);
@@ -446,6 +486,22 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                             intent.putExtra("url" , list01.get(2).getUrl() ) ;
                             intent.putExtra("title" , list01.get(2).getTitle() ) ;
                             startActivity(intent);
+                        }else if ("6".equals(list01.get(2).getTypeID())) {
+                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                switch (GetBenSharedPreferences.getRole(getActivity())){
+                                    case "1" :
+                                        goVipCenterActivity() ;
+                                        break;
+                                    default:
+                                        goServiceRegisterActivity() ;
+                                        break;
+
+                                }
+                            }else {
+                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+                                startActivity(intent);
+                            }
+
                         }else {
                             Intent intent = new Intent(getActivity(), FindVideoActivity.class);
                             startActivity(intent);
@@ -466,6 +522,37 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                             intent.putExtra("url" , list01.get(3).getUrl() ) ;
                             intent.putExtra("title" , list01.get(3).getTitle() ) ;
                             startActivity(intent);
+                        }else if ("6".equals(list01.get(3).getTypeID())) {
+//                            NotificationButton button_me = (NotificationButton) getActivity().findViewById(R.id.button_me);
+//                            Button button_homePage = (Button) getActivity().findViewById(R.id.button_homePage);
+//                            button_homePage.setSelected(false);
+//                            button_homePage.setClickable(true);
+//                            button_me.setSelected(true);
+//                            button_me.setClickable(true);
+//
+//                            MainActivity activity=(MainActivity)getActivity()  ;
+//                            FragmentManager fm = activity.getSupportFragmentManager();
+//                            FragmentTransaction transaction = fm.beginTransaction();
+//                            if (!activity.myFragment.isAdded()) {
+//                                transaction.hide(activity.homePageFragment).add(R.id.main_frameyout, activity.myFragment).commit();
+//                            }else {
+//                                transaction.hide(activity.homePageFragment).show(activity.myFragment).commit();
+//                            }
+                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                switch (GetBenSharedPreferences.getRole(getActivity())){
+                                    case "1" :
+                                        goVipCenterActivity() ;
+                                        break;
+                                    default:
+                                        goServiceRegisterActivity() ;
+                                        break;
+
+                                }
+                            }else {
+                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+                                startActivity(intent);
+                            }
+
                         }else {
                             Intent intent = new Intent(getActivity(), FindVideoActivity.class);
                             startActivity(intent);
@@ -541,6 +628,136 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 error.printStackTrace();
             }
         });
+
+    }
+
+    private void goVipCenterActivity() {
+        String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(getActivity())) ;
+        HttpUtils utils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                //处理请求成功后的数据
+                try {
+                    dealResult02(responseInfo.result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                //打印用户的失败回调
+                error.printStackTrace();
+                ToastUtils.shortToast(getActivity(), "网络连接异常");
+            }
+        }) ;
+    }
+
+    private void dealResult02(String result) throws JSONException {
+        org.json.JSONObject jsonObject = new org.json.JSONObject(result);
+        org.json.JSONObject user1 = jsonObject.getJSONObject("user");
+        org.json.JSONObject showright = user1.getJSONObject("showright");
+        String type_01 = showright.optString("资产包");
+        String type_02 = showright.optString("企业商账");
+        String type_03 = showright.optString("固定资产");
+        String type_04 = showright.optString("融资信息");
+        String type_05 = showright.optString("个人债权");
+        Intent intent = new Intent(getActivity() , VipCenterActivity.class ) ;
+        intent.putExtra("type_01" , type_01 ) ;
+        intent.putExtra("type_02" , type_02 ) ;
+        intent.putExtra("type_03" , type_03 ) ;
+        intent.putExtra("type_04" , type_04 ) ;
+        intent.putExtra("type_05", type_05) ;
+        startActivity(intent);
+    }
+
+    private void goServiceRegisterActivity() {
+        String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(getActivity())) ;
+        HttpUtils utils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                //处理请求成功后的数据
+                try {
+                    dealResult(responseInfo.result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                //打印用户的失败回调
+                error.printStackTrace();
+                ToastUtils.shortToast(getActivity(), "网络连接异常");
+            }
+        }) ;
+    }
+
+    private void dealResult(String result) throws JSONException {
+        org.json.JSONObject object = new org.json.JSONObject(result);
+        org.json.JSONObject service = object.getJSONObject("service");
+        //企业名称
+        String ServiceName = service.getString("ServiceName");
+        //企业简介
+        String ServiceIntroduction = service.getString("ServiceIntroduction");
+        //企业所在地
+        String ServiceLocation = service.getString("ServiceLocation");
+        //服务类型
+        String ServiceType = service.getString("ServiceType");
+        //联系人姓名
+        String ConnectPerson = service.getString("ConnectPerson");
+        //联系方式
+        String ConnectPhone = service.getString("ConnectPhone");
+        //图1
+        String ConfirmationP1 = service.getString("ConfirmationP1");
+        //图2
+        String ConfirmationP2 = service.getString("ConfirmationP2");
+        //图3
+        String ConfirmationP3 = service.getString("ConfirmationP3");
+        //服务地区
+        String ServiceArea = service.getString("ServiceArea");
+
+        String Regtime = service.getString("RegTime");
+        String Founds = service.getString("Founds");
+        String Size = service.getString("Size");
+
+        Intent intent = new Intent(getActivity()  , ServiceRegisterActivity.class ) ;
+        String root = GetBenSharedPreferences.getRole(getActivity()) ;
+        intent.putExtra("root", root) ;
+        switch (root){
+            case SERVICE :
+            case UNSERVICE :
+                //企业名称
+                intent.putExtra("ServiceName" , ServiceName) ;
+                //企业简介
+                intent.putExtra("ServiceIntroduction" , ServiceIntroduction) ;
+                //企业所在地
+                intent.putExtra("ServiceLocation" , ServiceLocation) ;
+                //服务类型
+                intent.putExtra("ServiceType" , ServiceType) ;
+                //联系人姓名
+                intent.putExtra("ConnectPerson" , ConnectPerson) ;
+                //联系方式
+                intent.putExtra("ConnectPhone" , ConnectPhone) ;
+                //图1
+                intent.putExtra("ConfirmationP1" , ConfirmationP1) ;
+                //图2
+                intent.putExtra("ConfirmationP2" , ConfirmationP2) ;
+                //图3
+                intent.putExtra("ConfirmationP3" , ConfirmationP3) ;
+                //服务地区
+                intent.putExtra("ServiceArea", ServiceArea) ;
+
+                intent.putExtra("Size", Size ) ;
+                intent.putExtra("Founds", Founds ) ;
+                intent.putExtra("Regtime", Regtime ) ;
+                break;
+        }
+        startActivity(intent);
 
     }
 

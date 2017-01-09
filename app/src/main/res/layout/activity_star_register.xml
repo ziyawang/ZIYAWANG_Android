@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="#fff"
+    tools:context="com.ziyawang.ziya.activity.StarRegisterActivity">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="星级认证"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--头像-->
+            <com.ziyawang.ziya.view.MyIconImageView
+                android:layout_marginTop="26dp"
+                android:id="@+id/vip_center_icon"
+                android:src="@mipmap/user2"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/star_01"
+                    android:layout_marginRight="3dp"
+                    android:src="@mipmap/v203_0401"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/star_02"
+                    android:layout_marginRight="3dp"
+                    android:src="@mipmap/v203_0402"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/star_03"
+                    android:layout_marginRight="3dp"
+                    android:src="@mipmap/v203_0403"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/star_04"
+                    android:layout_marginRight="3dp"
+                    android:src="@mipmap/v203_0404"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/star_05"
+                    android:src="@mipmap/v203_0405"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:paddingLeft="16dp"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:textColor="#ff433f"
+                android:text="(可选择完成以下认证点亮星级)"
+                android:layout_marginTop="32dp"
+                android:background="#f4f4f4"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="71dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#424242"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/type_01"
+                    android:drawableTop="@mipmap/v203_0101"
+                    android:text="保证金认证"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type01_btn02"
+                    android:text="开通"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="27dp"
+                    android:layout_toLeftOf="@id/type01_btn02"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type01_btn01"
+                    android:text="详情说明"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:background="#f4f4f4"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="71dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#424242"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/type_02"
+                    android:drawableTop="@mipmap/v203_0102"
+                    android:text="  实地认证  "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type02_btn02"
+                    android:text="开通"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="27dp"
+                    android:layout_toLeftOf="@id/type02_btn02"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type02_btn01"
+                    android:text="详情说明"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:background="#f4f4f4"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="71dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#424242"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/type_03"
+                    android:drawableTop="@mipmap/v203_0103"
+                    android:text="  视频认证  "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type03_btn02"
+                    android:text="开通"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="27dp"
+                    android:layout_toLeftOf="@id/type03_btn02"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type03_btn01"
+                    android:text="详情说明"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:background="#f4f4f4"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="71dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#424242"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/type_04"
+                    android:drawableTop="@mipmap/v203_0104"
+                    android:text="承诺书认证"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type04_btn02"
+                    android:text="开通"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="27dp"
+                    android:layout_toLeftOf="@id/type04_btn02"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type04_btn01"
+                    android:text="详情说明"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:background="#f4f4f4"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="71dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#424242"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/type_05"
+                    android:drawableTop="@mipmap/v203_0105"
+                    android:text="  三证认证  "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type05_btn02"
+                    android:text="开通"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+                <Button
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="27dp"
+                    android:layout_toLeftOf="@id/type05_btn02"
+                    android:background="@drawable/star_register_style"
+                    android:id="@+id/type05_btn01"
+                    android:text="详情说明"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -78,6 +79,10 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
     //昵称的点击组件
     private RelativeLayout userName_relative ;
 
+    private ImageView img_01 , img_02 , img_03 , img_04 , img_05 ;
+
+    private String type_01 , type_02 , type_03, type_04 , type_05 ;
+
     public void onResume() {
         super.onResume();
         //统计页面
@@ -124,6 +129,13 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
         phoneNumber_textView = (TextView)findViewById(R.id.phoneNumber ) ;
         userName = (TextView)findViewById(R.id.userName ) ;
         userName_relative = (RelativeLayout)findViewById(R.id.userName_relative ) ;
+
+        img_01 = (ImageView)findViewById(R.id.img_01 ) ;
+        img_02 = (ImageView)findViewById(R.id.img_02 ) ;
+        img_03 = (ImageView)findViewById(R.id.img_03 ) ;
+        img_04 = (ImageView)findViewById(R.id.img_04 ) ;
+        img_05 = (ImageView)findViewById(R.id.img_05 ) ;
+
     }
 
     @Override
@@ -132,6 +144,12 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
         pre.setOnClickListener(this);
         basic_changePwd.setOnClickListener(this);
         userName_relative.setOnClickListener(this);
+
+        img_01.setOnClickListener(this);
+        img_02.setOnClickListener(this);
+        img_03.setOnClickListener(this);
+        img_04.setOnClickListener(this);
+        img_05.setOnClickListener(this);
     }
 
     @Override
@@ -141,6 +159,11 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
         Intent intent = getIntent() ;
         String phoneNumber = intent.getStringExtra("phoneNumber");
         String username = intent.getStringExtra("username");
+        type_01 = intent.getStringExtra("type_01");
+        type_02 = intent.getStringExtra("type_02");
+        type_03 = intent.getStringExtra("type_03");
+        type_04 = intent.getStringExtra("type_04");
+        type_05 = intent.getStringExtra("type_05");
         if ( TextUtils.isEmpty(username) && username.equals("")){
             userName.setText("您还未设置您的昵称");
             userName.setTextColor(Color.rgb(253,208,0));
@@ -148,6 +171,29 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
             userName.setText(username);
         }
         phoneNumber_textView.setText(phoneNumber);
+
+        String right = GetBenSharedPreferences.getRight(this);
+        //ToastUtils.shortToast(PersonalInformationActivity.this , right );
+        if (!TextUtils.isEmpty(right) ){
+            String[] split = right.split(",");
+            for (int i = 0; i < split.length; i++) {
+                if ("1".equals(split[i].toString())){
+                    img_01.setImageResource(R.mipmap.v2020201);
+                }
+                if ("18".equals(split[i].toString())){
+                    img_02.setImageResource(R.mipmap.v2020202);
+                }
+                if ("12".equals(split[i].toString()) ){
+                    img_03.setImageResource(R.mipmap.v2020203);
+                }
+                if ("6".equals(split[i].toString()) ){
+                    img_04.setImageResource(R.mipmap.v2020204);
+                }
+                if ("19".equals(split[i].toString())){
+                    img_05.setImageResource(R.mipmap.v2020205);
+                }
+            }
+        }
 
     }
 
@@ -377,9 +423,47 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
             case R.id.userName_relative :
                 goChangeNickNameActivity() ;
                 break;
+            case R.id.img_01 :
+                if (!TextUtils.isEmpty(type_01)){
+                    ToastUtils.longToast(PersonalInformationActivity.this, "资产包会员到期时间：" + type_01);
+                }else {
+                    showBen() ;
+                }
+                break;
+            case R.id.img_02 :
+                if (!TextUtils.isEmpty(type_02)){
+                    ToastUtils.longToast(PersonalInformationActivity.this , "企业商账会员到期时间：" + type_02);
+                }else {
+                    showBen() ;
+                }
+                break;
+            case R.id.img_03 :
+                if (!TextUtils.isEmpty(type_03)){
+                    ToastUtils.longToast(PersonalInformationActivity.this , "固定资产会员到期时间：" + type_03);
+                }else {
+                    showBen() ;
+                }
+                break;
+            case R.id.img_04 :
+                if (!TextUtils.isEmpty(type_04)){
+                    ToastUtils.longToast(PersonalInformationActivity.this , "融资信息会员到期时间：" + type_04);
+                }else {
+                    showBen() ;
+                }
+                break;
+            case R.id.img_05 :
+                if (!TextUtils.isEmpty(type_05)){
+                    ToastUtils.longToast(PersonalInformationActivity.this , "个人债权会员到期时间：" + type_05);
+                }else {
+                    showBen() ;
+                }
             default:
                 break;
         }
+    }
+
+    private void showBen() {
+        ToastUtils.shortToast(PersonalInformationActivity.this, "您还未开通此类型会员");
     }
 
     private void goChangeNickNameActivity() {

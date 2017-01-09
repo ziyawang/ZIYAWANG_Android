@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#e0e0e0"
+    tools:context="com.ziyawang.ziya.activity.VipCenterActivity">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_news_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="会员中心"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:textSize="15sp"
+            android:id="@+id/vip_record"
+            android:paddingRight="10dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:textColor="#000"
+            android:text="充值记录"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:background="#fbfbfb"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:textColor="#fd615d"
+        android:text="注：根据您的需求可同时办理多个类型会员"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <!--会员类型展示-->
+    <RelativeLayout
+        android:layout_marginBottom="1px"
+        android:layout_marginTop="1px"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+        <com.ziyawang.ziya.view.MyIconImageView
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/vip_center_icon"
+            android:src="@mipmap/user2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:id="@+id/vip_head"
+            android:textColor="#060606"
+            android:textSize="12sp"
+            android:layout_toRightOf="@id/vip_center_icon"
+            android:text="您当前的会员类型为："
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/vip_head"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/image_01"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/v2020201"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/image_02"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/v2020202"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/image_03"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/v2020203"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/image_04"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/v2020204"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/image_05"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/v2020205"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/ben"
+                android:textColor="#060606"
+                android:textSize="12sp"
+                android:text="无"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:background="#fbfbfb"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+    <!--会员选择01-->
+    <LinearLayout
+        android:background="#e0e0e0"
+        android:layout_marginTop="1px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textSize="12sp"
+            android:textColor="#060606"
+            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:drawablePadding="7dp"
+            android:drawableTop="@mipmap/v2020301"
+            android:background="#fff"
+            android:id="@+id/vip_btn01"
+            android:text="资产包"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginLeft="1px"
+            android:textSize="12sp"
+            android:textColor="#060606"
+            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:drawablePadding="7dp"
+            android:drawableTop="@mipmap/v2020302"
+            android:background="#fff"
+            android:id="@+id/vip_btn02"
+            android:text="企业商账"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <!--会员选择02-->
+    <LinearLayout
+        android:background="#e0e0e0"
+        android:layout_marginTop="1px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textSize="12sp"
+            android:textColor="#060606"
+            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:drawablePadding="7dp"
+            android:drawableTop="@mipmap/v2020303"
+            android:background="#fff"
+            android:id="@+id/vip_btn03"
+            android:text="固定资产"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginLeft="1px"
+            android:textSize="12sp"
+            android:textColor="#060606"
+            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:drawablePadding="7dp"
+            android:drawableTop="@mipmap/v2020304"
+            android:background="#fff"
+            android:id="@+id/vip_btn04"
+            android:text="融资信息"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <!--会员选择03-->
+    <LinearLayout
+        android:background="#fff"
+        android:layout_marginTop="1px"
+        android:layout_marginBottom="1px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textSize="12sp"
+            android:textColor="#060606"
+            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:drawablePadding="7dp"
+            android:drawableTop="@mipmap/v2020305"
+            android:background="#fff"
+            android:id="@+id/vip_btn05"
+            android:text="个人债权"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:visibility="invisible"
+            android:layout_marginLeft="1px"
+            android:textSize="12sp"
+            android:textColor="#060606"
+            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:drawablePadding="7dp"
+            android:background="#fff"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:paddingTop="12dp"
+        android:background="#fbfbfb"
+        android:paddingLeft="10dp"
+        android:gravity="top|left"
+        android:textColor="#fd615d"
+        android:text="请选择您需要的会员类型"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

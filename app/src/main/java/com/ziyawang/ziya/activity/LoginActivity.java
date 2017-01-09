@@ -208,7 +208,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
 
     private void shoeDialog() {
         //在开始进行网络连接时显示进度条对话框
-        dialog = new MyProgressDialog(LoginActivity.this , "正在登陆，请稍后。。。");
+        dialog = new MyProgressDialog(LoginActivity.this , "正在登录，请稍后。。。");
         dialog.setCancelable(false);// 不可以用“返回键”取消
         dialog.show();
     }

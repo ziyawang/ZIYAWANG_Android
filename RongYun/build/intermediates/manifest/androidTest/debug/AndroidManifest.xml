@@ -18,10 +18,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
- <!-- 获取机型信息权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
- <!-- 录音 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取机型信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 录音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -57,8 +55,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="io.rong.imkit.activity.PicturePagerActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
- <!-- 必选： SDK 核心功能 -->
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" /> <!-- 必选： SDK 核心功能 -->
         <service
             android:name="io.rong.push.core.PushRegistrationService"
             android:exported="false" >
@@ -90,8 +87,7 @@
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
-        </receiver>
- <!-- 必选： SDK 核心功能 -->
+        </receiver> <!-- 必选： SDK 核心功能 -->
         <!-- end -->
         <!-- imlib config begin -->
         <!-- 测试4z3hlwrv33a0t -->

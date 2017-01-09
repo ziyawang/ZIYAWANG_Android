@@ -2,24 +2,28 @@ package com.ziyawang.ziya.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.bitmap.PauseOnScrollListener;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -29,72 +33,52 @@ import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.FindServiceAdapter;
 import com.ziyawang.ziya.entity.FindServiceEntity;
-import com.ziyawang.ziya.tools.Json_FindService;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
-import com.ziyawang.ziya.view.BenListView;
+import com.ziyawang.ziya.view.BitmapHelp;
 import com.ziyawang.ziya.view.MyProgressDialog;
-import com.ziyawang.ziya.view.MyScrollView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FindServiceActivity extends BaseActivity {
+public class FindServiceActivity extends BenBenActivity implements View.OnClickListener {
 
+    public static BitmapUtils bitmapUtils;
+    //服务方类型区域
+    private RelativeLayout relative_find_type ;
+    //服务方地区区域
+    private RelativeLayout relative_part ;
+    //服务方等级区域
+    private RelativeLayout relative_details_type ;
+    //服务方类型
+    private TextView find_type ;
+    //服务方地区
+    private TextView part ;
+    //服务方等级
+    private TextView details_type ;
     //搜索服务方的按钮
     private RelativeLayout search_service ;
     private FindServiceAdapter adapter ;
-    private BenListView listView ;
+    private ListView listView ;
+    //返回按钮
     private RelativeLayout pre ;
     private List<FindServiceEntity> data  = new ArrayList<FindServiceEntity>();
     private int page  ;
     private int count = 1 ;
     private Boolean isOK = true ;
     private MyProgressDialog dialog ;
-    private MyScrollView scrollView ;
-    private TextView part , find_type ;
+
     private String typeName ;
     private String part_a ;
-    private TextView details_type ;
+
     private TextView niuniuniuniu ;
-    private Handler mHandler = new Handler() {
 
-        @Override
-        public void handleMessage(Message msg) {
-            // TODO 接收消息并且去更新UI线程上的控件内容
-            if (msg.what == 202) {
-                Log.e("HomeINfo", count + "====================================" +page ) ;
-                if (isOK){
-                    if (count <= page ){
-                        isOK = false ;
-                        dialog = new MyProgressDialog( FindServiceActivity.this , "加载数据中请稍后。。。") ;
-                        dialog.show();
-                        findService(typeName , part_a ) ;
-                        new Thread(new Runnable() {
-                            public void run() {
+    private View footView ;
 
-                                try {
-                                    Thread.sleep(2000);
-                                    isOK = true ;
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
+    private String niu = "不限" ;
+    private String ServiceLevel = "" ;
 
-                    }else {
-                        ToastUtils.shortToast(FindServiceActivity.this, "服务没有更多数据");
-                    }
-                }
-
-            }
-            super.handleMessage(msg);
-        }
-    };
 
     public void onResume() {
         super.onResume();
@@ -103,6 +87,7 @@ public class FindServiceActivity extends BaseActivity {
         //统计时长
         MobclickAgent.onResume(this);
     }
+
     public void onPause() {
         super.onPause();
         // 统计页面
@@ -114,54 +99,76 @@ public class FindServiceActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void setContentView() {
         setContentView(R.layout.activity_find_service);
-        //实例化组件
-        initView() ;
-        //get Intent
+    }
+
+    @Override
+    public void initViews() {
+        listView = (ListView)findViewById(R.id.listView) ;
+        listView.setDivider(new ColorDrawable(Color.argb(0, 244, 244, 244)));
+        listView.setDividerHeight(1);
+        LayoutInflater infla = LayoutInflater.from(this);
+        footView = infla.inflate(R.layout.my_footview, null);
+        listView.addFooterView(footView, null, true);
+        pre = (RelativeLayout)findViewById(R.id.pre ) ;
+        find_type = (TextView)findViewById(R.id.find_type ) ;
+        part = (TextView)findViewById(R.id.part ) ;
+        details_type = (TextView) findViewById(R.id.details_type ) ;
+        niuniuniuniu = (TextView) findViewById(R.id.niuniuniuniu ) ;
+        search_service = (RelativeLayout)findViewById(R.id.search_service ) ;
+        relative_find_type = (RelativeLayout)findViewById(R.id.relative_find_type ) ;
+        relative_part = (RelativeLayout)findViewById(R.id.relative_part ) ;
+        relative_details_type = (RelativeLayout)findViewById(R.id.relative_details_type ) ;
+
+        // 获取bitmapUtils单例
+        bitmapUtils = BitmapHelp.getBitmapUtils(this);
+        /**
+         * 设置默认的图片展现、加载失败的图片展现
+         */
+        bitmapUtils.configDefaultLoadingImage(R.mipmap.fast_error);
+        bitmapUtils.configDefaultLoadFailedImage(R.mipmap.error_imgs_big);
+        bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
+    }
+
+    @Override
+    public void initListeners() {
+        pre.setOnClickListener(this);
+        search_service.setOnClickListener(this);
+        relative_find_type.setOnClickListener(this);
+        relative_part.setOnClickListener(this);
+        relative_details_type.setOnClickListener(this);
+    }
+
+    @Override
+    public void initData() {
         Intent intent = getIntent() ;
         if (intent != null ){
             String typeName_a = intent.getStringExtra("typeName");
             if (!TextUtils.isEmpty(typeName_a)){
                 switch (typeName_a){
-                    case "ben" :
-                        typeName = "05" ;
-                        find_type.setText("担保公司");
-                        break;
                     case "01" :
                         typeName = typeName_a ;
-                        find_type.setText("资产包收购");
+                        find_type.setText("收购资产包");
                         break;
                     case "02" :
                         typeName = typeName_a ;
-                        find_type.setText("催收机构");
+                        find_type.setText("委外催收");
                         break;
                     case "03" :
                         typeName = typeName_a ;
-                        find_type.setText("律师事务所");
-                        break;
-                    case "04" :
-                        typeName = typeName_a ;
-                        find_type.setText("保理公司");
-                        break;
-                    case "05" :
-                        typeName = typeName_a ;
-                        find_type.setText("典当公司");
+                        find_type.setText("法律服务");
                         break;
                     case "06" :
                         typeName = typeName_a ;
                         find_type.setText("投融资服务");
                         break;
-                    case "10" :
-                        typeName = typeName_a ;
-                        find_type.setText("尽职调查");
-                        break;
                     case "12" :
                         typeName = typeName_a ;
-                        find_type.setText("资产收购");
-                        break;
-                    case "14" :
-                        typeName = typeName_a ;
-                        find_type.setText("债权收购");
+                        find_type.setText("收购固产");
                         break;
                     default:
                         break;
@@ -169,63 +176,41 @@ public class FindServiceActivity extends BaseActivity {
             }
         }
         //加载数据
-        findService(typeName, part_a) ;
-        //获得地区的分类
-        find_type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeGet();
-            }
-        });
-
-        //获得地区的分类
-        part.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                partGet();
-            }
-        });
-
-        //添加回退事件
-        pre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        //VIP等级的分类
-        details_type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detailsTypeGet();
-            }
-        });
-
-        scrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
-            @Override
-            public void onScroll(int scrollY) {
-                View childView = scrollView.getChildAt(0);
-                if (childView.getMeasuredHeight() <= scrollY + scrollView.getHeight()) {
-
-                    mHandler.sendEmptyMessage(202);
-                }
-            }
-        });
+        loadData(typeName, part_a) ;
     }
 
     private void detailsTypeGet() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_details_type_service, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        Button a = (Button)view.findViewById(R.id.a);
-
-        a.setOnClickListener(new View.OnClickListener() {
+        RadioButton one_one = (RadioButton)view.findViewById(R.id.one_one);
+        RadioButton one_two = (RadioButton)view.findViewById(R.id.one_two);
+        if ("不限".equals(niu)) {
+            one_one.setChecked(true);
+        } else if ("会员".equals(niu)) {
+            one_two.setChecked(true);
+        }
+        one_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 window.dismiss();
+                data.clear();
+                count = 1;
+                ServiceLevel = "" ;
+                niu = "不限" ;
+                loadData(typeName, part_a) ;
+            }
+        });
+        one_two.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+                data.clear();
+                count = 1;
+                ServiceLevel = "1" ;
+                niu = "会员" ;
+                loadData(typeName, part_a) ;
             }
         });
 
@@ -246,8 +231,7 @@ public class FindServiceActivity extends BaseActivity {
         });
     }
 
-    private void findService(String typeName , String  part) {
-
+    private void loadData(final String typeName , String part) {
         /* 显示ProgressDialog */
         //在开始进行网络连接时显示进度条对话框
         dialog = new MyProgressDialog(FindServiceActivity.this , "数据加载中，请稍后。。。");
@@ -257,9 +241,11 @@ public class FindServiceActivity extends BaseActivity {
         HttpUtils httpUtils = new HttpUtils() ;
         RequestParams params = new RequestParams() ;
         httpUtils.configCurrentHttpCacheExpiry(1000) ;
+        params.addQueryStringParameter("pagecount", "7");
         params.addQueryStringParameter("startpage", "" + count);
         params.addQueryStringParameter("ServiceType", typeName);
         params.addQueryStringParameter("ServiceArea", part);
+        params.addQueryStringParameter("ServiceLevel", ServiceLevel );
 
         httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetService, params, new RequestCallBack<String>() {
             @Override
@@ -268,48 +254,62 @@ public class FindServiceActivity extends BaseActivity {
                 if (dialog != null) {
                     dialog.dismiss();
                 }
+                Log.e("GetService", responseInfo.result);
+                com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                String pages = object.getString("pages");
+                page = Integer.parseInt(pages);
+                count++;
+                String counts = object.getString("counts");
+                if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
+                    listView.setVisibility(View.GONE);
+                    niuniuniuniu.setVisibility(View.VISIBLE);
+                } else {
+                    listView.setVisibility(View.VISIBLE);
+                    niuniuniuniu.setVisibility(View.GONE);
+                    com.alibaba.fastjson.JSONArray data01 = object.getJSONArray("data");
+                    List<FindServiceEntity> loadDataEntity = JSON.parseArray(data01.toJSONString(), FindServiceEntity.class);
+                    data.addAll(loadDataEntity);
+                    adapter = new FindServiceAdapter(FindServiceActivity.this, data);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
 
-                //Log.e("benben", responseInfo.result);
-
-                Log.e("benben_home_service", responseInfo.result);
-                try {
-                    JSONObject jsonObject = new JSONObject(responseInfo.result);
-                    String pages = jsonObject.getString("pages");
-
-                    page = Integer.parseInt(pages);
-                    count++;
-
-                    Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
-
-                    String counts = jsonObject.getString("counts");
-                    if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
-                        scrollView.setVisibility(View.GONE);
-                        niuniuniuniu.setVisibility(View.VISIBLE);
-                    } else {
-
-                        scrollView.setVisibility(View.VISIBLE);
-                        niuniuniuniu.setVisibility(View.GONE);
-                        try {
-                            List<FindServiceEntity> list = Json_FindService.getParse(responseInfo.result);
-
-                            data.addAll(list);
-
-                            Log.e("benben_service_info", list.get(0).getServiceID());
-
-                            adapter = new FindServiceAdapter(FindServiceActivity.this, data);
-                            listView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    listView.setOnScrollListener(new PauseOnScrollListener(bitmapUtils, false, true, new AbsListView.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChanged(AbsListView view, int scrollState) {
+                            switch (scrollState) {
+                                case AbsListView.OnScrollListener.SCROLL_STATE_IDLE: // 当不迁移转变时
+                                    // 断定迁移转变到底部
+                                    if (view.getLastVisiblePosition() == view.getCount() - 1) {
+                                        if (isOK) {
+                                            if (count <= page) {
+                                                isOK = false;
+                                                addData(typeName, part_a);
+                                                new Thread(new Runnable() {
+                                                    public void run() {
+                                                        try {
+                                                            Thread.sleep(2000);
+                                                            isOK = true;
+                                                        } catch (InterruptedException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                }).start();
+                                            } else {
+                                                ToastUtils.shortToast(FindServiceActivity.this, "服务没有更多数据");
+                                            }
+                                        }
+                                    }
+                                    break;
+                            }
                         }
 
-                    }
+                        @Override
+                        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        }
+                    }));
                 }
-
+                Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
 
             }
 
@@ -324,30 +324,57 @@ public class FindServiceActivity extends BaseActivity {
 
     }
 
-    private void initView() {
+    private void addData(String typeName, String part) {
+        /* 显示ProgressDialog */
+        //在开始进行网络连接时显示进度条对话框
+        dialog = new MyProgressDialog(FindServiceActivity.this , "数据加载中，请稍后。。。");
+        dialog.setCancelable(false);// 不可以用“返回键”取消
+        dialog.show();
 
-        listView = (BenListView)findViewById(R.id.listView) ;
+        HttpUtils httpUtils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        httpUtils.configCurrentHttpCacheExpiry(1000) ;
+        params.addQueryStringParameter("pagecount", "7");
+        params.addQueryStringParameter("startpage", "" + count);
+        params.addQueryStringParameter("ServiceType", typeName);
+        params.addQueryStringParameter("ServiceArea", part);
 
-        listView.setDivider(new ColorDrawable(Color.argb(0, 244, 244, 244)));
-        listView.setDividerHeight(1);
-
-        pre = (RelativeLayout)findViewById(R.id.pre ) ;
-        scrollView = (MyScrollView)findViewById(R.id.scrollView ) ;
-
-        find_type = (TextView)findViewById(R.id.find_type ) ;
-        part = (TextView)findViewById(R.id.part ) ;
-        details_type = (TextView) findViewById(R.id.details_type ) ;
-        niuniuniuniu = (TextView) findViewById(R.id.niuniuniuniu ) ;
-
-        search_service = (RelativeLayout)findViewById(R.id.search_service ) ;
-        search_service.setOnClickListener(new View.OnClickListener() {
+        httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetService, params, new RequestCallBack<String>() {
             @Override
-            public void onClick(View v) {
-                goSearchActivity() ;
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                Log.e("GetService", responseInfo.result);
+                com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                String pages = object.getString("pages");
+                page = Integer.parseInt(pages);
+                count++;
+                String counts = object.getString("counts");
+                if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
+                    listView.setVisibility(View.GONE);
+                    niuniuniuniu.setVisibility(View.VISIBLE);
+                } else {
+                    listView.setVisibility(View.VISIBLE);
+                    niuniuniuniu.setVisibility(View.GONE);
+                    com.alibaba.fastjson.JSONArray data01 = object.getJSONArray("data");
+                    List<FindServiceEntity> loadDataEntity = JSON.parseArray(data01.toJSONString(), FindServiceEntity.class);
+                    data.addAll(loadDataEntity);
+                    adapter.notifyDataSetChanged();
+                }
+                Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
+
             }
-        });
 
-
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                error.printStackTrace();
+            }
+        }) ;
     }
 
     private void goSearchActivity() {
@@ -358,7 +385,6 @@ public class FindServiceActivity extends BaseActivity {
     }
 
     private void typeGet() {
-
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_type_service, null);
@@ -368,44 +394,46 @@ public class FindServiceActivity extends BaseActivity {
         Button c = (Button)view.findViewById(R.id.c);
         Button d = (Button)view.findViewById(R.id.d);
         Button e = (Button)view.findViewById(R.id.e);
+
         Button f = (Button)view.findViewById(R.id.f);
         Button g = (Button)view.findViewById(R.id.g);
         Button h = (Button)view.findViewById(R.id.h);
         Button i = (Button)view.findViewById(R.id.i);
+
         Button j = (Button)view.findViewById(R.id.j);
 
-        Log.e("benbne" , find_type.getText().toString() ) ;
+        Log.e("benbne", find_type.getText().toString()) ;
 
         switch (find_type.getText().toString()){
-            case "资产包收购" :
+            case "收购资产包" :
                 a.setSelected(true);
                 break;
-            case "催收机构" :
+            case "委外催收" :
                 b.setSelected(true);
                 break;
-            case "律师事务所" :
+            case "法律服务" :
                 c.setSelected(true);
                 break;
-            case "保理公司" :
+            case "投融资服务" :
                 d.setSelected(true);
                 break;
-            case "资产收购" :
-                i.setSelected(true);
+            case "收购固产" :
+                e.setSelected(true);
                 break;
-            case "债权收购" :
-                j.setSelected(true);
+            case "保理公司" :
+                f.setSelected(true);
                 break;
-            case "投融资服务" :
+            case "典当公司" :
                 g.setSelected(true);
                 break;
             case "尽职调查" :
                 h.setSelected(true);
                 break;
-            case "担保公司" :
-                f.setSelected(true);
+            case "债权收购" :
+                i.setSelected(true);
                 break;
-            case "典当公司" :
-                e.setSelected(true);
+            case "担保公司" :
+                j.setSelected(true);
                 break;
             default:
                 break;
@@ -414,83 +442,43 @@ public class FindServiceActivity extends BaseActivity {
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                find_type.setText("资产包收购");
+                find_type.setText("收购资产包");
                 window.dismiss();
                 data.clear();
                 typeName = "01" ;
                 count = 1 ;
                 part.setText("地区");
                 part_a = "" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                find_type.setText("催收机构");
+                find_type.setText("委外催收");
                 window.dismiss();
                 data.clear();
-                typeName = "02" ;
-                count = 1 ;
+                typeName = "02";
+                count = 1;
                 part.setText("地区");
-                part_a = "" ;
-                findService(typeName, part_a);
+                part_a = "";
+                loadData(typeName, part_a);
             }
         });
         c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                find_type.setText("律师事务所");
+                find_type.setText("法律服务");
                 window.dismiss();
                 data.clear();
                 typeName = "03" ;
                 count = 1 ;
                 part.setText("地区");
                 part_a = "" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         d.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                find_type.setText("保理公司");
-                window.dismiss();
-                data.clear();
-                typeName = "04" ;
-                count = 1 ;
-                part.setText("地区");
-                part_a = "" ;
-                findService(typeName, part_a);
-            }
-        });
-        e.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                find_type.setText("典当公司");
-                window.dismiss();
-                data.clear();
-                typeName = "05" ;
-                count = 1 ;
-                part.setText("地区");
-                part_a = "" ;
-                findService(typeName, part_a);
-            }
-        });
-        f.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                find_type.setText("担保公司");
-                window.dismiss();
-                data.clear();
-                typeName = "05" ;
-                count = 1 ;
-                part.setText("地区");
-                part_a = "" ;
-                findService(typeName, part_a);
-            }
-        });
-        g.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 find_type.setText("投融资服务");
@@ -500,36 +488,66 @@ public class FindServiceActivity extends BaseActivity {
                 count = 1 ;
                 part.setText("地区");
                 part_a = "" ;
-                findService(typeName, part_a );
+                loadData(typeName, part_a);
             }
         });
+        e.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                find_type.setText("收购固产");
+                window.dismiss();
+                data.clear();
+                typeName = "12";
+                count = 1;
+                part.setText("地区");
+                part_a = "";
+                loadData(typeName, part_a);
+            }
+        });
+
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                find_type.setText("保理公司");
+                window.dismiss();
+                data.clear();
+                typeName = "04";
+                count = 1;
+                part.setText("地区");
+                part_a = "";
+                loadData(typeName, part_a);
+            }
+        });
+
+        g.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                find_type.setText("典当公司");
+                window.dismiss();
+                data.clear();
+                typeName = "05";
+                count = 1;
+                part.setText("地区");
+                part_a = "";
+                loadData(typeName, part_a);
+            }
+        });
+
         h.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 find_type.setText("尽职调查");
                 window.dismiss();
                 data.clear();
-                typeName = "10" ;
-                count = 1 ;
+                typeName = "10";
+                count = 1;
                 part.setText("地区");
-                part_a = "" ;
-                findService(typeName, part_a);
+                part_a = "";
+                loadData(typeName, part_a);
             }
         });
+
         i.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                find_type.setText("资产收购");
-                window.dismiss();
-                data.clear();
-                typeName = "12" ;
-                count = 1 ;
-                part.setText("地区");
-                part_a = "" ;
-                findService(typeName, part_a);
-            }
-        });
-        j.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 find_type.setText("债权收购");
@@ -539,7 +557,21 @@ public class FindServiceActivity extends BaseActivity {
                 count = 1;
                 part.setText("地区");
                 part_a = "";
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
+            }
+        });
+
+        j.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                find_type.setText("担保公司");
+                window.dismiss();
+                data.clear();
+                typeName = "05";
+                count = 1;
+                part.setText("地区");
+                part_a = "";
+                loadData(typeName, part_a);
             }
         });
 
@@ -604,13 +636,12 @@ public class FindServiceActivity extends BaseActivity {
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 part.setText("全国");
                 window.dismiss();
                 data.clear();
                 count = 1 ;
                 part_a = "" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
@@ -621,7 +652,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "北京" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         c.setOnClickListener(new View.OnClickListener() {
@@ -632,7 +663,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "上海" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         d.setOnClickListener(new View.OnClickListener() {
@@ -643,7 +674,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "广东" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         e.setOnClickListener(new View.OnClickListener() {
@@ -654,7 +685,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "江苏" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         f.setOnClickListener(new View.OnClickListener() {
@@ -665,7 +696,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "浙江" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         g.setOnClickListener(new View.OnClickListener() {
@@ -676,7 +707,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "河南" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         h.setOnClickListener(new View.OnClickListener() {
@@ -687,7 +718,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "河北" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         i.setOnClickListener(new View.OnClickListener() {
@@ -698,7 +729,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "辽宁" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         j.setOnClickListener(new View.OnClickListener() {
@@ -709,7 +740,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "四川" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         k.setOnClickListener(new View.OnClickListener() {
@@ -720,7 +751,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "湖北" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         l.setOnClickListener(new View.OnClickListener() {
@@ -731,7 +762,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "湖南" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         m.setOnClickListener(new View.OnClickListener() {
@@ -742,7 +773,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "福建" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         n.setOnClickListener(new View.OnClickListener() {
@@ -753,7 +784,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "安徽" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         o.setOnClickListener(new View.OnClickListener() {
@@ -764,7 +795,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "陕西" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         p.setOnClickListener(new View.OnClickListener() {
@@ -775,7 +806,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "天津" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         q.setOnClickListener(new View.OnClickListener() {
@@ -786,7 +817,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "江西" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         r.setOnClickListener(new View.OnClickListener() {
@@ -797,7 +828,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "重庆" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         s.setOnClickListener(new View.OnClickListener() {
@@ -808,7 +839,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "吉林" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         t.setOnClickListener(new View.OnClickListener() {
@@ -819,7 +850,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "云南" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         u.setOnClickListener(new View.OnClickListener() {
@@ -830,7 +861,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "山西" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         v.setOnClickListener(new View.OnClickListener() {
@@ -841,7 +872,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "新疆" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         w.setOnClickListener(new View.OnClickListener() {
@@ -852,7 +883,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "贵州" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         x.setOnClickListener(new View.OnClickListener() {
@@ -863,7 +894,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "甘肃" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         y.setOnClickListener(new View.OnClickListener() {
@@ -874,7 +905,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "海南" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         z.setOnClickListener(new View.OnClickListener() {
@@ -885,7 +916,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "宁夏" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         aa.setOnClickListener(new View.OnClickListener() {
@@ -896,7 +927,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "青海" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         bb.setOnClickListener(new View.OnClickListener() {
@@ -907,7 +938,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "西藏" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         cc.setOnClickListener(new View.OnClickListener() {
@@ -918,7 +949,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "黑龙江" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         dd.setOnClickListener(new View.OnClickListener() {
@@ -929,7 +960,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "内蒙古" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         ee.setOnClickListener(new View.OnClickListener() {
@@ -940,7 +971,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "山东" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
         ff.setOnClickListener(new View.OnClickListener() {
@@ -951,7 +982,7 @@ public class FindServiceActivity extends BaseActivity {
                 data.clear();
                 count = 1 ;
                 part_a = "广西" ;
-                findService(typeName, part_a);
+                loadData(typeName, part_a);
             }
         });
 
@@ -983,7 +1014,26 @@ public class FindServiceActivity extends BaseActivity {
         getWindow().setAttributes(lp);
     }
 
-
-
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.pre :
+                finish();
+                break;
+            case R.id.search_service :
+                goSearchActivity() ;
+                break;
+            case R.id.relative_find_type :
+                typeGet();
+                break;
+            case R.id.relative_part :
+                partGet();
+                break;
+            case R.id.relative_details_type :
+                detailsTypeGet();
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -24,7 +24,6 @@ import com.ziyawang.ziya.activity.PublishFixedActivity;
 import com.ziyawang.ziya.activity.PublishPersonActivity;
 import com.ziyawang.ziya.activity.PublishRuleActivity;
 import com.ziyawang.ziya.activity.ReleaseDetailsActivity;
-import com.ziyawang.ziya.activity.ServiceRegisterActivity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.view.CustomDialog;

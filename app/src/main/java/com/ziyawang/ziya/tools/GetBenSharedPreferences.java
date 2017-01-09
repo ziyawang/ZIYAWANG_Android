@@ -48,7 +48,7 @@ public class GetBenSharedPreferences {
         return userID ;
     }
     /**
-     * 得到用户的ticket
+     * 得到用户的isLogin
      * @param context 静态上下文
      * @return isLogin
      */
@@ -59,7 +59,7 @@ public class GetBenSharedPreferences {
     }
 
     /**
-     * 得到用户的ticket
+     * 得到用户的isThree
      * @param context 静态上下文
      * @return isThree
      */
@@ -68,4 +68,29 @@ public class GetBenSharedPreferences {
         boolean isThree = sp.getBoolean("isThree", false);
         return isThree ;
     }
+
+    /**
+     * 得到用户的right(会员类型)
+     * @param context 静态上下文
+     * @return right
+     */
+    public static String getRight (Context context){
+        final SharedPreferences right01 = context.getSharedPreferences("right", context.MODE_PRIVATE);
+        String right = right01.getString("right", null);
+        return right ;
+    }
+
+
+    /**
+     * 得到用户的level(星级认证)
+     * @param context 静态上下文
+     * @return level
+     */
+    public static String getLevel (Context context){
+        final SharedPreferences level01 = context.getSharedPreferences("level", context.MODE_PRIVATE);
+        String level = level01.getString("level", null );
+        return level ;
+    }
+
+
 }

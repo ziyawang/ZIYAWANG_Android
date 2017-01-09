@@ -134,56 +134,59 @@
 
             </com.ziyawang.ziya.view.BenListView>
 
-            <!--上一题按钮-->
-            <Button
-                android:text="上一题"
-                android:visibility="gone"
-                android:textSize="18sp"
-                android:textColor="#333"
-                android:id="@+id/question_left"
+            <!--按钮-->
+            <LinearLayout
                 android:layout_marginTop="45dp"
-                android:background="@drawable/button"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="44dp" />
+                android:layout_height="wrap_content">
+                <!--上一题按钮-->
+                <Button
+                    android:visibility="gone"
+                    android:text="上一题"
+                    android:textSize="18sp"
+                    android:textColor="#333"
+                    android:id="@+id/question_left"
+                    android:background="@drawable/button"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="44dp" />
 
-            <!--下一题按钮-->
-            <Button
-                android:visibility="gone"
-                android:text="下一题"
-                android:textSize="18sp"
-                android:textColor="#333"
-                android:id="@+id/question_right"
-                android:layout_marginTop="17dp"
-                android:background="@drawable/button"
-                android:layout_marginBottom="4dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="44dp" />
+                <!--下一题按钮-->
+                <Button
+                    android:visibility="gone"
+                    android:text="下一题"
+                    android:textSize="18sp"
+                    android:textColor="#333"
+                    android:id="@+id/question_right"
+                    android:background="@drawable/button"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="44dp" />
 
-            <!--提交按钮-->
-            <Button
-                android:visibility="gone"
-                android:text="提交"
-                android:textSize="18sp"
-                android:textColor="#333"
-                android:id="@+id/question_submit"
-                android:layout_marginTop="17dp"
-                android:layout_marginBottom="17dp"
-                android:background="@drawable/button"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="44dp" />
+                <!--提交按钮-->
+                <Button
+                    android:visibility="gone"
+                    android:text="提交"
+                    android:textSize="18sp"
+                    android:textColor="#333"
+                    android:id="@+id/question_submit"
+                    android:layout_marginBottom="17dp"
+                    android:background="@drawable/button"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="44dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-
-
-
-
 
 </LinearLayout>

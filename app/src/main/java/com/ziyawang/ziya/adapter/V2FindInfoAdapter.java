@@ -3,6 +3,7 @@ package com.ziyawang.ziya.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
@@ -35,6 +36,7 @@ import com.ziyawang.ziya.activity.DetailsNewsActivity;
 import com.ziyawang.ziya.activity.LoginActivity;
 import com.ziyawang.ziya.activity.RechargeActivity;
 import com.ziyawang.ziya.activity.V2DetailsFindInfoActivity;
+import com.ziyawang.ziya.activity.VipCenterActivity;
 import com.ziyawang.ziya.entity.V2InfoEntity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.ToastUtils;
@@ -56,6 +58,8 @@ public class V2FindInfoAdapter extends BaseAdapter {
 
     private Activity context;
     private List<V2InfoEntity> list;
+
+    private SharedPreferences right ;
 
     private boolean scrollState = false;
 
@@ -118,6 +122,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
             holder.czgg_title = (TextView)convertView.findViewById(R.id.czgg_title ) ;
             holder.news_des = (TextView)convertView.findViewById(R.id.news_des ) ;
             holder.news_time = (TextView)convertView.findViewById(R.id.news_time ) ;
+            holder.new_author = (TextView)convertView.findViewById(R.id.new_author ) ;
 
             convertView.setTag(holder);
         } else {
@@ -144,16 +149,19 @@ public class V2FindInfoAdapter extends BaseAdapter {
             bitmapUtils.display(holder.czgg_image, Url.FileIP + list.get(position).getNewsLogo());
             holder.czgg_title.setText(list.get(position).getNewsTitle());
             holder.news_des.setText(Html.fromHtml(list.get(position).getBrief().replace("　　", "")));
-            String substring01 = list.get(position).getPublishTime().substring(5, 10);
-            String substring02 = list.get(position).getPublishTime().substring(11, 16);
-            holder.news_time.setText(substring01 + "/" + substring02 );
+            String substring01 = list.get(position).getPublishTime().substring(0, 10);
+
+            //String substring02 = list.get(position).getPublishTime().substring(11, 16);
+            holder.news_time.setText(substring01);
+            holder.new_author.setText("来源：" + list.get(position).getNewsAuthor().trim());
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context , DetailsNewsActivity.class ) ;
-                    intent.putExtra("id" , list.get(position).getNewsID() ) ;
-                    intent.putExtra("type" , "处置公告" ) ;
+                    Intent intent = new Intent(context, DetailsNewsActivity.class);
+                    intent.putExtra("id", list.get(position).getNewsID());
+                    intent.putExtra("type", "处置公告");
+                    intent.putExtra("author", list.get(position).getNewsAuthor());
                     context.startActivity(intent);
                 }
             });
@@ -167,7 +175,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
             holder.relative_info.setVisibility(View.VISIBLE);
             switch (list.get(position).getTypeID()) {
                 case "1":
-                    holder.image_01.setImageResource(R.mipmap.v2shichang);
+                    holder.image_01.setImageResource(R.mipmap.v2zongjine);
                     holder.image_02.setImageResource(R.mipmap.v2zhuanrang);
                     if (list.get(position).getTotalMoney().length() >= 9 && !TextUtils.isEmpty(list.get(position).getTotalMoney())){
                         holder.text_01.setText(list.get(position).getTotalMoney().substring( 0 , list.get(position).getTotalMoney().length()-3) + "万");
@@ -302,40 +310,118 @@ public class V2FindInfoAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     //未登录，去登陆，登陆之后，判断是否是收费资源，是收费资源，那么直接调用anthme 的接口，自己的
                     finalConvertView.setEnabled(false);
-                    if ("2".equals(list.get(position).getMember())) {
-                        if (GetBenSharedPreferences.getIsLogin(context)) {
-                            //调用authme的接口，拿到自己的role 和 account
-                            loadData(position, finalConvertView);
 
-                        } else {
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            context.startActivity(intent);
-                            finalConvertView.setEnabled(true);
+//                    if ("2".equals(list.get(position).getMember())) {
+//                        if (GetBenSharedPreferences.getIsLogin(context)) {
+//                            //调用authme的接口，拿到自己的role 和 account
+//                            loadData(position, finalConvertView);
+//
+//                        } else {
+//                            Intent intent = new Intent(context, LoginActivity.class);
+//                            context.startActivity(intent);
+//                            finalConvertView.setEnabled(true);
+//                        }
+//
+//                    } else if ("1".equals(list.get(position).getMember())){
+//                        showForVipPop(finalConvertView) ;
+//                    } else{
+//                        String id = list.get(position).getProjectID();
+//                        Intent intent = new Intent(context, V2DetailsFindInfoActivity.class);
+//                        intent.putExtra("id", id);
+//                        context.startActivity(intent);
+//                        finalConvertView.setEnabled(true);
+//                    }
+                    if ("0".equals(list.get(position).getMember())){
+                        goV2DetailsFindInfoActivity(position , finalConvertView ) ;
+                    }else {
+                        String right = GetBenSharedPreferences.getRight(context);
+                        if (!TextUtils.isEmpty(right) ){
+                            String[] split = right.split(",");
+                            boolean isPermission = false ;
+                            for (int i = 0; i < split.length; i++) {
+                                if (list.get(position).getTypeID().equals(split[i].toString())){
+                                    isPermission = true ;
+                                    break;
+                                }
+                            }
+                            if (isPermission){
+                                goV2DetailsFindInfoActivity(position , finalConvertView ) ;
+                            }else {
+                                judgeMember(position , finalConvertView) ;
+                            }
+                        }else {
+                            judgeMember(position , finalConvertView) ;
+
                         }
-
-                    } else if ("1".equals(list.get(position).getMember())){
-                        showForVipPop(finalConvertView) ;
-                    } else{
-                        String id = list.get(position).getProjectID();
-                        Intent intent = new Intent(context, V2DetailsFindInfoActivity.class);
-                        intent.putExtra("id", id);
-                        context.startActivity(intent);
-                        finalConvertView.setEnabled(true);
                     }
-
                 }
             });
         }
         return convertView;
     }
 
-    private void showForVipPop(final View convertView) {
+    private void judgeMember(int position, View finalConvertView) {
+//        if ("2".equals(list.get(position).getMember())) {
+//            if (GetBenSharedPreferences.getIsLogin(context)) {
+//                //调用authme的接口，拿到自己的role 和 account
+//                loadData(position, finalConvertView);
+//            } else {
+//                Intent intent = new Intent(context, LoginActivity.class);
+//                context.startActivity(intent);
+//                finalConvertView.setEnabled(true);
+//            }
+//        } else if ("1".equals(list.get(position).getMember())){
+//            showForVipPop(finalConvertView) ;
+//        }
+        if (GetBenSharedPreferences.getIsLogin(context)) {
+                //调用authme的接口，拿到自己的role 和 account
+                loadData(position, finalConvertView);
+            } else {
+                Intent intent = new Intent(context, LoginActivity.class);
+                context.startActivity(intent);
+                finalConvertView.setEnabled(true);
+            }
+    }
+
+    private void goV2DetailsFindInfoActivity(int position, View finalConvertView) {
+        String id = list.get(position).getProjectID();
+        Intent intent = new Intent(context, V2DetailsFindInfoActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
+        finalConvertView.setEnabled(true);
+    }
+
+    private void showForVipPop(final View convertView, int position) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_not_vip, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.relative);
         final Button submit = (Button) view.findViewById(R.id.submit);
+        final Button to_recharge = (Button) view.findViewById(R.id.to_recharge);
         final ImageButton cancel = (ImageButton) view.findViewById(R.id.cancel);
+        final TextView title = (TextView)view.findViewById(R.id.title ) ;
+        String typeID = list.get(position).getTypeID();
+        switch (typeID){
+            case "1" :
+                title.setText("本条VIP信息只针对资产包会员免费开放，详情请咨询会员专线：010-56052557");
+                break;
+            case "6" :
+            case "17" :
+                title.setText("本条VIP信息只针对融资信息会员免费开放，详情请咨询会员专线：010-56052557");
+                break;
+            case "12" :
+            case "16" :
+                title.setText("本条VIP信息只针对固定资产会员免费开放，详情请咨询会员专线：010-56052557");
+                break;
+            case "18" :
+                title.setText("本条VIP信息只针对企业商账会员免费开放，详情请咨询会员专线：010-56052557");
+                break;
+            case "19" :
+                title.setText("本条VIP信息只针对个人债权会员免费开放，详情请咨询会员专线：010-56052557");
+                break;
+            default:
+                break;
+        }
         //取消
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -347,6 +433,14 @@ public class V2FindInfoAdapter extends BaseAdapter {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                window.dismiss();
+            }
+        });
+
+        to_recharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadAuthMe() ;
                 window.dismiss();
             }
         });
@@ -370,6 +464,51 @@ public class V2FindInfoAdapter extends BaseAdapter {
         });
     }
 
+    private void loadAuthMe() {
+        String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(context)) ;
+        HttpUtils utils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                //处理请求成功后的数据
+                try {
+                    dealResult(responseInfo.result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                //打印用户的失败回调
+                error.printStackTrace();
+                ToastUtils.shortToast(context, "网络连接异常");
+            }
+        }) ;
+    }
+
+    private void dealResult(String result) throws JSONException {
+        JSONObject jsonObject = new JSONObject(result);
+        JSONObject user1 = jsonObject.getJSONObject("user");
+        String right01 = user1.getString("right") ;
+        right = context.getSharedPreferences("right", context.MODE_PRIVATE) ;
+        right.edit().putString("right", right01).commit();
+        JSONObject showright = user1.getJSONObject("showright");
+        String type_01 = showright.optString("资产包");
+        String type_02 = showright.optString("企业商账");
+        String type_03 = showright.optString("固定资产");
+        String type_04 = showright.optString("融资信息");
+        String type_05 = showright.optString("个人债权");
+        Intent intent = new Intent(context , VipCenterActivity.class ) ;
+        intent.putExtra("type_01" , type_01 ) ;
+        intent.putExtra("type_02" , type_02 ) ;
+        intent.putExtra("type_03" , type_03 ) ;
+        intent.putExtra("type_04" , type_04 ) ;
+        intent.putExtra("type_05" , type_05 ) ;
+        context.startActivity(intent);
+    }
+
     private void loadData(final int position, final View finalConvertView) {
         String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(context));
         HttpUtils utils = new HttpUtils();
@@ -391,39 +530,43 @@ public class V2FindInfoAdapter extends BaseAdapter {
                         finalConvertView.setEnabled(true);
                     } else {
                         if ("1".equals(role)) {
-                            String urls = String.format(Url.ISPay, GetBenSharedPreferences.getTicket(context));
-                            HttpUtils httpUtils = new HttpUtils();
-                            RequestParams params1 = new RequestParams();
-                            params1.addBodyParameter("ProjectID", list.get(position).getProjectID());
-                            httpUtils.send(HttpRequest.HttpMethod.POST, urls, params1, new RequestCallBack<String>() {
-                                @Override
-                                public void onSuccess(ResponseInfo<String> responseInfo) {
-                                    try {
-                                        JSONObject jsonObject1 = new JSONObject(responseInfo.result);
-                                        String payFlag = jsonObject1.getString("PayFlag");
-                                        if ("1".equals(payFlag)) {
-                                            String id = list.get(position).getProjectID();
-                                            Intent intent = new Intent(context, V2DetailsFindInfoActivity.class);
-                                            intent.putExtra("id", id);
-                                            context.startActivity(intent);
-                                            finalConvertView.setEnabled(true);
-                                        } else {
-                                            showPopUpWindow(position, account, finalConvertView);
+                            if ("2".equals(list.get(position).getMember())) {
+                                String urls = String.format(Url.ISPay, GetBenSharedPreferences.getTicket(context));
+                                HttpUtils httpUtils = new HttpUtils();
+                                RequestParams params1 = new RequestParams();
+                                params1.addBodyParameter("ProjectID", list.get(position).getProjectID());
+                                httpUtils.send(HttpRequest.HttpMethod.POST, urls, params1, new RequestCallBack<String>() {
+                                    @Override
+                                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                                        try {
+                                            JSONObject jsonObject1 = new JSONObject(responseInfo.result);
+                                            String payFlag = jsonObject1.getString("PayFlag");
+                                            if ("1".equals(payFlag)) {
+                                                String id = list.get(position).getProjectID();
+                                                Intent intent = new Intent(context, V2DetailsFindInfoActivity.class);
+                                                intent.putExtra("id", id);
+                                                context.startActivity(intent);
+                                                finalConvertView.setEnabled(true);
+                                            } else {
+                                                showPopUpWindow(position, account, finalConvertView);
 
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(HttpException error, String msg) {
-                                    finalConvertView.setEnabled(true);
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(HttpException error, String msg) {
+                                        finalConvertView.setEnabled(true);
+                                    }
+                                });
+                            } else if ("1".equals(list.get(position).getMember())){
+                                showForVipPop(finalConvertView , position ) ;
+                            }
 
                         } else {
-                            ToastUtils.shortToast(context, "您需要先通过服务方认证才可查看收费类信息");
+                            ToastUtils.shortToast(context, "您需要先通过服务方认证才可查看此条信息");
                             finalConvertView.setEnabled(true);
                         }
                     }
@@ -607,6 +750,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
         TextView czgg_title ;
         TextView news_des ;
         TextView news_time ;
+        TextView new_author ;
 
     }
 

@@ -328,8 +328,20 @@
             android:name=".activity.PublishFixedActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.V2DetailsFindInfoActivity"></activity>
-        <activity android:name=".activity.V2FindInfoActivity"></activity>
+        <activity android:name=".activity.V2DetailsFindInfoActivity" />
+        <activity android:name=".activity.V2FindInfoActivity" />
+        <activity android:name=".activity.VipCenterActivity" />
+        <activity android:name=".activity.VipRechargeActivity" />
+        <activity android:name=".activity.KnowPowerActivity" />
+        <activity android:name=".activity.VipRecordActivity" />
+        <activity android:name=".activity.StarRegisterActivity" />
+        <activity android:name=".activity.StarRegisterActivity01_03" />
+        <activity android:name=".activity.StarRegisterActivity04" />
+        <activity android:name=".activity.StarRegisterActivity05" />
+        <activity
+            android:name=".activity.DetailsStarRegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

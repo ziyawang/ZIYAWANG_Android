@@ -5,75 +5,90 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <!--服务方列表的title-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/service_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:textColor="#ef8200"
-            android:textSize="15dp" />
-
-    </RelativeLayout>
-
-    <!--服务方列表的1dp灰线-->
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="10dp"
-        android:background="#9b9b9b">
-
-    </LinearLayout>
-
-    <!--服务方列表的其他信息区域-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/money_transfer_linear"
-        android:background="#ffffff">
-
-        <!--服务方列表的橘色向右箭头-->
+        android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:src="@mipmap/info_right" />
+            android:scaleType="centerCrop"
+            android:id="@+id/ben_img"
+            android:background="#fff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="111dp"
+            android:layout_height="84dp" />
 
-        <!--服务方列表的地区，类型和等级信息-->
         <LinearLayout
-            android:id="@+id/money_transfer_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="16dp"
-            android:layout_toLeftOf="@id/imageView2"
-            android:orientation="vertical">
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <!--服务方列表的title-->
+            <TextView
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="标题标题标题标题标题标题标题标题标题标题标题"
+                android:textStyle="bold"
+                android:id="@+id/service_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000"
+                android:textSize="13sp" />
+            <!--服务方认证类型-->
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@mipmap/v203_0401"
+                    android:id="@+id/image_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/v203_0402"
+                    android:id="@+id/image_02"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/v203_0403"
+                    android:id="@+id/image_03"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/v203_0404"
+                    android:id="@+id/image_04"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/v203_0405"
+                    android:id="@+id/image_05"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <!--服务地区-->
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:id="@+id/money_transfer_area_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="服务地区："
-                    android:textColor="#6d6d6d"
-                    android:textSize="13dp" />
+                    android:textColor="#040404"
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/service_part"
@@ -82,30 +97,28 @@
                     android:layout_gravity="center"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textColor="#333"
-                    android:textSize="13dp" />
+                    android:textColor="#7c7c7c"
+                    android:textSize="11sp" />
 
 
             </LinearLayout>
-
+            <!--服务类型-->
             <RelativeLayout
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:id="@+id/money_transfer_from_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="服务类型："
-                    android:textColor="#6d6d6d"
-                    android:textSize="13dp"
+                    android:textColor="#040404"
+                    android:textSize="11sp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
-
                 <TextView
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/niu"
@@ -117,54 +130,77 @@
                     android:layout_toRightOf="@+id/money_transfer_from_left"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textColor="#333"
-                    android:textSize="13dp" />
-
-                <LinearLayout
-                    android:id="@+id/niu"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerHorizontal="true"
+                    android:textColor="#7c7c7c"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+            <!--会员类型-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/service_type_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true">
-
+                    android:layout_gravity="center"
+                    android:text="会员类型："
+                    android:textColor="#040404"
+                    android:textSize="11sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/aaa"
+                        android:visibility="gone"
+                        android:id="@+id/ben"
+                        android:text="无"
+                        android:textColor="#7c7c7c"
+                        android:textSize="11sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/money_transfer_info"
-                        android:layout_gravity="center"
-                        android:layout_toRightOf="@+id/money_transfer_info"
-                        android:text="服务等级："
-                        android:textColor="#6d6d6d"
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:id="@+id/service_level"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/v203_0501"
+                        android:id="@+id/image_06"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/money_transfer_info"
-                        android:layout_alignParentRight="true"
-                        android:layout_gravity="center"
-                        android:layout_toRightOf="@id/aaa"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="VIP1"
-                        android:textColor="#c01444"
-                        android:textSize="13dp" />
-
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/v203_0502"
+                        android:id="@+id/image_07"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/v203_0503"
+                        android:id="@+id/image_08"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/v203_0504"
+                        android:id="@+id/image_09"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/v203_0505"
+                        android:id="@+id/image_10"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
+            </LinearLayout>
 
-            </RelativeLayout>
 
         </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <!--服务方列表的黑色三角装饰区域-->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="10dp"
         android:background="@mipmap/icon31" />
+
+
 
 </LinearLayout>

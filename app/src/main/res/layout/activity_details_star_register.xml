@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#EBEBEB"
+    tools:context="com.ziyawang.ziya.activity.DetailsStarRegisterActivity">
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_service_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/service_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="星级认证"
+            android:textColor="#000"
+            android:textSize="18dp" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/top"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--保证金认证-->
+                <LinearLayout
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#595959"
+                        android:textSize="12sp"
+                        android:gravity="center_vertical"
+                        android:text="保证金认证："
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/image_01"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:src="@mipmap/v203_0201"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/text_01"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="(未认证)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--实地认证-->
+                <LinearLayout
+                    android:layout_marginTop="1px"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#595959"
+                        android:textSize="12sp"
+                        android:gravity="center_vertical"
+                        android:text="实地认证    ："
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/image_02"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:src="@mipmap/v203_0202"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/text_02"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="(未认证)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--实地认证的图片-->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/linear_sd"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+                    <ImageView
+                        android:id="@+id/sd_img01"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/sd_img02"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/sd_img03"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--视频认证-->
+                <LinearLayout
+                    android:layout_marginTop="1px"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#595959"
+                        android:textSize="12sp"
+                        android:gravity="center_vertical"
+                        android:text="视频认证    ："
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/image_03"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:src="@mipmap/v203_0203"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/text_03"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="(未认证)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+            <!--视频认证的视频-->
+            <FrameLayout
+                android:visibility="gone"
+                android:background="#EBEBEB"
+                android:id="@+id/video_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp">
+                <ImageView
+                    android:id="@+id/play_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/biz_video_list_play_icon_big" />
+                <com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer
+                    android:id="@+id/video_player_item_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:visibility="gone">
+                </com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer>
+            </FrameLayout>
+            <LinearLayout
+                android:id="@+id/down"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--承诺书认证-->
+                <LinearLayout
+                    android:layout_marginTop="1px"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#595959"
+                        android:textSize="12sp"
+                        android:gravity="center_vertical"
+                        android:text="承诺书认证："
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/image_04"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:src="@mipmap/v203_0204"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/text_04"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="(未认证)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--承诺书认证的图片-->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/linear_cns"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+                    <ImageView
+                        android:id="@+id/cns_img01"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:visibility="invisible"
+                        android:id="@+id/cns_img02"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:visibility="invisible"
+                        android:id="@+id/cns_img03"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--三证认证-->
+                <LinearLayout
+                    android:layout_marginTop="1px"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#595959"
+                        android:textSize="12sp"
+                        android:gravity="center_vertical"
+                        android:text="三证认证    ："
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/image_05"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:src="@mipmap/v203_0205"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/text_05"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="(未认证)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--三证认证的图片-->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/linear_sz"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+                    <ImageView
+                        android:id="@+id/sz_img01"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/sz_img02"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/sz_img03"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

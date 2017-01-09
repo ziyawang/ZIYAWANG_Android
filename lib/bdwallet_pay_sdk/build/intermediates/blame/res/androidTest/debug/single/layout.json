@@ -52,12 +52,12 @@
         "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\layout\\wallet_base_one_key_tip_layout.xml"
     },
     {
-        "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ebpay_layout_bond_card_view.xml",
-        "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\layout\\ebpay_layout_bond_card_view.xml"
-    },
-    {
         "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\wallet_base_pluginl_detail.xml",
         "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\layout\\wallet_base_pluginl_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ebpay_layout_bond_card_view.xml",
+        "source": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\layout\\ebpay_layout_bond_card_view.xml"
     },
     {
         "merged": "C:\\Users\\27805\\Desktop\\github_workSpace\\ZIYAWANG_Android\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ebpay_activity_welcome.xml",

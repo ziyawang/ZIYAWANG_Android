@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_marginLeft="44dp"
+    android:layout_marginRight="44dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/other_publish"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/pay_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/cancel"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:src="@mipmap/popup_cuowu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/pay_img"
+            android:src="@mipmap/v2_other_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@drawable/other_publish_white"
+        android:layout_below="@id/pay_one"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/star_register_type"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+
+        <com.ziyawang.ziya.view.JustifyTextView
+            android:id="@+id/title"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_marginTop="25dp"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:text="关闭"
+            android:background="#fdd000"
+            android:id="@+id/cancel02"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <com.ziyawang.ziya.view.JustifyTextView
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/other_info"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:textColor="#e02831"
+            android:textSize="11sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>

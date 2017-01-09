@@ -76,12 +76,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private static Boolean isQuit = false;
     private Timer timer = new Timer();
     private MyApplication app;
-    private HomePageFragment homePageFragment;
+    public HomePageFragment homePageFragment;
     //private InformationFragment informationFragment;
-    private NewsFragment newsFragment ;
-    private MyFragment myFragment;
-    private ReleaseFragment releaseFragment;
-    private SearchFragment searchFragment;
+    public NewsFragment newsFragment ;
+    public MyFragment myFragment;
+    public ReleaseFragment releaseFragment;
+    public SearchFragment searchFragment;
     private SharedPreferences r_token;
     private String login;
     private final static String lancherActivityClassName = StartActivity.class.getName();
@@ -272,70 +272,70 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    private void myUserInfo() {
-
-        final String urls = String.format(Url.Myicon, login ) ;
-        Log.e("benbne" , login  );
-        HttpUtils utils = new HttpUtils() ;
-        RequestParams params = new RequestParams() ;
-        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-
-                Log.e("niuniu", responseInfo.result);
-
-                try {
-                    JSONObject jsonObject = new JSONObject(responseInfo.result);
-                    String role1 = jsonObject.getString("role");
-
-                    Log.e("benben", role1);
-
-                    final SharedPreferences role = getSharedPreferences("role", MODE_PRIVATE);
-                    role.edit().putString("role", role1).commit();
-
-                    switch (role1) {
-                        case "0":
-                        case "2":
-                            JSONObject user = jsonObject.getJSONObject("user");
-                            String userid = user.getString("userid");
-                            //String username = user.getString("username");
-                            String phone = user.getString("phonenumber");
-                            String substring = phone.substring(0, 3);
-                            String substring1 = phone.substring(7, 11);
-
-                            Log.e("benben", substring + substring1);
-                            final String UserPicture = user.getString("UserPicture");
-                            Uri uir = Uri.parse(Url.FileIP + UserPicture);
-
-                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid, substring + "***" + substring1, uir));
-                            break;
-
-                        case "1":
-                            JSONObject object = new JSONObject(responseInfo.result);
-                            JSONObject service = object.getJSONObject("service");
-                            //企业名称
-                            String ServiceName = service.getString("ServiceName");
-                            JSONObject user1 = jsonObject.getJSONObject("user");
-                            String Userid = user1.getString("userid");
-                            final String userPicture = user1.getString("UserPicture");
-                            Uri uir01 = Uri.parse(Url.FileIP + userPicture);
-                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(Userid, ServiceName, uir01));
-
-                            break;
-                        default:
-                            break;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                error.printStackTrace();
-            }
-        }) ;
-    }
+//    private void myUserInfo() {
+//
+//        final String urls = String.format(Url.Myicon, login ) ;
+//        Log.e("benbne" , login  );
+//        HttpUtils utils = new HttpUtils() ;
+//        RequestParams params = new RequestParams() ;
+//        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+//            @Override
+//            public void onSuccess(ResponseInfo<String> responseInfo) {
+//
+//                Log.e("niuniu", responseInfo.result);
+//
+//                try {
+//                    JSONObject jsonObject = new JSONObject(responseInfo.result);
+//                    String role1 = jsonObject.getString("role");
+//
+//                    Log.e("benben", role1);
+//
+//                    final SharedPreferences role = getSharedPreferences("role", MODE_PRIVATE);
+//                    role.edit().putString("role", role1).commit();
+//
+//                    switch (role1) {
+//                        case "0":
+//                        case "2":
+//                            JSONObject user = jsonObject.getJSONObject("user");
+//                            String userid = user.getString("userid");
+//                            //String username = user.getString("username");
+//                            String phone = user.getString("phonenumber");
+//                            String substring = phone.substring(0, 3);
+//                            String substring1 = phone.substring(7, 11);
+//
+//                            Log.e("benben", substring + substring1);
+//                            final String UserPicture = user.getString("UserPicture");
+//                            Uri uir = Uri.parse(Url.FileIP + UserPicture);
+//
+//                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid, substring + "***" + substring1, uir));
+//                            break;
+//
+//                        case "1":
+//                            JSONObject object = new JSONObject(responseInfo.result);
+//                            JSONObject service = object.getJSONObject("service");
+//                            //企业名称
+//                            String ServiceName = service.getString("ServiceName");
+//                            JSONObject user1 = jsonObject.getJSONObject("user");
+//                            String Userid = user1.getString("userid");
+//                            final String userPicture = user1.getString("UserPicture");
+//                            Uri uir01 = Uri.parse(Url.FileIP + userPicture);
+//                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(Userid, ServiceName, uir01));
+//
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(HttpException error, String msg) {
+//                error.printStackTrace();
+//            }
+//        }) ;
+//    }
 
     private void connect() {
 

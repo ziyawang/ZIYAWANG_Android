@@ -138,6 +138,14 @@ public class DetailsNewsActivity extends BenBenActivity implements View.OnClickL
         if (!TextUtils.isEmpty(intent.getStringExtra("type"))){
             head = intent.getStringExtra("type");
             text_head.setText(head);
+            switch (head){
+                case "处置公告" :
+                    String author = intent.getStringExtra("author");
+                    news_from.setText("来源：" + author.trim());
+                    break;
+                default:
+                    break;
+            }
         }
         loadData(news_id) ;
         loadComment(news_id) ;
@@ -217,9 +225,8 @@ public class DetailsNewsActivity extends BenBenActivity implements View.OnClickL
 
                     news_title.setText(data.getString("NewsTitle"));
                     String publishTime = data.getString("PublishTime");
-                    String substring01 = publishTime.substring(5, 10);
-                    String substring02 = publishTime.substring(11, 16);
-                    news_time.setText(substring01 + "/" + substring02);
+                    String substring01 = publishTime.substring(0, 10);
+                    news_time.setText("时间：" + substring01 );
                     news_brief.setText(data.getString("Brief"));
                     String collectFlag = data.getString("CollectFlag");
                     switch (collectFlag){

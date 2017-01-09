@@ -22,11 +22,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +54,7 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ServiceRegisterActivity extends BaseActivity {
+public class ServiceRegisterActivity extends BenBenActivity implements View.OnClickListener {
 
     private RelativeLayout pre ;
     private EditText service_register_name;
@@ -86,6 +88,14 @@ public class ServiceRegisterActivity extends BaseActivity {
     private String type = "";
     private String urls ;
     private MyProgressDialog dialog ;
+    private String root ;
+    //员工人数
+    private EditText service_register_count ;
+    //注册资金
+    private EditText service_register_money ;
+    //成立时间
+    private TextView text_time ;
+    private ScrollView scrollView ;
 
     public void onResume() {
         super.onResume();
@@ -94,6 +104,7 @@ public class ServiceRegisterActivity extends BaseActivity {
         //统计时长
         MobclickAgent.onResume(this);
     }
+
     public void onPause() {
         super.onPause();
         // 统计页面
@@ -104,18 +115,301 @@ public class ServiceRegisterActivity extends BaseActivity {
 
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            //添加回退事件
+            case R.id.pre :
+                finish();
+                break;
+            //对企业所在地的获取
+            case R.id.service_part_one :
+                startActivityForResult(new Intent(ServiceRegisterActivity.this, PartActivity.class), 6);
+                break;
+            //对企业类型的服务地区的获取
+            case R.id.service_part_two :
+                startActivityForResult(new Intent(ServiceRegisterActivity.this, ServicePartActivity.class), 4);
+                break;
+            //对企业类型的服务类型的获取
+            case R.id.service_type :
+                startActivityForResult(new Intent(ServiceRegisterActivity.this, ServiceTypeActivity.class), 5);
+                break;
+            //添加图片
+            case R.id.release_img_add :
+                if (release_frame_one.getVisibility() == View.VISIBLE) {
+                    if (release_frame_two.getVisibility() == View.VISIBLE) {
+                        picGet();
+                    } else {
+                        picGet();
+                    }
+                } else {
+                    picGet();
+                }
+                break;
+            //删除第一张
+            case R.id.release_img_cancel_one :
+                if (release_frame_two.getVisibility() == View.VISIBLE && release_frame_three.getVisibility() == View.VISIBLE) {
+                    ToastUtils.shortToast(ServiceRegisterActivity.this, "无法删除第一张图片");
+                } else {
+                    release_frame_one.setVisibility(View.GONE);
+                }
+                break;
+            //删除第二张
+            case R.id.release_img_cancel_two :
+                if (release_frame_three.getVisibility() == View.VISIBLE) {
+                    ToastUtils.shortToast(ServiceRegisterActivity.this, "无法删除第二张图片");
+                } else {
+                    release_frame_two.setVisibility(View.GONE);
+                }
+                break;
+            //删除第三张
+            case R.id.release_img_cancel_three :
+                release_frame_three.setVisibility(View.GONE);
+                release_img_add.setVisibility(View.VISIBLE);
+                break;
+            //提交按钮
+            case R.id.text_submit :
+                if (isSubmit()){
+                    submit() ;
+                }
+                break;
+            //成立时间
+            case R.id.text_time :
+                popData(text_time) ;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void popData(final TextView text_time) {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.common_window_data_picker, null);
+        final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        TextView left = (TextView) view.findViewById(R.id.left);
+        final DatePicker datePicker = (DatePicker) view.findViewById(R.id.datePicker ) ;
+        TextView right = (TextView) view.findViewById(R.id.right);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                window.dismiss();
+            }
+        });
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth();
+                int dayOfMonth = datePicker.getDayOfMonth();
+                text_time.setText(year + "年" + (month+1) + "月" + dayOfMonth + "日");
+                window.dismiss();
+            }
+        });
+        window.setFocusable(true);
+        //点击空白的地方关闭PopupWindow
+        window.setBackgroundDrawable(new BitmapDrawable());
+        // 设置popWindow的显示和消失动画
+        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.showAtLocation(scrollView, Gravity.BOTTOM, 0, 0);
+        backgroundAlpha(0.4f);
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+    }
+
+    private void submit() {
+        if (type.contains("ben")) {
+            type.replace("ben", "05");
+            type.trim();
+            Log.e("benben", type);
+        }
+        if ("2".equals(root)) {
+            //格式化网络连接url
+            urls = String.format(Url.ServiceReRegister, login);
+        } else {
+            urls = String.format(Url.ServiceRegister, login);
+        }
+        //开启网络请求
+        HttpUtils utils = new HttpUtils();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("ConnectPerson", service_register_name.getText().toString());
+        params.addBodyParameter("ConnectPhone", service_register_phone.getText().toString());
+        params.addBodyParameter("ServiceName", service_register_companyName.getText().toString());
+        params.addBodyParameter("ServiceIntroduction", service_register_companyDes.getText().toString());
+        params.addBodyParameter("ServiceLocation", service_part_one_des.getText().toString());
+        params.addBodyParameter("ServiceArea", service_part_two_des.getText().toString());
+
+        params.addBodyParameter("Size", service_register_count.getText().toString());
+        params.addBodyParameter("Founds", service_register_money.getText().toString());
+        params.addBodyParameter("RegTime", text_time.getText().toString());
+
+        params.addBodyParameter("ServiceType", type);
+
+        Log.e("benben", login);
+        if (release_frame_one.getVisibility() == View.VISIBLE) {
+            params.addBodyParameter("ConfirmationP1", file_img01);
+            if (release_frame_two.getVisibility() == View.VISIBLE) {
+                params.addBodyParameter("ConfirmationP2", file_img02);
+                if (release_frame_three.getVisibility() == View.VISIBLE) {
+                    params.addBodyParameter("ConfirmationP3", file_img03);
+                }
+            }
+        }
+        dialog = new MyProgressDialog(ServiceRegisterActivity.this, "加载提交中请稍后。。。");
+        dialog.show();
+        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                Log.e("benben", responseInfo.result);
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(responseInfo.result);
+                    String status_code = jsonObject.getString("status_code");
+                    if (status_code.equals("200")) {
+                        ToastUtils.shortToast(ServiceRegisterActivity.this, "服务方认证成功");
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+                        Intent intent = new Intent(ServiceRegisterActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        //finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                error.printStackTrace();
+            }
+        });
+    }
+
+    private boolean isSubmit() {
+        if (TextUtils.isEmpty(service_register_companyName.getText().toString())) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请输入您的企业名称");
+            return false ;
+        }
+        if (TextUtils.isEmpty(service_part_one_des.getText().toString()) && service_part_one_des.getVisibility() != View.VISIBLE) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请选择您的企业所在地");
+            return false ;
+        }
+
+        if (TextUtils.isEmpty(service_register_count.getText().toString())) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请输入您的企业规模");
+            return false ;
+        }
+        if (TextUtils.isEmpty(service_register_money.getText().toString())) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请输入您的企业注册资金");
+            return false ;
+        }
+        if (TextUtils.isEmpty(text_time.getText().toString()) || "请选择".equals(text_time.getText().toString() )) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请输入您的企业成立时间");
+            return false ;
+        }
+
+        if (TextUtils.isEmpty(service_register_name.getText().toString())) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请添加您的联系人姓名");
+            return false ;
+        }
+        if (TextUtils.isEmpty(service_register_phone.getText().toString())) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请添加您的联系方式");
+            return false ;
+        }
+        if (TextUtils.isEmpty(service_register_companyDes.getText().toString())) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请输入您的企业简介");
+            return false ;
+        }
+        if (TextUtils.isEmpty(service_part_two_des.getText().toString()) && service_part_two_des.getVisibility() != View.VISIBLE) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请选择您的服务地区");
+            return false ;
+        }
+        if (TextUtils.isEmpty(service_type_des.getText().toString()) && service_type_des.getVisibility() != View.VISIBLE) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请选择您的服务类型");
+            return false ;
+        }
+        if (release_frame_one.getVisibility() != View.VISIBLE) {
+            ToastUtils.shortToast(ServiceRegisterActivity.this, "请至少添加一张图片");
+            return false ;
+        }
+        return true;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_register);
 
+    }
+
+    @Override
+    public void setContentView() {
+        setContentView(R.layout.activity_service_register);
+    }
+
+    @Override
+    public void initViews() {
+        scrollView = (ScrollView)findViewById(R.id.scrollView ) ;
+        pre = (RelativeLayout)findViewById(R.id.pre ) ;
+        service_register_name = (EditText) findViewById(R.id.service_register_name);
+        service_register_phone = (EditText) findViewById(R.id.service_register_phone);
+        service_register_companyName = (EditText) findViewById(R.id.service_register_companyName);
+        service_register_companyDes = (EditText) findViewById(R.id.service_register_companyDes);
+        service_part_one = (TextView) findViewById(R.id.service_part_one);
+        service_part_one_des = (TextView) findViewById(R.id.service_part_one_des);
+        service_part_two = (TextView) findViewById(R.id.service_part_two);
+        service_part_two_des = (TextView) findViewById(R.id.service_part_two_des);
+        service_type = (TextView) findViewById(R.id.service_type);
+        service_type_des = (TextView) findViewById(R.id.service_type_des);
+        release_img_add = (TextView) findViewById(R.id.release_img_add);
+        release_frame_one = (FrameLayout) findViewById(R.id.release_frame_one);
+        release_frame_two = (FrameLayout) findViewById(R.id.release_frame_two);
+        release_frame_three = (FrameLayout) findViewById(R.id.release_frame_three);
+        release_img_one = (ImageView) findViewById(R.id.release_img_one);
+        release_img_two = (ImageView) findViewById(R.id.release_img_two);
+        release_img_three = (ImageView) findViewById(R.id.release_img_three);
+        release_img_cancel_one = (ImageView) findViewById(R.id.release_img_cancel_one);
+        release_img_cancel_two = (ImageView) findViewById(R.id.release_img_cancel_two);
+        release_img_cancel_three = (ImageView) findViewById(R.id.release_img_cancel_three);
+        text_submit = (TextView) findViewById(R.id.text_submit);
+
+        service_register_money = (EditText) findViewById(R.id.service_register_money);
+        service_register_count = (EditText) findViewById(R.id.service_register_count);
+        text_time = (TextView) findViewById(R.id.text_time);
+    }
+
+    @Override
+    public void initListeners() {
+        pre.setOnClickListener(this);
+        service_part_one.setOnClickListener(this);
+        service_part_two.setOnClickListener(this);
+        service_type.setOnClickListener(this);
+        release_img_add.setOnClickListener(this);
+        release_img_cancel_one.setOnClickListener(this);
+        release_img_cancel_two.setOnClickListener(this);
+        release_img_cancel_three.setOnClickListener(this);
+        text_time.setOnClickListener(this);
+        text_submit.setOnClickListener(this);
+    }
+
+    @Override
+    public void initData() {
         final SharedPreferences loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
         login = loginCode.getString("loginCode", null);
-
-        //实例化组件
-        initView();
-
         Intent intent = getIntent();
-        final String root = intent.getStringExtra("root");
+        root = intent.getStringExtra("root");
         switch (root) {
             case "0":
                 text_submit.setText("提交");
@@ -143,7 +437,25 @@ public class ServiceRegisterActivity extends BaseActivity {
                 String ConfirmationP2 = intent.getStringExtra("ConfirmationP2");
                 String ConfirmationP3 = intent.getStringExtra("ConfirmationP3");
                 String ServiceArea = intent.getStringExtra("ServiceArea");
+                String Size = intent.getStringExtra("Size");
+                String Founds = intent.getStringExtra("Founds");
+                String Regtime = intent.getStringExtra("RegTime");
+                if ("0".equals(Size)){
+                    service_register_count.setHint("未填写");
 
+                }else {
+                    service_register_count.setHint(Size);
+                }
+                if ("0".equals(Founds)){
+                    service_register_money.setHint("未填写");
+                }else {
+                    service_register_money.setHint(Founds);
+                }
+                if ("0000-00-00 00:00:00".equals(Regtime)){
+                    text_time.setHint("未填写");
+                }else {
+                    text_time.setHint(Regtime);
+                }
                 service_register_name.setText(ConnectPerson);
                 service_register_phone.setText(ConnectPhone);
                 service_register_companyName.setText(serviceName);
@@ -182,7 +494,6 @@ public class ServiceRegisterActivity extends BaseActivity {
 
                 break;
             case "2":
-
                 String serviceName1 = intent.getStringExtra("ServiceName");
                 String ServiceIntroduction1 = intent.getStringExtra("ServiceIntroduction");
                 String ServiceLocation1 = intent.getStringExtra("ServiceLocation");
@@ -193,6 +504,25 @@ public class ServiceRegisterActivity extends BaseActivity {
                 String ConfirmationP21 = intent.getStringExtra("ConfirmationP2");
                 String ConfirmationP31 = intent.getStringExtra("ConfirmationP3");
                 String ServiceArea1 = intent.getStringExtra("ServiceArea");
+                String Size01 = intent.getStringExtra("Size");
+                String Founds01 = intent.getStringExtra("Founds");
+                String Regtime01 = intent.getStringExtra("RegTime");
+                if ("0".equals(Size01)){
+                    service_register_count.setHint("未填写");
+
+                }else {
+                    service_register_count.setHint(Size01);
+                }
+                if ("0".equals(Founds01)){
+                    service_register_money.setHint("未填写");
+                }else {
+                    service_register_money.setHint(Founds01);
+                }
+                if ("0000-00-00 00:00:00".equals(Regtime01)){
+                    text_time.setHint("未填写");
+                }else {
+                    text_time.setHint(Regtime01);
+                }
 
                 service_register_name.setText(ConnectPerson1);
                 service_register_phone.setText(ConnectPhone1);
@@ -233,269 +563,8 @@ public class ServiceRegisterActivity extends BaseActivity {
             default:
                 break;
         }
-
-        //添加回退事件
-        pre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        //对企业所在地的获取
-        service_part_one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(ServiceRegisterActivity.this, PartActivity.class), 6);
-            }
-        });
-        //对企业类型的服务地区的获取
-        service_part_two.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(ServiceRegisterActivity.this, ServicePartActivity.class), 4);
-            }
-        });
-        //对企业类型的服务类型的获取
-        service_type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(ServiceRegisterActivity.this, ServiceTypeActivity.class), 5);
-            }
-        });
-
-        release_img_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (release_frame_one.getVisibility() == View.VISIBLE) {
-                    if (release_frame_two.getVisibility() == View.VISIBLE) {
-                        picGet();
-                    } else {
-                        picGet();
-                    }
-                } else {
-                    picGet();
-                }
-            }
-        });
-
-        release_img_cancel_one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (release_frame_two.getVisibility() == View.VISIBLE && release_frame_three.getVisibility() == View.VISIBLE) {
-                    ToastUtils.shortToast(ServiceRegisterActivity.this, "无法删除第一张图片");
-                } else {
-                    release_frame_one.setVisibility(View.GONE);
-                }
-
-            }
-        });
-        release_img_cancel_two.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (release_frame_three.getVisibility() == View.VISIBLE) {
-                    ToastUtils.shortToast(ServiceRegisterActivity.this, "无法删除第二张图片");
-                } else {
-                    release_frame_two.setVisibility(View.GONE);
-                }
-
-            }
-        });
-        release_img_cancel_three.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                release_frame_three.setVisibility(View.GONE);
-                release_img_add.setVisibility(View.VISIBLE);
-
-            }
-        });
-        /***********************************************************获取图片的页面*************************/
-
-        //对提交按钮的监听事件
-        text_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //if (text_submit.getText().toString().equals("提交")) {
-
-                    if (!TextUtils.isEmpty(service_register_name.getText().toString())) {
-
-                        if (!TextUtils.isEmpty(service_register_phone.getText().toString())) {
-
-                            if (!TextUtils.isEmpty(service_register_companyName.getText().toString())) {
-
-                                if (!TextUtils.isEmpty(service_register_companyDes.getText().toString())) {
-
-                                    if (!TextUtils.isEmpty(service_part_one_des.getText().toString()) && service_part_one_des.getVisibility() == View.VISIBLE) {
-
-                                        if (!TextUtils.isEmpty(service_part_two_des.getText().toString()) && service_part_two_des.getVisibility() == View.VISIBLE) {
-
-                                            if (!TextUtils.isEmpty(service_type_des.getText().toString()) && service_type_des.getVisibility() == View.VISIBLE) {
-
-                                                if (release_frame_one.getVisibility() == View.VISIBLE) {
-
-                                                    //Log.e("benben", type);
-
-                                                        if (type.contains("ben")) {
-                                                            type.replace("ben", "05");
-                                                            type.trim();
-                                                            Log.e("benben", type);
-                                                        }
-
-                                                    if ("2".equals(root)){
-                                                        //格式化网络连接url
-                                                        urls = String.format(Url.ServiceReRegister, login);
-                                                    }else{
-                                                        urls = String.format(Url.ServiceRegister, login);
-                                                    }
-
-                                                    //开启网络请求
-                                                    HttpUtils utils = new HttpUtils();
-                                                    RequestParams params = new RequestParams();
-                                                    params.addBodyParameter("ConnectPerson", service_register_name.getText().toString());
-                                                    params.addBodyParameter("ConnectPhone", service_register_phone.getText().toString());
-                                                    params.addBodyParameter("ServiceName", service_register_companyName.getText().toString());
-                                                    params.addBodyParameter("ServiceIntroduction", service_register_companyDes.getText().toString());
-                                                    params.addBodyParameter("ServiceLocation", service_part_one_des.getText().toString());
-                                                    params.addBodyParameter("ServiceArea", service_part_two_des.getText().toString());
-                                                    params.addBodyParameter("ServiceType", type);
-
-                                                    Log.e("benben", login);
-                                                    if (release_frame_one.getVisibility() == View.VISIBLE) {
-                                                        params.addBodyParameter("ConfirmationP1", file_img01);
-                                                        if (release_frame_two.getVisibility() == View.VISIBLE) {
-                                                            params.addBodyParameter("ConfirmationP2", file_img02);
-                                                            if (release_frame_three.getVisibility() == View.VISIBLE) {
-                                                                params.addBodyParameter("ConfirmationP3", file_img03);
-                                                            }
-                                                        }
-                                                    }
-                                                    dialog = new MyProgressDialog( ServiceRegisterActivity.this , "加载提交中请稍后。。。") ;
-                                                    dialog.show();
-                                                    utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
-                                                        @Override
-                                                        public void onSuccess(ResponseInfo<String> responseInfo) {
-                                                            if (dialog != null) {
-                                                                dialog.dismiss();
-                                                            }
-                                                            Log.e("benben", responseInfo.result);
-                                                            JSONObject jsonObject = null;
-                                                            try {
-                                                                jsonObject = new JSONObject(responseInfo.result);
-                                                                String status_code = jsonObject.getString("status_code");
-                                                                if (status_code.equals("200")) {
-                                                                    ToastUtils.shortToast(ServiceRegisterActivity.this, "服务方认证成功");
-                                                                    if (dialog != null) {
-                                                                        dialog.dismiss();
-                                                                    }
-                                                                    Intent intent = new Intent(ServiceRegisterActivity.this , MainActivity.class ) ;
-                                                                    startActivity(intent);
-                                                                    //finish();
-                                                                }
-                                                            } catch (JSONException e) {
-                                                                e.printStackTrace();
-                                                            }
-
-                                                        }
-
-                                                        @Override
-                                                        public void onFailure(HttpException error, String msg) {
-
-                                                            if (dialog != null) {
-                                                                dialog.dismiss();
-                                                            }
-                                                            error.printStackTrace();
-                                                        }
-                                                    });
-                                                } else {
-                                                    ToastUtils.shortToast(ServiceRegisterActivity.this, "请至少添加一张图片");
-                                                }
-
-                                            } else {
-                                                ToastUtils.shortToast(ServiceRegisterActivity.this, "请选择您的服务类型");
-                                            }
-                                        } else {
-                                            ToastUtils.shortToast(ServiceRegisterActivity.this, "请选择您的服务地区");
-                                        }
-                                    } else {
-                                        ToastUtils.shortToast(ServiceRegisterActivity.this, "请选择您的企业所在地");
-                                    }
-                                } else {
-                                    ToastUtils.shortToast(ServiceRegisterActivity.this, "请输入您的企业简介");
-                                }
-                            } else {
-                                ToastUtils.shortToast(ServiceRegisterActivity.this, "请输入您的企业名称");
-                            }
-                        } else {
-                            ToastUtils.shortToast(ServiceRegisterActivity.this, "请添加您的联系方式");
-                        }
-                    } else {
-                        ToastUtils.shortToast(ServiceRegisterActivity.this, "请添加您的联系人姓名");
-                    }
-
-//                }
-//                else {
-//
-//                    //service_register_name.setHint("请输入");
-//                    //service_register_phone.setHint("请输入");
-//                    //service_register_companyName.setHint("请输入");
-//                    //service_register_companyDes.setHint("企业简介");
-//                    //service_part_one_des.setText("");
-//                    service_register_name.setText("");
-//                    service_register_phone.setText(null);
-//                    service_register_companyName.setText(null);
-//                    service_register_companyDes.setText(null);
-//                    service_part_one_des.setText(null);
-//
-//                    service_part_two_des.setText("");
-//                    service_type_des.setText("");
-//                    service_part_one_des.setVisibility(View.VISIBLE);
-//                    service_part_two_des.setVisibility(View.VISIBLE);
-//                    service_type_des.setVisibility(View.VISIBLE);
-//                    release_img_add.setVisibility(View.VISIBLE);
-//                    release_frame_one.setVisibility(View.GONE);
-//                    release_frame_two.setVisibility(View.GONE);
-//                    release_frame_three.setVisibility(View.GONE);
-////                    release_img_cancel_one.setVisibility(View.GONE);
-////                    release_img_cancel_two.setVisibility(View.GONE);
-////                    release_img_cancel_three.setVisibility(View.GONE);
-////                    release_img_one.setVisibility(View.GONE);
-////                    release_img_two.setVisibility(View.GONE);
-////                    release_img_three.setVisibility(View.GONE);
-//
-//                    text_submit.setText("提交");
-//                }
-            }
-        });
     }
 
-    private void initView() {
-
-        pre = (RelativeLayout)findViewById(R.id.pre ) ;
-        service_register_name = (EditText) findViewById(R.id.service_register_name);
-        service_register_phone = (EditText) findViewById(R.id.service_register_phone);
-        service_register_companyName = (EditText) findViewById(R.id.service_register_companyName);
-        service_register_companyDes = (EditText) findViewById(R.id.service_register_companyDes);
-        service_part_one = (TextView) findViewById(R.id.service_part_one);
-        service_part_one_des = (TextView) findViewById(R.id.service_part_one_des);
-        service_part_two = (TextView) findViewById(R.id.service_part_two);
-        service_part_two_des = (TextView) findViewById(R.id.service_part_two_des);
-        service_type = (TextView) findViewById(R.id.service_type);
-        service_type_des = (TextView) findViewById(R.id.service_type_des);
-        release_img_add = (TextView) findViewById(R.id.release_img_add);
-        release_frame_one = (FrameLayout) findViewById(R.id.release_frame_one);
-        release_frame_two = (FrameLayout) findViewById(R.id.release_frame_two);
-        release_frame_three = (FrameLayout) findViewById(R.id.release_frame_three);
-        release_img_one = (ImageView) findViewById(R.id.release_img_one);
-        release_img_two = (ImageView) findViewById(R.id.release_img_two);
-        release_img_three = (ImageView) findViewById(R.id.release_img_three);
-        release_img_cancel_one = (ImageView) findViewById(R.id.release_img_cancel_one);
-        release_img_cancel_two = (ImageView) findViewById(R.id.release_img_cancel_two);
-        release_img_cancel_three = (ImageView) findViewById(R.id.release_img_cancel_three);
-        text_submit = (TextView) findViewById(R.id.text_submit);
-    }
 
     private void picGet() {
         // 利用layoutInflater获得View
@@ -723,15 +792,15 @@ public class ServiceRegisterActivity extends BaseActivity {
                         Log.e("benben", split[i]);
                         switch (split[i]) {
                             case "01":
-                                stringBuffer01.append("资产包收购");
+                                stringBuffer01.append("收购资产包");
                                 stringBuffer01.append(",");
                                 break;
                             case "02":
-                                stringBuffer01.append("催收机构");
+                                stringBuffer01.append("委外催收");
                                 stringBuffer01.append(",");
                                 break;
                             case "03":
-                                stringBuffer01.append("律师事务所");
+                                stringBuffer01.append("法律服务");
                                 stringBuffer01.append(",");
                                 break;
                             case "04":
@@ -755,7 +824,7 @@ public class ServiceRegisterActivity extends BaseActivity {
                                 stringBuffer01.append(",");
                                 break;
                             case "12":
-                                stringBuffer01.append("资产收购");
+                                stringBuffer01.append("收购固产");
                                 stringBuffer01.append(",");
                                 break;
                             case "14":
@@ -788,8 +857,6 @@ public class ServiceRegisterActivity extends BaseActivity {
     public void backgroundAlpha(float bgAlpha) {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = bgAlpha;
-
-
     }
 
 }

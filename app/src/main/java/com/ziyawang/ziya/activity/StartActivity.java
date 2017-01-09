@@ -37,6 +37,7 @@ public class StartActivity extends BaseActivity {
     private Button start_time;
 
     private SharedPreferences role ;
+    private SharedPreferences right ;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +143,12 @@ public class StartActivity extends BaseActivity {
         role = getSharedPreferences("role" , MODE_PRIVATE ) ;
         role.edit().putString("role", role_a).commit();
         sprole.edit().putBoolean("isFirstRole", false).commit();
+
+        JSONObject user101 = jsonObject.getJSONObject("user");
+        String right01 = user101.getString("right") ;
+        right = getSharedPreferences("right" , MODE_PRIVATE ) ;
+        right.edit().putString("right", right01).commit();
+
         goSelect(isFirst);
     }
 
@@ -164,7 +171,6 @@ public class StartActivity extends BaseActivity {
     private void initView() {
 
         start_time = (Button) findViewById(R.id.start_time);
-
 
     }
 

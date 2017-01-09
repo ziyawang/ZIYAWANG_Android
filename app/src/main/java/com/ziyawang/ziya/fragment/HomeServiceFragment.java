@@ -16,21 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
-import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
-import com.ziyawang.ziya.activity.FindInfoActivity;
 import com.ziyawang.ziya.activity.FindServiceActivity;
-import com.ziyawang.ziya.adapter.FindInfoAdapter;
 import com.ziyawang.ziya.adapter.FindServiceAdapter;
 import com.ziyawang.ziya.adapter.HomeViewPagerAdapter;
 import com.ziyawang.ziya.entity.FindServiceEntity;
-import com.ziyawang.ziya.tools.Json_FindService;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.BenListView;
@@ -156,7 +153,7 @@ public class HomeServiceFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList_service.get(0).findViewById(R.id.service_three).setOnClickListener(new View.OnClickListener() {
+        viewList_service.get(1).findViewById(R.id.service_three).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("benben" , "--------------------------------服务03") ;
@@ -174,7 +171,7 @@ public class HomeServiceFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        viewList_service.get(1).findViewById(R.id.service_five).setOnClickListener(new View.OnClickListener() {
+        viewList_service.get(0).findViewById(R.id.service_five).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("benben" , "--------------------------------服务05") ;
@@ -341,24 +338,19 @@ public class HomeServiceFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                try {
-                    List<FindServiceEntity> list = Json_FindService.getParse(responseInfo.result) ;
+                com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                com.alibaba.fastjson.JSONArray data01 = object.getJSONArray("data");
+                List<FindServiceEntity> loadDataEntity = JSON.parseArray(data01.toJSONString(), FindServiceEntity.class);
+                data.addAll(loadDataEntity) ;
 
-                    data.addAll(list) ;
+                adapter = new FindServiceAdapter(getActivity() , data ) ;
+                home_service_listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
 
-                    Log.e("benben_service_info", list.get(0).getServiceID() ) ;
-
-                    adapter = new FindServiceAdapter(getActivity() , data ) ;
-                    home_service_listView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-
-                    if (dialog != null ){
-                        dialog.dismiss();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (dialog != null ){
+                    dialog.dismiss();
                 }
+
 
 
             }

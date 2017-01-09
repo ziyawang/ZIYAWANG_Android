@@ -15,66 +15,10 @@
             android:paddingTop="12dp"
             android:id="@+id/service_one"
             android:drawableTop="@mipmap/icon01"
-            android:text="资产包收购"
+            android:text="收购资产包"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
-        <Button
-            android:textSize="13sp"
-            android:textColor="#000"
-            android:background="#ffffff"
-            android:paddingTop="12dp"
-            android:id="@+id/service_two"
-            android:drawableTop="@mipmap/icon02"
-            android:text="债权收购"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-        <Button
-            android:textSize="13sp"
-            android:textColor="#000"
-            android:background="#ffffff"
-            android:paddingTop="12dp"
-            android:id="@+id/service_three"
-            android:drawableTop="@mipmap/icon41"
-            android:text="律师事务所"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/service_ten"
-            android:textSize="13sp"
-            android:textColor="#000"
-            android:background="#ffffff"
-            android:paddingTop="12dp"
-            android:drawableTop="@mipmap/icon29"
-            android:text="催收机构"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-        <Button
-            android:textSize="13sp"
-            android:textColor="#000"
-            android:background="#ffffff"
-            android:paddingTop="12dp"
-            android:id="@+id/service_four"
-            android:drawableTop="@mipmap/icon04"
-            android:text="保理公司"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
         <Button
             android:textSize="13sp"
             android:textColor="#000"
@@ -91,6 +35,60 @@
             android:textColor="#000"
             android:background="#ffffff"
             android:paddingTop="12dp"
+            android:id="@+id/service_eight"
+            android:drawableTop="@mipmap/icon03"
+            android:text="收购固产"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/service_ten"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:drawableTop="@mipmap/icon29"
+            android:text="委外催收"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/service_four"
+            android:drawableTop="@mipmap/icon04"
+            android:text="保理公司"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
+            android:id="@+id/service_two"
+            android:drawableTop="@mipmap/icon02"
+            android:text="债权收购"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:paddingTop="12dp"
             android:id="@+id/service_seven"
             android:drawableTop="@mipmap/icon08"
             android:text="尽职调查"
@@ -102,9 +100,9 @@
             android:textColor="#000"
             android:background="#ffffff"
             android:paddingTop="12dp"
-            android:id="@+id/service_eight"
-            android:drawableTop="@mipmap/icon03"
-            android:text="资产收购"
+            android:id="@+id/service_five"
+            android:drawableTop="@mipmap/icon05"
+            android:text="典当公司"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />

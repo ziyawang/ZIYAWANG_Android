@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.lidroid.xutils.BitmapUtils;
@@ -40,7 +42,9 @@ import com.ziyawang.ziya.activity.MySetActivity;
 import com.ziyawang.ziya.activity.MyTeamWorkActivity;
 import com.ziyawang.ziya.activity.PersonalInformationActivity;
 import com.ziyawang.ziya.activity.ServiceRegisterActivity;
+import com.ziyawang.ziya.activity.StarRegisterActivity;
 import com.ziyawang.ziya.activity.StartActivity;
+import com.ziyawang.ziya.activity.VipCenterActivity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.LoadImageAsyncTask;
 import com.ziyawang.ziya.tools.SDUtil;
@@ -76,6 +80,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private MyIconImageView niu_icon ;
     //服务方认证
     private TextView service_register ;
+    //会员中心
+    private TextView vip_center ;
+    //星级认证
+    private TextView star_register ;
     //用户缓存的root
     private static String root ;
     //服务方进入的电话号
@@ -109,6 +117,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private String ConfirmationP2 ;
     private String ConfirmationP3 ;
     private String ServiceArea ;
+
+    private String Size ;
+    private String Founds ;
+    private String Regtime ;
     //消息中心按钮
     private TextView my_fragment_information ;
     //意见反馈按钮
@@ -132,14 +144,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public static final String UNSERVICE = "2" ;
     //下啦刷新组件
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ScrollView scrollView ;
+
+    private String type_01 , type_02 , type_03 , type_04 , type_05 ;
     //无参构造
     public MyFragment(){}
+
+    private SharedPreferences right ;
 
     @Override
     public void onResume() {
         super.onResume();
         Log.e("MyFragment  onResume", "=========MyFragment  onResume=======") ;
         //当Fragment执行OnResume方法时，自动从内存中，加载头像。
+        type_01 = "" ;
+        type_02 = "" ;
+        type_03 = "" ;
+        type_04 = "" ;
+        type_05 = "" ;
         initIcon() ;
         getSpData();
         loadData();
@@ -282,18 +304,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void showUnServiceViews() {
         my_rush.setVisibility(View.GONE);
+        vip_center.setVisibility(View.GONE);
+        star_register.setVisibility(View.GONE);
         niu_relative.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.VISIBLE);
     }
 
     private void showServiceViews() {
         my_rush.setVisibility(View.VISIBLE);
+        vip_center.setVisibility(View.VISIBLE);
+        star_register.setVisibility(View.VISIBLE);
         niu_relative.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.VISIBLE);
     }
 
     private void showReleaseViews() {
         my_rush.setVisibility(View.GONE);
+        vip_center.setVisibility(View.GONE);
+        star_register.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.GONE);
         niu_relative.setVisibility(View.VISIBLE);
     }
@@ -310,6 +338,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         feedBack.setOnClickListener(this);
         my_rush.setOnClickListener(this);
         service_register.setOnClickListener(this);
+        vip_center.setOnClickListener(this);
+        star_register.setOnClickListener(this);
         publish_relative.setOnClickListener(this);
         cooperation_relative.setOnClickListener(this);
         collection_relative.setOnClickListener(this);
@@ -387,6 +417,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void unLoadServiceView(String result, JSONObject jsonObject) throws JSONException {
         my_rush.setVisibility(View.GONE);
+        vip_center.setVisibility(View.GONE);
+        star_register.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.VISIBLE);
         niu_relative.setVisibility(View.GONE);
         JSONObject object01 = new JSONObject(result);
@@ -411,10 +443,20 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ConfirmationP3 = service01.getString("ConfirmationP3");
         //服务地区
         ServiceArea = service01.getString("ServiceArea");
+
+        Regtime = service01.getString("RegTime");
+        Founds = service01.getString("Founds");
+        Size = service01.getString("Size");
+
         JSONObject user101 = jsonObject.getJSONObject("user");
         final String userPicture01 = user101.getString("UserPicture");
         username = user101.getString("username");
         phoneNumber = user101.getString("phonenumber");
+        String right01 = user101.getString("right") ;
+
+        right = getActivity().getSharedPreferences("right", getActivity().MODE_PRIVATE) ;
+        right.edit().putString("right", right01).commit();
+
         niu_relative.setVisibility(View.GONE) ;
         me_change_icon.setVisibility(View.VISIBLE);
         //更改头像
@@ -446,6 +488,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void loadServiceView(String result, JSONObject jsonObject) throws JSONException {
         my_rush.setVisibility(View.VISIBLE);
+        vip_center.setVisibility(View.VISIBLE);
+        star_register.setVisibility(View.VISIBLE);
         me_change_icon.setVisibility(View.VISIBLE);
         niu_relative.setVisibility(View.GONE);
         JSONObject object = new JSONObject(result);
@@ -470,10 +514,30 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ConfirmationP3 = service.getString("ConfirmationP3");
         //服务地区
         ServiceArea = service.getString("ServiceArea");
+
+        Regtime = service.getString("RegTime");
+        Founds = service.getString("Founds");
+        Size = service.getString("Size");
+
         JSONObject user1 = jsonObject.getJSONObject("user");
         final String userPicture = user1.getString("UserPicture");
         username = user1.getString("username");
         phoneNumber = user1.getString("phonenumber");
+
+        String right01 = user1.getString("right") ;
+        JSONObject showright = user1.getJSONObject("showright");
+        type_01 = showright.optString("资产包");
+        type_02 = showright.optString("企业商账");
+        type_03 = showright.optString("固定资产");
+        type_04 = showright.optString("融资信息");
+        type_05 = showright.optString("个人债权");
+
+
+        right = getActivity().getSharedPreferences("right", getActivity().MODE_PRIVATE) ;
+        right.edit().putString("right", right01).commit();
+
+
+
         niu_relative.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.VISIBLE);
         //更改头像
@@ -640,6 +704,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private void initView(View v ) {
         me_change_icon = (RelativeLayout)v.findViewById(R.id.me_change_icon ) ;
         service_register = (TextView) v.findViewById(R.id.service_register ) ;
+        vip_center = (TextView) v.findViewById(R.id.vip_center ) ;
+        star_register = (TextView) v.findViewById(R.id.star_register ) ;
         my_rush = (TextView) v.findViewById(R.id.my_rush ) ;
         default_icon = (MyIconImageView)v.findViewById(R.id.default_icon ) ;
         niu_icon = (MyIconImageView)v.findViewById(R.id.niu_icon ) ;
@@ -659,6 +725,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         add_pay = (TextView) v.findViewById(R.id.add_pay ) ;
         my_fragment_information = (TextView) v.findViewById(R.id.my_fragment_information ) ;
+        scrollView = (ScrollView)v.findViewById(R.id.scrollView ) ;
+        if (scrollView != null) {
+            scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                @Override
+                public void onScrollChanged() {
+                    if (swipeRefreshLayout != null) {
+                        swipeRefreshLayout.setEnabled(scrollView.getScrollY() == 0);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -690,6 +767,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.service_register :
                 judgeServiceRegisterView() ;
                 break;
+            //会员中心按钮
+            case R.id.vip_center :
+                judgeVipCenterView() ;
+                break;
+            //星级认证按钮
+            case R.id.star_register :
+                judgeStarRegisterView() ;
+                break;
             //我的抢单按钮
             case R.id.my_rush :
                 judgeMyRushView();
@@ -709,6 +794,37 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void judgeStarRegisterView() {
+        if (isLogin){
+            goStarRegisterActivity() ;
+        }else {
+            goLoginActivity();
+        }
+    }
+
+    private void goStarRegisterActivity() {
+        Intent intent = new Intent(getActivity() , StarRegisterActivity.class ) ;
+        startActivity(intent );
+    }
+
+    private void judgeVipCenterView() {
+        if (isLogin){
+            goVipCenterActivity() ;
+        }else {
+            goLoginActivity();
+        }
+    }
+
+    private void goVipCenterActivity() {
+        Intent intent = new Intent(getActivity() , VipCenterActivity.class ) ;
+        intent.putExtra("type_01" , type_01 ) ;
+        intent.putExtra("type_02" , type_02 ) ;
+        intent.putExtra("type_03" , type_03 ) ;
+        intent.putExtra("type_04" , type_04 ) ;
+        intent.putExtra("type_05" , type_05 ) ;
+        startActivity(intent );
     }
 
     private void judgeInformationView() {
@@ -800,6 +916,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(getActivity() , PersonalInformationActivity.class ) ;
         intent.putExtra("phoneNumber" , phoneNumber ) ;
         intent.putExtra("username" , username ) ;
+        intent.putExtra("type_01" , type_01 ) ;
+        intent.putExtra("type_02" , type_02 ) ;
+        intent.putExtra("type_03" , type_03 ) ;
+        intent.putExtra("type_04" , type_04 ) ;
+        intent.putExtra("type_05" , type_05 ) ;
         startActivity(intent);
     }
 
@@ -845,6 +966,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 intent.putExtra("ConfirmationP3" , ConfirmationP3) ;
                 //服务地区
                 intent.putExtra("ServiceArea", ServiceArea) ;
+
+                intent.putExtra("Size", Size ) ;
+                intent.putExtra("Founds", Founds ) ;
+                intent.putExtra("Regtime", Regtime ) ;
                 break;
         }
         startActivity(intent);

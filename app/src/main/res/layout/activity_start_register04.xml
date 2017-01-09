@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".activity.StarRegisterActivity04">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="承诺书认证"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:paddingLeft="16dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:textColor="#fd0900"
+        android:text="开通认证成功后将点亮本认证星级，并在服务方页面进行展示。"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_marginTop="1px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@drawable/vip_recharage"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+            <TextView
+                android:textColor="#020202"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:text="承诺书认证"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginRight="18dp"
+                    android:id="@+id/ben"
+                    android:textColor="#020202"
+                    android:textSize="16sp"
+                    android:text="免费"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/ben"
+                    android:src="@mipmap/rechargeselect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:textStyle="bold"
+        android:paddingLeft="16dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:textColor="#fd0900"
+        android:text="请先下载承诺书，签字盖章后在此处上传承诺书。"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+    <Button
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="下载承诺书"
+        android:background="#fdd000"
+        android:id="@+id/download"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <Button
+        android:layout_marginTop="12dp"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="上传承诺书"
+        android:background="@drawable/details_info_pay"
+        android:id="@+id/upload"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/star_frame"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp">
+
+        <ImageView
+            android:layout_marginBottom="10dp"
+            android:id="@+id/star_imageVIew"
+            android:layout_width="90dp"
+            android:layout_height="90dp" />
+
+        <ImageView
+            android:id="@+id/star_img_cancel"
+            android:layout_gravity="end"
+            android:src="@mipmap/release_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+</LinearLayout>

@@ -27,14 +27,10 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
-import com.ziyawang.ziya.adapter.FindInfoAdapter;
 import com.ziyawang.ziya.adapter.FindServiceAdapter;
 import com.ziyawang.ziya.adapter.V2FindInfoAdapter;
-import com.ziyawang.ziya.entity.FindInfoEntity;
 import com.ziyawang.ziya.entity.FindServiceEntity;
 import com.ziyawang.ziya.entity.V2InfoEntity;
-import com.ziyawang.ziya.tools.Json_FindInfo;
-import com.ziyawang.ziya.tools.Json_FindService;
 import com.ziyawang.ziya.tools.NetUtils;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -282,41 +278,28 @@ public class SearchActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(responseInfo.result);
                             String pages = jsonObject.getString("pages");
-
                             page = Integer.parseInt(pages);
                             count++;
-
                             Log.e("benbne", "当前页：" + count + "-------------总页数：" + pages);
-
                             String counts = jsonObject.getString("counts");
                             if (!TextUtils.isEmpty(counts) && counts.equals("0")){
                                 scrollView.setVisibility(View.GONE);
                                 niuniuniuniu.setVisibility(View.VISIBLE);
                             }else {
-
                                 scrollView.setVisibility(View.VISIBLE);
                                 niuniuniuniu.setVisibility(View.GONE);
-
-                                try {
-                                    List<FindServiceEntity> list = Json_FindService.getParse(responseInfo.result);
-
-                                    data01.addAll(list);
-
-                                    adapter01 = new FindServiceAdapter(SearchActivity.this, data01);
-                                    listView.setAdapter(adapter01);
-                                    adapter01.notifyDataSetChanged();
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                com.alibaba.fastjson.JSONObject object = JSON.parseObject(responseInfo.result);
+                                com.alibaba.fastjson.JSONArray data = object.getJSONArray("data");
+                                List<FindServiceEntity> loadDataEntity = JSON.parseArray(data.toJSONString(), FindServiceEntity.class);
+                                data01.addAll(loadDataEntity);
+                                adapter01 = new FindServiceAdapter(SearchActivity.this, data01);
+                                listView.setAdapter(adapter01);
+                                adapter01.notifyDataSetChanged();
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                     @Override
                     public void onFailure(HttpException error, String msg) {
                         if (dialog != null) {

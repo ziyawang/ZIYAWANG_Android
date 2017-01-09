@@ -58,6 +58,8 @@ public class MySetActivity extends BaseActivity implements PlatformActionListene
     private SharedPreferences sharedPreferences ;
     private SharedPreferences myNumber ;
     private SharedPreferences role ;
+    private SharedPreferences right ;
+    private SharedPreferences level ;
     private SharedPreferences r_token ;
     private TextView logout ;
     private TextView app_check ;
@@ -326,12 +328,16 @@ public class MySetActivity extends BaseActivity implements PlatformActionListene
         sharedPreferences = getSharedPreferences("isLogin", MODE_PRIVATE);
         myNumber = getSharedPreferences("myNumber", MODE_PRIVATE);
         role = getSharedPreferences("role", MODE_PRIVATE);
+        right = getSharedPreferences("right", MODE_PRIVATE);
+        level = getSharedPreferences("level", MODE_PRIVATE);
 
         //将ticket的值擦除
         r_token.edit().putString("r_token", "").commit();
         loginCode.edit().putString("loginCode", "").commit();
         myNumber.edit().putString("myNumber", "").commit();
         role.edit().putString("role", "").commit();
+        right.edit().putString("right", "").commit();
+        level.edit().putString("level", "").commit();
 
         SharedPreferences isLogin = getSharedPreferences("isLogin" , MODE_PRIVATE);
         isLogin.edit().putBoolean("isLogin", false).commit();

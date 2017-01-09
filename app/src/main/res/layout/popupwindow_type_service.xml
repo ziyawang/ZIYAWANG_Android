@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="38dp">
 
+            <!--收购资产包-->
             <Button
                 android:background="@drawable/find_info_type"
                 android:id="@+id/a"
@@ -29,61 +30,33 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="资产包收购" />
-
+                android:text="收购资产包" />
             <Button
-                android:id="@+id/b"
+                android:text="投融资服务"
+                android:id="@+id/d"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/find_info_type"
-                android:text="催收机构" />
+                android:background="@drawable/find_info_type" />
 
+            <!--法律服务-->
             <Button
                 android:id="@+id/c"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/find_info_type"
-                android:text="律师事务所" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="38dp">
-
-            <Button
-                android:id="@+id/d"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/find_info_type"
-                android:text="保理公司" />
-
-            <Button
-                android:text="资产收购"
-                android:id="@+id/i"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/find_info_type" />
-
-            <Button
-                android:text="债权收购"
-                android:id="@+id/j"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/find_info_type"/>
-
+                android:text="法律服务" />
 
         </LinearLayout>
 
@@ -92,69 +65,130 @@
             android:layout_width="match_parent"
             android:layout_height="38dp">
 
-            <Button
-                android:id="@+id/g"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/find_info_type"
-                android:text="投融资服务" />
 
-            <Button
-                android:id="@+id/h"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/find_info_type"
-                android:text="尽职调查" />
-
-            <Button
-                android:id="@+id/f"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/find_info_type"
-                android:text="担保公司" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="38dp">
 
             <Button
                 android:id="@+id/e"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/find_info_type"
-                android:text="典当公司" />
+                android:text="收购固产" />
 
+            <!--委外催收-->
             <Button
-                android:clickable="false"
-                android:visibility="invisible"
+                android:id="@+id/b"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/find_info_type"
+                android:text="委外催收" />
+
+            <Button
+                android:text="典当公司"
+                android:id="@+id/g"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/find_info_type" />
 
-            <Button
-                android:clickable="false"
-                android:visibility="invisible"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/find_info_type" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="38dp">
+
+            <Button
+                android:text="担保公司"
+                android:id="@+id/j"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/find_info_type" />
+            <Button
+                android:id="@+id/h"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/find_info_type"
+                android:text="尽职调查" />
+            <Button
+                android:id="@+id/f"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/find_info_type"
+                android:text="保理公司" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="38dp">
+
+            <Button
+                android:id="@+id/i"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/find_info_type"
+                android:text="债权收购" />
+            <Button
+                android:visibility="invisible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/find_info_type" />
+
+            <Button
+                android:visibility="invisible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/find_info_type" />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

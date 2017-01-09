@@ -1,11 +1,9 @@
 package com.ziyawang.ziya.activity;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,15 +25,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
-import com.ziyawang.ziya.adapter.FindInfoAdapter;
-import com.ziyawang.ziya.adapter.FindServiceAdapter;
 import com.ziyawang.ziya.adapter.MovieBigItemAdapter;
-import com.ziyawang.ziya.adapter.MovieItemAdapter;
-import com.ziyawang.ziya.entity.FindInfoEntity;
-import com.ziyawang.ziya.entity.FindServiceEntity;
 import com.ziyawang.ziya.entity.FindVideoEntity;
-import com.ziyawang.ziya.tools.Json_FindInfo;
-import com.ziyawang.ziya.tools.Json_FindService;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.BenListView;

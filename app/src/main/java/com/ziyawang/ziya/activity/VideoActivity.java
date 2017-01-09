@@ -500,6 +500,7 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         @Override
         public void onPlayFinish() {}
     };
+
     @Override
     public void onClick(View view) {
         mPlayBtnView.setVisibility(View.GONE);
