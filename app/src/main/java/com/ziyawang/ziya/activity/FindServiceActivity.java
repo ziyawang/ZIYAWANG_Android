@@ -338,6 +338,7 @@ public class FindServiceActivity extends BenBenActivity implements View.OnClickL
         params.addQueryStringParameter("startpage", "" + count);
         params.addQueryStringParameter("ServiceType", typeName);
         params.addQueryStringParameter("ServiceArea", part);
+        params.addQueryStringParameter("ServiceLevel", ServiceLevel );
 
         httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetService, params, new RequestCallBack<String>() {
             @Override

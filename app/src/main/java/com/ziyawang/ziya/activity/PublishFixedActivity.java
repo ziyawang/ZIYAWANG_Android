@@ -16,8 +16,10 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
@@ -53,6 +55,7 @@ import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyProgressDialog;
 import com.ziyawang.ziya.view.WheelView;
+import com.ziyawang.ziya.view.XEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,6 +116,14 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
     /**
      * 公共部分
      */
+    //市场单价relative
+    private RelativeLayout market_price_relative ;
+    //市场单价text
+    private TextView market_price_text ;
+    // 转让单价relative
+    private RelativeLayout transfer_price_relative ;
+    //转让单价text
+    private TextView transfer_price_text ;
     // 转让价格
     private EditText edit_money ;
     // 有无相关证件
@@ -195,6 +206,8 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
     private static final int REQUEST_PERMISSION_SETTING = 0x002;
     //声音撤销按钮
     private TextView voice_cancel;
+    //选择的类型
+    private String selected_type ;
     /*************************************************录音和上传照片模块01********************************************/
     /*************************************************录音和上传照片模块02********************************************/
     @Override
@@ -906,6 +919,12 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
 
     @Override
     public void initViews() {
+
+        market_price_relative = (RelativeLayout)findViewById(R.id.market_price_relative )  ;
+        market_price_text = (TextView) findViewById(R.id.market_price_text )  ;
+        transfer_price_relative = (RelativeLayout)findViewById(R.id.transfer_price_relative )  ;
+        transfer_price_text = (TextView)findViewById(R.id.transfer_price_text )  ;
+
         info_weituo = (TextView)findViewById(R.id.info_weituo ) ;
         edit_des = (EditText)findViewById(R.id.edit_des ) ;
         edit_name = (EditText)findViewById(R.id.edit_name ) ;
@@ -946,12 +965,84 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
 
         edit_money.setInputType(EditorInfo.TYPE_CLASS_PHONE);
         edit_money.setFilters(filters);
+        edit_money.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                if (!TextUtils.isEmpty(edit_big.getText().toString().trim()) && !"0".equals(edit_big.getText().toString().trim())){
+//                    int a = Integer.parseInt(s.toString().trim()) / Integer.parseInt(edit_big.getText().toString().trim() ) ;
+//                    transfer_price_text.setText(a);
+//                }
+                if ("土地".equals(selected_type)){
+                    Log.e("土地转让单价" , s.toString().trim()  + "==========" +  edit_big.getText().toString().trim() )  ;
+                    float c = 0 ;
+                    if (!TextUtils.isEmpty(edit_big.getText().toString().trim()) &&!"0".equals(edit_big.getText().toString().trim())){
+                        float b = Float.parseFloat(edit_big.getText().toString().trim()) ;
+                        if (!TextUtils.isEmpty(s.toString().trim())){
+                            float a = Float.parseFloat(s.toString().trim()) ;
+                            c =  a / b ;
+                        }
+                        transfer_price_text.setText( "" + c);
+                    }
+
+                }else {
+                    float c = 0 ;
+                    if (!TextUtils.isEmpty(edit_mianji02.getText().toString().trim()) &&!"0".equals(edit_mianji02.getText().toString().trim())){
+                        float b = Float.parseFloat(edit_mianji02.getText().toString().trim()) ;
+                        if (!TextUtils.isEmpty(s.toString().trim())){
+                            float a = Float.parseFloat(s.toString().trim()) ;
+                            c =  a / b ;
+                        }
+                        transfer_price_text.setText( "" + c);
+                    }
+                    Log.e("房产转让单价" , s.toString().trim()  + "==========" +  edit_mianji02.getText().toString().trim() )  ;
+                }
+
+            }
+        });
         edit_mianji02.setInputType(EditorInfo.TYPE_CLASS_PHONE);
         edit_mianji02.setFilters(filters);
 
         edit_market_price.setInputType(EditorInfo.TYPE_CLASS_PHONE);
         edit_market_price.setFilters(filters);
+
+        edit_market_price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if ("房产".equals(selected_type)){
+                    float c = 0 ;
+                    if (!TextUtils.isEmpty(edit_mianji02.getText().toString().trim()) && !"0".equals(edit_mianji02.getText().toString().trim())){
+                        float b = Float.parseFloat(edit_mianji02.getText().toString().trim()) ;
+                        if (!TextUtils.isEmpty(s.toString().trim())){
+                            float a = Float.parseFloat(s.toString().trim()) ;
+                            c =  a / b ;
+                        }
+                        market_price_text.setText( "" + c);
+                    }
+                    Log.e("房产市场单价" , s.toString().trim()  + "==========" +  edit_mianji02.getText().toString().trim() )  ;
+                }
+
+            }
+        });
 
         /*************************************************录音和上传照片模块04********************************************/
         release_audio_des_duration = (TextView) findViewById(R.id.release_audio_des_duration);
@@ -1497,6 +1588,9 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
             case R.id.text_jiufen :
             case R.id.text_fuzhai :
             case R.id.text_danbao :
+                picker.addData("有");
+                picker.addData("无");
+                break;
             case R.id.text_chanquan :
                 picker.addData("是");
                 picker.addData("否");
@@ -1519,9 +1613,15 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
                     if ("土地".equals(centerItem.toString())){
                         linear01.setVisibility(View.VISIBLE);
                         linear02.setVisibility(View.GONE);
+                        transfer_price_relative.setVisibility(View.VISIBLE);
+                        market_price_relative.setVisibility(View.GONE);
+                        selected_type = "土地" ;
                     }else {
                         linear01.setVisibility(View.GONE);
                         linear02.setVisibility(View.VISIBLE);
+                        transfer_price_relative.setVisibility(View.VISIBLE);
+                        market_price_relative.setVisibility(View.VISIBLE);
+                        selected_type = "房产" ;
                     }
                 }else {
                     tv.setText(centerItem.toString());

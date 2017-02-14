@@ -56,6 +56,7 @@ import com.ziyawang.ziya.view.MyProgressDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +105,9 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private LinearLayout linear_seven ;
     private LinearLayout linear_eight ;
     private LinearLayout linear_nine ;
+    private LinearLayout linear_nine_add ;
     private LinearLayout linear_ten ;
+    private LinearLayout linear_ten_add ;
 
     private TextView one_left ;
     private TextView two_left ;
@@ -115,7 +118,9 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private TextView seven_left ;
     private TextView eight_left ;
     private TextView nine_left ;
+    private TextView nine_left_add ;
     private TextView ten_left ;
+    private TextView ten_left_add ;
 
     private TextView one_right ;
     private TextView two_right ;
@@ -126,7 +131,9 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private TextView seven_right ;
     private TextView eight_right ;
     private TextView nine_right ;
+    private TextView nine_right_add ;
     private TextView ten_right ;
+    private TextView ten_right_add ;
 
     private LinearLayout linear_01 ;
     private LinearLayout linear_02 ;
@@ -315,6 +322,10 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         eight_right = (TextView)findViewById(R.id.eight_right ) ;
         nine_right = (TextView)findViewById(R.id.nine_right ) ;
         ten_right = (TextView)findViewById(R.id.ten_right ) ;
+        nine_right_add = (TextView)findViewById(R.id.nine_right_add ) ;
+        ten_right_add = (TextView)findViewById(R.id.ten_right_add ) ;
+        linear_nine_add = (LinearLayout)findViewById(R.id.linear_nine_add )  ;
+        linear_ten_add = (LinearLayout)findViewById(R.id.linear_ten_add )  ;
 
         linear_01 = (LinearLayout)findViewById(R.id.linear_01 ) ;
         linear_02 = (LinearLayout)findViewById(R.id.linear_02 ) ;
@@ -980,6 +991,20 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         eight_right.setTextColor(Color.rgb(239, 130, 0));
         eight_right.setTextSize(20);
 
+        linear_ten_add.setVisibility(View.VISIBLE);
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        String s2 = "0" ;
+        if (!TextUtils.isEmpty(area) &&!"0".equals(area)){
+            float b = Float.parseFloat(area) ;
+            if (!TextUtils.isEmpty(money)){
+                float a = Float.parseFloat(money) ;
+                float d =  a / b ;
+                s2 = String.valueOf(df.format(d));
+            }
+            ten_right_add.setText(s2 + " 万元/平方米");
+        }
+
         linear_01.setVisibility(View.VISIBLE);
         linear_02.setVisibility(View.VISIBLE);
         linear_03.setVisibility(View.VISIBLE);
@@ -1050,6 +1075,34 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         ten_left.setText("转让价：");
         String money = object.getString("TransferMoney");
         ten_right.setText(money + "万元");
+
+        linear_nine_add.setVisibility(View.VISIBLE);
+        linear_ten_add.setVisibility(View.VISIBLE);
+        DecimalFormat df = new DecimalFormat("0.00");
+        String s1 = "0" ;
+        if (!TextUtils.isEmpty(area) &&!"0".equals(area)){
+            float b = Float.parseFloat(area) ;
+            if (!TextUtils.isEmpty(marketPrice)){
+                float a = Float.parseFloat(marketPrice) ;
+                float c =  a / b ;
+                s1 = String.valueOf(df.format(c));
+            }
+            nine_right_add.setText(s1 + " 万元/平方米");
+        }
+        String s2 = "0" ;
+        if (!TextUtils.isEmpty(area) &&!"0".equals(area)){
+            float b = Float.parseFloat(area) ;
+            if (!TextUtils.isEmpty(money)){
+                float a = Float.parseFloat(money) ;
+                float d =  a / b ;
+                s2 = String.valueOf(df.format(d));
+            }
+            ten_right_add.setText(s2 + " 万元/平方米");
+        }
+
+
+
+
 
         nine_right.setTextColor(Color.rgb(239, 130, 0));
         nine_right.setTextSize(20);

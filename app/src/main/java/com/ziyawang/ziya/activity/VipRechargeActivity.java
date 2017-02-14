@@ -169,9 +169,9 @@ public class VipRechargeActivity extends BenBenActivity implements View.OnClickL
                 payname = "固定资产" ;
                 img_vip_type.setImageResource(R.mipmap.v2020403);
                 vip_recharge_title.setText("开通固定资产VIP享受精彩特权");
-                vip_type.setText("季度会员");
-                recharge_money01.setText("￥3998");
-                recharge_money02.setText("￥12000");
+                vip_type.setText("月度会员");
+                recharge_money01.setText("￥6498");
+                recharge_money02.setText("￥70000");
                 break;
             case "04" :
                 payid = "4" ;

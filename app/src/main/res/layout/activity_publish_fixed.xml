@@ -137,8 +137,8 @@
             </LinearLayout>
             <!--固定资产，土地展示页面，相互独立-->
             <LinearLayout
-                android:id="@+id/linear01"
                 android:visibility="gone"
+                android:id="@+id/linear01"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -292,8 +292,8 @@
             </LinearLayout>
             <!--固定资产，房产展示页面，相互独立-->
             <LinearLayout
-                android:id="@+id/linear02"
                 android:visibility="gone"
+                android:id="@+id/linear02"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -519,6 +519,52 @@
 
                 </RelativeLayout>
             </LinearLayout>
+            <!--市场单价-->
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/market_price_relative"
+                android:layout_marginTop="1px"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/market_price"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#333"
+                    android:textSize="18sp"
+                    android:text="市场单价"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="#ef8200"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/market_price_danwei"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:text="万元/平方米"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColorHint="#333"
+                    android:maxLength="11"
+                    android:id="@+id/market_price_text"
+                    android:layout_marginRight="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/market_price"
+                    android:layout_toLeftOf="@id/market_price_danwei"
+                    android:gravity="end|center_vertical"
+                    android:singleLine="true"
+                    android:textSize="20sp"
+                    android:textColor="#999"
+                    android:drawablePadding="16dp"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
             <!--转让价格-->
             <RelativeLayout
                 android:layout_marginTop="1px"
@@ -559,6 +605,52 @@
                     android:hint="请输入转让价格"
                     android:singleLine="true"
                     android:textSize="15sp"
+                    android:textColor="#999"
+                    android:drawablePadding="16dp"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+            <!--转让单价-->
+            <RelativeLayout
+                android:id="@+id/transfer_price_relative"
+                android:visibility="gone"
+                android:layout_marginTop="1px"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/transfer_price"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#333"
+                    android:textSize="18sp"
+                    android:text="转让单价"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="#ef8200"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/transfer_price_danwei"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:text="万元/平方米"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColorHint="#333"
+                    android:maxLength="11"
+                    android:id="@+id/transfer_price_text"
+                    android:layout_marginRight="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/transfer_price"
+                    android:layout_toLeftOf="@id/transfer_price_danwei"
+                    android:gravity="end|center_vertical"
+                    android:singleLine="true"
+                    android:textSize="20sp"
                     android:textColor="#999"
                     android:drawablePadding="16dp"
                     android:background="#fff"

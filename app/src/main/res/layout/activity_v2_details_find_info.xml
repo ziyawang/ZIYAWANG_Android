@@ -72,7 +72,6 @@
     </RelativeLayout>
     <!--滑动页面-->
     <ScrollView
-        android:visibility="gone"
         android:layout_below="@id/details_info_head"
         android:layout_marginBottom="44dp"
         android:id="@+id/info_scroll"
@@ -377,6 +376,27 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/linear_nine_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="市场单价："
+                            android:textSize="15sp"
+                            android:textColor="#666"
+                            android:id="@+id/nine_left_add"
+                            android:layout_marginBottom="13dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textSize="15sp"
+                            android:textColor="#333"
+                            android:id="@+id/nine_right_add"
+                            android:layout_marginBottom="13dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
                         android:id="@+id/linear_ten"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -391,6 +411,27 @@
                             android:textSize="15sp"
                             android:textColor="#333"
                             android:id="@+id/ten_right"
+                            android:layout_marginBottom="13dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/linear_ten_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="转让单价："
+                            android:textSize="15sp"
+                            android:textColor="#666"
+                            android:id="@+id/ten_left_add"
+                            android:layout_marginBottom="13dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textSize="15sp"
+                            android:textColor="#333"
+                            android:id="@+id/ten_right_add"
                             android:layout_marginBottom="13dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
