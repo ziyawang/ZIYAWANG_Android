@@ -41,6 +41,10 @@ import org.json.JSONObject;
 import java.io.File;
 
 public class StarRegisterActivity extends BenBenActivity implements View.OnClickListener {
+
+    public static final String SERVICE = "1" ;
+    public static final String UNSERVICE = "2" ;
+
     //返回按钮
     private RelativeLayout pre ;
     //头像
@@ -60,6 +64,9 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
     private ImageView star_01 , star_02 , star_03 , star_04 , star_05 ;
 
     private String type_01 , type_02 , type_03, type_04 , type_05 ;
+
+    private TextView normal_textView ;
+    private Button to_register ;
 
     @Override
     protected void onResume() {
@@ -95,60 +102,95 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
     private void dealResult(String result) throws JSONException {
         JSONObject jsonObject = new JSONObject(result);
         JSONObject service1 = jsonObject.getJSONObject("service");
-        String Level01 = service1.getString("Level") ;
-        level = getSharedPreferences("level", MODE_PRIVATE) ;
-        level.edit().putString("level", Level01).commit();
-        JSONObject showlevelarr = service1.getJSONObject("showlevelarr");
-        type_01 = showlevelarr.optString("1");
-        type_02 = showlevelarr.optString("2");
-        type_03 = showlevelarr.optString("3");
-        type_04 = showlevelarr.optString("4");
-        type_05 = showlevelarr.optString("5");
-        String level = GetBenSharedPreferences.getLevel(this);
-        if (!TextUtils.isEmpty(level) ){
-            String[] split = level.split(",");
-            for (int i = 0; i < split.length; i++) {
-                if ("1".equals(split[i].toString())){
-                    star_01.setImageResource(R.mipmap.v203_0301);
-                }
-                if ("2".equals(split[i].toString())){
-                    star_02.setImageResource(R.mipmap.v203_0302);
-                }
-                if ("3".equals(split[i].toString()) ){
-                    star_03.setImageResource(R.mipmap.v203_0303);
-                }
-                if ("4".equals(split[i].toString()) ){
-                    star_04.setImageResource(R.mipmap.v203_0304);
-                }
-                if ("5".equals(split[i].toString())){
-                    star_05.setImageResource(R.mipmap.v203_0305);
+        String role = jsonObject.getString("role");
+        if ("1".equals(role)){
+            normal_textView.setText("可选择完成以下认证点亮星级");
+            to_register.setVisibility(View.GONE);
+            //审核通过的服务方
+            String Level01 = service1.getString("Level") ;
+            level = getSharedPreferences("level", MODE_PRIVATE) ;
+            level.edit().putString("level", Level01).commit();
+            JSONObject showlevelarr = service1.getJSONObject("showlevelarr");
+            type_01 = showlevelarr.optString("1");
+            type_02 = showlevelarr.optString("2");
+            type_03 = showlevelarr.optString("3");
+            type_04 = showlevelarr.optString("4");
+            type_05 = showlevelarr.optString("5");
+            String level = GetBenSharedPreferences.getLevel(this);
+            if (!TextUtils.isEmpty(level) ){
+                String[] split = level.split(",");
+                for (int i = 0; i < split.length; i++) {
+                    if ("1".equals(split[i].toString())){
+                        star_01.setImageResource(R.mipmap.v203_0301);
+                    }
+                    if ("2".equals(split[i].toString())){
+                        star_02.setImageResource(R.mipmap.v203_0302);
+                    }
+                    if ("3".equals(split[i].toString()) ){
+                        star_03.setImageResource(R.mipmap.v203_0303);
+                    }
+                    if ("4".equals(split[i].toString()) ){
+                        star_04.setImageResource(R.mipmap.v203_0304);
+                    }
+                    if ("5".equals(split[i].toString())){
+                        star_05.setImageResource(R.mipmap.v203_0305);
+                    }
                 }
             }
-        }
-        showStatus(type_01 , type01_btn02 ) ;
-        showStatus(type_02 , type02_btn02 ) ;
-        showStatus(type_03 , type03_btn02 ) ;
-        showStatus(type_04 , type04_btn02 ) ;
-        showStatus(type_05 , type05_btn02 ) ;
+            showStatus(type_01 , type01_btn02 ) ;
+            showStatus(type_02 , type02_btn02 ) ;
+            showStatus(type_03 , type03_btn02 ) ;
+            showStatus(type_04 , type04_btn02 ) ;
+            showStatus(type_05 , type05_btn02 ) ;
+            type01_btn02.setVisibility(View.VISIBLE);
+            type02_btn02.setVisibility(View.VISIBLE);
+            type03_btn02.setVisibility(View.VISIBLE);
+            type04_btn02.setVisibility(View.VISIBLE);
+            type05_btn02.setVisibility(View.VISIBLE);
+        }else {
+            //未审核通过的服务方
+            to_register.setVisibility(View.VISIBLE);
+            normal_textView.setText("您需要先通过服务方认证才可进行星级认证");
+            type01_btn02.setSelected(false);
+            type02_btn02.setSelected(false);
+            type03_btn02.setSelected(false);
+            type04_btn02.setSelected(false);
+            type05_btn02.setSelected(false);
 
+            type01_btn02.setOnClickListener(null);
+            type02_btn02.setOnClickListener(null);
+            type03_btn02.setOnClickListener(null);
+            type04_btn02.setOnClickListener(null);
+            type05_btn02.setOnClickListener(null);
+
+            type01_btn02.setText("未认证");
+            type02_btn02.setText("未认证");
+            type03_btn02.setText("未认证");
+            type04_btn02.setText("未认证");
+            type05_btn02.setText("未认证");
+        }
     }
 
     private void showStatus(String type_01, Button type01_btn02) {
         if (!TextUtils.isEmpty(type_01)){
             switch (type_01){
                 case "0" :
+                    type01_btn02.setSelected(true);
                     type01_btn02.setText("开通");
                     type01_btn02.setOnClickListener(this);
                     break;
                 case "1" :
+                    type01_btn02.setSelected(false);
                     type01_btn02.setText("审核中");
                     type01_btn02.setOnClickListener(null);
                     break;
                 case "2" :
+                    type01_btn02.setSelected(false);
                     type01_btn02.setText("已开通");
                     type01_btn02.setOnClickListener(null);
                     break;
                 case "3" :
+                    type01_btn02.setSelected(true);
                     type01_btn02.setText("开通");
                     type01_btn02.setOnClickListener(this);
                     break;
@@ -157,6 +199,7 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
             }
         }else {
             type01_btn02.setText("开通");
+            type01_btn02.setSelected(true);
         }
     }
 
@@ -191,6 +234,9 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
         star_03 = (ImageView)findViewById(R.id.star_03 ) ;
         star_04 = (ImageView)findViewById(R.id.star_04 ) ;
         star_05 = (ImageView)findViewById(R.id.star_05 ) ;
+
+        to_register = (Button)findViewById(R.id.to_register ) ;
+        normal_textView = (TextView)findViewById(R.id.normal_textView) ;
     }
 
     @Override
@@ -206,6 +252,7 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
         type03_btn02.setOnClickListener(this );
         type04_btn02.setOnClickListener(this );
         type05_btn02.setOnClickListener(this );
+        to_register.setOnClickListener(this);
 
     }
 
@@ -276,6 +323,9 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
                 break;
             case R.id.type05_btn02 :
                 goStarRegisterActivity05() ;
+                break;
+            case R.id.to_register :
+                goServiceRegisterActivity() ;
                 break;
             default:
                 break;
@@ -352,4 +402,93 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
         lp.alpha = bgAlpha;
         getWindow().setAttributes(lp);
     }
+
+    private void goServiceRegisterActivity() {
+        String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(this)) ;
+        HttpUtils utils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                //处理请求成功后的数据
+                try {
+                    dealResult02(responseInfo.result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                //打印用户的失败回调
+                error.printStackTrace();
+                ToastUtils.shortToast(StarRegisterActivity.this, "网络连接异常");
+            }
+        }) ;
+    }
+
+    private void dealResult02(String result) throws JSONException {
+        org.json.JSONObject object = new org.json.JSONObject(result);
+        org.json.JSONObject service = object.getJSONObject("service");
+        //企业名称
+        String ServiceName = service.getString("ServiceName");
+        //企业简介
+        String ServiceIntroduction = service.getString("ServiceIntroduction");
+        //企业所在地
+        String ServiceLocation = service.getString("ServiceLocation");
+        //服务类型
+        String ServiceType = service.getString("ServiceType");
+        //联系人姓名
+        String ConnectPerson = service.getString("ConnectPerson");
+        //联系方式
+        String ConnectPhone = service.getString("ConnectPhone");
+        //图1
+        String ConfirmationP1 = service.getString("ConfirmationP1");
+        //图2
+        String ConfirmationP2 = service.getString("ConfirmationP2");
+        //图3
+        String ConfirmationP3 = service.getString("ConfirmationP3");
+        //服务地区
+        String ServiceArea = service.getString("ServiceArea");
+
+        String Regtime = service.getString("RegTime");
+        String Founds = service.getString("Founds");
+        String Size = service.getString("Size");
+
+        Intent intent = new Intent(StarRegisterActivity.this  , ServiceRegisterActivity.class ) ;
+        String root = GetBenSharedPreferences.getRole(this) ;
+        intent.putExtra("root", root) ;
+        switch (root){
+            case SERVICE :
+            case UNSERVICE :
+                //企业名称
+                intent.putExtra("ServiceName" , ServiceName) ;
+                //企业简介
+                intent.putExtra("ServiceIntroduction" , ServiceIntroduction) ;
+                //企业所在地
+                intent.putExtra("ServiceLocation" , ServiceLocation) ;
+                //服务类型
+                intent.putExtra("ServiceType" , ServiceType) ;
+                //联系人姓名
+                intent.putExtra("ConnectPerson" , ConnectPerson) ;
+                //联系方式
+                intent.putExtra("ConnectPhone" , ConnectPhone) ;
+                //图1
+                intent.putExtra("ConfirmationP1" , ConfirmationP1) ;
+                //图2
+                intent.putExtra("ConfirmationP2" , ConfirmationP2) ;
+                //图3
+                intent.putExtra("ConfirmationP3" , ConfirmationP3) ;
+                //服务地区
+                intent.putExtra("ServiceArea", ServiceArea) ;
+
+                intent.putExtra("Size", Size ) ;
+                intent.putExtra("Founds", Founds ) ;
+                intent.putExtra("Regtime", Regtime ) ;
+                break;
+        }
+        startActivity(intent);
+
+    }
+
 }

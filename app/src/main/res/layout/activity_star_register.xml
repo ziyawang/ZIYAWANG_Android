@@ -91,15 +91,48 @@
             </LinearLayout>
 
             <TextView
-                android:paddingLeft="16dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="12sp"
+                android:textColor="#424242"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="客服电话：400-8988-557"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <RelativeLayout
                 android:gravity="center_vertical"
-                android:textSize="13sp"
-                android:textColor="#ff433f"
-                android:text="(可选择完成以下认证点亮星级)"
-                android:layout_marginTop="32dp"
                 android:background="#f4f4f4"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="50dp">
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/to_register"
+                    android:text="去认证"
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/star_register_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_marginRight="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/to_register"
+                    android:id="@+id/normal_textView"
+                    android:paddingLeft="16dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="#ff433f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -115,28 +148,36 @@
                     android:text="保证金认证"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <Button
-                    android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="16dp"
+
+                <LinearLayout
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type01_btn02"
-                    android:text="开通"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
-                <Button
                     android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="27dp"
-                    android:layout_toLeftOf="@id/type01_btn02"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type01_btn01"
-                    android:text="详情说明"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_centerVertical="true"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style"
+                        android:id="@+id/type01_btn01"
+                        android:text="详情说明"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+                    <Button
+                        android:visibility="gone"
+                        android:layout_marginLeft="11dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style_213"
+                        android:id="@+id/type01_btn02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
             </RelativeLayout>
 
             <TextView
@@ -158,28 +199,35 @@
                     android:text="  实地认证  "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <Button
-                    android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="16dp"
+
+                <LinearLayout
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type02_btn02"
-                    android:text="开通"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
-                <Button
                     android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="27dp"
-                    android:layout_toLeftOf="@id/type02_btn02"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type02_btn01"
-                    android:text="详情说明"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style"
+                        android:id="@+id/type02_btn01"
+                        android:text="详情说明"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+
+                    <Button
+                        android:visibility="gone"
+                        android:layout_marginLeft="11dp"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style_213"
+                        android:id="@+id/type02_btn02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
             </RelativeLayout>
 
             <TextView
@@ -201,28 +249,34 @@
                     android:text="  视频认证  "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <Button
-                    android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="16dp"
+                <LinearLayout
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type03_btn02"
-                    android:text="开通"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
-                <Button
                     android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="27dp"
-                    android:layout_toLeftOf="@id/type03_btn02"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type03_btn01"
-                    android:text="详情说明"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_centerVertical="true"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style"
+                        android:id="@+id/type03_btn01"
+                        android:text="详情说明"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+                    <Button
+                        android:visibility="gone"
+                        android:layout_marginLeft="11dp"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style_213"
+                        android:id="@+id/type03_btn02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
             </RelativeLayout>
 
             <TextView
@@ -244,28 +298,34 @@
                     android:text="承诺书认证"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <Button
-                    android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="16dp"
+                <LinearLayout
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type04_btn02"
-                    android:text="开通"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
-                <Button
                     android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="27dp"
-                    android:layout_toLeftOf="@id/type04_btn02"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type04_btn01"
-                    android:text="详情说明"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style"
+                        android:id="@+id/type04_btn01"
+                        android:text="详情说明"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+                    <Button
+                        android:visibility="gone"
+                        android:layout_marginLeft="11dp"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/star_register_style_213"
+                        android:id="@+id/type04_btn02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+
+
             </RelativeLayout>
 
             <TextView
@@ -287,28 +347,31 @@
                     android:text="  三证认证  "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <Button
-                    android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="16dp"
+                <LinearLayout
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type05_btn02"
-                    android:text="开通"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
-                <Button
                     android:layout_centerVertical="true"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:layout_marginRight="27dp"
-                    android:layout_toLeftOf="@id/type05_btn02"
-                    android:background="@drawable/star_register_style"
-                    android:id="@+id/type05_btn01"
-                    android:text="详情说明"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style"
+                        android:id="@+id/type05_btn01"
+                        android:text="详情说明"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+                    <Button
+                        android:visibility="gone"
+                        android:layout_marginLeft="11dp"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/star_register_style_213"
+                        android:id="@+id/type05_btn02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp" />
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

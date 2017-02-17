@@ -304,8 +304,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void showUnServiceViews() {
         my_rush.setVisibility(View.GONE);
-        vip_center.setVisibility(View.GONE);
-        star_register.setVisibility(View.GONE);
+        vip_center.setVisibility(View.VISIBLE);
+        star_register.setVisibility(View.VISIBLE);
         niu_relative.setVisibility(View.GONE);
         me_change_icon.setVisibility(View.VISIBLE);
     }
@@ -320,8 +320,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void showReleaseViews() {
         my_rush.setVisibility(View.GONE);
-        vip_center.setVisibility(View.GONE);
-        star_register.setVisibility(View.GONE);
+        vip_center.setVisibility(View.VISIBLE);
+        star_register.setVisibility(View.VISIBLE);
         me_change_icon.setVisibility(View.GONE);
         niu_relative.setVisibility(View.VISIBLE);
     }
@@ -417,8 +417,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void unLoadServiceView(String result, JSONObject jsonObject) throws JSONException {
         my_rush.setVisibility(View.GONE);
-        vip_center.setVisibility(View.GONE);
-        star_register.setVisibility(View.GONE);
+        vip_center.setVisibility(View.VISIBLE);
+        star_register.setVisibility(View.VISIBLE);
         me_change_icon.setVisibility(View.VISIBLE);
         niu_relative.setVisibility(View.GONE);
         JSONObject object01 = new JSONObject(result);

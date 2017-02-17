@@ -33,6 +33,9 @@ import java.io.File;
 
 public class VipCenterActivity extends BenBenActivity implements View.OnClickListener{
 
+    public static final String SERVICE = "1" ;
+    public static final String UNSERVICE = "2" ;
+
     //返回按钮
     private RelativeLayout pre ;
     //充值记录
@@ -58,6 +61,11 @@ public class VipCenterActivity extends BenBenActivity implements View.OnClickLis
     private SharedPreferences right ;
 
     private ImageView image_01 , image_02 , image_03 , image_04 , image_05 ;
+
+    private TextView to_register_textView ;
+    private Button to_register_button ;
+    private TextView textView2 ;
+    private String role ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +95,10 @@ public class VipCenterActivity extends BenBenActivity implements View.OnClickLis
 
         ben = (TextView)findViewById(R.id.ben ) ;
 
+        to_register_button = (Button)findViewById(R.id.to_register_button ) ;
+        to_register_textView = (TextView)findViewById(R.id.to_register_textView ) ;
+        textView2 = (TextView)findViewById(R.id.textView2 ) ;
+
     }
 
     @Override
@@ -104,6 +116,8 @@ public class VipCenterActivity extends BenBenActivity implements View.OnClickLis
         image_03.setOnClickListener(this);
         image_04.setOnClickListener(this);
         image_05.setOnClickListener(this);
+
+        to_register_button.setOnClickListener(this);
     }
 
     @Override
@@ -140,40 +154,50 @@ public class VipCenterActivity extends BenBenActivity implements View.OnClickLis
     private void dealResult(String result) throws JSONException {
         JSONObject jsonObject = new JSONObject(result);
         JSONObject user1 = jsonObject.getJSONObject("user");
-        String right01 = user1.getString("right") ;
-        right = getSharedPreferences("right", MODE_PRIVATE) ;
-        right.edit().putString("right", right01).commit();
-        JSONObject showright = user1.getJSONObject("showright");
-        type_01 = showright.optString("资产包");
-        type_02 = showright.optString("企业商账");
-        type_03 = showright.optString("固定资产");
-        type_04 = showright.optString("融资信息");
-        type_05 = showright.optString("个人债权");
-        String right = GetBenSharedPreferences.getRight(this);
-        if (!TextUtils.isEmpty(right) ){
-            String[] split = right.split(",");
-            for (int i = 0; i < split.length; i++) {
-                if ("1".equals(split[i].toString())){
-                    image_01.setVisibility(View.VISIBLE);
-                    ben.setVisibility(View.GONE);
-                }
-                if ("18".equals(split[i].toString())){
-                    image_02.setVisibility(View.VISIBLE);
-                    ben.setVisibility(View.GONE);
-                }
-                if ("12".equals(split[i].toString()) ){
-                    image_03.setVisibility(View.VISIBLE);
-                    ben.setVisibility(View.GONE);
-                }
-                if ("6".equals(split[i].toString()) ){
-                    image_04.setVisibility(View.VISIBLE);
-                    ben.setVisibility(View.GONE);
-                }
-                if ("19".equals(split[i].toString())){
-                    image_05.setVisibility(View.VISIBLE);
-                    ben.setVisibility(View.GONE);
+        role = jsonObject.getString("role");
+        if ("1".equals(role)){
+            textView2.setText("请选择您需要的会员类型:");
+            to_register_textView.setText("注：根据您的需求可同时办理多个会员");
+            to_register_button.setVisibility(View.GONE);
+            String right01 = user1.getString("right") ;
+            right = getSharedPreferences("right", MODE_PRIVATE) ;
+            right.edit().putString("right", right01).commit();
+            JSONObject showright = user1.getJSONObject("showright");
+            type_01 = showright.optString("资产包");
+            type_02 = showright.optString("企业商账");
+            type_03 = showright.optString("固定资产");
+            type_04 = showright.optString("融资信息");
+            type_05 = showright.optString("个人债权");
+            String right = GetBenSharedPreferences.getRight(this);
+            if (!TextUtils.isEmpty(right) ){
+                String[] split = right.split(",");
+                for (int i = 0; i < split.length; i++) {
+                    if ("1".equals(split[i].toString())){
+                        image_01.setVisibility(View.VISIBLE);
+                        ben.setVisibility(View.GONE);
+                    }
+                    if ("18".equals(split[i].toString())){
+                        image_02.setVisibility(View.VISIBLE);
+                        ben.setVisibility(View.GONE);
+                    }
+                    if ("12".equals(split[i].toString()) ){
+                        image_03.setVisibility(View.VISIBLE);
+                        ben.setVisibility(View.GONE);
+                    }
+                    if ("6".equals(split[i].toString()) ){
+                        image_04.setVisibility(View.VISIBLE);
+                        ben.setVisibility(View.GONE);
+                    }
+                    if ("19".equals(split[i].toString())){
+                        image_05.setVisibility(View.VISIBLE);
+                        ben.setVisibility(View.GONE);
+                    }
                 }
             }
+        }else {
+            textView2.setText("可选择以下会员类型来了解会员特权:");
+            to_register_textView.setText("提示：您需要先通过服务方认证才能办理会员");
+            to_register_button.setVisibility(View.VISIBLE);
         }
     }
 
@@ -240,19 +264,39 @@ public class VipCenterActivity extends BenBenActivity implements View.OnClickLis
                 goVipRecordActivity() ;
                 break;
             case R.id.vip_btn01 :
-                goVipRechargeActivity(ASSETS) ;
+                if ("1".equals(role)){
+                    goVipRechargeActivity(ASSETS) ;
+                }else {
+                    goKnowPowerActivity("01") ;
+                }
                 break;
             case R.id.vip_btn02 :
-                goVipRechargeActivity(COMPANY) ;
+                if ("1".equals(role)){
+                    goVipRechargeActivity(COMPANY) ;
+                }else {
+                    goKnowPowerActivity("02") ;
+                }
                 break;
             case R.id.vip_btn03 :
-                goVipRechargeActivity(FIXED) ;
+                if ("1".equals(role)){
+                    goVipRechargeActivity(FIXED) ;
+                }else {
+                    goKnowPowerActivity("03") ;
+                }
                 break;
             case R.id.vip_btn04 :
-                goVipRechargeActivity(FINANCE) ;
+                if ("1".equals(role)){
+                    goVipRechargeActivity(FINANCE) ;
+                }else {
+                    goKnowPowerActivity("04") ;
+                }
                 break;
             case R.id.vip_btn05 :
-                goVipRechargeActivity(PERSON) ;
+                if ("1".equals(role)){
+                    goVipRechargeActivity(PERSON) ;
+                }else {
+                    goKnowPowerActivity("05") ;
+                }
                 break;
             case R.id.image_01 :
                 if (!TextUtils.isEmpty(type_01)){
@@ -279,6 +323,9 @@ public class VipCenterActivity extends BenBenActivity implements View.OnClickLis
                     ToastUtils.longToast(VipCenterActivity.this , "个人债权会员到期时间：" + type_05);
                 }
                 break;
+            case R.id.to_register_button :
+                goServiceRegisterActivity() ;
+                break;
             default:
                 break;
         }
@@ -298,5 +345,99 @@ public class VipCenterActivity extends BenBenActivity implements View.OnClickLis
     private void goVipRecordActivity() {
         Intent intent = new Intent(VipCenterActivity.this , VipRecordActivity.class ) ;
         startActivity(intent);
+    }
+
+    private void goKnowPowerActivity(String type) {
+        Intent intent = new Intent(VipCenterActivity.this , KnowPowerActivity.class ) ;
+        intent.putExtra("type" , type ) ;
+        startActivity(intent);
+    }
+
+    private void goServiceRegisterActivity() {
+        String urls = String.format(Url.Myicon, GetBenSharedPreferences.getTicket(this)) ;
+        HttpUtils utils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                //处理请求成功后的数据
+                try {
+                    dealResult02(responseInfo.result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                //打印用户的失败回调
+                error.printStackTrace();
+                ToastUtils.shortToast(VipCenterActivity.this, "网络连接异常");
+            }
+        }) ;
+    }
+
+    private void dealResult02(String result) throws JSONException {
+        org.json.JSONObject object = new org.json.JSONObject(result);
+        org.json.JSONObject service = object.getJSONObject("service");
+        //企业名称
+        String ServiceName = service.getString("ServiceName");
+        //企业简介
+        String ServiceIntroduction = service.getString("ServiceIntroduction");
+        //企业所在地
+        String ServiceLocation = service.getString("ServiceLocation");
+        //服务类型
+        String ServiceType = service.getString("ServiceType");
+        //联系人姓名
+        String ConnectPerson = service.getString("ConnectPerson");
+        //联系方式
+        String ConnectPhone = service.getString("ConnectPhone");
+        //图1
+        String ConfirmationP1 = service.getString("ConfirmationP1");
+        //图2
+        String ConfirmationP2 = service.getString("ConfirmationP2");
+        //图3
+        String ConfirmationP3 = service.getString("ConfirmationP3");
+        //服务地区
+        String ServiceArea = service.getString("ServiceArea");
+
+        String Regtime = service.getString("RegTime");
+        String Founds = service.getString("Founds");
+        String Size = service.getString("Size");
+
+        Intent intent = new Intent(VipCenterActivity.this  , ServiceRegisterActivity.class ) ;
+        String root = GetBenSharedPreferences.getRole(this) ;
+        intent.putExtra("root", root) ;
+        switch (root){
+            case SERVICE :
+            case UNSERVICE :
+                //企业名称
+                intent.putExtra("ServiceName" , ServiceName) ;
+                //企业简介
+                intent.putExtra("ServiceIntroduction" , ServiceIntroduction) ;
+                //企业所在地
+                intent.putExtra("ServiceLocation" , ServiceLocation) ;
+                //服务类型
+                intent.putExtra("ServiceType" , ServiceType) ;
+                //联系人姓名
+                intent.putExtra("ConnectPerson" , ConnectPerson) ;
+                //联系方式
+                intent.putExtra("ConnectPhone" , ConnectPhone) ;
+                //图1
+                intent.putExtra("ConfirmationP1" , ConfirmationP1) ;
+                //图2
+                intent.putExtra("ConfirmationP2" , ConfirmationP2) ;
+                //图3
+                intent.putExtra("ConfirmationP3" , ConfirmationP3) ;
+                //服务地区
+                intent.putExtra("ServiceArea", ServiceArea) ;
+
+                intent.putExtra("Size", Size ) ;
+                intent.putExtra("Founds", Founds ) ;
+                intent.putExtra("Regtime", Regtime ) ;
+                break;
+        }
+        startActivity(intent);
+
     }
 }
