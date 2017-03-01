@@ -238,6 +238,8 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private static String ViewCount ;
     private static String publishTime ;
     private static String member ;
+    private static String CooperateState ;
+    private static String TypeID ;
     private static String nickName ;
     private static String phonenumber ;
     private static String Price ;
@@ -423,6 +425,8 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         com.alibaba.fastjson.JSONObject object = JSON.parseObject(result);
         title = object.getString("Title");
         member = object.getString("Member");
+        CooperateState = object.getString("CooperateState");
+        TypeID = object.getString("TypeID");
         userPicture = object.getString("UserPicture");
         nickName = object.getString("username");
         phonenumber = object.getString("phonenumber");
@@ -463,7 +467,7 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         //根据数据请求过来的title来正确显示
         showTitle(title) ;
         //根据数据请求过来的Member来正确显示是否是VIP资源
-        showVipStatus(member) ;
+        showVipStatus(member , CooperateState , TypeID ) ;
         //根据数据请求过来的userPicture来正确显示头像
         showUserPicture(userPicture) ;
         //根据数据请求过来的nickName和phonenumber来正确显示昵称
@@ -502,6 +506,8 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
                 showNotMyselfVIew() ;
                 report.setVisibility(View.VISIBLE);
             }
+        }else {
+            linearLayout.setVisibility(View.VISIBLE);
         }
 
     }
@@ -523,20 +529,31 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     }
 
     private void showRootIsZeroOne() {
-        search_person.setVisibility(View.GONE);
-        linearLayout.setVisibility(View.VISIBLE);
-        info_call.setVisibility(View.VISIBLE);
-        info_sendMessage.setVisibility(View.VISIBLE);
-        show_info_register.setVisibility(View.GONE);
+        if ("1".equals(CooperateState) || "2".equals(CooperateState)){
+            show_info_register.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
+        }else {
+            show_info_register.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
+            search_person.setVisibility(View.GONE);
+            info_call.setVisibility(View.VISIBLE);
+            info_sendMessage.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showRootIsZeroTwo() {
-        //电话私聊抢单人收藏消失
-        search_person.setVisibility(View.GONE);
-        linearLayout.setVisibility(View.GONE);
-        info_call.setVisibility(View.GONE);
-        info_sendMessage.setVisibility(View.GONE);
-        show_info_register.setVisibility(View.VISIBLE);
+        if ("1".equals(CooperateState) || "2".equals(CooperateState)){
+            show_info_register.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
+        }else {
+            //电话私聊抢单人收藏消失
+            search_person.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
+            info_call.setVisibility(View.GONE);
+            info_sendMessage.setVisibility(View.GONE);
+            show_info_register.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void showMyselfView() {
@@ -813,6 +830,7 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         four_left.setVisibility(View.GONE);
         four_right.setVisibility(View.GONE);
         five_left.setText("诉讼佣金比例：");
+        five_right.setText(object.getString("Law"));
         five_right.setText(object.getString("Law"));
         six_left.setText("非诉讼佣金比例：");
         six_right.setText(object.getString("UnLaw"));
@@ -1292,8 +1310,19 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         bitmapUtils.display(info_icon, Url.FileIP + userPicture);
     }
 
-    private void showVipStatus(String member) {
-        if (!TextUtils.isEmpty(member) && member.equals("1")) {
+    private void showVipStatus(String member , String CooperateState  , String TypeID ) {
+        if (!TextUtils.isEmpty(CooperateState) && "1".equals(CooperateState)){
+            info_vip.setVisibility(View.VISIBLE);
+            info_vip.setImageResource(R.mipmap.v2140101);
+        }else if (!TextUtils.isEmpty(CooperateState) && "2".equals(CooperateState)){
+            if ("6".equals(TypeID) || "17".equals(TypeID)){
+                info_vip.setVisibility(View.VISIBLE);
+                info_vip.setImageResource(R.mipmap.v2140102);
+            }else {
+                info_vip.setVisibility(View.VISIBLE);
+                info_vip.setImageResource(R.mipmap.v2140103);
+            }
+        }else if (!TextUtils.isEmpty(member) && member.equals("1")) {
             info_vip.setVisibility(View.VISIBLE);
             info_vip.setImageResource(R.mipmap.v2_vip_icon);
         }else if (!TextUtils.isEmpty(member) && member.equals("2")){
@@ -1559,7 +1588,6 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         //加载数据
         loadData(id);
     }
-
 
     private void goServiceRegister() {
         ToastUtils.shortToast(V2DetailsFindInfoActivity.this, "建议您通过认证后再进行约谈、私聊");

@@ -46,6 +46,7 @@
         </LinearLayout>
 
         <RadioButton
+            android:layout_marginBottom="16dp"
             android:paddingLeft="10dp"
             style="@style/CustomRadioButtonTheme"
             android:id="@+id/one_two"

@@ -80,6 +80,7 @@ public class V2MyReleaseAdapter extends BaseAdapter {
             holder.text_01 = (TextView) convertView.findViewById(R.id.text_01);
             holder.text_02 = (TextView) convertView.findViewById(R.id.text_02);
             holder.czgg_relative = (RelativeLayout) convertView.findViewById(R.id.czgg_relative);
+            holder.news_cooperateState = (ImageView)convertView.findViewById(R.id.news_cooperateState ) ;
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -90,7 +91,29 @@ public class V2MyReleaseAdapter extends BaseAdapter {
             BitmapUtils bitmapUtils = new BitmapUtils(context);
             bitmapUtils.display(holder.news_image, Url.FileIP + list.get(position).getPictureDes1());
         }
-
+        switch (list.get(position).getCooperateState()){
+            //正常状态的信息
+            case "0" :
+                holder.news_cooperateState.setVisibility(View.GONE);
+                break;
+            //合作中的信息
+            case "1" :
+                holder.news_cooperateState.setVisibility(View.VISIBLE);
+                holder.news_cooperateState.setImageResource(R.mipmap.v2140201);
+                break;
+            //处置完成的信息
+            case "2" :
+                holder.news_cooperateState.setVisibility(View.VISIBLE);
+                if ("6".equals(list.get(position).getTypeID()) || "17".equals(list.get(position).getTypeID())){
+                    holder.news_cooperateState.setImageResource(R.mipmap.v2140202);
+                }else {
+                    holder.news_cooperateState.setImageResource(R.mipmap.v2140203);
+                }
+                break;
+            default:
+                holder.news_cooperateState.setVisibility(View.GONE);
+                break;
+        }
         switch (list.get(position).getTypeID()) {
             case "1":
                 holder.image_01.setImageResource(R.mipmap.v2shichang);
@@ -253,6 +276,7 @@ public class V2MyReleaseAdapter extends BaseAdapter {
         TextView text_01;
         TextView text_02;
         RelativeLayout czgg_relative ;
+        ImageView news_cooperateState ;
 
     }
 

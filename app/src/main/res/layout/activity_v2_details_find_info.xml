@@ -72,8 +72,8 @@
     </RelativeLayout>
     <!--滑动页面-->
     <ScrollView
+        android:visibility="gone"
         android:layout_below="@id/details_info_head"
-        android:layout_marginBottom="44dp"
         android:id="@+id/info_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -639,7 +639,6 @@
                 android:text="相关凭证" />
             <!--图片描述页面-->
             <LinearLayout
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="1px"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
@@ -700,6 +699,12 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
     <!--是自己发布的消息的，查看约谈人按钮-->
@@ -725,6 +730,7 @@
     </LinearLayout>
     <!--约谈、抢单、私聊-->
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="44dp"

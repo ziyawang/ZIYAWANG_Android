@@ -94,6 +94,9 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
 
     private View footView ;
 
+    private int details_types = 0 ;
+    private int details_number = 0 ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -436,9 +439,24 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_five, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        final Button a = (Button) view.findViewById(R.id.one_one);
-        final Button b = (Button) view.findViewById(R.id.one_two);
-        final Button c = (Button) view.findViewById(R.id.one_three);
+        final RadioButton a = (RadioButton) view.findViewById(R.id.one_one);
+        final RadioButton b = (RadioButton) view.findViewById(R.id.one_two);
+        final RadioButton c = (RadioButton) view.findViewById(R.id.one_three);
+        if (details_number == 5){
+            switch (details_types){
+                case 1 :
+                    a.setChecked(true);
+                    break;
+                case 2 :
+                    b.setChecked(true);
+                    break;
+                case 3 :
+                    c.setChecked(true);
+                    break;
+                default:
+                    break;
+            }
+        }
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -450,6 +468,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add02 = "";
                 typeName = "21";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 5 ;
+                details_types = 1 ;
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
@@ -463,6 +483,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add02 = "";
                 typeName = "20";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 5 ;
+                details_types = 2 ;
             }
         });
         c.setOnClickListener(new View.OnClickListener() {
@@ -476,6 +498,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add02 = "";
                 typeName = "22";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 5 ;
+                details_types = 3 ;
             }
         });
 
@@ -500,8 +524,20 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_four, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        final Button a = (Button) view.findViewById(R.id.one_one);
-        final Button b = (Button) view.findViewById(R.id.one_two);
+        final RadioButton a = (RadioButton) view.findViewById(R.id.one_one);
+        final RadioButton b = (RadioButton) view.findViewById(R.id.one_two);
+        if (details_number == 4){
+            switch (details_types){
+                case 1 :
+                    a.setChecked(true);
+                    break;
+                case 2 :
+                    b.setChecked(true);
+                    break;
+                default:
+                    break;
+            }
+        }
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -512,6 +548,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "Law";
                 params_add02 = "1";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 4 ;
+                details_types = 1 ;
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
@@ -524,6 +562,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "UnLaw";
                 params_add02 = "1";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 4 ;
+                details_types = 2 ;
             }
         });
         window.setFocusable(true);
@@ -547,8 +587,20 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_three, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        final Button a = (Button) view.findViewById(R.id.one_one);
-        final Button b = (Button) view.findViewById(R.id.one_two);
+        final RadioButton a = (RadioButton) view.findViewById(R.id.one_one);
+        final RadioButton b = (RadioButton) view.findViewById(R.id.one_two);
+        if (details_number == 3){
+            switch (details_types){
+                case 1 :
+                    a.setChecked(true);
+                    break;
+                case 2 :
+                    b.setChecked(true);
+                    break;
+                default:
+                    break;
+            }
+        }
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -560,6 +612,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add02 = "";
                 typeName = "16";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 3 ;
+                details_types = 1 ;
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
@@ -573,6 +627,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add02 = "";
                 typeName = "12";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 3 ;
+                details_types = 2 ;
             }
         });
         window.setFocusable(true);
@@ -596,8 +652,20 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_two, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        final Button a = (Button) view.findViewById(R.id.one_one);
-        final Button b = (Button) view.findViewById(R.id.one_two);
+        final RadioButton a = (RadioButton) view.findViewById(R.id.one_one);
+        final RadioButton b = (RadioButton) view.findViewById(R.id.one_two);
+        if (details_number == 2){
+            switch (details_types){
+                case 1 :
+                    a.setChecked(true);
+                    break;
+                case 2 :
+                    b.setChecked(true);
+                    break;
+                default:
+                    break;
+            }
+        }
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -609,6 +677,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add02 = "";
                 typeName = "17";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 2 ;
+                details_types = 1 ;
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
@@ -622,6 +692,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add02 = "";
                 typeName = "6";
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 2 ;
+                details_types = 2 ;
             }
         });
         window.setFocusable(true);
@@ -645,14 +717,44 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_more_one, null);
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        final Button a = (Button) view.findViewById(R.id.one_one);
-        final Button b = (Button) view.findViewById(R.id.one_two);
-        final Button c = (Button) view.findViewById(R.id.one_three);
-        final Button d = (Button) view.findViewById(R.id.one_four);
-        final Button e = (Button) view.findViewById(R.id.one_five);
-        final Button f = (Button) view.findViewById(R.id.one_six);
-        final Button g = (Button) view.findViewById(R.id.one_seven);
-        final Button h = (Button) view.findViewById(R.id.one_eight);
+        final RadioButton a = (RadioButton) view.findViewById(R.id.one_one);
+        final RadioButton b = (RadioButton) view.findViewById(R.id.one_two);
+        final RadioButton c = (RadioButton) view.findViewById(R.id.one_three);
+        final RadioButton d = (RadioButton) view.findViewById(R.id.one_four);
+        final RadioButton e = (RadioButton) view.findViewById(R.id.one_five);
+        final RadioButton f = (RadioButton) view.findViewById(R.id.one_six);
+        final RadioButton g = (RadioButton) view.findViewById(R.id.one_seven);
+        final RadioButton h = (RadioButton) view.findViewById(R.id.one_eight);
+        if (details_number == 1){
+            switch (details_types){
+                case 1 :
+                    a.setChecked(true);
+                    break;
+                case 2 :
+                    b.setChecked(true);
+                    break;
+                case 3 :
+                    c.setChecked(true);
+                    break;
+                case 4 :
+                    d.setChecked(true);
+                    break;
+                case 5 :
+                    e.setChecked(true);
+                    break;
+                case 6 :
+                    f.setChecked(true);
+                    break;
+                case 7 :
+                    g.setChecked(true);
+                    break;
+                case 8 :
+                    h.setChecked(true);
+                    break;
+                default:
+                    break;
+            }
+        }
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -663,6 +765,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "AssetType";
                 params_add02 = a.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 1 ;
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
@@ -675,6 +779,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "AssetType";
                 params_add02 = b.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 2 ;
             }
         });
         c.setOnClickListener(new View.OnClickListener() {
@@ -687,6 +793,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "AssetType";
                 params_add02 = c.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 3 ;
             }
         });
         d.setOnClickListener(new View.OnClickListener() {
@@ -699,6 +807,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "AssetType";
                 params_add02 = d.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 4 ;
             }
         });
         e.setOnClickListener(new View.OnClickListener() {
@@ -711,6 +821,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "FromWhere";
                 params_add02 = e.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 5 ;
             }
         });
         f.setOnClickListener(new View.OnClickListener() {
@@ -723,6 +835,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "FromWhere";
                 params_add02 = f.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 6 ;
             }
         });
         g.setOnClickListener(new View.OnClickListener() {
@@ -735,6 +849,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "FromWhere";
                 params_add02 = g.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 7 ;
             }
         });
         h.setOnClickListener(new View.OnClickListener() {
@@ -747,6 +863,8 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 params_add01 = "FromWhere";
                 params_add02 = h.getText().toString();
                 loadData(typeName, part_a, vip_type, params_add01, params_add02);
+                details_number = 1 ;
+                details_types = 8 ;
             }
         });
 
@@ -804,6 +922,108 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
         Button dd = (Button) view.findViewById(R.id.dd);
         Button ee = (Button) view.findViewById(R.id.ee);
         Button ff = (Button) view.findViewById(R.id.ff);
+
+        if (!TextUtils.isEmpty(part_a)){
+            switch (part_a){
+                case "北京" :
+                    b.setSelected(true);
+                    break;
+                case "上海" :
+                    c.setSelected(true);
+                    break;
+                case "广东" :
+                    d.setSelected(true);
+                    break;
+                case "江苏" :
+                    e.setSelected(true);
+                    break;
+                case "浙江" :
+                    f.setSelected(true);
+                    break;
+                case "河南" :
+                    g.setSelected(true);
+                    break;
+                case "河北" :
+                    h.setSelected(true);
+                    break;
+                case "辽宁" :
+                    i.setSelected(true);
+                    break;
+                case "四川" :
+                    j.setSelected(true);
+                    break;
+                case "湖北" :
+                    k.setSelected(true);
+                    break;
+                case "湖南" :
+                    l.setSelected(true);
+                    break;
+                case "福建" :
+                    m.setSelected(true);
+                    break;
+                case "安徽" :
+                    n.setSelected(true);
+                    break;
+                case "陕西" :
+                    o.setSelected(true);
+                    break;
+                case "天津" :
+                    p.setSelected(true);
+                    break;
+                case "江西" :
+                    q.setSelected(true);
+                    break;
+                case "重庆" :
+                    r.setSelected(true);
+                    break;
+                case "吉林" :
+                    s.setSelected(true);
+                    break;
+                case "云南" :
+                    t.setSelected(true);
+                    break;
+                case "山西" :
+                    u.setSelected(true);
+                    break;
+                case "新疆" :
+                    v.setSelected(true);
+                    break;
+                case "贵州" :
+                    w.setSelected(true);
+                    break;
+                case "甘肃" :
+                    x.setSelected(true);
+                    break;
+                case "海南" :
+                    y.setSelected(true);
+                    break;
+                case "宁夏" :
+                    z.setSelected(true);
+                    break;
+                case "青海" :
+                    aa.setSelected(true);
+                    break;
+                case "西藏" :
+                    bb.setSelected(true);
+                    break;
+                case "黑龙江" :
+                    cc.setSelected(true);
+                    break;
+                case "内蒙古" :
+                    dd.setSelected(true);
+                    break;
+                case "山东" :
+                    ee.setSelected(true);
+                    break;
+                case "广西" :
+                    ff.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            a.setSelected(true);
+        }
 
         a.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1494,6 +1714,7 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                 holder.news_des = (TextView) convertView.findViewById(R.id.news_des);
                 holder.news_time = (TextView) convertView.findViewById(R.id.news_time);
                 holder.new_author = (TextView)convertView.findViewById(R.id.new_author ) ;
+                holder.news_cooperateState = (ImageView)convertView.findViewById(R.id.news_cooperateState ) ;
 
                 convertView.setTag(holder);
             } else {
@@ -1535,6 +1756,29 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
 
                 holder.czgg_relative.setVisibility(View.GONE);
                 holder.relative_info.setVisibility(View.VISIBLE);
+                switch (list.get(position).getCooperateState()){
+                    //正常状态的信息
+                    case "0" :
+                        holder.news_cooperateState.setVisibility(View.GONE);
+                        break;
+                    //合作中的信息
+                    case "1" :
+                        holder.news_cooperateState.setVisibility(View.VISIBLE);
+                        holder.news_cooperateState.setImageResource(R.mipmap.v2140201);
+                        break;
+                    //处置完成的信息
+                    case "2" :
+                        holder.news_cooperateState.setVisibility(View.VISIBLE);
+                        if ("6".equals(list.get(position).getTypeID()) || "17".equals(list.get(position).getTypeID())){
+                            holder.news_cooperateState.setImageResource(R.mipmap.v2140202);
+                        }else {
+                            holder.news_cooperateState.setImageResource(R.mipmap.v2140203);
+                        }
+                        break;
+                    default:
+                        holder.news_cooperateState.setVisibility(View.GONE);
+                        break;
+                }
                 switch (list.get(position).getTypeID()) {
                     case "1":
                         holder.image_01.setImageResource(R.mipmap.v2zongjine);
@@ -1723,7 +1967,7 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
 //                        context.startActivity(intent);
 //                        finalConvertView.setEnabled(true);
 //                    }
-                        if ("0".equals(list.get(position).getMember())){
+                        if ("1".equals(list.get(position).getCooperateState()) || "2".equals(list.get(position).getCooperateState()) || "0".equals(list.get(position).getMember())){
                             goV2DetailsFindInfoActivity(position , finalConvertView ) ;
                         }else {
                             String right = GetBenSharedPreferences.getRight(context);
@@ -2155,6 +2399,7 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
         TextView news_des;
         TextView news_time;
         TextView new_author ;
+        ImageView news_cooperateState ;
 
     }
 

@@ -97,11 +97,13 @@ public class V2InfoEntity {
     private String Brief ;
     private String ListType ;
 
+    private String CooperateState ;
+
 
     public V2InfoEntity(){}
 
 
-    public V2InfoEntity(String projectID, String serviceID, String proArea, String wordDes, String voiceDes, String pictureDes1, String certifyTime, String publishTime, String doneState, String certifyState, String publishState, String viewCount, String collectionCount, String deleteFlag, String proLabel, String created_at, String updated_at, String userID, String typeID, String pictureDes2, String pictureDes3, String member, String price, String companyDes, String publisher, String channel, String pictureDes4, String pictureDes5, String connectPerson, String connectPhone, String title, String typeName, String identity, String assetType, String money, String rate, String status, String belong, String usefor, String userid, String username, String phonenumber, String truename, String userPicture, String rushCount, String collectCount, String collectFlag, String rushFlag, String payFlag, String companyDesPC, String fromWhere, String totalMoney, String transferMoney, String counts, String report, String time, String pawn, String assetList, String type, String area, String year, String transferType, String marketPrice, String credentials, String dispute, String debt, String guaranty, String month, String nature, String state, String industry, String debteeLocation, String connect, String pay, String law, String unLaw, String court, String brand, String projectNumber, String newFlag, String newsID, String newsTitle, String newsContent, String newsLogo, String newsThumb, String newsLabel, String newsAuthor, String brief, String listType) {
+    public V2InfoEntity(String projectID, String serviceID, String proArea, String wordDes, String voiceDes, String pictureDes1, String certifyTime, String publishTime, String doneState, String certifyState, String publishState, String viewCount, String collectionCount, String deleteFlag, String proLabel, String created_at, String updated_at, String userID, String typeID, String pictureDes2, String pictureDes3, String member, String price, String companyDes, String publisher, String channel, String pictureDes4, String pictureDes5, String connectPerson, String connectPhone, String title, String typeName, String identity, String assetType, String money, String rate, String status, String belong, String usefor, String userid, String username, String phonenumber, String truename, String userPicture, String rushCount, String collectCount, String collectFlag, String rushFlag, String payFlag, String companyDesPC, String fromWhere, String totalMoney, String transferMoney, String counts, String report, String time, String pawn, String assetList, String type, String area, String year, String transferType, String marketPrice, String credentials, String dispute, String debt, String guaranty, String month, String nature, String state, String industry, String debteeLocation, String connect, String pay, String law, String unLaw, String court, String brand, String projectNumber, String newFlag, String newsID, String newsTitle, String newsContent, String newsLogo, String newsThumb, String newsLabel, String newsAuthor, String brief, String listType , String CooperateState ) {
         ProjectID = projectID;
         ServiceID = serviceID;
         ProArea = proArea;
@@ -191,6 +193,15 @@ public class V2InfoEntity {
         NewsAuthor = newsAuthor;
         Brief = brief;
         ListType = listType;
+        this.CooperateState = CooperateState ;
+    }
+
+    public String getCooperateState() {
+        return CooperateState;
+    }
+
+    public void setCooperateState(String cooperateState) {
+        CooperateState = cooperateState;
     }
 
     public String getNewsID() {

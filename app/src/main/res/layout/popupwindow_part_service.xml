@@ -35,7 +35,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="全国" />
 
                 <Button
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="北京" />
 
                 <Button
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="上海" />
             </LinearLayout>
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="广东" />
 
                 <Button
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="江苏" />
 
                 <Button
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="浙江" />
             </LinearLayout>
             <LinearLayout
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="河南" />
 
                 <Button
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="河北" />
 
                 <Button
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="四川" />
 
                 <Button
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="湖北" />
 
                 <Button
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="福建" />
 
                 <Button
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="安徽" />
 
                 <Button
@@ -182,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="天津" />
 
                 <Button
@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="江西" />
 
                 <Button
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -227,7 +227,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="吉林" />
 
                 <Button
@@ -236,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="云南" />
 
                 <Button
@@ -246,7 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -259,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="新疆" />
 
                 <Button
@@ -268,7 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="贵州" />
 
                 <Button
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -291,7 +291,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="海南" />
 
                 <Button
@@ -300,7 +300,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="宁夏" />
 
                 <Button
@@ -310,7 +310,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -323,7 +323,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="西藏" />
 
                 <Button
@@ -332,7 +332,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="黑龙江" />
 
                 <Button
@@ -342,7 +342,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -356,7 +356,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="山东" />
 
                 <Button
@@ -365,7 +365,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff"
+                    android:background="@drawable/find_info_type"
                     android:text="广西" />
 
                 <Button
@@ -375,7 +375,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"             android:layout_marginBottom="1dp"             android:layout_marginLeft="10dp"             android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#ffffff" />
+                    android:background="@drawable/find_info_type" />
             </LinearLayout>
 
         </LinearLayout>

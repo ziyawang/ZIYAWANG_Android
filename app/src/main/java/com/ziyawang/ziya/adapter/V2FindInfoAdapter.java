@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.text.Html;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -123,6 +124,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
             holder.news_des = (TextView)convertView.findViewById(R.id.news_des ) ;
             holder.news_time = (TextView)convertView.findViewById(R.id.news_time ) ;
             holder.new_author = (TextView)convertView.findViewById(R.id.new_author ) ;
+            holder.news_cooperateState = (ImageView)convertView.findViewById(R.id.news_cooperateState ) ;
 
             convertView.setTag(holder);
         } else {
@@ -173,6 +175,29 @@ public class V2FindInfoAdapter extends BaseAdapter {
             bitmapUtils.display(holder.news_image, Url.FileIP + list.get(position).getPictureDes1() );
             holder.czgg_relative.setVisibility(View.GONE);
             holder.relative_info.setVisibility(View.VISIBLE);
+            switch (list.get(position).getCooperateState()){
+                //正常状态的信息
+                case "0" :
+                    holder.news_cooperateState.setVisibility(View.GONE);
+                    break;
+                //合作中的信息
+                case "1" :
+                    holder.news_cooperateState.setVisibility(View.VISIBLE);
+                    holder.news_cooperateState.setImageResource(R.mipmap.v2140201);
+                    break;
+                //处置完成的信息
+                case "2" :
+                    holder.news_cooperateState.setVisibility(View.VISIBLE);
+                    if ("6".equals(list.get(position).getTypeID()) || "17".equals(list.get(position).getTypeID())){
+                        holder.news_cooperateState.setImageResource(R.mipmap.v2140202);
+                    }else {
+                        holder.news_cooperateState.setImageResource(R.mipmap.v2140203);
+                    }
+                    break;
+                default:
+                    holder.news_cooperateState.setVisibility(View.GONE);
+                    break;
+            }
             switch (list.get(position).getTypeID()) {
                 case "1":
                     holder.image_01.setImageResource(R.mipmap.v2zongjine);
@@ -331,7 +356,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
 //                        context.startActivity(intent);
 //                        finalConvertView.setEnabled(true);
 //                    }
-                    if ("0".equals(list.get(position).getMember())){
+                    if ( "1".equals(list.get(position).getCooperateState()) || "2".equals(list.get(position).getCooperateState()) ||"0".equals(list.get(position).getMember())){
                         goV2DetailsFindInfoActivity(position , finalConvertView ) ;
                     }else {
                         String right = GetBenSharedPreferences.getRight(context);
@@ -751,6 +776,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
         TextView news_des ;
         TextView news_time ;
         TextView new_author ;
+        ImageView news_cooperateState ;
 
     }
 

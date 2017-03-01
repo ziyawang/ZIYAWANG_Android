@@ -633,6 +633,112 @@ public class FindServiceActivity extends BenBenActivity implements View.OnClickL
         Button ee = (Button)view.findViewById(R.id.ee);
         Button ff = (Button)view.findViewById(R.id.ff);
 
+        if (!TextUtils.isEmpty(part_a)){
+            switch (part_a){
+                case "" :
+                    a.setSelected(true);
+                    break;
+                case "北京" :
+                    b.setSelected(true);
+                    break;
+                case "上海" :
+                    c.setSelected(true);
+                    break;
+                case "广东" :
+                    d.setSelected(true);
+                    break;
+                case "江苏" :
+                    e.setSelected(true);
+                    break;
+                case "浙江" :
+                    f.setSelected(true);
+                    break;
+                case "河南" :
+                    g.setSelected(true);
+                    break;
+                case "河北" :
+                    h.setSelected(true);
+                    break;
+                case "辽宁" :
+                    i.setSelected(true);
+                    break;
+                case "四川" :
+                    j.setSelected(true);
+                    break;
+                case "湖北" :
+                    k.setSelected(true);
+                    break;
+                case "湖南" :
+                    l.setSelected(true);
+                    break;
+                case "福建" :
+                    m.setSelected(true);
+                    break;
+                case "安徽" :
+                    n.setSelected(true);
+                    break;
+                case "陕西" :
+                    o.setSelected(true);
+                    break;
+                case "天津" :
+                    p.setSelected(true);
+                    break;
+                case "江西" :
+                    q.setSelected(true);
+                    break;
+                case "重庆" :
+                    r.setSelected(true);
+                    break;
+                case "吉林" :
+                    s.setSelected(true);
+                    break;
+                case "云南" :
+                    t.setSelected(true);
+                    break;
+                case "山西" :
+                    u.setSelected(true);
+                    break;
+                case "新疆" :
+                    v.setSelected(true);
+                    break;
+                case "贵州" :
+                    w.setSelected(true);
+                    break;
+                case "甘肃" :
+                    x.setSelected(true);
+                    break;
+                case "海南" :
+                    y.setSelected(true);
+                    break;
+                case "宁夏" :
+                    z.setSelected(true);
+                    break;
+                case "青海" :
+                    aa.setSelected(true);
+                    break;
+                case "西藏" :
+                    bb.setSelected(true);
+                    break;
+                case "黑龙江" :
+                    cc.setSelected(true);
+                    break;
+                case "内蒙古" :
+                    dd.setSelected(true);
+                    break;
+                case "山东" :
+                    ee.setSelected(true);
+                    break;
+                case "广西" :
+                    ff.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            a.setSelected(true);
+        }
+
+
 
         a.setOnClickListener(new View.OnClickListener() {
             @Override
