@@ -17,10 +17,14 @@ public class FindVideoEntity {
     private String VideoLink ;
     private String VideoLink2 ;
     private String CollectFlag ;
+    private String Member ;
+    private String Price ;
+    private String PayFlag ;
+    private String Account ;
 
     public FindVideoEntity(){}
 
-    public FindVideoEntity(String videoID, String videoTitle, String videoDes, String videoLogo, String videoLabel, String videoAuthor, String publishTime, String viewCount, String collectionCount, String videoLink, String videoLink2 , String collectFlag) {
+    public FindVideoEntity(String videoID, String videoTitle, String videoDes, String videoLogo, String videoLabel, String videoAuthor, String publishTime, String viewCount, String collectionCount, String videoLink, String videoLink2 , String collectFlag , String member , String price , String account , String payFlag ) {
         VideoID = videoID;
         VideoTitle = videoTitle;
         VideoDes = videoDes;
@@ -33,7 +37,43 @@ public class FindVideoEntity {
         VideoLink = videoLink;
         VideoLink2 = videoLink2;
         CollectFlag = collectFlag ;
+        Member = member ;
+        Price = price ;
+        Account = account ;
+        PayFlag = payFlag ;
 
+    }
+
+    public String getPayFlag() {
+        return PayFlag;
+    }
+
+    public void setPayFlag(String payFlag) {
+        PayFlag = payFlag;
+    }
+
+    public String getAccount() {
+        return Account;
+    }
+
+    public void setAccount(String account) {
+        Account = account;
+    }
+
+    public String getMember() {
+        return Member;
+    }
+
+    public void setMember(String member) {
+        Member = member;
+    }
+
+    public String getPrice() {
+        return Price;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
     }
 
     public String getCollectFlag() {

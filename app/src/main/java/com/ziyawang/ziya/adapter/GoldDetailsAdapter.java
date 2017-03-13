@@ -73,7 +73,11 @@ public class GoldDetailsAdapter extends BaseAdapter {
             holder.gold_items_balance.setTextColor(Color.rgb(144,195,31));
             holder.gold_items_color.setTextColor(Color.rgb(144,195,31));
         }else if ("2".equals(list.get(position).getType())){
-            holder.gold_items_type.setText("付费约谈");
+            if ("0".equals(list.get(position).getVideoID())){
+                holder.gold_items_type.setText("付费约谈");
+            }else {
+                holder.gold_items_type.setText("付费视频");
+            }
             holder.gold_items_balance.setText("-" + list.get(position).getMoney());
             holder.gold_items_balance.setTextColor(Color.rgb(235,102,90));
             holder.gold_items_color.setTextColor(Color.rgb(235,102,90));

@@ -1769,7 +1769,7 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                     //处置完成的信息
                     case "2" :
                         holder.news_cooperateState.setVisibility(View.VISIBLE);
-                        if ("6".equals(list.get(position).getTypeID()) || "17".equals(list.get(position).getTypeID())){
+                        if ("6".equals(list.get(position).getTypeID()) || "17".equals(list.get(position).getTypeID())||"20".equals(list.get(position).getTypeID())||"21".equals(list.get(position).getTypeID())||"22".equals(list.get(position).getTypeID())){
                             holder.news_cooperateState.setImageResource(R.mipmap.v2140202);
                         }else {
                             holder.news_cooperateState.setImageResource(R.mipmap.v2140203);

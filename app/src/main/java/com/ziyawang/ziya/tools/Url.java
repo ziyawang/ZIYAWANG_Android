@@ -100,4 +100,6 @@ public class Url {
 
     public static final String V203StarList = IP + "star/list?access_token=token" ;
 
+    public static final String V215VideoPay = IP + "video/consume?access_token=token&token=%s" ;
+
 }

@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
     <ListView
-
         android:id="@+id/gridView01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,4 +13,16 @@
         android:scrollbars="none">
 
     </ListView>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/niuniuniuniu"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:paddingTop="150dp"
+        android:text="没有更多数据"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>

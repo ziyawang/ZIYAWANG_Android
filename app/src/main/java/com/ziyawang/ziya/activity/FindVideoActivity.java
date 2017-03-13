@@ -390,10 +390,10 @@ public class FindVideoActivity extends FragmentActivity implements View.OnClickL
         MovieTwoFragment twoFragment03 = new MovieTwoFragment() ;
         twoFragment03.setArguments(data03);
 
-//        Bundle data04 = new Bundle();
-//        data04.putString("title", "资芽一分钟");
-//        MovieTwoFragment twoFragment04 = new MovieTwoFragment() ;
-//        twoFragment04.setArguments(data04);
+        Bundle data04 = new Bundle();
+        data04.putString("title", "付费课程");
+        MovieTwoFragment twoFragment04 = new MovieTwoFragment() ;
+        twoFragment04.setArguments(data04);
 
 
 //        MovieTwoFragment twoFragment = new MovieTwoFragment() ;
@@ -414,8 +414,7 @@ public class FindVideoActivity extends FragmentActivity implements View.OnClickL
         fragments.add(twoFragment01) ;
         fragments.add(twoFragment02) ;
         fragments.add(twoFragment03) ;
-        //fragments.add(twoFragment04) ;
-
+        fragments.add(twoFragment04) ;
 
         NewsFragmentPagerAdapter mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(mAdapetr);

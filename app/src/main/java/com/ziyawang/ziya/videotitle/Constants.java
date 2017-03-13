@@ -22,10 +22,10 @@ public class Constants {
 		classify.setId(3);
 		classify.setTitle("资芽哈哈哈");
 		newsClassify.add(classify);
-//		classify = new NewsClassify();
-//		classify.setId(4);
-//		classify.setTitle("资芽一分钟");
-//		newsClassify.add(classify);
+		classify = new NewsClassify();
+		classify.setId(4);
+		classify.setTitle("付费课程");
+		newsClassify.add(classify);
 
 		return newsClassify;
 	}

@@ -3,6 +3,7 @@ package com.ziyawang.ziya.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,12 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
+import com.ziyawang.ziya.activity.SearchActivity;
 import com.ziyawang.ziya.adapter.MovieBigItemAdapter;
 import com.ziyawang.ziya.adapter.MovieItemAdapter;
+import com.ziyawang.ziya.adapter.V2FindInfoAdapter;
 import com.ziyawang.ziya.entity.FindVideoEntity;
+import com.ziyawang.ziya.entity.V2InfoEntity;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.MyProgressDialog;
 
@@ -36,6 +40,7 @@ public class MovieTwoFragment extends Fragment {
 
     private ListView gridView ;
     private MovieBigItemAdapter adapter ;
+    private TextView niuniuniuniu  ;
 
 
     //private MyProgressDialog dialog  ;
@@ -79,6 +84,9 @@ public class MovieTwoFragment extends Fragment {
             case "资芽哈哈哈" :
                 label = "zyhhh" ;
                 break;
+            case "付费课程" :
+                label = "ffkc" ;
+                break;
             default:
                 break;
 
@@ -101,17 +109,21 @@ public class MovieTwoFragment extends Fragment {
 
                 Log.e("视频", responseInfo.result) ;
 
-//                if (dialog!=null){
-//                    dialog.dismiss();
-//                }
-
                 JSONObject jsonObj = JSON.parseObject(responseInfo.result);
-                JSONArray result = jsonObj.getJSONArray("data");
-                List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
+                String counts = jsonObj.getString("counts");
+                if (!TextUtils.isEmpty(counts) && counts.equals("0")) {
+                    gridView.setVisibility(View.GONE);
+               niuniuniuniu.setVisibility(View.VISIBLE);
+           }else {
+               gridView.setVisibility(View.VISIBLE);
+               niuniuniuniu.setVisibility(View.GONE);
+               JSONArray result = jsonObj.getJSONArray("data");
+               List<FindVideoEntity> list = JSON.parseArray(result.toJSONString(), FindVideoEntity.class);
+               adapter = new MovieBigItemAdapter(getActivity() , list ) ;
+               gridView.setAdapter(adapter);
+               adapter.notifyDataSetChanged();
+                }
 
-                adapter = new MovieBigItemAdapter(getActivity() , list ) ;
-                gridView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -129,6 +141,7 @@ public class MovieTwoFragment extends Fragment {
     private void initview(View view ) {
 
         gridView = (ListView)view.findViewById(R.id.gridView01);
+        niuniuniuniu = (TextView)view.findViewById(R.id.niuniuniuniu ) ;
 
         //movie_title =(TextView)view.findViewById(R.id.movie_title ) ;
 

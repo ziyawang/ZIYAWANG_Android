@@ -25,7 +25,6 @@
 
     <LinearLayout
         android:paddingTop="5dp"
-        android:paddingBottom="10dp"
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -43,6 +42,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:layout_gravity="center"
             android:textSize="12dp"
             android:id="@+id/movie_look"
             android:gravity="center|left"
@@ -55,8 +55,37 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:paddingLeft="14dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:visibility="gone"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/pay_account_image"
+            android:src="@mipmap/v21501"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_toRightOf="@id/pay_account_image"
+            android:id="@+id/pay_account"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="5dp">
+
+    </LinearLayout>
+
     <TextView
-        android:visibility="gone"
         android:background="@mipmap/icon31"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

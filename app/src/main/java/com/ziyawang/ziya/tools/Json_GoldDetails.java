@@ -31,8 +31,9 @@ public class Json_GoldDetails {
             String type = object.getString("Type");
             String orderNumber = object.getString("OrderNumber");
             String operates = object.getString("Operates");
+            String videoid = object.getString("VideoID");
 
-            goldDetailsEntity = new GoldDetailsEntity(created_at1,money , type ,orderNumber ,operates);
+            goldDetailsEntity = new GoldDetailsEntity(created_at1,money , type ,orderNumber ,operates , videoid );
             data.add(goldDetailsEntity) ;
         }
         return data;

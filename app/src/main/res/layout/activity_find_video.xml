@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/details_release_head"
@@ -17,10 +17,10 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:layout_marginLeft="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
                 android:src="@mipmap/pre" />
 
         </RelativeLayout>
@@ -36,11 +36,11 @@
             android:textSize="18dp" />
 
         <RelativeLayout
-            android:gravity="center"
-            android:layout_alignParentRight="true"
             android:id="@+id/search_video"
             android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -57,19 +57,19 @@
         android:layout_width="match_parent"
         android:layout_height="40.0dip"
         android:background="#fff3f3f3"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/rl_column"
             android:layout_width="match_parent"
             android:layout_height="40.0dip"
-            android:layout_weight="1.0" >
+            android:layout_weight="1.0">
 
             <com.ziyawang.ziya.videotitle.ColumnHorizontalScrollView
                 android:id="@+id/mColumnHorizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="40.0dip"
-                android:scrollbars="none" >
+                android:scrollbars="none">
 
                 <LinearLayout
 
@@ -103,10 +103,11 @@
                 android:visibility="visible" />
         </RelativeLayout>
 
-         <LinearLayout
+        <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_more_columns"
             android:layout_width="wrap_content"
-            android:layout_height="40.0dip" >
+            android:layout_height="40.0dip">
 
             <ImageView
                 android:id="@+id/button_more_columns"
@@ -122,19 +123,19 @@
         android:layout_width="match_parent"
         android:layout_height="4.0dip"
         android:background="#fff3f3f3"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/rl_column01"
             android:layout_width="match_parent"
             android:layout_height="40.0dip"
-            android:layout_weight="1.0" >
+            android:layout_weight="1.0">
 
             <com.ziyawang.ziya.videotitle.ColumnHorizontalScrollView
                 android:id="@+id/mColumnHorizontalScrollView01"
                 android:layout_width="match_parent"
                 android:layout_height="40.0dip"
-                android:scrollbars="none" >
+                android:scrollbars="none">
 
                 <LinearLayout
 
@@ -169,9 +170,10 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_more_columns01"
             android:layout_width="wrap_content"
-            android:layout_height="40.0dip" >
+            android:layout_height="40.0dip">
 
             <ImageView
                 android:id="@+id/button_more_columns01"

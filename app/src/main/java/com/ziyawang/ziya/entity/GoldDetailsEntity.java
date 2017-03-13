@@ -10,15 +10,25 @@ public class GoldDetailsEntity {
     private String Type ;
     private String OrderNumber ;
     private String Operates ;
+    private String VideoID ;
 
     public GoldDetailsEntity(){}
 
-    public GoldDetailsEntity(String created_at, String money, String type , String OrderNumber , String Operates ) {
+    public GoldDetailsEntity(String created_at, String money, String type , String OrderNumber , String Operates  ,String videoID ) {
         this.created_at = created_at;
         this.Money = money;
         this.Type = type;
         this.OrderNumber = OrderNumber ;
         this.Operates = Operates ;
+        VideoID = videoID ;
+    }
+
+    public String getVideoID() {
+        return VideoID;
+    }
+
+    public void setVideoID(String videoID) {
+        VideoID = videoID;
     }
 
     public String getCreated_at() {

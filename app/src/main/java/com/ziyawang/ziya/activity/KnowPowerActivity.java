@@ -61,7 +61,7 @@ public class KnowPowerActivity extends BenBenActivity implements View.OnClickLis
                 text_two.setText("赠送芽币");
                 text_three.setText("定制推送");
                 text_four.setText("联系方式展示");
-                justifyText_one.setText("在会员期间内，可免费查看本网站所有资产包类VIP和收费信息。");
+                justifyText_one.setText("在会员期间内，可免费查看本网站所有资产包类VIP和收费信息以及所有付费视频。");
                 justifyText_two.setText("按办理会员的价格赠送芽币（例：月度会员6498元赠送6498芽币，年度会员70000元赠送70000芽币）。可方便您查看其他类型信息。");
                 justifyText_three.setText("系统会根据您的指定需求帮您筛选指定的资产包信息，并推送到您的系统消息或手机短信中（客服人员会主动联系您录入需求）。");
                 justifyText_four.setText("升级为会员后，您服务方的展示页面联系方式将公开，会有更多用户第一时间主动联系您。");
@@ -72,7 +72,7 @@ public class KnowPowerActivity extends BenBenActivity implements View.OnClickLis
                 text_two.setText("赠送芽币");
                 text_three.setText("定制推送");
                 text_four.setText("联系方式展示");
-                justifyText_one.setText("在会员期间内，可免费查看本网站所有企业商账类VIP和收费信息。");
+                justifyText_one.setText("在会员期间内，可免费查看本网站所有企业商账类VIP和收费信息以及所有付费视频。");
                 justifyText_two.setText("按办理会员的价格赠送芽币（例：季度会员1498元赠送1498芽币，年度会员4998元赠送4998芽币）。可方便您查看其他类型信息。");
                 justifyText_three.setText("系统会根据您的指定需求帮您筛选指定的企业商账信息，并推送到您的系统消息或手机短信中（客服人员会主动联系您录入需求）。");
                 justifyText_four.setText("升级为会员后，您服务方的展示页面联系方式将公开，会有更多用户第一时间主动联系您。");
@@ -83,7 +83,7 @@ public class KnowPowerActivity extends BenBenActivity implements View.OnClickLis
                 text_two.setText("赠送芽币");
                 text_three.setText("定制推送");
                 text_four.setText("联系方式展示");
-                justifyText_one.setText("在会员期间内，可免费查看本网站所有固定资产类VIP和收费信息。");
+                justifyText_one.setText("在会员期间内，可免费查看本网站所有固定资产类VIP和收费信息以及所有付费视频。");
                 justifyText_two.setText("按办理会员的价格赠送芽币（例：月度会员6498元赠送6498芽币，年度会员70000元赠送70000芽币）。可方便您查看其他类型信息。");
                 justifyText_three.setText("系统会根据您的指定需求帮您筛选指定的固定资产信息，并推送到您的系统消息或手机短信中（客服人员会主动联系您录入需求）。");
                 justifyText_four.setText("升级为会员后，您服务方的展示页面联系方式将公开，会有更多用户第一时间主动联系您。");
@@ -94,7 +94,7 @@ public class KnowPowerActivity extends BenBenActivity implements View.OnClickLis
                 text_two.setText("赠送芽币");
                 text_three.setText("定制推送");
                 text_four.setText("联系方式展示");
-                justifyText_one.setText("在会员期间内，可免费查看本网站所有融资信息类VIP和收费信息。");
+                justifyText_one.setText("在会员期间内，可免费查看本网站所有融资信息类VIP和收费信息以及所有付费视频。");
                 justifyText_two.setText("按办理会员的价格赠送芽币（例：季度会员998元赠送998芽币，年度会员2998元赠送2998芽币）。可方便您查看其他类型信息。");
                 justifyText_three.setText("系统会根据您的指定需求帮您筛选指定的融资信息信息，并推送到您的系统消息或手机短信中（客服人员会主动联系您录入需求）。");
                 justifyText_four.setText("升级为会员后，您服务方的展示页面联系方式将公开，会有更多用户第一时间主动联系您。");
@@ -105,7 +105,7 @@ public class KnowPowerActivity extends BenBenActivity implements View.OnClickLis
                 text_two.setText("赠送芽币");
                 text_three.setText("定制推送");
                 text_four.setText("联系方式展示");
-                justifyText_one.setText("在会员期间内，可免费查看本网站所有个人债权类VIP和收费信息。");
+                justifyText_one.setText("在会员期间内，可免费查看本网站所有个人债权类VIP和收费信息以及所有付费视频。");
                 justifyText_two.setText("按办理会员的价格赠送芽币（例：季度会员998元赠送998芽币，年度会员2998元赠送2998芽币）。可方便您查看其他类型信息。");
                 justifyText_three.setText("系统会根据您的指定需求帮您筛选指定的个人债权信息，并推送到您的系统消息或手机短信中（客服人员会主动联系您录入需求）。");
                 justifyText_four.setText("升级为会员后，您服务方的展示页面联系方式将公开，会有更多用户第一时间主动联系您。");
