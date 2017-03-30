@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.baidu.paysdk.login.Login;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -32,7 +31,6 @@ import org.json.JSONObject;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
 public class LoginActivity extends BenBenActivity implements View.OnClickListener {
@@ -53,6 +51,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
     private SharedPreferences role ;
     private SharedPreferences userId ;
     private SharedPreferences isLoad ;
+    private SharedPreferences right ;
     //数据加载
     private MyProgressDialog dialog  ;
     //找回密码按钮
@@ -184,6 +183,7 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
         final String ticket = jsonObject.getString("token");
         String role_a = jsonObject.getString("role");
         String userID = jsonObject.getString("UserID");
+        String right_a = jsonObject.getString("right");
         //用于Umeng的新增账号统计
         MobclickAgent.onProfileSignIn(userID);
 
@@ -192,12 +192,14 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
         myNumber = getSharedPreferences("myNumber" , MODE_PRIVATE ) ;
         role = getSharedPreferences("role" , MODE_PRIVATE ) ;
         userId = getSharedPreferences("userId" , MODE_PRIVATE ) ;
+        right = getSharedPreferences("right" , MODE_PRIVATE ) ;
 
         loginCode.edit().putString("loginCode", ticket).commit();
         isLogin.edit().putBoolean("isLogin", true).commit();
         myNumber.edit().putString("myNumber", userName.getText().toString().replace(" ", "").trim()).commit();
         role.edit().putString("role", role_a).commit();
         userId.edit().putString("userId", userID).commit();
+        right.edit().putString("right", right_a ).commit();
     }
 
     private void hiddenDialog() {

@@ -5,18 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -41,7 +34,6 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
-import com.ziyawang.ziya.entity.V2InfoEntity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.MyTimeFormat;
 import com.ziyawang.ziya.tools.Player;
@@ -57,8 +49,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -89,12 +79,14 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private TextView info_nickName ;
     //信息的编号
     private TextView info_no;
-    //信息的审核时间和观看次数
+    //信息的观看次数
     private TextView info_time ;
     //是否是vip资源的显示
     private ImageView info_vip ;
     //举报按钮
     private RelativeLayout report ;
+    //信息的审核时间
+    private TextView info_time_new ;
     //次级信息
     private LinearLayout linear_one ;
     private LinearLayout linear_two ;
@@ -114,6 +106,10 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private TextView three_left ;
     private TextView four_left ;
     private TextView five_left ;
+    private ImageView five_img ;
+    private ImageView six_img ;
+    private ImageView seven_img ;
+    private ImageView eight_img ;
     private TextView six_left ;
     private TextView seven_left ;
     private TextView eight_left ;
@@ -273,6 +269,10 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private PopupWindow popupWindow ;
     //用户是否承诺该条信息
     private LinearLayout linear_promise ;
+    //项目详情头区域
+    private TextView v216_PictureDet_head ;
+    //项目详情
+    private ImageView v216_PictureDet ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,6 +301,7 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         info_nickName = (TextView)findViewById(R.id.info_nickName ) ;
         info_no = (TextView)findViewById(R.id.info_no ) ;
         info_time = (TextView)findViewById(R.id.info_view_count ) ;
+        info_time_new = (TextView)findViewById(R.id.info_time_new ) ;
         info_vip = (ImageView)findViewById(R.id.info_vip ) ;
 
         one_left = (TextView)findViewById(R.id.one_left ) ;
@@ -308,6 +309,10 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         three_left = (TextView)findViewById(R.id.three_left ) ;
         four_left = (TextView)findViewById(R.id.four_left ) ;
         five_left = (TextView)findViewById(R.id.five_left ) ;
+        five_img = (ImageView)findViewById(R.id.five_img ) ;
+        six_img = (ImageView)findViewById(R.id.six_img ) ;
+        seven_img = (ImageView)findViewById(R.id.seven_img ) ;
+        eight_img = (ImageView)findViewById(R.id.eight_img ) ;
         six_left = (TextView)findViewById(R.id.six_left ) ;
         seven_left = (TextView)findViewById(R.id.seven_left ) ;
         eight_left = (TextView)findViewById(R.id.eight_left ) ;
@@ -358,6 +363,9 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
 
         info_sendMessage = (RelativeLayout)findViewById(R.id.info_sendMessage ) ;
         info_call = (RelativeLayout)findViewById(R.id.info_call ) ;
+
+        v216_PictureDet_head = (TextView)findViewById(R.id.v216_PictureDet_head ) ;
+        v216_PictureDet = (ImageView) findViewById(R.id.v216_PictureDet ) ;
 
     }
 
@@ -487,6 +495,8 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
             info_audio_des.setVisibility(View.GONE);
             voice_status.setVisibility(View.VISIBLE);
         }
+        //根据请求数据来正确显示项目详情
+        showPictureDet(object) ;
         //得到图片的个数
         getPicNum(pictureDes2, pictureDes3);
         //根据数据请求过来的pictureDes1来正确显示第一张图片
@@ -510,6 +520,25 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
             linearLayout.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    private void showPictureDet(com.alibaba.fastjson.JSONObject object) {
+        final String pictureDet = object.getString("PictureDet");
+        if (!TextUtils.isEmpty(pictureDet)){
+            BitmapUtils bitmapUtils1 = new BitmapUtils(V2DetailsFindInfoActivity.this);
+            bitmapUtils1.configDefaultLoadFailedImage(R.mipmap.error_imgs);
+            bitmapUtils1.display(v216_PictureDet, Url.FileIP + pictureDet );
+            v216_PictureDet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(V2DetailsFindInfoActivity.this, Image216Activity.class);
+                    intent.putExtra("count" ,"1") ;
+                    intent.putExtra("pic_number", "1") ;
+                    intent.putExtra("pic1" ,Url.FileIP + pictureDet ) ;
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void showNotMyselfVIew() {
@@ -640,7 +669,7 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     }
 
     private void subData(String index) {
-        Intent intent = new Intent(V2DetailsFindInfoActivity.this, ShowImageViewActivity.class);
+        Intent intent = new Intent(V2DetailsFindInfoActivity.this, Image216Activity.class);
         intent.putExtra("count" ,index) ;
         intent.putExtra("pic_number", pic_num) ;
         if (Integer.parseInt(pic_num) == 3){
@@ -981,24 +1010,36 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         second_head.setVisibility(View.GONE);
     }
 
+    //土地
     private void showView16(com.alibaba.fastjson.JSONObject object) {
         one_left.setText("发布方身份：");
         one_right.setText(object.getString("Identity"));
-        two_left.setText("地区：");
-        two_right.setText(object.getString("ProArea"));
-        three_left.setText("标的物类型：");
-        three_right.setText(object.getString("AssetType"));
+        two_left.setText("标的物类型：");
+        two_right.setText(object.getString("AssetType"));
+        three_left.setText("地区：");
+        three_right.setText(object.getString("ProArea"));
         four_left.setText("规划用途：");
         four_right.setText(object.getString("Usefor"));
-        five_left.setText("面积：");
+        five_left.setText("土地面积：");
         String area = object.getString("Area");
         five_right.setText(area + "平米");
-        six_left.setText("剩余使用年限：");
-        String year = object.getString("Year");
-        six_right.setText(year + "年");
-        seven_left.setText("转让方式：");
-        seven_right.setText(object.getString("TransferType"));
-        eight_left.setText("转让价：");
+        six_left.setText("建筑面积：");
+        String buildArea = object.getString("BuildArea");
+        if ("0.00".equals(buildArea)){
+            six_right.setText("");
+        }else {
+            six_right.setText(buildArea + "平米");
+        }
+        seven_left.setText("容积率：");
+        if ("0.00".equals(object.getString("FloorRatio"))){
+            seven_right.setText("");
+        }else {
+            seven_right.setText(object.getString("FloorRatio"));
+        }
+
+        eight_left.setVisibility(View.GONE);
+        eight_img.setVisibility(View.VISIBLE);
+        eight_img.setImageResource(R.mipmap.zhuangrangjia);
         String money = object.getString("TransferMoney");
         eight_right.setText(money + "万元");
         nine_left.setVisibility(View.GONE);
@@ -1009,93 +1050,83 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         eight_right.setTextColor(Color.rgb(239, 130, 0));
         eight_right.setTextSize(20);
 
-        linear_ten_add.setVisibility(View.VISIBLE);
-        DecimalFormat df = new DecimalFormat("0.00");
-
-        String s2 = "0" ;
-        if (!TextUtils.isEmpty(area) &&!"0".equals(area)){
-            float b = Float.parseFloat(area) ;
-            if (!TextUtils.isEmpty(money)){
-                float a = Float.parseFloat(money) ;
-                float d =  a / b ;
-                s2 = String.valueOf(df.format(d));
-            }
-            ten_right_add.setText(s2 + " 万元/平方米");
+        linear_01.setVisibility(View.GONE);
+        linear_02.setVisibility(View.GONE);
+        linear_03.setVisibility(View.GONE);
+        second_head.setVisibility(View.GONE);
+        String pictureDet = object.getString("PictureDet");
+        if (!TextUtils.isEmpty(pictureDet) && !"".equals(pictureDet)){
+            v216_PictureDet_head.setVisibility(View.VISIBLE);
+            v216_PictureDet.setVisibility(View.VISIBLE);
         }
 
-        linear_01.setVisibility(View.VISIBLE);
-        linear_02.setVisibility(View.VISIBLE);
-        linear_03.setVisibility(View.VISIBLE);
 
-        String credentials = object.getString("Credentials");
-        String dispute = object.getString("Dispute");
-        String debt = object.getString("Debt");
-        String guaranty = object.getString("Guaranty");
-        String property = object.getString("Property");
-
-        //有无相关证件
-        if (TextUtils.isEmpty(credentials) || "请选择".equals(credentials)){
-            text_01_left.setText("有无相关证件：未填写");
-        }else {
-            text_01_left.setText("有无相关证件：" + credentials);
-        }
-        //有无法律纠纷
-        if (TextUtils.isEmpty(dispute) || "请选择".equals(dispute)){
-            text_02_left.setText("有无法律纠纷：未填写");
-        }else {
-            text_02_left.setText("有无法律纠纷：" + dispute );
-        }
-        //有无负债
-        if (TextUtils.isEmpty(debt) || "请选择".equals(debt)){
-            text_03_left.setText("有无负债：未填写");
-        }else {
-            text_03_left.setText("有无负债：" + debt );
-        }
-
-        //有无抵押担保
-        if (TextUtils.isEmpty(guaranty) || "请选择".equals(guaranty)){
-            text_01_right.setText("有无抵押担保：未填写");
-        }else {
-            text_01_right.setText("有无抵押担保：" + guaranty);
-        }
-        //是否拥有全部产权
-        if (TextUtils.isEmpty(property) || "请选择".equals(property)){
-            text_02_right.setText("是否拥有全部产权：未填写");
-        }else {
-            text_02_right.setText("是否拥有全部产权：" + property );
-        }
-        text_03_right.setText("");
+//        String credentials = object.getString("Credentials");
+//        String dispute = object.getString("Dispute");
+//        String debt = object.getString("Debt");
+//        String guaranty = object.getString("Guaranty");
+//        String property = object.getString("Property");
+//
+//        //有无相关证件
+//        if (TextUtils.isEmpty(credentials) || "请选择".equals(credentials)){
+//            text_01_left.setText("有无相关证件：未填写");
+//        }else {
+//            text_01_left.setText("有无相关证件：" + credentials);
+//        }
+//        //有无法律纠纷
+//        if (TextUtils.isEmpty(dispute) || "请选择".equals(dispute)){
+//            text_02_left.setText("有无法律纠纷：未填写");
+//        }else {
+//            text_02_left.setText("有无法律纠纷：" + dispute );
+//        }
+//        //有无负债
+//        if (TextUtils.isEmpty(debt) || "请选择".equals(debt)){
+//            text_03_left.setText("有无负债：未填写");
+//        }else {
+//            text_03_left.setText("有无负债：" + debt );
+//        }
+//
+//        //有无抵押担保
+//        if (TextUtils.isEmpty(guaranty) || "请选择".equals(guaranty)){
+//            text_01_right.setText("有无抵押担保：未填写");
+//        }else {
+//            text_01_right.setText("有无抵押担保：" + guaranty);
+//        }
+//        //是否拥有全部产权
+//        if (TextUtils.isEmpty(property) || "请选择".equals(property)){
+//            text_02_right.setText("是否拥有全部产权：未填写");
+//        }else {
+//            text_02_right.setText("是否拥有全部产权：" + property );
+//        }
+//        text_03_right.setText("");
 
     }
 
+    //房产
     private void showView12(com.alibaba.fastjson.JSONObject object) {
         one_left.setText("发布方身份：");
         one_right.setText(object.getString("Identity"));
-        two_left.setText("地区：");
-        two_right.setText(object.getString("ProArea"));
-        three_left.setText("标的物类型：");
-        three_right.setText(object.getString("AssetType"));
+        two_left.setText("标的物类型：");
+        two_right.setText(object.getString("AssetType"));
+        three_left.setText("地区：");
+        three_right.setText(object.getString("ProArea"));
         four_left.setText("房产类型：");
         four_right.setText(object.getString("Type"));
-        five_left.setText("规划用途：");
-        five_right.setText(object.getString("Usefor"));
-        six_left.setText("面积：");
+        five_left.setText("面积：");
         String area = object.getString("Area");
-        six_right.setText(area + "平米");
-        seven_left.setText("剩余使用年限：");
-        String year = object.getString("Year");
-        seven_right.setText(year + "年");
-        eight_left.setText("转让方式：");
-        eight_right.setText(object.getString("TransferType"));
-        nine_left.setText("市场价：");
+        five_right.setText(area + "平米");
+        six_left.setVisibility(View.GONE);
+        six_img.setVisibility(View.VISIBLE);
+        six_img.setImageResource(R.mipmap.shichangjia);
         String marketPrice = object.getString("MarketPrice");
-        nine_right.setText(marketPrice + "万元");
-        ten_left.setText("转让价：");
+        six_right.setText(marketPrice + "万元");
+        seven_left.setVisibility(View.GONE);
+        seven_img.setVisibility(View.VISIBLE);
+        seven_img.setImageResource(R.mipmap.zhuangrangjia);
         String money = object.getString("TransferMoney");
-        ten_right.setText(money + "万元");
+        seven_right.setText(money + "万元");
 
-        linear_nine_add.setVisibility(View.VISIBLE);
-        linear_ten_add.setVisibility(View.VISIBLE);
+        eight_left.setText("市场单价：");
         DecimalFormat df = new DecimalFormat("0.00");
         String s1 = "0" ;
         if (!TextUtils.isEmpty(area) &&!"0".equals(area)){
@@ -1105,8 +1136,10 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
                 float c =  a / b ;
                 s1 = String.valueOf(df.format(c));
             }
-            nine_right_add.setText(s1 + " 万元/平方米");
+            eight_right.setText(s1 + " 万元/平方米");
         }
+
+        nine_left.setText("转让单价：");
         String s2 = "0" ;
         if (!TextUtils.isEmpty(area) &&!"0".equals(area)){
             float b = Float.parseFloat(area) ;
@@ -1115,60 +1148,64 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
                 float d =  a / b ;
                 s2 = String.valueOf(df.format(d));
             }
-            ten_right_add.setText(s2 + " 万元/平方米");
+            nine_right.setText(s2 + " 万元/平方米");
+        }
+        ten_left.setVisibility(View.GONE);
+        ten_right.setVisibility(View.GONE);
+        six_right.setTextColor(Color.rgb(239, 130, 0));
+        six_right.setTextSize(20);
+        seven_right.setTextColor(Color.rgb(239, 130, 0));
+        seven_right.setTextSize(20);
+
+        linear_01.setVisibility(View.GONE);
+        linear_02.setVisibility(View.GONE);
+        linear_03.setVisibility(View.GONE);
+        second_head.setVisibility(View.GONE);
+        String pictureDet = object.getString("PictureDet");
+        if (!TextUtils.isEmpty(pictureDet) && !"".equals(pictureDet)){
+            v216_PictureDet_head.setVisibility(View.VISIBLE);
+            v216_PictureDet.setVisibility(View.VISIBLE);
         }
 
 
-
-
-
-        nine_right.setTextColor(Color.rgb(239, 130, 0));
-        nine_right.setTextSize(20);
-        ten_right.setTextColor(Color.rgb(239, 130, 0));
-        ten_right.setTextSize(20);
-
-        linear_01.setVisibility(View.VISIBLE);
-        linear_02.setVisibility(View.VISIBLE);
-        linear_03.setVisibility(View.VISIBLE);
-
-        String credentials = object.getString("Credentials");
-        String dispute = object.getString("Dispute");
-        String debt = object.getString("Debt");
-        String guaranty = object.getString("Guaranty");
-        String property = object.getString("Property");
-
-        //有无相关证件
-        if (TextUtils.isEmpty(credentials) || "请选择".equals(credentials)){
-            text_01_left.setText("有无相关证件：未填写");
-        }else {
-            text_01_left.setText("有无相关证件：" + credentials);
-        }
-        //有无法律纠纷
-        if (TextUtils.isEmpty(dispute) || "请选择".equals(dispute)){
-            text_02_left.setText("有无法律纠纷：未填写");
-        }else {
-            text_02_left.setText("有无法律纠纷：" + dispute );
-        }
-        //有无负债
-        if (TextUtils.isEmpty(debt) || "请选择".equals(debt)){
-            text_03_left.setText("有无负债：未填写");
-        }else {
-            text_03_left.setText("有无负债：" + debt );
-        }
-
-        //有无抵押担保
-        if (TextUtils.isEmpty(guaranty) || "请选择".equals(guaranty)){
-            text_01_right.setText("有无抵押担保：未填写");
-        }else {
-            text_01_right.setText("有无抵押担保：" + guaranty);
-        }
-        //是否拥有全部产权
-        if (TextUtils.isEmpty(property) || "请选择".equals(property)){
-            text_02_right.setText("是否拥有全部产权：未填写");
-        }else {
-            text_02_right.setText("是否拥有全部产权：" + property );
-        }
-        text_03_right.setText("");
+//        String credentials = object.getString("Credentials");
+//        String dispute = object.getString("Dispute");
+//        String debt = object.getString("Debt");
+//        String guaranty = object.getString("Guaranty");
+//        String property = object.getString("Property");
+//
+//        //有无相关证件
+//        if (TextUtils.isEmpty(credentials) || "请选择".equals(credentials)){
+//            text_01_left.setText("有无相关证件：未填写");
+//        }else {
+//            text_01_left.setText("有无相关证件：" + credentials);
+//        }
+//        //有无法律纠纷
+//        if (TextUtils.isEmpty(dispute) || "请选择".equals(dispute)){
+//            text_02_left.setText("有无法律纠纷：未填写");
+//        }else {
+//            text_02_left.setText("有无法律纠纷：" + dispute );
+//        }
+//        //有无负债
+//        if (TextUtils.isEmpty(debt) || "请选择".equals(debt)){
+//            text_03_left.setText("有无负债：未填写");
+//        }else {
+//            text_03_left.setText("有无负债：" + debt );
+//        }
+//
+//        //有无抵押担保
+//        if (TextUtils.isEmpty(guaranty) || "请选择".equals(guaranty)){
+//            text_01_right.setText("有无抵押担保：未填写");
+//        }else {
+//            text_01_right.setText("有无抵押担保：" + guaranty);
+//        }
+//        //是否拥有全部产权
+//        if (TextUtils.isEmpty(property) || "请选择".equals(property)){
+//            text_02_right.setText("是否拥有全部产权：未填写");
+//        }else {
+//            text_02_right.setText("是否拥有全部产权：" + property );
+//        }
+//        text_03_right.setText("");
 
     }
 
@@ -1205,25 +1242,44 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         second_head.setVisibility(View.GONE);
     }
 
+    //资产包
     private void showView1(com.alibaba.fastjson.JSONObject object) {
         one_left.setText("发布方身份：");
         one_right.setText(object.getString("Identity"));
-        two_left.setText("资产包类型：");
-        two_right.setText(object.getString("AssetType"));
-        three_left.setText("来源：");
-        three_right.setText(object.getString("FromWhere"));
+        two_left.setText("卖家类型：");
+        two_right.setText(object.getString("FromWhere"));
+        three_left.setText("资产包类型：");
+        three_right.setText(object.getString("AssetType"));
         four_left.setText("地区：");
         four_right.setText(object.getString("ProArea"));
-        five_left.setText("总金额：");
+        five_left.setVisibility(View.GONE);
+        five_img.setVisibility(View.VISIBLE);
+        five_img.setImageResource(R.mipmap.zongjine);
         String money = object.getString("TotalMoney");
         five_right.setText(money + "万元");
-        six_left.setText("转让价：");
-        String money1 = object.getString("TransferMoney");
-        six_right.setText(money1 + "万元");
-        seven_left.setVisibility(View.GONE);
-        seven_right.setVisibility(View.GONE);
-        eight_left.setVisibility(View.GONE);
-        eight_right.setVisibility(View.GONE);
+        six_left.setVisibility(View.GONE);
+        six_img.setVisibility(View.VISIBLE);
+        six_img.setImageResource(R.mipmap.zhuangrangjia);
+        String money3 = object.getString("TransferMoney");
+        six_right.setText(money3 + "万元");
+
+
+        seven_left.setText("本金：");
+        String money1 = object.getString("Money");
+        if ("0.00".equals(money1)){
+            seven_right.setText("");
+        }else {
+            seven_right.setText(money1 + "万元");
+        }
+        eight_left.setText("利息：");
+        String money2 = object.getString("Rate");
+        if("0.00".equals(money2)){
+            eight_right.setText("");
+        }else {
+            eight_right.setText(money2 + "万元");
+        }
+
+
         nine_left.setVisibility(View.GONE);
         nine_right.setVisibility(View.GONE);
         ten_left.setVisibility(View.GONE);
@@ -1234,59 +1290,65 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         five_right.setTextSize(20);
         six_right.setTextSize(20);
 
-        linear_01.setVisibility(View.VISIBLE);
-        linear_02.setVisibility(View.VISIBLE);
-        linear_03.setVisibility(View.VISIBLE);
+        linear_01.setVisibility(View.GONE);
+        linear_02.setVisibility(View.GONE);
+        linear_03.setVisibility(View.GONE);
+        second_head.setVisibility(View.GONE);
+        String pictureDet = object.getString("PictureDet");
+        if (!TextUtils.isEmpty(pictureDet) && !"".equals(pictureDet)){
+            v216_PictureDet_head.setVisibility(View.VISIBLE);
+            v216_PictureDet.setVisibility(View.VISIBLE);
+        }
 
-        String money2 = object.getString("Money");
-        String rate = object.getString("Rate");
-        String counts = object.getString("Counts");
-        String report = object.getString("Report");
-        String time = object.getString("Time");
-        String pawn = object.getString("Pawn");
-        //本金数据的处理
-        if (TextUtils.isEmpty(money2) || "0".equals(money2) ){
-            text_01_left.setText("本金：未填写");
-        }else {
-            text_01_left.setText("本金：" + money2 + "万元");
-        }
-        //利息数据的处理
-        if (TextUtils.isEmpty(rate) || "0".equals(rate) ){
-            text_02_left.setText("利息：未填写");
-        }else {
-            text_02_left.setText("利息：" + rate + "万元" );
-        }
-        //户数数据的处理
-        if (TextUtils.isEmpty(counts) || "0".equals(counts) ){
-            text_03_left.setText("户数：未填写");
-        }else {
-            text_03_left.setText("户数：" + counts + "户");
-        }
-        //有无尽调报告
-        if (TextUtils.isEmpty(report) || "请选择".equals(report)){
-            text_01_right.setText("有无尽调报告：未填写");
-        }else {
-            text_01_right.setText("有无尽调报告：" + report);
-        }
-        //出表时间
-        if (TextUtils.isEmpty(time) || "请选择".equals(time)){
-            text_02_right.setText("出表时间：未填写");
-        }else {
-            text_02_right.setText("出表时间：" + time );
-        }
-        //抵押物类型
-        if (TextUtils.isEmpty(pawn) || "请选择".equals(pawn)){
-            text_03_right.setText("抵押物类型：未填写");
-        }else {
-            text_03_right.setText("抵押物类型：" + pawn );
-        }
+//        String money4 = object.getString("Money");
+//        String rate = object.getString("Rate");
+//        String counts = object.getString("Counts");
+//        String report = object.getString("Report");
+//        String time = object.getString("Time");
+//        String pawn = object.getString("Pawn");
+//        //本金数据的处理
+//        if (TextUtils.isEmpty(money4) || "0".equals(money4) ){
+//            text_01_left.setText("本金：未填写");
+//        }else {
+//            text_01_left.setText("本金：" + money4 + "万元");
+//        }
+//        //利息数据的处理
+//        if (TextUtils.isEmpty(rate) || "0".equals(rate) ){
+//            text_02_left.setText("利息：未填写");
+//        }else {
+//            text_02_left.setText("利息：" + rate + "万元" );
+//        }
+//        //户数数据的处理
+//        if (TextUtils.isEmpty(counts) || "0".equals(counts) ){
+//            text_03_left.setText("户数：未填写");
+//        }else {
+//            text_03_left.setText("户数：" + counts + "户");
+//        }
+//        //有无尽调报告
+//        if (TextUtils.isEmpty(report) || "请选择".equals(report)){
+//            text_01_right.setText("有无尽调报告：未填写");
+//        }else {
+//            text_01_right.setText("有无尽调报告：" + report);
+//        }
+//        //出表时间
+//        if (TextUtils.isEmpty(time) || "请选择".equals(time)){
+//            text_02_right.setText("出表时间：未填写");
+//        }else {
+//            text_02_right.setText("出表时间：" + time );
+//        }
+//        //抵押物类型
+//        if (TextUtils.isEmpty(pawn) || "请选择".equals(pawn)){
+//            text_03_right.setText("抵押物类型：未填写");
+//        }else {
+//            text_03_right.setText("抵押物类型：" + pawn );
+//        }
     }
 
     private void showTimeCount(String publishTime, String viewCount) {
         if (publishTime.length() >= 11){
             String substring = publishTime.substring(0, 11);
-            info_time.setText("浏览" + viewCount + "  " +  substring
-            );
+            info_time.setText(viewCount);
+            info_time_new.setText(substring);
         }
     }
 
@@ -1315,7 +1377,7 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
             info_vip.setVisibility(View.VISIBLE);
             info_vip.setImageResource(R.mipmap.v2140101);
         }else if (!TextUtils.isEmpty(CooperateState) && "2".equals(CooperateState)){
-            if ("6".equals(TypeID) || "17".equals(TypeID)){
+            if ("6".equals(TypeID) || "17".equals(TypeID)  || "20".equals(TypeID)  || "21".equals(TypeID)  || "22".equals(TypeID) ){
                 info_vip.setVisibility(View.VISIBLE);
                 info_vip.setImageResource(R.mipmap.v2140102);
             }else {

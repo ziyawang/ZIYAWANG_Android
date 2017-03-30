@@ -342,6 +342,10 @@
             android:name=".activity.DetailsStarRegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.Image216Activity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ImageScale">
+        </activity>
     </application>
 
 </manifest>

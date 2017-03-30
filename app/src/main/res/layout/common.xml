@@ -32,7 +32,7 @@
         android:textColor="#999"
         android:background="#fff"
         android:padding="15dp"
-        android:hint="请输入相关信息"
+        android:hint="请输入内容描述"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <!--语音描述页面-->
@@ -57,15 +57,15 @@
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
-            android:drawableLeft="@mipmap/icon_luyin"
-            android:background="@drawable/login_register"
+            android:drawableLeft="@mipmap/v216icon_luyin"
+            android:background="@drawable/v216_add_voice"
             android:layout_marginLeft="14dp"
             android:id="@+id/release_audio_des"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/audio_one"
-            android:textColor="#fdd000"
+            android:textColor="#333"
             android:text="长按录入语音" />
 
         <TextView
@@ -98,13 +98,36 @@
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
-    <!--1dp的分割线-->
-    <TextView
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:background="#eee"
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="1px" />
+        android:layout_height="46dp">
+
+        <TextView
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:text="相关凭证"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/v216_des"
+            android:layout_alignParentRight="true"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingRight="15dp"
+            android:textColor="#999"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
 
     <!--图片获取页面-->
     <LinearLayout
@@ -176,13 +199,10 @@
         </FrameLayout>
 
         <TextView
-            android:background="@drawable/release_add_img"
+            android:background="@mipmap/v216camera"
             android:paddingTop="10dp"
-            android:textColor="#fdd000"
-            android:drawableTop="@mipmap/icon51"
             android:id="@+id/release_img_add"
             android:gravity="center"
-            android:text="添加凭证"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_width="90dp"
@@ -191,7 +211,7 @@
     <!--联系人姓名-->
     <RelativeLayout
         android:paddingLeft="15dp"
-        android:layout_marginTop="1px"
+        android:layout_marginTop="10dp"
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="46dp">

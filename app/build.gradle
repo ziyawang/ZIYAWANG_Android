@@ -8,8 +8,8 @@ android {
         applicationId "com.ziyawang.ziya"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 17
-        versionName "2.1.5"
+        versionCode 19
+        versionName "2.1.7"
     }
     buildTypes {
         release {
@@ -36,4 +36,5 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile project(':lib:pingpp')
     compile project(':lib:bdwallet_pay_sdk')
+    compile 'com.uwetrottmann.photoview:library:1.2.4'
 }

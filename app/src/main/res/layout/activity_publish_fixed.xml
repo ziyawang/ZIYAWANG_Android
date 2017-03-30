@@ -81,33 +81,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-            <!--地区-->
-            <LinearLayout
-                android:background="#fff"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="46dp">
-                <TextView
-                    android:layout_marginLeft="16dp"
-                    android:textColor="#333"
-                    android:textSize="18sp"
-                    android:text="地区"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/text_part"
-                    android:gravity="end|center_vertical"
-                    android:text="请选择"
-                    android:singleLine="true"
-                    android:textSize="15sp"
-                    android:textColor="#999"
-                    android:drawablePadding="16dp"
-                    android:layout_marginRight="16dp"
-                    android:drawableRight="@mipmap/icon_xia"
-                    android:background="#fff"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
             <!--标的物类型-->
             <LinearLayout
                 android:background="#fff"
@@ -135,6 +108,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
+            <!--地区-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+                <TextView
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#333"
+                    android:textSize="18sp"
+                    android:text="地区"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/text_part"
+                    android:gravity="end|center_vertical"
+                    android:text="请选择"
+                    android:singleLine="true"
+                    android:textSize="15sp"
+                    android:textColor="#999"
+                    android:drawablePadding="16dp"
+                    android:layout_marginRight="16dp"
+                    android:drawableRight="@mipmap/icon_xia"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
             <!--固定资产，土地展示页面，相互独立-->
             <LinearLayout
                 android:visibility="gone"
@@ -144,6 +145,7 @@
                 android:layout_height="wrap_content">
                 <!--规划用途-->
                 <LinearLayout
+                    android:layout_marginTop="1px"
                     android:background="#fff"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
@@ -169,7 +171,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
-                <!--面积-->
+                <!--土地面积-->
                 <RelativeLayout
                     android:layout_marginTop="1px"
                     android:background="#fff"
@@ -182,7 +184,7 @@
                         android:layout_marginLeft="16dp"
                         android:textColor="#333"
                         android:textSize="18sp"
-                        android:text="面积"
+                        android:text="土地面积"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -206,7 +208,7 @@
                         android:layout_toRightOf="@id/money_left119"
                         android:layout_toLeftOf="@id/money_right119"
                         android:gravity="end|center_vertical"
-                        android:hint="请输入面积"
+                        android:hint="请输入数字"
                         android:singleLine="true"
                         android:textSize="15sp"
                         android:textColor="#999"
@@ -216,8 +218,9 @@
                         android:layout_height="match_parent" />
 
                 </RelativeLayout>
-                <!--剩余使用年限-->
+                <!--剩余使用年限gone-->
                 <RelativeLayout
+                    android:visibility="gone"
                     android:layout_marginTop="1px"
                     android:background="#fff"
                     android:layout_width="match_parent"
@@ -262,8 +265,9 @@
                         android:layout_height="match_parent" />
 
                 </RelativeLayout>
-                <!--转让方式-->
+                <!--转让方式gone-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:background="#fff"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
@@ -289,6 +293,99 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
+                <!--建筑面积-->
+                <RelativeLayout
+                    android:layout_marginTop="1px"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/buildArea_left"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#333"
+                        android:textSize="18sp"
+                        android:text="建筑面积"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="#ef8200"
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/buildArea_right"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:text="平方米"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:textColorHint="#999"
+                        android:maxLength="11"
+                        android:digits="0123456789."
+                        android:numeric="decimal"
+                        android:id="@+id/edit_build_area"
+                        android:layout_marginRight="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/buildArea_left"
+                        android:layout_toLeftOf="@id/buildArea_right"
+                        android:gravity="end|center_vertical"
+                        android:hint="请输入数字"
+                        android:singleLine="true"
+                        android:textSize="15sp"
+                        android:textColor="#999"
+                        android:drawablePadding="16dp"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+                <!--容积率-->
+                <RelativeLayout
+                    android:layout_marginTop="1px"
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/pr_left"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#333"
+                        android:textSize="18sp"
+                        android:text="容积率"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="#ef8200"
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/pr_right"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:textColorHint="#999"
+                        android:maxLength="11"
+                        android:digits="0123456789."
+                        android:numeric="decimal"
+                        android:id="@+id/edit_pr"
+                        android:layout_marginRight="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/pr_left"
+                        android:layout_toLeftOf="@id/pr_right"
+                        android:gravity="end|center_vertical"
+                        android:hint="请输入数字"
+                        android:singleLine="true"
+                        android:textSize="15sp"
+                        android:textColor="#999"
+                        android:drawablePadding="16dp"
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
             </LinearLayout>
             <!--固定资产，房产展示页面，相互独立-->
             <LinearLayout
@@ -299,6 +396,7 @@
                 android:layout_height="wrap_content">
                 <!--房产类型-->
                 <LinearLayout
+                    android:layout_marginTop="1px"
                     android:background="#fff"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
@@ -324,8 +422,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
-                <!--规划用途-->
+                <!--规划用途gone-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:background="#fff"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
@@ -388,7 +487,7 @@
                         android:layout_toRightOf="@id/money_left11"
                         android:layout_toLeftOf="@id/money_right11"
                         android:gravity="end|center_vertical"
-                        android:hint="请输入面积"
+                        android:hint="请输入数字"
                         android:singleLine="true"
                         android:textSize="15sp"
                         android:textColor="#999"
@@ -398,8 +497,9 @@
                         android:layout_height="match_parent" />
 
                 </RelativeLayout>
-                <!--剩余使用年限-->
+                <!--剩余使用年限gone-->
                 <RelativeLayout
+                    android:visibility="gone"
                     android:layout_marginTop="1px"
                     android:background="#fff"
                     android:layout_width="match_parent"
@@ -444,8 +544,9 @@
                         android:layout_height="match_parent" />
 
                 </RelativeLayout>
-                <!--转让方式-->
+                <!--转让方式gone-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:background="#fff"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
@@ -471,7 +572,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
-                <!--市场价格-->
+                <!--参考市价-->
                 <RelativeLayout
                     android:layout_marginTop="1px"
                     android:background="#fff"
@@ -484,7 +585,7 @@
                         android:layout_marginLeft="16dp"
                         android:textColor="#333"
                         android:textSize="18sp"
-                        android:text="市场价格"
+                        android:text="参考市价"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -508,7 +609,7 @@
                         android:layout_toRightOf="@id/money_left123"
                         android:layout_toLeftOf="@id/money_right123"
                         android:gravity="end|center_vertical"
-                        android:hint="请输入市场价格"
+                        android:hint="请输入数字"
                         android:singleLine="true"
                         android:textSize="15sp"
                         android:textColor="#999"
@@ -565,7 +666,7 @@
                     android:layout_height="match_parent" />
 
             </RelativeLayout>
-            <!--转让价格-->
+            <!--意向转让价-->
             <RelativeLayout
                 android:layout_marginTop="1px"
                 android:background="#fff"
@@ -578,7 +679,7 @@
                     android:layout_marginLeft="16dp"
                     android:textColor="#333"
                     android:textSize="18sp"
-                    android:text="转让价格"
+                    android:text="意向转让价"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -602,7 +703,7 @@
                     android:layout_toRightOf="@id/money_left07"
                     android:layout_toLeftOf="@id/money_right07"
                     android:gravity="end|center_vertical"
-                    android:hint="请输入转让价格"
+                    android:hint="请输入具体价格"
                     android:singleLine="true"
                     android:textSize="15sp"
                     android:textColor="#999"
@@ -612,7 +713,7 @@
                     android:layout_height="match_parent" />
 
             </RelativeLayout>
-            <!--转让单价-->
+            <!--意向转让单价-->
             <RelativeLayout
                 android:id="@+id/transfer_price_relative"
                 android:visibility="gone"
@@ -627,7 +728,7 @@
                     android:layout_marginLeft="16dp"
                     android:textColor="#333"
                     android:textSize="18sp"
-                    android:text="转让单价"
+                    android:text="意向转让单价"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -658,8 +759,9 @@
                     android:layout_height="match_parent" />
 
             </RelativeLayout>
-            <!--其他-->
+            <!--其他gone-->
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:background="#fff"
                 android:gravity="center_vertical"
@@ -675,8 +777,9 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <!--有无相关证件-->
+            <!--有无相关证件gone-->
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="1px"
                 android:background="#fff"
                 android:gravity="center_vertical"
@@ -703,8 +806,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-            <!--有无法律纠纷-->
+            <!--有无法律纠纷gone-->
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="1px"
                 android:background="#fff"
                 android:gravity="center_vertical"
@@ -731,8 +835,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-            <!--有无负债-->
+            <!--有无负债gone-->
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="1px"
                 android:background="#fff"
                 android:gravity="center_vertical"
@@ -759,8 +864,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-            <!--有无担保抵押-->
+            <!--有无担保抵押gone-->
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="1px"
                 android:background="#fff"
                 android:gravity="center_vertical"
@@ -787,8 +893,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-            <!--是否拥有全部产权-->
+            <!--是否拥有全部产权gone-->
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="1px"
                 android:background="#fff"
                 android:gravity="center_vertical"
@@ -817,6 +924,7 @@
             </LinearLayout>
             <!--项目亮点-->
             <RelativeLayout
+                android:visibility="gone"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:layout_marginTop="1dp"
@@ -847,6 +955,7 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:layout_marginTop="1dp"
@@ -918,6 +1027,7 @@
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:background="#fff"

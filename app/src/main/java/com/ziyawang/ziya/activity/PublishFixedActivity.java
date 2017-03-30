@@ -97,6 +97,10 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
     private EditText edit_time ;
     //转让方式
     private TextView text_type02 ;
+    //建筑面积
+    private EditText edit_build_area ;
+    // 容积率
+    private EditText edit_pr ;
     /**
      * 固定资产，房产展示页面，相互独立
      */
@@ -837,12 +841,12 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
             ToastUtils.shortToast(PublishFixedActivity.this , "请选择您的身份");
             return false ;
         }
-        if (text_part.getText().toString().equals("请选择")) {
-            ToastUtils.shortToast(PublishFixedActivity.this , "请选择地区");
-            return false ;
-        }
         if (text_type.getText().toString().equals("请选择")) {
             ToastUtils.shortToast(PublishFixedActivity.this , "请选择标的物类型");
+            return false ;
+        }
+        if (text_part.getText().toString().equals("请选择")) {
+            ToastUtils.shortToast(PublishFixedActivity.this , "请选择地区");
             return false ;
         }
         if (text_type.getText().toString().equals("土地")) {
@@ -851,47 +855,32 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
                 return false ;
             }
             if (TextUtils.isEmpty(edit_big.getText().toString().trim())){
-                ToastUtils.shortToast(PublishFixedActivity.this , "请输入面积");
+                ToastUtils.shortToast(PublishFixedActivity.this , "请输入土地面积");
                 return false ;
             }
-            if (TextUtils.isEmpty(edit_time.getText().toString().trim())){
-                ToastUtils.shortToast(PublishFixedActivity.this , "请输入剩余使用年限");
+            if (TextUtils.isEmpty(edit_build_area.getText().toString().trim())){
+                ToastUtils.shortToast(PublishFixedActivity.this , "请输入建筑面积");
                 return false ;
             }
-            if (text_type02.getText().toString().equals("请选择")) {
-                ToastUtils.shortToast(PublishFixedActivity.this , "请选择转让方式");
+            if (TextUtils.isEmpty(edit_pr.getText().toString().trim())){
+                ToastUtils.shortToast(PublishFixedActivity.this , "请输入容积率");
                 return false ;
             }
+
         }
         if (text_type.getText().toString().equals("房产")) {
 
-            if (text_type03.getText().toString().equals("请选择")) {
-                ToastUtils.shortToast(PublishFixedActivity.this , "请选择房产类型");
-                return false ;
-            }
-            if (text_yongtu02.getText().toString().equals("请选择")) {
-                ToastUtils.shortToast(PublishFixedActivity.this , "请选择规划用途");
-                return false ;
-            }
             if (TextUtils.isEmpty(edit_mianji02.getText().toString().trim())){
                 ToastUtils.shortToast(PublishFixedActivity.this , "请输入面积");
                 return false ;
             }
-            if (TextUtils.isEmpty(edit_time02.getText().toString().trim())){
-                ToastUtils.shortToast(PublishFixedActivity.this , "请输入剩余使用年限");
-                return false ;
-            }
-            if (text_type04.getText().toString().equals("请选择")) {
-                ToastUtils.shortToast(PublishFixedActivity.this , "请选择转让方式");
-                return false ;
-            }
             if (TextUtils.isEmpty(edit_market_price.getText().toString().trim())){
-                ToastUtils.shortToast(PublishFixedActivity.this , "请输入市场价格");
+                ToastUtils.shortToast(PublishFixedActivity.this , "请输入参考市价");
                 return false ;
             }
         }
         if (TextUtils.isEmpty(edit_money.getText().toString().trim())){
-            ToastUtils.shortToast(PublishFixedActivity.this , "请输入转让价格");
+            ToastUtils.shortToast(PublishFixedActivity.this , "请输入意向转让价格");
             return false ;
         }
         if (TextUtils.isEmpty(edit_des.getText().toString().trim())){
@@ -1044,6 +1033,13 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
             }
         });
 
+        edit_build_area = (EditText)findViewById(R.id.edit_build_area ) ;
+        edit_pr = (EditText)findViewById(R.id.edit_pr ) ;
+        edit_build_area.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+        edit_build_area.setFilters(filters);
+        edit_pr.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+        edit_pr.setFilters(filters);
+
         /*************************************************录音和上传照片模块04********************************************/
         release_audio_des_duration = (TextView) findViewById(R.id.release_audio_des_duration);
         voice_cancel = (TextView) findViewById(R.id.voice_cancel);
@@ -1114,41 +1110,43 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
             params.addBodyParameter("TypeID" , "16");
             params.addBodyParameter("Usefor" , text_yongtu.getText().toString() );
             params.addBodyParameter("Area" , edit_big.getText().toString() );
-            params.addBodyParameter("Year" , edit_time.getText().toString() );
-            params.addBodyParameter("TransferType" , text_type02.getText().toString() );
+            //params.addBodyParameter("Year" , edit_time.getText().toString() );
+            //params.addBodyParameter("TransferType" , text_type02.getText().toString() );
+            params.addBodyParameter("BuildArea" , edit_build_area.getText().toString() );
+            params.addBodyParameter("FloorRatio" , edit_pr.getText().toString() );
 
         }
         if ("房产".equals(text_type.getText().toString())){
             params.addBodyParameter("TypeID" , "12");
             params.addBodyParameter("Type" , text_type03.getText().toString() );
-            params.addBodyParameter("Usefor" , text_yongtu02.getText().toString() );
+            //params.addBodyParameter("Usefor" , text_yongtu02.getText().toString() );
             params.addBodyParameter("Area" , edit_mianji02.getText().toString() );
 
-            params.addBodyParameter("Year" , edit_time02.getText().toString() );
-            params.addBodyParameter("TransferType" , text_type04.getText().toString() );
+            //params.addBodyParameter("Year" , edit_time02.getText().toString() );
+            //params.addBodyParameter("TransferType" , text_type04.getText().toString() );
             params.addBodyParameter("MarketPrice" , edit_market_price.getText().toString() );
         }
         params.addBodyParameter("TransferMoney", edit_money.getText().toString());
 
-        params.addBodyParameter("Credentials", "请选择".equals(text_zhengjian.getText().toString().trim()) ? "" : text_zhengjian.getText().toString().trim());
-        params.addBodyParameter("Dispute", "请选择".equals(text_jiufen.getText().toString().trim()) ? "" : text_jiufen.getText().toString().trim());
-        params.addBodyParameter("Debt", "请选择".equals(text_fuzhai.getText().toString().trim()) ? "" : text_fuzhai.getText().toString().trim());
-        params.addBodyParameter("Guaranty", "请选择".equals(text_danbao.getText().toString().trim()) ? "" : text_danbao.getText().toString().trim());
-        params.addBodyParameter("Property", "请选择".equals(text_chanquan.getText().toString().trim()) ? "" : text_chanquan.getText().toString().trim());
-        String proLabel = "" ;
-        if (one){
-            proLabel = proLabel + text_one.getText().toString() + "," ;
-        }
-        if (two){
-            proLabel = proLabel + text_two.getText().toString() + "," ;
-        }
-        if (three){
-            proLabel = proLabel + text_three.getText().toString() + ","  ;
-        }
-        if (four){
-            proLabel = proLabel + text_four.getText().toString() + "," ;
-        }
-        params.addBodyParameter("ProLabel", proLabel);
+        //params.addBodyParameter("Credentials", "请选择".equals(text_zhengjian.getText().toString().trim()) ? "" : text_zhengjian.getText().toString().trim());
+        //params.addBodyParameter("Dispute", "请选择".equals(text_jiufen.getText().toString().trim()) ? "" : text_jiufen.getText().toString().trim());
+        //params.addBodyParameter("Debt", "请选择".equals(text_fuzhai.getText().toString().trim()) ? "" : text_fuzhai.getText().toString().trim());
+        //params.addBodyParameter("Guaranty", "请选择".equals(text_danbao.getText().toString().trim()) ? "" : text_danbao.getText().toString().trim());
+        //params.addBodyParameter("Property", "请选择".equals(text_chanquan.getText().toString().trim()) ? "" : text_chanquan.getText().toString().trim());
+//        String proLabel = "" ;
+//        if (one){
+//            proLabel = proLabel + text_one.getText().toString() + "," ;
+//        }
+//        if (two){
+//            proLabel = proLabel + text_two.getText().toString() + "," ;
+//        }
+//        if (three){
+//            proLabel = proLabel + text_three.getText().toString() + ","  ;
+//        }
+//        if (four){
+//            proLabel = proLabel + text_four.getText().toString() + "," ;
+//        }
+//        params.addBodyParameter("ProLabel", proLabel);
         params.addBodyParameter("WordDes", edit_des.getText().toString().trim());
         if (release_frame_one.getVisibility() == View.VISIBLE) {
             params.addBodyParameter("PictureDes1", file_img01);
@@ -1613,15 +1611,19 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
                     if ("土地".equals(centerItem.toString())){
                         linear01.setVisibility(View.VISIBLE);
                         linear02.setVisibility(View.GONE);
-                        transfer_price_relative.setVisibility(View.VISIBLE);
+                        transfer_price_relative.setVisibility(View.GONE);
                         market_price_relative.setVisibility(View.GONE);
                         selected_type = "土地" ;
+                        transfer_price_text.setText(null);
+                        edit_money.setText(null);
                     }else {
                         linear01.setVisibility(View.GONE);
                         linear02.setVisibility(View.VISIBLE);
                         transfer_price_relative.setVisibility(View.VISIBLE);
                         market_price_relative.setVisibility(View.VISIBLE);
                         selected_type = "房产" ;
+                        transfer_price_text.setText(null);
+                        edit_money.setText(null);
                     }
                 }else {
                     tv.setText(centerItem.toString());

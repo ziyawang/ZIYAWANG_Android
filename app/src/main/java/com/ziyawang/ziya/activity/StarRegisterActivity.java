@@ -42,7 +42,6 @@ import java.io.File;
 
 public class StarRegisterActivity extends BenBenActivity implements View.OnClickListener {
 
-    public static final String SERVICE = "1" ;
     public static final String UNSERVICE = "2" ;
 
     //返回按钮
@@ -101,9 +100,9 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
 
     private void dealResult(String result) throws JSONException {
         JSONObject jsonObject = new JSONObject(result);
-        JSONObject service1 = jsonObject.getJSONObject("service");
         String role = jsonObject.getString("role");
         if ("1".equals(role)){
+            JSONObject service1 = jsonObject.getJSONObject("service");
             normal_textView.setText("可选择完成以下认证点亮星级");
             to_register.setVisibility(View.GONE);
             //审核通过的服务方
@@ -428,39 +427,37 @@ public class StarRegisterActivity extends BenBenActivity implements View.OnClick
     }
 
     private void dealResult02(String result) throws JSONException {
-        org.json.JSONObject object = new org.json.JSONObject(result);
-        org.json.JSONObject service = object.getJSONObject("service");
-        //企业名称
-        String ServiceName = service.getString("ServiceName");
-        //企业简介
-        String ServiceIntroduction = service.getString("ServiceIntroduction");
-        //企业所在地
-        String ServiceLocation = service.getString("ServiceLocation");
-        //服务类型
-        String ServiceType = service.getString("ServiceType");
-        //联系人姓名
-        String ConnectPerson = service.getString("ConnectPerson");
-        //联系方式
-        String ConnectPhone = service.getString("ConnectPhone");
-        //图1
-        String ConfirmationP1 = service.getString("ConfirmationP1");
-        //图2
-        String ConfirmationP2 = service.getString("ConfirmationP2");
-        //图3
-        String ConfirmationP3 = service.getString("ConfirmationP3");
-        //服务地区
-        String ServiceArea = service.getString("ServiceArea");
-
-        String Regtime = service.getString("RegTime");
-        String Founds = service.getString("Founds");
-        String Size = service.getString("Size");
-
         Intent intent = new Intent(StarRegisterActivity.this  , ServiceRegisterActivity.class ) ;
         String root = GetBenSharedPreferences.getRole(this) ;
         intent.putExtra("root", root) ;
         switch (root){
-            case SERVICE :
             case UNSERVICE :
+                org.json.JSONObject object = new org.json.JSONObject(result);
+                org.json.JSONObject service = object.getJSONObject("service");
+                //企业名称
+                String ServiceName = service.getString("ServiceName");
+                //企业简介
+                String ServiceIntroduction = service.getString("ServiceIntroduction");
+                //企业所在地
+                String ServiceLocation = service.getString("ServiceLocation");
+                //服务类型
+                String ServiceType = service.getString("ServiceType");
+                //联系人姓名
+                String ConnectPerson = service.getString("ConnectPerson");
+                //联系方式
+                String ConnectPhone = service.getString("ConnectPhone");
+                //图1
+                String ConfirmationP1 = service.getString("ConfirmationP1");
+                //图2
+                String ConfirmationP2 = service.getString("ConfirmationP2");
+                //图3
+                String ConfirmationP3 = service.getString("ConfirmationP3");
+                //服务地区
+                String ServiceArea = service.getString("ServiceArea");
+
+                String Regtime = service.getString("RegTime");
+                String Founds = service.getString("Founds");
+                String Size = service.getString("Size");
                 //企业名称
                 intent.putExtra("ServiceName" , ServiceName) ;
                 //企业简介

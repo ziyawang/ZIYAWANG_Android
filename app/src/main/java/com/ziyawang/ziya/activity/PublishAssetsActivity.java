@@ -17,9 +17,11 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
@@ -169,6 +171,10 @@ public class PublishAssetsActivity extends BenBenActivity implements View.OnClic
     private TextView voice_cancel;
     //发布
     private Button publish ;
+    //相关凭证的描述
+    private TextView v216_des ;
+    //利息计算的展示
+    private TextView v216_bee ;
     /*************************************************录音和上传照片模块01********************************************/
     /*************************************************录音和上传照片模块02********************************************/
     @Override
@@ -793,12 +799,12 @@ public class PublishAssetsActivity extends BenBenActivity implements View.OnClic
             ToastUtils.shortToast(PublishAssetsActivity.this , "请选择您的身份");
             return false ;
         }
-        if (text_type.getText().toString().equals("请选择")) {
-            ToastUtils.shortToast(PublishAssetsActivity.this , "请选择资产包类型");
+        if (text_form.getText().toString().equals("请选择")) {
+            ToastUtils.shortToast(PublishAssetsActivity.this , "请选择卖家类型");
             return false ;
         }
-        if (text_form.getText().toString().equals("请选择")) {
-            ToastUtils.shortToast(PublishAssetsActivity.this , "请选择来源");
+        if (text_type.getText().toString().equals("请选择")) {
+            ToastUtils.shortToast(PublishAssetsActivity.this , "请选择资产包类型");
             return false ;
         }
         if (text_part.getText().toString().equals("请选择")) {
@@ -809,8 +815,12 @@ public class PublishAssetsActivity extends BenBenActivity implements View.OnClic
             ToastUtils.shortToast(PublishAssetsActivity.this , "请输入总金额");
             return false ;
         }
+        if (TextUtils.isEmpty(edit_money.getText().toString().trim())){
+            ToastUtils.shortToast(PublishAssetsActivity.this , "请输入本金");
+            return false ;
+        }
         if (TextUtils.isEmpty(edit_transfer_money.getText().toString().trim())){
-            ToastUtils.shortToast(PublishAssetsActivity.this , "请输入转让价");
+            ToastUtils.shortToast(PublishAssetsActivity.this , "请输入意向转让价");
             return false ;
         }
         if (TextUtils.isEmpty(edit_des.getText().toString().trim())){
@@ -900,6 +910,10 @@ public class PublishAssetsActivity extends BenBenActivity implements View.OnClic
         recAudioFile = new File(SDUtil.getSDPath() + File.separator + "ziya", "temp.aac");
         /*************************************************录音和上传照片模块04********************************************/
 
+        v216_bee = (TextView)findViewById(R.id.v216_bee ) ;
+        v216_des = (TextView)findViewById(R.id.v216_des ) ;
+
+
     }
 
     @Override
@@ -924,6 +938,56 @@ public class PublishAssetsActivity extends BenBenActivity implements View.OnClic
 
     @Override
     public void initData() {
+        v216_des.setText("请上传部分清单复印件或照片");
+        edit_total_money.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                float c = 0 ;
+                if (!TextUtils.isEmpty(edit_money.getText().toString().trim()) &&!"0".equals(edit_money.getText().toString().trim())){
+                    float b = Float.parseFloat(edit_money.getText().toString().trim()) ;
+                    if (!TextUtils.isEmpty(s.toString().trim())){
+                        float a = Float.parseFloat(s.toString().trim()) ;
+                        c =  a - b ;
+                    }
+                    v216_bee.setText( "" + c);
+                }
+            }
+        });
+        edit_money.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                    float c = 0 ;
+                    if (!TextUtils.isEmpty(edit_total_money.getText().toString().trim()) &&!"0".equals(edit_total_money.getText().toString().trim())){
+                        float b = Float.parseFloat(edit_total_money.getText().toString().trim()) ;
+                        if (!TextUtils.isEmpty(s.toString().trim())){
+                            float a = Float.parseFloat(s.toString().trim()) ;
+                            c =  b - a ;
+                        }
+                        v216_bee.setText( "" + c);
+                    }
+            }
+        });
+
 
     }
 
@@ -1163,24 +1227,25 @@ public class PublishAssetsActivity extends BenBenActivity implements View.OnClic
         params.addBodyParameter("ProArea" , text_part.getText().toString() );
         params.addBodyParameter("TotalMoney" ,edit_total_money.getText().toString().trim()  );
         params.addBodyParameter("TransferMoney" , edit_transfer_money.getText().toString().trim() );
-
-        params.addBodyParameter("Money" , "".equals(edit_money.getText().toString().trim())?"":edit_money.getText().toString().trim() );
-        params.addBodyParameter("Rate" , "".equals(edit_accrual.getText().toString().trim())?"":edit_accrual.getText().toString().trim() );
-        params.addBodyParameter("Counts" , "".equals(edit_account.getText().toString().trim())?"":edit_account.getText().toString().trim());
-        params.addBodyParameter("Report" , "请选择".equals(text_has_report.getText().toString().trim())?"":text_has_report.getText().toString().trim() );
-        params.addBodyParameter("Time" , "请选择".equals(text_time.getText().toString().trim())?"":text_time.getText().toString().trim() );
-        params.addBodyParameter("Pawn" , "请选择".equals(text_type_02.getText().toString().trim())?"":text_type_02.getText().toString().trim() );
-        String proLabel = "" ;
-        if (one){
-            proLabel = proLabel + text_one.getText().toString() + "," ;
-        }
-        if (two){
-            proLabel = proLabel + text_two.getText().toString() + "," ;
-        }
-        if (three){
-            proLabel = proLabel + text_three.getText().toString() ;
-        }
-        params.addBodyParameter("ProLabel" , proLabel );
+        params.addBodyParameter("Money" , edit_money.getText().toString().trim() );
+        params.addBodyParameter("Rate" , v216_bee.getText().toString() );
+        //params.addBodyParameter("Money" , "".equals(edit_money.getText().toString().trim())?"":edit_money.getText().toString().trim() );
+        //params.addBodyParameter("Rate" , "".equals(edit_accrual.getText().toString().trim())?"":edit_accrual.getText().toString().trim() );
+        //params.addBodyParameter("Counts" , "".equals(edit_account.getText().toString().trim())?"":edit_account.getText().toString().trim());
+        //params.addBodyParameter("Report" , "请选择".equals(text_has_report.getText().toString().trim())?"":text_has_report.getText().toString().trim() );
+        //params.addBodyParameter("Time" , "请选择".equals(text_time.getText().toString().trim())?"":text_time.getText().toString().trim() );
+        //params.addBodyParameter("Pawn" , "请选择".equals(text_type_02.getText().toString().trim())?"":text_type_02.getText().toString().trim() );
+//        String proLabel = "" ;
+//        if (one){
+//            proLabel = proLabel + text_one.getText().toString() + "," ;
+//        }
+//        if (two){
+//            proLabel = proLabel + text_two.getText().toString() + "," ;
+//        }
+//        if (three){
+//            proLabel = proLabel + text_three.getText().toString() ;
+//        }
+//        params.addBodyParameter("ProLabel" , proLabel );
         params.addBodyParameter("WordDes" , edit_des.getText().toString().trim() );
         if (release_frame_one.getVisibility() == View.VISIBLE) {
             params.addBodyParameter("PictureDes1", file_img01);

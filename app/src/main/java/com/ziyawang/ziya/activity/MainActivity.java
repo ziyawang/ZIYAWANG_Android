@@ -651,6 +651,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         transaction.hide(searchFragment).show(releaseFragment).commit();
                     }
                 }
+
                 break;
             //information 页面
             case R.id.button_information:
