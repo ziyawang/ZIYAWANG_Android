@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,6 +42,9 @@ import com.ziyawang.ziya.fragment.MyFragment;
 import com.ziyawang.ziya.fragment.NewsFragment;
 import com.ziyawang.ziya.fragment.ReleaseFragment;
 import com.ziyawang.ziya.fragment.SearchFragment;
+import com.ziyawang.ziya.fragment.V3FindInfoFragment;
+import com.ziyawang.ziya.fragment.V3FindServiceFragment;
+import com.ziyawang.ziya.fragment.V3HomePageFragment;
 import com.ziyawang.ziya.tools.DownLoadManager;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.NetUtils;
@@ -57,6 +62,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -70,73 +77,71 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SharedPreferences isThree ;
     private FrameLayout button_release;
     private LinearLayout linear;
-    private NotificationButton button_me;
+    //private NotificationButton button_count;
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private static Boolean isQuit = false;
     private Timer timer = new Timer();
     private MyApplication app;
-    public HomePageFragment homePageFragment;
+    //public HomePageFragment homePageFragment;
+    public V3HomePageFragment v3HomePageFragment ;
     //private InformationFragment informationFragment;
-    public NewsFragment newsFragment ;
+    //public NewsFragment newsFragment ;
+    public V3FindServiceFragment v3FindServiceFragment ;
     public MyFragment myFragment;
     public ReleaseFragment releaseFragment;
-    public SearchFragment searchFragment;
+    //public SearchFragment searchFragment;
+
+    public V3FindInfoFragment v3FindInfoFragment ;
+
     private SharedPreferences r_token;
     private String login;
     private final static String lancherActivityClassName = StartActivity.class.getName();
+    // fragment list
+    List<Fragment> listFragment = new ArrayList<>() ;
+
+    private ImageView img_red_point ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main);
-
+        //存储 activity 路径
         app = (MyApplication) getApplication();
         this.getApplication();
         app.addActivity(this);
-
         //设置通知栏的颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
-
+        //更改通知栏所需颜色
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.aaa);//通知栏所需颜色
-
+        tintManager.setStatusBarTintResource(R.color.color_login_head);
+        //检查app所需权限
         PermissionsUtil.checkAndRequestPermissions(this);
-
-        final SharedPreferences loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
-        login = loginCode.getString("loginCode", null);
-
+        //获取用户当前是否登录
         SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
         boolean isLogin = sp.getBoolean("isLogin", false);
-
-
+        //获取用户token
+        final SharedPreferences loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
+        login = loginCode.getString("loginCode", null);
+        //获取当前最新版本信息，提示用户更新
+        checkVersion() ;
         //实例化组件
         initView();
         //第一次加载的Fragment
         selectTab(0);
         //选择的Fragment
         selectedFragment();
-
-        checkVersion() ;
-
+        //已经登录连接融云聊天服务器
         if (isLogin) {
-            //ToastUtils.shortToast(MainActivity.this, login) ;
             connect();
-            //设置自己的userinfo
-            //myUserInfo() ;
-
-            //toastNet() ;
-
-        } else {
-            //ToastUtils.shortToast(MainActivity.this, "还未登陆");
         }
     }
-
+    //获取当前最新版本信息，提示用户更新
     private void checkVersion() {
-
         HttpUtils utils = new HttpUtils() ;
         RequestParams params = new RequestParams() ;
         utils.send(HttpRequest.HttpMethod.GET, Url.CheckUpdata, params, new RequestCallBack<String>() {
@@ -144,16 +149,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Log.e("benben", responseInfo.result);
                 try {
-                    //JSONObject jsonObject = new JSONObject(responseInfo.result) ;
-
                     JSONArray array = new JSONArray(responseInfo.result);
                     JSONObject jsonObject = array.getJSONObject(0);
                     String versionCode = jsonObject.getString("VersionCode");
-                    String versionName = jsonObject.getString("VersionName");
                     final String UpdateUrl = jsonObject.getString("UpdateUrl");
                     String UpdateTitle = jsonObject.getString("UpdateTitle");
                     String UpdateDes = jsonObject.getString("UpdateDes");
-
                     int num_web = Integer.parseInt(versionCode);
                     // 获取packagemanager的实例
                     PackageManager packageManager = getPackageManager();
@@ -164,9 +165,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
                     }
-                    //String version = packInfo.versionName;
                     final int num_local = packInfo.versionCode;
-
                     if (num_web > num_local) {
                         final CustomDialogVersion.Builder builder = new CustomDialogVersion.Builder(MainActivity.this);
                         builder.setTitle(UpdateTitle);
@@ -192,7 +191,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                                 pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                                                 pd.setMessage("正在下载更新");
                                                 pd.setCancelable(true);//设置进度条是否可以按退回键取消
-
                                                 //设置点击进度对话框外的区域对话框不消失
                                                 pd.setCanceledOnTouchOutside(false);
                                                 pd.show();
@@ -220,13 +218,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                         customDialog.create().show();
                                         break;
                                     case NetUtils.NETTYPE_WIFI:
-
                                         final ProgressDialog pd;    //进度条对话框
                                         pd = new ProgressDialog(MainActivity.this);
                                         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                                         pd.setMessage("正在下载更新");
                                         pd.setCancelable(true);//设置进度条是否可以按退回键取消
-
                                         //设置点击进度对话框外的区域对话框不消失
                                         pd.setCanceledOnTouchOutside(false);
                                         pd.show();
@@ -253,108 +249,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailure(HttpException error, String msg) {
                 error.printStackTrace();
             }
         }) ;
     }
-
+    // 安装app
     private void installApk(File file) {
-
         Intent intent = new Intent();
         //执行动作
         intent.setAction(Intent.ACTION_VIEW);
         //执行的数据类型
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         startActivity(intent);
-
     }
-
-//    private void myUserInfo() {
-//
-//        final String urls = String.format(Url.Myicon, login ) ;
-//        Log.e("benbne" , login  );
-//        HttpUtils utils = new HttpUtils() ;
-//        RequestParams params = new RequestParams() ;
-//        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//
-//                Log.e("niuniu", responseInfo.result);
-//
-//                try {
-//                    JSONObject jsonObject = new JSONObject(responseInfo.result);
-//                    String role1 = jsonObject.getString("role");
-//
-//                    Log.e("benben", role1);
-//
-//                    final SharedPreferences role = getSharedPreferences("role", MODE_PRIVATE);
-//                    role.edit().putString("role", role1).commit();
-//
-//                    switch (role1) {
-//                        case "0":
-//                        case "2":
-//                            JSONObject user = jsonObject.getJSONObject("user");
-//                            String userid = user.getString("userid");
-//                            //String username = user.getString("username");
-//                            String phone = user.getString("phonenumber");
-//                            String substring = phone.substring(0, 3);
-//                            String substring1 = phone.substring(7, 11);
-//
-//                            Log.e("benben", substring + substring1);
-//                            final String UserPicture = user.getString("UserPicture");
-//                            Uri uir = Uri.parse(Url.FileIP + UserPicture);
-//
-//                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid, substring + "***" + substring1, uir));
-//                            break;
-//
-//                        case "1":
-//                            JSONObject object = new JSONObject(responseInfo.result);
-//                            JSONObject service = object.getJSONObject("service");
-//                            //企业名称
-//                            String ServiceName = service.getString("ServiceName");
-//                            JSONObject user1 = jsonObject.getJSONObject("user");
-//                            String Userid = user1.getString("userid");
-//                            final String userPicture = user1.getString("UserPicture");
-//                            Uri uir01 = Uri.parse(Url.FileIP + userPicture);
-//                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(Userid, ServiceName, uir01));
-//
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException error, String msg) {
-//                error.printStackTrace();
-//            }
-//        }) ;
-//    }
-
+    //连接融云聊天服务器
     private void connect() {
-
+        //获取融云token
         r_token = getSharedPreferences("r_token", MODE_PRIVATE);
         final String cloud_token = r_token.getString("r_token", "");
-
-        Log.e("benbne" , cloud_token ) ;
-        /*******************************************获取融云token***************************************************/
-        //  18610301342  牛海丰
-        //String Token = "ysxnr+lQxBdpEcLAiO+ixUFbtPqxQ3+uKBlZaj5Qs0XrF7dgr9/e3j0KojmodjXxp4Zd2NBK8fQ5NMr6k8ckNkf/qbRFMskM"  ;
-        //   18600000000 Android
-        //String Token = "l1mGz2SFxOi6bz2biGzGbmtgz2fIXi50V82Gr9MQdd2ldsTSjeB2DywVTJyDjA0YjX0HWJ0L9c3Ujl3MCj9Wy/9JSQ9r0dkF" ;
-
         RongIM.connect(cloud_token, new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
                 //Connect Token 失效的状态处理，需要重新获取 Token
-                Log.d("benben", "——————————————————————————————--Token过期————————————————————————————————");
-                Log.e("benben", cloud_token);
+                Log.d("benben", "——————————————————————————————Token过期————————————————————————————");
                 String urls = String.format(Url.RCToken, login);
                 HttpUtils utils = new HttpUtils();
                 RequestParams params = new RequestParams();
@@ -389,14 +308,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             @Override
             public void onSuccess(String userId) {
-
-
-                //RongIM.getInstance().setMessageAttachedUserInfo(true);
-
                 RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                     @Override
                     public UserInfo getUserInfo(final String userId) {
-
                         HttpUtils httpUtils = new HttpUtils();
                         RequestParams params = new RequestParams();
                         httpUtils.send(HttpRequest.HttpMethod.POST, String.format(Url.RongIcon, userId), params, new RequestCallBack<String>() {
@@ -404,7 +318,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             public void onSuccess(ResponseInfo<String> responseInfo) {
                                 Log.e("benben", responseInfo.result);
                                 try {
-
                                     String a = "";
                                     JSONObject jsonObject = new JSONObject(responseInfo.result);
                                     JSONObject data = jsonObject.getJSONObject("data");
@@ -441,15 +354,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             }
                         });
                         Log.e("MainActivity", "UserId is ：" + userId);
-                        //return null;
-                        //return new UserInfo( userId , "牛牛" ,  uir ) ;
                         return null;
                     }
                 }, true);
-
-
                 Log.e("benben", "—--------------------------------—onSuccess—--------------------------------" + userId);
-
                 if (RongIM.getInstance() != null) {
 
                     Log.e("benben", "--------------------------");
@@ -461,45 +369,33 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     RongIM.getInstance().setOnReceiveUnreadCountChangedListener(new MyReceiveUnreadCountChangedListener(), Conversation.ConversationType.PRIVATE);
 
                 }
-
-
-                //启动会话界面
-//                if (RongIM.getInstance() != null)
-//                    RongIM.getInstance().startPrivateChat(MainActivity.this, "18610301342", "犇犇");
-
-                //启动会话列表界面
-//                if (RongIM.getInstance() != null)
-//                    RongIM.getInstance().startConversationList(MainActivity.this);
-
             }
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
-
                 Log.e("benben", "——----------------------onError—-------------------------------" + errorCode);
             }
         });
-
-        /**********************************************************************************************/
-
     }
 
     /**
-     * 接收未读消息的监听器。
+     * 接收未读消息的监听器。相关展示。
      */
     private class MyReceiveUnreadCountChangedListener implements RongIM.OnReceiveUnreadCountChangedListener {
-
         /**
          * @param count 未读消息数。
          */
         @Override
         public void onMessageIncreased(int count) {
-            Log.e("benben", "----------------------------------" + count);
-            button_me.setNotificationNumber(count);
+            //button_count.setNotificationNumber(count);
+            if (count==0){
+                img_red_point.setVisibility(View.GONE);
+            }else {
+                img_red_point.setVisibility(View.VISIBLE);
+            }
             sendBadgeNumber(count);
         }
     }
-
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
@@ -517,9 +413,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     //退出时执行的方法
     @Override
     public void onBackPressed() {
-        if (isQuit == false) {
+        if (!isQuit) {
             isQuit = true;
-            //MyToast.getToast(MainActivity.this);
             Toast.makeText(MainActivity.this, "再按一次退出资芽", Toast.LENGTH_SHORT).show();
             TimerTask task = null;
             task = new TimerTask() {
@@ -535,7 +430,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             MobclickAgent.onKillProcess(this);
             System.exit(0);
             android.os.Process.killProcess(android.os.Process.myPid());
-
         }
     }
 
@@ -549,7 +443,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initView() {
-        button_me = (NotificationButton) findViewById(R.id.button_me);
+        //button_count = (NotificationButton) findViewById(R.id.button_count);
+        img_red_point = (ImageView) findViewById(R.id.img_red_point);
         button_release = (FrameLayout) findViewById(R.id.button_release);
         linear = (LinearLayout) findViewById(R.id.linear);
         for (int i = 0; i < linear.getChildCount(); i++) {
@@ -558,195 +453,84 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void selectedFragment() {
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
-        homePageFragment = new HomePageFragment();
-        transaction.add(R.id.main_frameyout, homePageFragment);
-        transaction.commit();
-        //informationFragment = new InformationFragment();
-        newsFragment = new NewsFragment() ;
+        v3HomePageFragment = new V3HomePageFragment();
+        //newsFragment = new NewsFragment() ;
+        v3FindServiceFragment = new V3FindServiceFragment() ;
         myFragment = new MyFragment();
         releaseFragment = new ReleaseFragment();
-        searchFragment = new SearchFragment();
+        //searchFragment = new SearchFragment();
+        v3FindInfoFragment = new V3FindInfoFragment() ;
+        SetDefaultFragment(v3HomePageFragment) ;
+
+        listFragment.add(0 , v3HomePageFragment );
+        listFragment.add(1 , v3FindInfoFragment );
+        listFragment.add(2 , releaseFragment );
+        listFragment.add(3 , v3FindServiceFragment );
+        listFragment.add(4 , myFragment );
+    }
+
+    private void SetDefaultFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.main_frameyout, fragment);
+        transaction.commit() ;
+    }
+
+    private void ActiveFragment(List<Fragment> listFragment, FragmentTransaction transaction, Fragment fragment) {
+        for (int i = 0; i < listFragment.size(); i++) {
+            if (listFragment.get(i).isVisible()){
+                if (fragment.isAdded()){
+                    transaction.hide(listFragment.get(i)).show(fragment) ;
+                }else {
+                    transaction.hide(listFragment.get(i)).add(R.id.main_frameyout , fragment) ;
+                }
+                break;
+            }
+        }
+        transaction.commit() ;
     }
 
     @Override
     public void onClick(View v) {
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
+        transaction = getSupportFragmentManager().beginTransaction();
         switch (v.getId()) {
-            //homepager页面
+            //homepage页面
             case R.id.button_homePage:
-
                 selectTab(0);
-                //判断是否被add过
-                if (!homePageFragment.isAdded()) {
-                    if (releaseFragment.isVisible()) {
-                        transaction.hide(releaseFragment).add(R.id.main_frameyout, homePageFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).add(R.id.main_frameyout, homePageFragment).commit();
-                    } else if (myFragment.isVisible()) {
-                        transaction.hide(myFragment).add(R.id.main_frameyout, homePageFragment).commit();
-                    } else if (searchFragment.isVisible()) {
-                        transaction.hide(searchFragment).add(R.id.main_frameyout, homePageFragment).commit();
-                    }
-                } else {
-                    if (releaseFragment.isVisible()) {
-                        transaction.hide(releaseFragment).show(homePageFragment).commit();
-                    } else if (myFragment.isVisible()) {
-                        transaction.hide(myFragment).show(homePageFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).show(homePageFragment).commit();
-                    } else if (searchFragment.isVisible()) {
-                        transaction.hide(searchFragment).show(homePageFragment).commit();
-                    }
-                }
+                ActiveFragment(listFragment , transaction , v3HomePageFragment) ;
                 break;
-            //search页面
+            //找信息页面
             case R.id.button_search:
                 selectTab(1);
-                if (!searchFragment.isAdded()) {
-                    if (homePageFragment.isVisible()) {
-                        transaction.hide(homePageFragment).add(R.id.main_frameyout, searchFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).add(R.id.main_frameyout, searchFragment).commit();
-                    } else if (myFragment.isVisible()) {
-                        transaction.hide(myFragment).add(R.id.main_frameyout, searchFragment).commit();
-                    } else if (releaseFragment.isVisible()) {
-                        transaction.hide(releaseFragment).add(R.id.main_frameyout, searchFragment).commit();
-                    }
-                } else {
-                    if (homePageFragment.isVisible()) {
-                        transaction.hide(homePageFragment).show(searchFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).show(searchFragment).commit();
-                    } else if (myFragment.isVisible()) {
-                        transaction.hide(myFragment).show(searchFragment).commit();
-                    } else if (releaseFragment.isVisible()) {
-                        transaction.hide(releaseFragment).show(searchFragment).commit();
-                    }
-                }
+                ActiveFragment(listFragment , transaction , v3FindInfoFragment) ;
                 break;
             //release页面
             case R.id.button_release:
                 selectTab(2);
-                if (!releaseFragment.isAdded()) {
-                    if (homePageFragment.isVisible()) {
-                        transaction.hide(homePageFragment).add(R.id.main_frameyout, releaseFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).add(R.id.main_frameyout, releaseFragment).commit();
-                    } else if (myFragment.isVisible()) {
-                        transaction.hide(myFragment).add(R.id.main_frameyout, releaseFragment).commit();
-                    } else if (searchFragment.isVisible()) {
-                        transaction.hide(searchFragment).add(R.id.main_frameyout, releaseFragment).commit();
-                    }
-                } else {
-                    if (homePageFragment.isVisible()) {
-                        transaction.hide(homePageFragment).show(releaseFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).show(releaseFragment).commit();
-                    } else if (myFragment.isVisible()) {
-                        transaction.hide(myFragment).show(releaseFragment).commit();
-                    } else if (searchFragment.isVisible()) {
-                        transaction.hide(searchFragment).show(releaseFragment).commit();
-                    }
-                }
+                ActiveFragment(listFragment , transaction , releaseFragment) ;
 
                 break;
-            //information 页面
+            //找服务 页面
             case R.id.button_information:
-
-//                if (GetBenSharedPreferences.getIsLogin(this)){
-//                    selectTab(3);
-//                    if (!informationFragment.isAdded()) {
-//                        if (homePageFragment.isVisible()) {
-//                            transaction.hide(homePageFragment).add(R.id.main_frameyout, informationFragment).commit();
-//                        } else if (releaseFragment.isVisible()) {
-//                            transaction.hide(releaseFragment).add(R.id.main_frameyout, informationFragment).commit();
-//                        } else if (myFragment.isVisible()) {
-//                            transaction.hide(myFragment).add(R.id.main_frameyout, informationFragment).commit();
-//                        } else if (searchFragment.isVisible()) {
-//                            transaction.hide(searchFragment).add(R.id.main_frameyout, informationFragment).commit();
-//                        }
-//                    } else {
-//                        if (homePageFragment.isVisible()) {
-//                            transaction.hide(homePageFragment).show(informationFragment).commit();
-//                        } else if (releaseFragment.isVisible()) {
-//                            transaction.hide(releaseFragment).show(informationFragment).commit();
-//                        } else if (myFragment.isVisible()) {
-//                            transaction.hide(myFragment).show(informationFragment).commit();
-//                        } else if (searchFragment.isVisible()) {
-//                            transaction.hide(searchFragment).show(informationFragment).commit();
-//                        }
-//                    }
-//                }else {
-//                    Intent intent = new Intent( MainActivity.this , LoginActivity.class ) ;
-//                    startActivity(intent);
-//                }
-                    selectTab(3);
-                    if (!newsFragment.isAdded()) {
-                        if (homePageFragment.isVisible()) {
-                            transaction.hide(homePageFragment).add(R.id.main_frameyout, newsFragment).commit();
-                        } else if (releaseFragment.isVisible()) {
-                            transaction.hide(releaseFragment).add(R.id.main_frameyout, newsFragment).commit();
-                        } else if (myFragment.isVisible()) {
-                            transaction.hide(myFragment).add(R.id.main_frameyout, newsFragment).commit();
-                        } else if (searchFragment.isVisible()) {
-                            transaction.hide(searchFragment).add(R.id.main_frameyout, newsFragment).commit();
-                        }
-                    } else {
-                        if (homePageFragment.isVisible()) {
-                            transaction.hide(homePageFragment).show(newsFragment).commit();
-                        } else if (releaseFragment.isVisible()) {
-                            transaction.hide(releaseFragment).show(newsFragment).commit();
-                        } else if (myFragment.isVisible()) {
-                            transaction.hide(myFragment).show(newsFragment).commit();
-                        } else if (searchFragment.isVisible()) {
-                            transaction.hide(searchFragment).show(newsFragment).commit();
-                        }
-                    }
+                selectTab(3);
+                ActiveFragment(listFragment , transaction , v3FindServiceFragment) ;
                 break;
             //我的页面
             case R.id.button_me:
                 selectTab(4);
-                if (!myFragment.isAdded()) {
-                    if (homePageFragment.isVisible()) {
-                        transaction.hide(homePageFragment).add(R.id.main_frameyout, myFragment).commit();
-                    } else if (releaseFragment.isVisible()) {
-                        transaction.hide(releaseFragment).add(R.id.main_frameyout, myFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).add(R.id.main_frameyout, myFragment).commit();
-                    } else if (searchFragment.isVisible()) {
-                        transaction.hide(searchFragment).add(R.id.main_frameyout, myFragment).commit();
-                    }
-                } else {
-                    if (homePageFragment.isVisible()) {
-                        transaction.hide(homePageFragment).show(myFragment).commit();
-                    } else if (releaseFragment.isVisible()) {
-                        transaction.hide(releaseFragment).show(myFragment).commit();
-                    } else if (newsFragment.isVisible()) {
-                        transaction.hide(newsFragment).show(myFragment).commit();
-                    } else if (searchFragment.isVisible()) {
-                        transaction.hide(searchFragment).show(myFragment).commit();
-                    }
-                }
+                ActiveFragment(listFragment , transaction , myFragment) ;
                 break;
         }
     }
 
     private void sendBadgeNumber(int count) {
-
         if (Build.MANUFACTURER.equalsIgnoreCase("Xiaomi")) {
             if (count > 0) {
                 sendToXiaoMi(count);
             }
-
         } else if (Build.MANUFACTURER.equalsIgnoreCase("samsung")) {
             sendToSony("" + count);
         } else if (Build.MANUFACTURER.toLowerCase().contains("sony")) {
             sendToSamsumg("" + count);
-        } else {
-            //ToastUtils.shortToast(this, "桌面图标显示，暂不支持您的机型");
         }
     }
 
@@ -770,7 +554,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             field = notification.getClass().getField("extraNotification");
             field.setAccessible(true);
             field.set(notification, miuiNotification);
-            //Toast.makeText(this, "Xiaomi=>isSendOk=>1", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
             //miui 6之前的版本
@@ -800,8 +583,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         localIntent.putExtra("com.sonyericsson.home.intent.extra.badge.MESSAGE", number);//数字
         localIntent.putExtra("com.sonyericsson.home.intent.extra.badge.PACKAGE_NAME", getPackageName());//包名
         sendBroadcast(localIntent);
-
-        //Toast.makeText(this, "Sony," + "isSendOk", Toast.LENGTH_LONG).show();
     }
 
     private void sendToSamsumg(String number) {
@@ -817,14 +598,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        //不知道干啥的 忘了
         if (GetBenSharedPreferences.getisThree(this)){
             selectTab(2);
             manager = getSupportFragmentManager();
             transaction = manager.beginTransaction();
             if (!releaseFragment.isAdded()) {
-                transaction.hide(homePageFragment).add(R.id.main_frameyout, releaseFragment).commit();
+                transaction.hide(v3HomePageFragment).add(R.id.main_frameyout, releaseFragment).commit();
             }else {
-                transaction.hide(homePageFragment).show(releaseFragment).commit();
+                transaction.hide(v3HomePageFragment).show(releaseFragment).commit();
             }
             isThree = getSharedPreferences("isThree" , MODE_PRIVATE ) ;
             isThree.edit().putBoolean("isThree", false).commit();

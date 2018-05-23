@@ -432,9 +432,28 @@ public class VideoActivity extends Activity implements View.OnClickListener {
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         oks.setTitleUrl(Url.ShareVideo + findVideoEntity.getVideoID());
-        oks.setTitle(findVideoEntity.getVideoTitle());
+
+
+        String shareTitle ;
+        if (findVideoEntity.getVideoTitle().length() >= 60){
+            shareTitle = findVideoEntity.getVideoTitle().substring( 0 , 60 ) ;
+        }else{
+            shareTitle = findVideoEntity.getVideoTitle() ;
+        }
+
+        String shareText ;
+        if (findVideoEntity.getVideoDes().length() >= 60){
+            shareText = findVideoEntity.getVideoDes().substring( 0 , 60 ) ;
+        }else{
+            shareText = findVideoEntity.getVideoDes() ;
+        }
+
+
+
+
+        oks.setTitle(shareTitle);
         oks.setImageUrl("http://images.ziyawang.com/Applogo/logo.png");
-        oks.setText(findVideoEntity.getVideoDes());
+        oks.setText(shareText);
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(Url.ShareVideo + findVideoEntity.getVideoID());
         // 启动分享GUI

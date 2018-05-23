@@ -3,7 +3,7 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="53dp">
+    android:layout_marginBottom="49dp">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -247,6 +247,22 @@
 
             </LinearLayout>
 
+            <!--风险评测-->
+            <TextView
+                android:id="@+id/text_evaluate"
+                android:textSize="15dp"
+                android:textColor="#000"
+                android:background="#ffffff"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:drawableRight="@mipmap/icon83"
+                android:drawablePadding="22dp"
+                android:paddingLeft="14dp"
+                android:gravity="center_vertical"
+                android:text="风险评测"
+                android:drawableLeft="@mipmap/me_test"
+                android:layout_width="match_parent"
+                android:layout_height="44dp" />
 
             <!--我的服务方认证-->
             <TextView
@@ -254,7 +270,7 @@
                 android:textSize="15dp"
                 android:textColor="#000"
                 android:background="#ffffff"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:paddingRight="10dp"
                 android:drawableRight="@mipmap/icon83"
                 android:drawablePadding="22dp"
@@ -316,21 +332,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp" />
             <!--消息中心页面-->
-            <TextView
-                android:id="@+id/my_fragment_information"
-                android:textSize="15dp"
-                android:textColor="#000"
-                android:background="#ffffff"
+            <FrameLayout
                 android:layout_marginTop="1dp"
-                android:paddingRight="10dp"
-                android:drawableRight="@mipmap/icon83"
-                android:drawablePadding="22dp"
-                android:paddingLeft="14dp"
-                android:gravity="center_vertical"
-                android:text="消息中心"
-                android:drawableLeft="@mipmap/v2_information"
+                android:background="#ffffff"
+                android:id="@+id/my_fragment_information"
                 android:layout_width="match_parent"
-                android:layout_height="44dp" />
+                android:layout_height="44dp">
+                <TextView
+                    android:textSize="15dp"
+                    android:textColor="#000"
+                    android:paddingRight="10dp"
+                    android:drawableRight="@mipmap/icon83"
+                    android:drawablePadding="22dp"
+                    android:paddingLeft="14dp"
+                    android:gravity="center_vertical"
+                    android:text="消息中心"
+                    android:drawableLeft="@mipmap/v2_information"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp" />
+                <ImageView
+                    android:id="@+id/img_red_point"
+                    android:visibility="gone"
+                    android:layout_marginRight="24dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:src="@mipmap/red_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/img_red_point02"
+                    android:visibility="gone"
+                    android:layout_marginRight="24dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:src="@mipmap/red_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
             <!--我的页面帮助与反馈-->
             <TextView
                 android:id="@+id/feedBack"

@@ -408,30 +408,37 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if ("5".equals(list01.get(0).getTypeID())){
-                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
-                            intent.putExtra("type" , "other" ) ;
-                            intent.putExtra("url" , list01.get(0).getUrl() ) ;
-                            intent.putExtra("title" , list01.get(0).getTitle() ) ;
-                            startActivity(intent);
-                        }else if ("6".equals(list01.get(0).getTypeID())) {
-                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
-                                switch (GetBenSharedPreferences.getRole(getActivity())){
-                                    case "1" :
-                                        goVipCenterActivity() ;
-                                        break;
-                                    default:
-                                        goServiceRegisterActivity() ;
-                                        break;
 
-                                }
-                            }else {
-                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+                        switch (list01.get(0).getTypeID()){
+                            case "4" :
+                                Intent intent01 = new Intent(getActivity(), FindVideoActivity.class);
+                                startActivity(intent01);
+                                break;
+                            case "5" :
+                                Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                                intent.putExtra("type" , "other" ) ;
+                                intent.putExtra("url" , list01.get(0).getUrl() ) ;
+                                intent.putExtra("title" , list01.get(0).getTitle() ) ;
                                 startActivity(intent);
-                            }
-                        }else {
-                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                            startActivity(intent);
+                                break;
+                            case "6" :
+                                if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                    switch (GetBenSharedPreferences.getRole(getActivity())){
+                                        case "1" :
+                                            goVipCenterActivity() ;
+                                            break;
+                                        default:
+                                            goServiceRegisterActivity() ;
+                                            break;
+
+                                    }
+                                }else {
+                                    Intent intent02 = new Intent(getActivity() , LoginActivity.class ) ;
+                                    startActivity(intent02);
+                                }
+                                break;
+                            default:
+                                break;
                         }
 
                     }
@@ -444,31 +451,38 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if ("5".equals(list01.get(1).getTypeID())){
-                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
-                            intent.putExtra("type" , "other" ) ;
-                            intent.putExtra("url" , list01.get(1).getUrl() ) ;
-                            intent.putExtra("title" , list01.get(1).getTitle() ) ;
-                            startActivity(intent);
-                        }else if ("6".equals(list01.get(1).getTypeID())) {
-                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
-                                switch (GetBenSharedPreferences.getRole(getActivity())){
-                                    case "1" :
-                                        goVipCenterActivity() ;
-                                        break;
-                                    default:
-                                        goServiceRegisterActivity() ;
-                                        break;
 
-                                }
-                            }else {
-                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+
+                        switch (list01.get(1).getTypeID()){
+                            case "4" :
+                                Intent intent01 = new Intent(getActivity(), FindVideoActivity.class);
+                                startActivity(intent01);
+                                break;
+                            case "5" :
+                                Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                                intent.putExtra("type" , "other" ) ;
+                                intent.putExtra("url" , list01.get(1).getUrl() ) ;
+                                intent.putExtra("title" , list01.get(1).getTitle() ) ;
                                 startActivity(intent);
-                            }
+                                break;
+                            case "6" :
+                                if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                    switch (GetBenSharedPreferences.getRole(getActivity())){
+                                        case "1" :
+                                            goVipCenterActivity() ;
+                                            break;
+                                        default:
+                                            goServiceRegisterActivity() ;
+                                            break;
 
-                        }else {
-                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                            startActivity(intent);
+                                    }
+                                }else {
+                                    Intent intent02 = new Intent(getActivity() , LoginActivity.class ) ;
+                                    startActivity(intent02);
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
                 });
@@ -480,31 +494,36 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if ("5".equals(list01.get(2).getTypeID())){
-                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
-                            intent.putExtra("type" , "other" ) ;
-                            intent.putExtra("url" , list01.get(2).getUrl() ) ;
-                            intent.putExtra("title" , list01.get(2).getTitle() ) ;
-                            startActivity(intent);
-                        }else if ("6".equals(list01.get(2).getTypeID())) {
-                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
-                                switch (GetBenSharedPreferences.getRole(getActivity())){
-                                    case "1" :
-                                        goVipCenterActivity() ;
-                                        break;
-                                    default:
-                                        goServiceRegisterActivity() ;
-                                        break;
-
-                                }
-                            }else {
-                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+                        switch (list01.get(2).getTypeID()){
+                            case "4" :
+                                Intent intent01 = new Intent(getActivity(), FindVideoActivity.class);
+                                startActivity(intent01);
+                                break;
+                            case "5" :
+                                Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                                intent.putExtra("type" , "other" ) ;
+                                intent.putExtra("url" , list01.get(2).getUrl() ) ;
+                                intent.putExtra("title" , list01.get(2).getTitle() ) ;
                                 startActivity(intent);
-                            }
+                                break;
+                            case "6" :
+                                if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                    switch (GetBenSharedPreferences.getRole(getActivity())){
+                                        case "1" :
+                                            goVipCenterActivity() ;
+                                            break;
+                                        default:
+                                            goServiceRegisterActivity() ;
+                                            break;
 
-                        }else {
-                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                            startActivity(intent);
+                                    }
+                                }else {
+                                    Intent intent02 = new Intent(getActivity() , LoginActivity.class ) ;
+                                    startActivity(intent02);
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
                 });
@@ -516,46 +535,36 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 img4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if ("5".equals(list01.get(3).getTypeID())){
-                            Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
-                            intent.putExtra("type" , "other" ) ;
-                            intent.putExtra("url" , list01.get(3).getUrl() ) ;
-                            intent.putExtra("title" , list01.get(3).getTitle() ) ;
-                            startActivity(intent);
-                        }else if ("6".equals(list01.get(3).getTypeID())) {
-//                            NotificationButton button_me = (NotificationButton) getActivity().findViewById(R.id.button_me);
-//                            Button button_homePage = (Button) getActivity().findViewById(R.id.button_homePage);
-//                            button_homePage.setSelected(false);
-//                            button_homePage.setClickable(true);
-//                            button_me.setSelected(true);
-//                            button_me.setClickable(true);
-//
-//                            MainActivity activity=(MainActivity)getActivity()  ;
-//                            FragmentManager fm = activity.getSupportFragmentManager();
-//                            FragmentTransaction transaction = fm.beginTransaction();
-//                            if (!activity.myFragment.isAdded()) {
-//                                transaction.hide(activity.homePageFragment).add(R.id.main_frameyout, activity.myFragment).commit();
-//                            }else {
-//                                transaction.hide(activity.homePageFragment).show(activity.myFragment).commit();
-//                            }
-                            if (GetBenSharedPreferences.getIsLogin(getActivity())){
-                                switch (GetBenSharedPreferences.getRole(getActivity())){
-                                    case "1" :
-                                        goVipCenterActivity() ;
-                                        break;
-                                    default:
-                                        goServiceRegisterActivity() ;
-                                        break;
-
-                                }
-                            }else {
-                                Intent intent = new Intent(getActivity() , LoginActivity.class ) ;
+                        switch (list01.get(3).getTypeID()){
+                            case "4" :
+                                Intent intent01 = new Intent(getActivity(), FindVideoActivity.class);
+                                startActivity(intent01);
+                                break;
+                            case "5" :
+                                Intent intent = new Intent( getActivity() , MyRuleActivity.class ) ;
+                                intent.putExtra("type" , "other" ) ;
+                                intent.putExtra("url" , list01.get(3).getUrl() ) ;
+                                intent.putExtra("title" , list01.get(3).getTitle() ) ;
                                 startActivity(intent);
-                            }
+                                break;
+                            case "6" :
+                                if (GetBenSharedPreferences.getIsLogin(getActivity())){
+                                    switch (GetBenSharedPreferences.getRole(getActivity())){
+                                        case "1" :
+                                            goVipCenterActivity() ;
+                                            break;
+                                        default:
+                                            goServiceRegisterActivity() ;
+                                            break;
 
-                        }else {
-                            Intent intent = new Intent(getActivity(), FindVideoActivity.class);
-                            startActivity(intent);
+                                    }
+                                }else {
+                                    Intent intent02 = new Intent(getActivity() , LoginActivity.class ) ;
+                                    startActivity(intent02);
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
                 });

@@ -5,7 +5,6 @@ package com.ziyawang.ziya.entity;
  */
 public class V2InfoEntity {
 
-    
     private String ProjectID ;
     private String ServiceID ;
     private String ProArea ;

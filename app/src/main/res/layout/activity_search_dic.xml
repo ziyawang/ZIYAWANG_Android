@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_news_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fdd000">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="词典搜索"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="12dp"
+            android:id="@+id/relative_search"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bgfff_rad50_str_ef8008"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <com.ziyawang.ziya.view.XEditText
+                android:singleLine="true"
+                android:layout_marginRight="30dp"
+                android:background="#fff"
+                android:textSize="14sp"
+                android:hint="搜索内容"
+                android:textColorHint="#999"
+                android:textColor="#666"
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical|left" />
+
+            <ImageView
+                android:id="@+id/search_button"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/home_dic_search"
+                android:layout_width="26dp"
+                android:layout_height="26dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+    <ListView
+        android:background="#fff"
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+
+</LinearLayout>

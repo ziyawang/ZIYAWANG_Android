@@ -11,15 +11,20 @@ public class SystemEntity {
     private String Time ;
     private String Status ;
 
+    private String type ;
+    private String ProjectId ;
+
     public SystemEntity(){}
 
-    public SystemEntity(String textID, String title, String text, String time, String status) {
+    public SystemEntity(String textID, String title, String text, String time, String status , String type , String ProjectId ) {
         super();
         TextID = textID;
         Title = title;
         Text = text;
         Time = time;
         Status = status;
+        this.type = type ;
+        this.ProjectId = ProjectId ;
     }
 
     public String getTextID() {
@@ -60,5 +65,21 @@ public class SystemEntity {
 
     public void setStatus(String status) {
         Status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getProjectId() {
+        return ProjectId;
+    }
+
+    public void setProjectId(String projectId) {
+        ProjectId = projectId;
     }
 }

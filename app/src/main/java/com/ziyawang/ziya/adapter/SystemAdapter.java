@@ -21,6 +21,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.DetailsSystemInfoActivity;
+import com.ziyawang.ziya.activity.V2DetailsFindInfoActivity;
 import com.ziyawang.ziya.entity.SystemEntity;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -86,22 +87,34 @@ public class SystemAdapter extends BaseAdapter {
             convertView.setBackgroundColor(Color.rgb(255, 255, 255));
         }
 
-        holder.title.setText(list.get(position).getTitle());
+        if ("0".equals(list.get(position).getType())){
+            holder.title.setText(list.get(position).getTitle());
+        }else {
+            holder.title.setText(list.get(position).getText());
+        }
+
         holder.time.setText(list.get(position).getTime());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, DetailsSystemInfoActivity.class);
+                if ("0".equals(list.get(position).getType()) ){
+                    Intent intent = new Intent(context, DetailsSystemInfoActivity.class);
+                    intent.putExtra("status", list.get(position).getStatus());
+                    intent.putExtra("text", list.get(position).getText());
+                    intent.putExtra("textId", list.get(position).getTextID());
+                    intent.putExtra("time", list.get(position).getTime());
+                    intent.putExtra("title", list.get(position).getTitle());
+                    context.startActivity(intent);
+                }else if ("1".equals(list.get(position).getType()) ){
+                    Intent intent = new Intent(context , V2DetailsFindInfoActivity.class );
+                    intent.putExtra("id", list.get(position).getProjectId());
+                    context.startActivity(intent);
+                }else {
+                    ToastUtils.shortToast(context , "数据存在异常");
+                }
 
-                intent.putExtra("status", list.get(position).getStatus());
-                intent.putExtra("text", list.get(position).getText());
-                intent.putExtra("textId", list.get(position).getTextID());
-                intent.putExtra("time", list.get(position).getTime());
-                intent.putExtra("title", list.get(position).getTitle());
-
-                context.startActivity(intent);
             }
         });
 

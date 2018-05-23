@@ -92,7 +92,6 @@ public class LoginActivity extends BenBenActivity implements View.OnClickListene
 
     @Override
     public void initData() {
-
         userName.setSeparator(" ");
         userName.setPattern(new int[]{3, 4, 4});
     }

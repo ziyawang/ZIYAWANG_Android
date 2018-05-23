@@ -32,8 +32,10 @@ public class Json_System {
             String text = object.getString("Text");
             String time = object.getString("Time");
             String status = object.getString("Status");
+            String type = object.getString("type");
+            String ProjectId = object.getString("ProjectId");
 
-            systemEntity = new SystemEntity(textID, title, text, time, status);
+            systemEntity = new SystemEntity(textID, title, text, time, status , type , ProjectId );
             data.add(systemEntity);
         }
         return data;

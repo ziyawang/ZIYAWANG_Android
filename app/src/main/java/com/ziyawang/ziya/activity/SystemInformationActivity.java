@@ -35,6 +35,8 @@ public class SystemInformationActivity extends BaseActivity {
     private ListView listView ;
     private SystemAdapter adpter ;
 
+    private SharedPreferences spTextID ;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -92,6 +94,10 @@ public class SystemInformationActivity extends BaseActivity {
                                     adpter = new SystemAdapter(SystemInformationActivity.this , list ) ;
                                     listView.setAdapter(adpter);
                                     adpter.notifyDataSetChanged();
+                                    String textID = list.get(0).getTextID();
+                                    //拿到用户缓存的spVideoID的值,用户看过的最新的VideoID
+                                    spTextID = getSharedPreferences("TextID", MODE_PRIVATE);
+                                    spTextID.edit().putString("TextID", textID).commit();
                                 }
                                 break;
 

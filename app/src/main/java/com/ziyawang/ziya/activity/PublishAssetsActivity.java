@@ -1389,7 +1389,7 @@ public class PublishAssetsActivity extends BenBenActivity implements View.OnClic
 
             case R.id.text_id :
                 picker.addData("项目持有者");
-                picker.addData("FA（中介）");
+                picker.addData("受托方");
                 break;
             case R.id.text_type :
                 picker.addData("抵押");

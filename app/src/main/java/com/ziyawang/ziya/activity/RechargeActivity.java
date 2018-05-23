@@ -1,11 +1,5 @@
 package com.ziyawang.ziya.activity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,22 +7,18 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
-import com.pingplusplus.android.Pingpp;
-import com.pingplusplus.android.PingppLog;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.adapter.RechargeTypeAdapter;
 import com.ziyawang.ziya.entity.RechargeTypeEntity;
@@ -41,7 +31,6 @@ import com.ziyawang.ziya.view.MyProgressDialog;
 
 import org.json.JSONException;
 
-import java.io.IOException;
 import java.util.List;
 
 public class RechargeActivity extends BenBenActivity implements View.OnClickListener {
@@ -91,9 +80,20 @@ public class RechargeActivity extends BenBenActivity implements View.OnClickList
     //数据加载的dialog
     private MyProgressDialog dialog ;
 
+    private IWXAPI api;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //正式
+        api = WXAPIFactory.createWXAPI(this, "wxd414950a5c59eded");
+        api.registerApp("wxd414950a5c59eded");
+
+        //测试
+//        api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
+//        api.registerApp("wxb4ba3c02aa476ea1");
+
         //加载数据
         loadData() ;
     }
@@ -202,7 +202,7 @@ public class RechargeActivity extends BenBenActivity implements View.OnClickList
 
     @Override
     public void initData() {
-        PingppLog.DEBUG = true;
+
     }
 
     @Override
@@ -221,7 +221,11 @@ public class RechargeActivity extends BenBenActivity implements View.OnClickList
                 select(upacp_select , CHANNEL_UPACP) ;
                 break;
             case R.id.recharge :
-                goRecharge() ;
+                //goRecharge() ;
+                /**
+                 * 20171213更改支付逻辑 弃用ping++
+                 */
+                goRecharge02() ;
                 break;
             default:
                 break;
@@ -229,13 +233,101 @@ public class RechargeActivity extends BenBenActivity implements View.OnClickList
 
     }
 
-    private void goRecharge() {
-        //充值的金额money , 充值的渠道channel
-        Log.e("benben", "渠道:" + channel + "---" + "金额：" + money) ;
-        //付款
-        new PaymentTask().execute(new PaymentRequest(channel, money , ybcount ));
+    private void goRecharge02() {
+        //正式
+        HttpUtils httpUtils = new HttpUtils() ;
+        String urls = String.format(Url.getCharge, GetBenSharedPreferences.getTicket( RechargeActivity.this)) ;
+        RequestParams params = new RequestParams() ;
+        //充值金额 以分为单位
+        params.addBodyParameter("amount" , money + "");
+        //支付渠道
+        params.addBodyParameter("tradeType" , "APP");
+        httpUtils.send(HttpRequest.HttpMethod.POST, urls , params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Log.e("getCharge" , responseInfo.result ) ;
+                if (api!=null){
+                    payVX(responseInfo.result) ;
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                error.printStackTrace();
+                ToastUtils.shortToast( RechargeActivity.this , "网络连接异常");
+            }
+        }) ;
+
+        //测试
+//        HttpUtils httpUtils = new HttpUtils() ;
+//        RequestParams params = new RequestParams() ;
+//        httpUtils.send(HttpRequest.HttpMethod.GET, "http://wxpay.wxutil.com/pub_v2/app/app_pay.php" , params, new RequestCallBack<String>() {
+//            @Override
+//            public void onSuccess(ResponseInfo<String> responseInfo) {
+//                Log.e("测试getCharge" , responseInfo.result ) ;
+//
+//                JSONObject json = JSON.parseObject(responseInfo.result);
+//
+//                PayReq req = new PayReq();
+//                req.appId			= json.getString("appid");
+//                req.partnerId		= json.getString("partnerid");
+//                req.prepayId		= json.getString("prepayid");
+//                req.nonceStr		= json.getString("noncestr");
+//                req.timeStamp		= json.getString("timestamp");
+//                req.packageValue	= json.getString("package");
+//                req.sign			= json.getString("sign");
+//                req.extData			= "app data"; // optional
+//                Toast.makeText(RechargeActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
+//                // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+//                api.sendReq(req);
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(HttpException error, String msg) {
+//                error.printStackTrace();
+//                ToastUtils.shortToast( RechargeActivity.this , "网络连接异常");
+//            }
+//        }) ;
 
     }
+
+    private void payVX(String result) {
+        JSONObject object = JSON.parseObject(result);
+        JSONObject data = object.getJSONObject("data");
+        String return_code = data.getString("return_code");
+        if ("SUCCESS".equals(return_code)){
+            String nonce_str = data.getString("nonce_str");
+            String prepay_id = data.getString("prepay_id");
+            String sign = data.getString("sign");
+            String timestamp = data.getString("timestamp");
+
+            //long time = System.currentTimeMillis() / 1000 ;
+            PayReq req = new PayReq();
+            req.appId = "wxd414950a5c59eded" ;
+            req.partnerId = "1389032102" ;
+            req.prepayId  = prepay_id ;
+            req.nonceStr  = nonce_str ;
+            req.timeStamp  =  timestamp  ;
+            req.packageValue = "Sign=WXPay" ;
+            req.sign = sign ;
+            // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+            api.sendReq(req);
+        }else {
+            ToastUtils.shortToast(RechargeActivity.this , "支付失败");
+        }
+    }
+
+
+
+//    private void goRecharge() {
+//        //充值的金额money , 充值的渠道channel
+//        Log.e("benben", "渠道:" + channel + "---" + "金额：" + money) ;
+//        //付款
+//        new PaymentTask().execute(new PaymentRequest(channel, money , ybcount ));
+//
+//    }
 
     private void select(ImageView v , String str) {
 
@@ -248,119 +340,119 @@ public class RechargeActivity extends BenBenActivity implements View.OnClickList
     }
 
 
-    class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            //按键点击之后的禁用，防止重复点击
-            recharge.setOnClickListener(null);
-        }
-
-        @Override
-        protected String doInBackground(PaymentRequest... pr) {
-
-            PaymentRequest paymentRequest = pr[0];
-            String data = null;
-            String json = new Gson().toJson(paymentRequest);
-            try {
-                //向Your Ping++ Server SDK请求数据
-                data = postJson(URL, json , RechargeActivity.this );
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return data;
-        }
-
-        /**
-         * 获得服务端的charge，调用ping++ sdk。
-         */
-        @Override
-        protected void onPostExecute(String data) {
-            if(null == data){
-                //showMsg("请求出错", "请检查URL", "URL无法获取charge");
-                ToastUtils.shortToast(RechargeActivity.this  , "请检查网络连接");
-                return;
-            }
-            Log.d("charge", data);
-            Pingpp.createPayment(RechargeActivity.this, data);
-        }
-
-    }
-
-    /**
-     * onActivityResult 获得支付结果，如果支付成功，服务器会收到ping++ 服务器发送的异步通知。
-     * 最终支付成功根据异步通知为准
-     */
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        //重新获得点击事件
-        recharge.setOnClickListener(this);
-        //支付页面返回处理
-        if (requestCode == Pingpp.REQUEST_CODE_PAYMENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                String result = data.getExtras().getString("pay_result");
-                /* 处理返回值
-                 * "success" - payment succeed
-                 * "fail"    - payment failed
-                 * "cancel"  - user canceld
-                 * "invalid" - payment plugin not installed
-                 */
-                //String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
-                //String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
-                //showMsg(result, errorMsg, extraMsg);
-                if ("success".equals(result)){
-                    ToastUtils.shortToast(this , "支付成功！");
-                }else if ("fail".equals(result)){
-                    ToastUtils.shortToast(this , "支付失败！");
-                }else  if ("cancel".equals(result)){
-                    ToastUtils.shortToast(this , "取消支付！");
-                }else if ("invalid".equals(result)){
-                    //ToastUtils.shortToast(this , "该支付方式正在开发，请您选择其他支付方式");
-                    ToastUtils.shortToast(this , "未安装该客户端");
-                }
-
-            }
-        }
-    }
-
-    public void showMsg(String title, String msg1, String msg2) {
-        String str = title;
-        if (null !=msg1 && msg1.length() != 0) {
-            str += "\n" + msg1;
-        }
-        if (null !=msg2 && msg2.length() != 0) {
-            str += "\n" + msg2;
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(str);
-        builder.setTitle("提示");
-        builder.setPositiveButton("OK", null);
-        builder.create().show();
-    }
-
-    private static String postJson(String url, String json , Context context) throws IOException {
-
-        String urls = String.format(url, GetBenSharedPreferences.getTicket(context));
-        MediaType type = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(type, json);
-        Request request = new Request.Builder().url(urls).post(body).build();
-
-        OkHttpClient client = new OkHttpClient();
-        Response response = client.newCall(request).execute();
-
-        return response.body().string();
-    }
-
-    class PaymentRequest {
-        String channel;
-        int amount;
-        String ybcount  ;
-
-        public PaymentRequest(String channel, int amount , String ybcount ) {
-            this.channel = channel;
-            this.amount = amount;
-            this.ybcount = ybcount ;
-        }
-    }
+//    class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            //按键点击之后的禁用，防止重复点击
+//            recharge.setOnClickListener(null);
+//        }
+//
+//        @Override
+//        protected String doInBackground(PaymentRequest... pr) {
+//
+//            PaymentRequest paymentRequest = pr[0];
+//            String data = null;
+//            String json = new Gson().toJson(paymentRequest);
+//            try {
+//                //向Your Ping++ Server SDK请求数据
+//                data = postJson(URL, json , RechargeActivity.this );
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return data;
+//        }
+//
+//        /**
+//         * 获得服务端的charge，调用ping++ sdk。
+//         */
+//        @Override
+//        protected void onPostExecute(String data) {
+//            if(null == data){
+//                //showMsg("请求出错", "请检查URL", "URL无法获取charge");
+//                ToastUtils.shortToast(RechargeActivity.this  , "请检查网络连接");
+//                return;
+//            }
+//            Log.d("charge", data);
+//            Pingpp.createPayment(RechargeActivity.this, data);
+//        }
+//
+//    }
+//
+//    /**
+//     * onActivityResult 获得支付结果，如果支付成功，服务器会收到ping++ 服务器发送的异步通知。
+//     * 最终支付成功根据异步通知为准
+//     */
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        //重新获得点击事件
+//        recharge.setOnClickListener(this);
+//        //支付页面返回处理
+//        if (requestCode == Pingpp.REQUEST_CODE_PAYMENT) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                String result = data.getExtras().getString("pay_result");
+//                /* 处理返回值
+//                 * "success" - payment succeed
+//                 * "fail"    - payment failed
+//                 * "cancel"  - user canceld
+//                 * "invalid" - payment plugin not installed
+//                 */
+//                //String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
+//                //String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
+//                //showMsg(result, errorMsg, extraMsg);
+//                if ("success".equals(result)){
+//                    ToastUtils.shortToast(this , "支付成功！");
+//                }else if ("fail".equals(result)){
+//                    ToastUtils.shortToast(this , "支付失败！");
+//                }else  if ("cancel".equals(result)){
+//                    ToastUtils.shortToast(this , "取消支付！");
+//                }else if ("invalid".equals(result)){
+//                    //ToastUtils.shortToast(this , "该支付方式正在开发，请您选择其他支付方式");
+//                    ToastUtils.shortToast(this , "未安装该客户端");
+//                }
+//
+//            }
+//        }
+//    }
+//
+//    public void showMsg(String title, String msg1, String msg2) {
+//        String str = title;
+//        if (null !=msg1 && msg1.length() != 0) {
+//            str += "\n" + msg1;
+//        }
+//        if (null !=msg2 && msg2.length() != 0) {
+//            str += "\n" + msg2;
+//        }
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setMessage(str);
+//        builder.setTitle("提示");
+//        builder.setPositiveButton("OK", null);
+//        builder.create().show();
+//    }
+//
+//    private static String postJson(String url, String json , Context context) throws IOException {
+//
+//        String urls = String.format(url, GetBenSharedPreferences.getTicket(context));
+//        MediaType type = MediaType.parse("application/json; charset=utf-8");
+//        RequestBody body = RequestBody.create(type, json);
+//        Request request = new Request.Builder().url(urls).post(body).build();
+//
+//        OkHttpClient client = new OkHttpClient();
+//        Response response = client.newCall(request).execute();
+//
+//        return response.body().string();
+//    }
+//
+//    class PaymentRequest {
+//        String channel;
+//        int amount;
+//        String ybcount  ;
+//
+//        public PaymentRequest(String channel, int amount , String ybcount ) {
+//            this.channel = channel;
+//            this.amount = amount;
+//            this.ybcount = ybcount ;
+//        }
+//    }
 
 }

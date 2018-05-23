@@ -11,4 +11,8 @@
     <!--special color-->
     <color name="black_a10_color">#1a000000</color>
 
+
+    <color name="swipe">#fff000</color>
+    <color name="swipe_ask">#abcd04</color>
+
 </resources>

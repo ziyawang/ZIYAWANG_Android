@@ -27,9 +27,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC" />
 
     <application
@@ -237,36 +235,6 @@
             android:name=".activity.SearchVideoActivity"
             android:screenOrientation="portrait" />
 
-        <!-- Ping++ SDK -->
-        <activity
-            android:name="com.pingplusplus.android.PaymentActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <!-- 微信支付 -->
-        <activity-alias
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
-
-        <!-- 支付宝 -->
-        <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind" />
-        <activity
-            android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind" />
-
-        <!-- 银联支付 sdk -->
-        <activity
-            android:name="com.unionpay.uppay.PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize" />
-
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="57b1225667e58ece28000118" />
@@ -342,10 +310,20 @@
             android:name=".activity.DetailsStarRegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.Image216Activity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ImageScale">
-        </activity>
+        <activity
+            android:name=".activity.Image216Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageScale" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.SearchDicActivity" />
+        <activity android:name=".activity.DicAskActivity" />
+        <activity android:name=".activity.DetailsAskActivity" />
+        <activity android:name=".activity.SearchAskActivity" />
+        <activity android:name=".activity.AskAskActivity" />
+        <activity android:name=".activity.MyAskActivity"></activity>
     </application>
 
 </manifest>

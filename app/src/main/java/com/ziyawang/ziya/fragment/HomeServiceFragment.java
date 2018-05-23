@@ -316,6 +316,7 @@ public class HomeServiceFragment extends Fragment {
         RequestParams params = new RequestParams() ;
         httpUtils.configCurrentHttpCacheExpiry(1000) ;
         params.addQueryStringParameter("startpage" , "" + count );
+        params.addQueryStringParameter("pagecount", "10" );
         httpUtils.send(HttpRequest.HttpMethod.GET, Url.GetService, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {

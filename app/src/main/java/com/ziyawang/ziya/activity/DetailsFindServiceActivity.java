@@ -605,10 +605,25 @@ public class DetailsFindServiceActivity extends BenBenActivity implements View.O
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
-        oks.setTitle(ServiceName);
+
+        String shareTitle ;
+        if (ServiceName.length() >= 60){
+            shareTitle = ServiceName.substring( 0 , 60 ) ;
+        }else{
+            shareTitle = ServiceName ;
+        }
+
+        String shareText ;
+        if (ServiceIntroduction.length() >= 60){
+            shareText = ServiceIntroduction.substring( 0 , 60 ) ;
+        }else{
+            shareText = ServiceIntroduction ;
+        }
+
+        oks.setTitle(shareTitle);
         oks.setTitleUrl(Url.ShareService + id);
         oks.setImageUrl("http://images.ziyawang.com/Applogo/logo.png");
-        oks.setText(ServiceIntroduction);
+        oks.setText(shareText);
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(Url.ShareService + id);
         // 启动分享GUI

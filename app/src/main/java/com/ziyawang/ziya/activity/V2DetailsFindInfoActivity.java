@@ -49,6 +49,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.Set;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -130,6 +131,7 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
     private TextView nine_right_add ;
     private TextView ten_right ;
     private TextView ten_right_add ;
+    
 
     private LinearLayout linear_01 ;
     private LinearLayout linear_02 ;
@@ -545,9 +547,12 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         switch (root) {
             case "0":
             case "2":
-                //不是自己发出的信息，身份为不是服务方
-                showRootIsZeroTwo() ;
-                break;
+                /**
+                 * 201712041346 修改
+                 */
+//                //不是自己发出的信息，身份为不是服务方
+//                showRootIsZeroTwo() ;
+//                break;
             case "1":
                 //不是自己发出的信息，身份是服务方
                 showRootIsZeroOne() ;
@@ -1451,10 +1456,21 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
-        oks.setTitle(wordDes);
+
+
+
+        String shareTitle ;
+        if (wordDes.length() >= 60){
+            shareTitle = wordDes.substring( 0 , 60 ) ;
+        }else{
+            shareTitle = wordDes ;
+        }
+
+
+        oks.setTitle(title);
         oks.setTitleUrl(Url.ShareInfo + id);
         oks.setImageUrl("http://images.ziyawang.com/Applogo/logo.png");
-        oks.setText(wordDes);
+        oks.setText(shareTitle);
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(Url.ShareInfo + id);
         // 启动分享GUI
@@ -1669,24 +1685,28 @@ public class V2DetailsFindInfoActivity extends BenBenActivity implements View.On
         if (isLogin) {
 
             //显示是否拨打电话的登陆按钮
-            showCustomDialog() ;
+            //showCustomDialog() ;
 
-//            final CustomDialog.Builder builder01 = new CustomDialog.Builder(V2DetailsFindInfoActivity.this);
-//            builder01.setTitle("亲爱的用户");
-//            builder01.setMessage("您确定要联系" + connectPhone + "?");
-//            builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {goCallNumber() ;
-//
-//                }
-//            });
-//            builder01.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                }
-//            });
-//            builder01.create().show();
+            //已经支付过
+            final CustomDialog.Builder builder01 = new CustomDialog.Builder(V2DetailsFindInfoActivity.this);
+            builder01.setTitle("亲爱的用户");
+            builder01.setMessage("您确定要联系" + connectPhone + "?");
+            builder01.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {goCallNumber() ;
+
+                }
+            });
+            builder01.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder01.create().show();
+
+
+
         } else {
             //跳转到登录页面
             goLoginActivity() ;

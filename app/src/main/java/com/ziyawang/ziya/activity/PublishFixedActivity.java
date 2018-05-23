@@ -1513,7 +1513,7 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
         switch (tv.getId()){
             case R.id.text_id :
                 picker.addData("项目持有者");
-                picker.addData("FA（中介）");
+                picker.addData("受托方");
                 break;
             case R.id.text_type :
                 picker.addData("土地");
@@ -1560,7 +1560,7 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
                 picker.addData("工业");
                 picker.addData("商业");
                 picker.addData("住宅");
-                picker.addData("其他");
+                picker.addData("仓储");
                 break;
             case R.id.text_type02 :
                 picker.addData("产权转让");
@@ -1569,8 +1569,11 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
             case R.id.text_type03 :
                 picker.addData("住宅");
                 picker.addData("商业");
+                picker.addData("办公");
+                picker.addData("四合院");
+                picker.addData("别墅");
+                picker.addData("会所");
                 picker.addData("厂房");
-                picker.addData("其他");
                 break;
             case R.id.text_type04 :
                 picker.addData("产权转让");
@@ -1580,7 +1583,7 @@ public class PublishFixedActivity extends BenBenActivity implements View.OnClick
                 picker.addData("工业");
                 picker.addData("商业");
                 picker.addData("住宅");
-                picker.addData("其他");
+                picker.addData("仓储");
                 break;
             case R.id.text_zhengjian :
             case R.id.text_jiufen :

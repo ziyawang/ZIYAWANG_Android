@@ -2165,7 +2165,7 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                             context.startActivity(intent);
                             finalConvertView.setEnabled(true);
                         } else {
-                            if ("1".equals(role)) {
+                            //if ("1".equals(role)) {
                                 if ("2".equals(list.get(position).getMember())) {
                                     String urls = String.format(Url.ISPay, GetBenSharedPreferences.getTicket(context));
                                     HttpUtils httpUtils = new HttpUtils();
@@ -2201,10 +2201,10 @@ public class V2FindInfoActivity extends BenBenActivity implements View.OnClickLi
                                     showForVipPop(finalConvertView , position ) ;
                                 }
 
-                            } else {
-                                ToastUtils.shortToast(context, "您需要先通过服务方认证才可查看此条信息");
-                                finalConvertView.setEnabled(true);
-                            }
+//                            } else {
+//                                ToastUtils.shortToast(context, "您需要先通过服务方认证才可查看此条信息");
+//                                finalConvertView.setEnabled(true);
+//                            }
                         }
 
                     } catch (JSONException e) {

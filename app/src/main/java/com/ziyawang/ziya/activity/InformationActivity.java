@@ -1,17 +1,35 @@
 package com.ziyawang.ziya.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.application.MyApplication;
+import com.ziyawang.ziya.entity.SystemEntity;
 import com.ziyawang.ziya.tools.ChangeNotifyColor;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
+import com.ziyawang.ziya.tools.Json_System;
+import com.ziyawang.ziya.tools.ToastUtils;
+import com.ziyawang.ziya.tools.Url;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -28,6 +46,9 @@ public class InformationActivity extends FragmentActivity implements View.OnClic
     private RelativeLayout info_help ;
     //回退按钮
     private RelativeLayout pre ;
+
+    private SharedPreferences spTextID ;
+    private ImageView img_red_point02  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +80,59 @@ public class InformationActivity extends FragmentActivity implements View.OnClic
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LoadVideoID() ;
+    }
+
+    private void LoadVideoID() {
+        SharedPreferences loginCode = getSharedPreferences("loginCode", MODE_PRIVATE);
+        String login = loginCode.getString("loginCode", null);
+        String urls = String.format(Url.GetMessage, login ) ;
+        HttpUtils httpUtils = new HttpUtils() ;
+        RequestParams params = new RequestParams() ;
+        params.addBodyParameter("pagecount" , "1" );
+        httpUtils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Log.e("benben", responseInfo.result) ;
+                try {
+                    JSONObject jsonObject = new JSONObject(responseInfo.result) ;
+                    String status_code = jsonObject.getString("status_code");
+                    switch (status_code){
+                        case "200" :
+                            List<SystemEntity> list = Json_System.getParse(responseInfo.result);
+                            if (list.size() != 0){
+                                String textID = list.get(0).getTextID();
+
+                                spTextID = getSharedPreferences("TextID", MODE_PRIVATE);
+                                String spVideoIDString = spTextID.getString("TextID", "");
+                                if (!spVideoIDString.equals(textID)) {
+                                    img_red_point02.setVisibility(View.VISIBLE);
+                                }else {
+                                    img_red_point02.setVisibility(View.GONE);
+                                }
+                            }else {
+                                img_red_point02.setVisibility(View.GONE);
+                            }
+                            break;
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                error.printStackTrace();
+                ToastUtils.shortToast(InformationActivity.this, "网络连接异常");
+            }
+        }) ;
+
+    }
+
     private void getActivityTask() {
         app = (MyApplication) getApplication();
         this.getApplication() ;
@@ -73,6 +147,7 @@ public class InformationActivity extends FragmentActivity implements View.OnClic
         info_help = (RelativeLayout)findViewById(R.id.info_help) ;
         info_sys = (RelativeLayout)findViewById(R.id.info_sys) ;
         pre = (RelativeLayout)findViewById(R.id.pre) ;
+        img_red_point02 = (ImageView) findViewById(R.id.img_red_point02) ;
     }
 
     public void initListeners() {

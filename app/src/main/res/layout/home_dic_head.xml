@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@mipmap/home_dic_head"
+        android:layout_width="match_parent"
+        android:layout_height="126dp">
+
+        <RelativeLayout
+            android:id="@+id/relative_search"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bgfff_rad50_str_ef8008"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:textSize="14sp"
+                android:textColor="#999"
+                android:id="@+id/search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="搜索词库" />
+
+            <ImageView
+                android:id="@+id/search_button"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/home_dic_search"
+                android:layout_width="26dp"
+                android:layout_height="26dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/relative_search"
+            android:layout_centerHorizontal="true"
+            android:textColor="#EF8008"
+            android:text="法律术语      行业术语      实操术语"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:text="每日新词"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/linear_ask"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/home_dic_ask"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:textSize="14sp"
+                android:textColor="#EF8008"
+                android:layout_marginLeft="4dp"
+                android:layout_gravity="center_vertical"
+                android:text="题词"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

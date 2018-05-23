@@ -17,10 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -30,6 +34,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
+import com.ziyawang.ziya.activity.EvaluateActivity_start;
 import com.ziyawang.ziya.activity.FeedBackActivity;
 import com.ziyawang.ziya.activity.InformationActivity;
 import com.ziyawang.ziya.activity.LoginActivity;
@@ -44,8 +49,13 @@ import com.ziyawang.ziya.activity.PersonalInformationActivity;
 import com.ziyawang.ziya.activity.ServiceRegisterActivity;
 import com.ziyawang.ziya.activity.StarRegisterActivity;
 import com.ziyawang.ziya.activity.StartActivity;
+import com.ziyawang.ziya.activity.SystemInformationActivity;
 import com.ziyawang.ziya.activity.VipCenterActivity;
+import com.ziyawang.ziya.adapter.SystemAdapter;
+import com.ziyawang.ziya.entity.FindVideoEntity;
+import com.ziyawang.ziya.entity.SystemEntity;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
+import com.ziyawang.ziya.tools.Json_System;
 import com.ziyawang.ziya.tools.LoadImageAsyncTask;
 import com.ziyawang.ziya.tools.SDUtil;
 import com.ziyawang.ziya.tools.ToastUtils;
@@ -57,8 +67,10 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.List;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
 /**
@@ -80,6 +92,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private MyIconImageView niu_icon ;
     //服务方认证
     private TextView service_register ;
+    //风险评测
+    private TextView text_evaluate ;
     //会员中心
     private TextView vip_center ;
     //星级认证
@@ -122,7 +136,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private String Founds ;
     private String Regtime ;
     //消息中心按钮
-    private TextView my_fragment_information ;
+    private FrameLayout my_fragment_information ;
     //意见反馈按钮
     private TextView feedBack ;
     //设置按钮
@@ -146,7 +160,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ScrollView scrollView ;
 
+
+    private SharedPreferences spTextID ;
+
     private String type_01 , type_02 , type_03 , type_04 , type_05 ;
+
+    private ImageView img_red_point ;
+    private ImageView img_red_point02 ;
     //无参构造
     public MyFragment(){}
 
@@ -174,6 +194,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             niu_phone.setText("未登录");
             niu_phone.setBackgroundResource(R.drawable.my_login);
         }else {
+            isShowRedPoint() ;
             switch (GetBenSharedPreferences.getRole(getActivity())){
                 case RELEASE :
                     //发布方的展示组件
@@ -190,6 +211,89 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 default:
                     break;
             }
+        }
+    }
+
+    private void isShowRedPoint() {
+
+        // img_red_point
+        if (RongIM.getInstance() != null) {
+            RongIM.getInstance().setOnReceiveUnreadCountChangedListener(new MyReceiveUnreadCountChangedListener(), Conversation.ConversationType.PRIVATE);
+        }
+        //是否有最新的消息（1、系统消息2、私聊信息）
+        // img_red_point02
+        LoadVideoID() ;
+    }
+
+    /**
+     * 接收未读消息的监听器。
+     */
+    private class MyReceiveUnreadCountChangedListener implements RongIM.OnReceiveUnreadCountChangedListener {
+        /**
+         * @param count 未读消息数。
+         */
+        @Override
+        public void onMessageIncreased(int count) {
+            if (count > 0 ){
+                img_red_point.setVisibility(View.VISIBLE);
+            }else {
+                img_red_point.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void LoadVideoID() {
+
+        SharedPreferences sp = getActivity().getSharedPreferences("isLogin", getActivity().MODE_PRIVATE);
+        boolean isLogin = sp.getBoolean("isLogin", false);
+        if (isLogin){
+            SharedPreferences loginCode = getActivity().getSharedPreferences("loginCode", getActivity().MODE_PRIVATE);
+            String login = loginCode.getString("loginCode", null);
+
+            String urls = String.format(Url.GetMessage, login ) ;
+            HttpUtils httpUtils = new HttpUtils() ;
+            RequestParams params = new RequestParams() ;
+            params.addBodyParameter("pagecount" , "1" );
+            httpUtils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    Log.e("benben", responseInfo.result) ;
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseInfo.result) ;
+                        String status_code = jsonObject.getString("status_code");
+                        switch (status_code){
+                            case "200" :
+                                List<SystemEntity> list = Json_System.getParse(responseInfo.result);
+                                if (list.size() != 0){
+                                    String textID = list.get(0).getTextID();
+                                    //拿到用户缓存的spVideoID的值,用户看过的最新的VideoID
+                                    spTextID = getActivity().getSharedPreferences("TextID", getActivity().MODE_PRIVATE);
+                                    String spVideoIDString = spTextID.getString("TextID", "");
+                                    if (!spVideoIDString.equals(textID)) {
+                                        img_red_point02.setVisibility(View.VISIBLE);
+                                    }else {
+                                        img_red_point02.setVisibility(View.GONE);
+                                    }
+                                }else {
+                                    img_red_point02.setVisibility(View.GONE);
+                                }
+                                break;
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(HttpException error, String msg) {
+                    error.printStackTrace();
+                    ToastUtils.shortToast(getActivity(), "网络连接异常");
+                }
+            }) ;
+
+        }else {
+            ToastUtils.shortToast( getActivity() , "还未登录");
         }
     }
 
@@ -338,6 +442,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         feedBack.setOnClickListener(this);
         my_rush.setOnClickListener(this);
         service_register.setOnClickListener(this);
+        text_evaluate.setOnClickListener(this);
         vip_center.setOnClickListener(this);
         star_register.setOnClickListener(this);
         publish_relative.setOnClickListener(this);
@@ -704,6 +809,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private void initView(View v ) {
         me_change_icon = (RelativeLayout)v.findViewById(R.id.me_change_icon ) ;
         service_register = (TextView) v.findViewById(R.id.service_register ) ;
+        text_evaluate = (TextView) v.findViewById(R.id.text_evaluate ) ;
         vip_center = (TextView) v.findViewById(R.id.vip_center ) ;
         star_register = (TextView) v.findViewById(R.id.star_register ) ;
         my_rush = (TextView) v.findViewById(R.id.my_rush ) ;
@@ -724,7 +830,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         collection_relative = (RelativeLayout)v.findViewById(R.id.collection_relative ) ;
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         add_pay = (TextView) v.findViewById(R.id.add_pay ) ;
-        my_fragment_information = (TextView) v.findViewById(R.id.my_fragment_information ) ;
+        my_fragment_information = (FrameLayout) v.findViewById(R.id.my_fragment_information ) ;
+        img_red_point = (ImageView) v.findViewById(R.id.img_red_point ) ;
+        img_red_point02 = (ImageView) v.findViewById(R.id.img_red_point02 ) ;
         scrollView = (ScrollView)v.findViewById(R.id.scrollView ) ;
         if (scrollView != null) {
             scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -767,6 +875,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.service_register :
                 judgeServiceRegisterView() ;
                 break;
+            //评测系统按钮
+            case R.id.text_evaluate :
+                judgeTextEvaluateView() ;
+                break;
             //会员中心按钮
             case R.id.vip_center :
                 judgeVipCenterView() ;
@@ -794,6 +906,19 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void judgeTextEvaluateView() {
+        if (isLogin){
+            goEvaluateActivity() ;
+        }else {
+            goLoginActivity();
+        }
+    }
+
+    private void goEvaluateActivity() {
+        Intent intent = new Intent(getActivity() , EvaluateActivity_start.class ) ;
+        startActivity(intent);
     }
 
     private void judgeStarRegisterView() {

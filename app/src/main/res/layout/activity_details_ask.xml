@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_news_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#ABCD04">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="问答详情"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/image"
+                    android:src="@mipmap/details_ask_icon01"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_margin="16dp"
+                    android:layout_toRightOf="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="#666"
+                        android:textSize="16sp"
+                        android:id="@+id/text_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:paddingRight="4dp"
+                        android:paddingLeft="4dp"
+                        android:textColor="#abcd04"
+                        android:background="@drawable/bgfff_rad50_str_abcd04"
+                        android:textSize="12sp"
+                        android:layout_marginTop="12dp"
+                        android:text="已解决"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="#ccc"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textColor="#abcd04"
+                    android:layout_margin="16dp"
+                    android:text="优质回答"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/details_ask_icon02"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:src="@mipmap/default_icon"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp" />
+
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="小资  认证官方客服"
+                    android:textColor="#999"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <com.ziyawang.ziya.view.JustifyTextView
+                android:layout_margin="16dp"
+                android:id="@+id/text_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

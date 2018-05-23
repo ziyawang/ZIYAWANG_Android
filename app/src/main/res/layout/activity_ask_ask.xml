@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--标题页面-->
+    <RelativeLayout
+        android:id="@+id/details_news_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#abcd01">
+        <RelativeLayout
+            android:id="@+id/pre"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/pre" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="题问"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.ziyawang.ziya.view.XEditText
+            android:hint="请输入"
+            android:gravity="top|left"
+            android:lineSpacingMultiplier="1.2"
+            android:id="@+id/edit_word"
+            android:textColor="#666"
+            android:textColorHint="#999"
+            android:textSize="14sp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:minLines="5"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg5cb8c3_rad10_str999"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="请将您的疑问告诉我们"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:id="@+id/text_word"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="25dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/bg5cb8c3_rad50"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="fitStart"
+            android:src="@mipmap/add_ask_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="#999"
+                    android:textSize="12sp"
+                    android:text="您还可以输入  "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/word_notice"
+                    android:textColor="#5cb8c3"
+                    android:textSize="14sp"
+                    android:text="50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="#999"
+                    android:textSize="12sp"
+                    android:text="  个字"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_submit"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="25dp"
+                android:layout_gravity="right"
+                android:textSize="14sp"
+                android:textColor="#5cb8c3"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:background="@drawable/bg5cb8c3_rad10_str999"
+                android:text="提交问题"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+</LinearLayout>

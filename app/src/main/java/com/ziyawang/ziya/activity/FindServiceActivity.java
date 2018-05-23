@@ -1143,4 +1143,5 @@ public class FindServiceActivity extends BenBenActivity implements View.OnClickL
                 break;
         }
     }
+
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginTop="16dp"
+            android:id="@+id/image"
+            android:src="@mipmap/my_ask_ok"
+            android:layout_marginLeft="16dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_question"
+                android:textColor="#666"
+                android:textSize="16sp"
+                android:lineSpacingMultiplier="1.2"
+                android:maxLines="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#ef8008"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                android:id="@+id/text_no"
+                android:textSize="12sp"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:background="@drawable/bgfff_rad50_str_ef8008"
+                android:text="待解决"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#abcd04"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/text_ok"
+                android:textSize="12sp"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:background="@drawable/bgfff_rad50_str_abcd04"
+                android:text="已解决"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:visibility="gone"
+                android:textColor="#fc270b"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/text_delete"
+                android:textSize="12sp"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:background="@drawable/bg_rad50_str_fc270b"
+                android:text="已删除"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
+</LinearLayout>

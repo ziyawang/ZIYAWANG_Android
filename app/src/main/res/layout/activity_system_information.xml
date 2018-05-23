@@ -39,11 +39,14 @@
     </RelativeLayout>
 
     <ListView
+        android:layout_marginTop="44dp"
         android:id="@+id/listView"
-        android:layout_below="@id/niu_383"
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
     </ListView>
 

@@ -831,6 +831,52 @@ public class ServiceRegisterActivity extends BenBenActivity implements View.OnCl
                                 stringBuffer01.append("债权收购");
                                 stringBuffer01.append(",");
                                 break;
+
+                            // 20180305 add
+                            case "23":
+                                stringBuffer01.append("收购住宅用地");
+                                stringBuffer01.append(",");
+                                break;
+                            case "24":
+                                stringBuffer01.append("收购工业用地");
+                                stringBuffer01.append(",");
+                                break;
+                            case "25":
+                                stringBuffer01.append("收购商业用地");
+                                stringBuffer01.append(",");
+                                break;
+                            case "26":
+                                stringBuffer01.append("收购仓储用地");
+                                stringBuffer01.append(",");
+                                break;
+                            case "27":
+                                stringBuffer01.append("收购住宅房产");
+                                stringBuffer01.append(",");
+                                break;
+                            case "28":
+                                stringBuffer01.append("收购商业房产");
+                                stringBuffer01.append(",");
+                                break;
+                            case "29":
+                                stringBuffer01.append("收购办公房产");
+                                stringBuffer01.append(",");
+                                break;
+                            case "30":
+                                stringBuffer01.append("收购四合院房产");
+                                stringBuffer01.append(",");
+                                break;
+                            case "31":
+                                stringBuffer01.append("收购别墅房产");
+                                stringBuffer01.append(",");
+                                break;
+                            case "32":
+                                stringBuffer01.append("收购会所房产");
+                                stringBuffer01.append(",");
+                                break;
+                            case "33":
+                                stringBuffer01.append("收购厂房房产");
+                                stringBuffer01.append(",");
+                                break;
                             default:
                                 break;
                         }

@@ -30,6 +30,7 @@ public class Url {
     public static final String ShareInfo = "http://ziyawang.com/project/" ;
     public static final String ShareService = "http://ziyawang.com/service/" ;
     public static final String ShareNews = "http://ziyawang.com/news/" ;
+    public static final String ShareFast = "http://ziyawang.com/fast/" ;
 
     public static final String PayCharge = IP + "pay?access_token=token&token=%s" ;
     public static final String ChangeNickName = IP + "auth/chusername?access_token=token&token=%s" ;
@@ -101,5 +102,40 @@ public class Url {
     public static final String V203StarList = IP + "star/list?access_token=token" ;
 
     public static final String V215VideoPay = IP + "video/consume?access_token=token&token=%s" ;
+
+
+    //获取预支付订单信息
+    public static final String getCharge = IP + "weChatPay?access_token=token&token=%s" ;
+
+
+
+    //资芽V3版本
+    //要闻列表
+    public static final String newsList = IP + "new/newsList?access_token=token" ;
+    //要闻详情  newsDetail
+    public static final String newsDetail = IP + "new/newsDetail?access_token=token&token=%s" ;
+    //要闻相关列表
+    public static final String getNews = IP + "new/getNews?access_token=token" ;
+    //banner 图片列表
+    public static final String getBanner = IP + "new/getBanner?access_token=token" ;
+    //词典列表
+    public static final String dicList = IP + "new/dicList?access_token=token" ;
+    //词典搜索列表
+    public static final String dicSearchList = IP + "new/dicSearchList?access_token=token" ;
+    //词典题词
+    public static final String words = IP + "new/words?access_token=token&token=%s" ;
+    //问答提问
+    public static final String myQuestion = IP + "new/myQuestion?access_token=token&token=%s" ;
+    //提问列表
+    public static final String questionList = IP + "new/questionList?access_token=token" ;
+    //我的提问列表
+    public static final String myQuestionList = IP + "new/myQuestionList?access_token=token&token=%s" ;
+    //提问详情
+    public static final String questionDetail = IP + "new/questionDetail?access_token=token" ;
+    //提问搜索列表
+    public static final String queSearchList = IP + "new/queSearchList?access_token=token" ;
+    //快讯列表
+    public static final String messageList = IP + "new/messageList?access_token=token" ;
+
 
 }

@@ -6,97 +6,18 @@
     android:focusable="true"
     android:orientation="vertical">
 
-    <com.ziyawang.ziya.view.MyScrollView
-        android:id="@+id/scrollView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ListView
+            android:background="#fff"
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+        </ListView>
 
-            <RelativeLayout
-
-                android:background="#f4f4f4"
-                android:id="@+id/movie_search"
-                android:layout_width="match_parent"
-                android:layout_height="58dp">
-
-                <RelativeLayout
-
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/login_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp">
-
-                    <TextView
-                        android:textSize="15sp"
-                        android:textColor="#ef8200"
-                        android:id="@+id/search_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="找视频" />
-
-                    <ImageView
-                        android:visibility="gone"
-                        android:id="@+id/homepage_up"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/homepager_up"
-                        android:layout_marginLeft="9dp"
-                        android:layout_toRightOf="@id/search_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:id="@+id/search_button"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="6dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@mipmap/icon09"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:imeOptions="actionSearch"
-                        android:singleLine="true"
-                        android:paddingLeft="10dp"
-                        android:background="#ffffff"
-                        android:layout_toLeftOf="@id/search_button"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/search_edit"
-                        android:layout_toRightOf="@id/homepage_up"
-                        android:layout_width="match_parent"
-                        android:layout_height="34dp" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <com.ziyawang.ziya.view.BenListView
-                android:id="@+id/gridView01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:horizontalSpacing="10dp"
-                android:scrollbars="none">
-
-            </com.ziyawang.ziya.view.BenListView>
-
-        </LinearLayout>
-
-
-
-
-
-
-    </com.ziyawang.ziya.view.MyScrollView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

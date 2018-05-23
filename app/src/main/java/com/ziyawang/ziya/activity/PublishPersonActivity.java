@@ -1269,7 +1269,7 @@ public class PublishPersonActivity extends BenBenActivity implements View.OnClic
         switch (tv.getId()){
             case R.id.text_id :
                 picker.addData("债权人");
-                picker.addData("FA（中介）");
+                picker.addData("受托方");
                 break;
             case R.id.checkbox_type_01 :
                 wheel_title.setText("诉讼佣金");

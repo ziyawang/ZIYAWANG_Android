@@ -16,6 +16,7 @@
         android:layout_height="44dp"
         android:background="#fdd000">
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/pre"
             android:layout_width="50dp"
             android:layout_height="50dp">
@@ -172,7 +173,8 @@
             app:borderWidth="0dp"
             android:id="@+id/fab"
             android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="65dp"
             android:src="@mipmap/findinfo_search"/>
 
     </android.support.design.widget.CoordinatorLayout>

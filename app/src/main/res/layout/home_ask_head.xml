@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@mipmap/home_ask_head"
+        android:layout_width="match_parent"
+        android:layout_height="128dp">
+
+        <RelativeLayout
+            android:id="@+id/relative_search"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bgfff_rad50_str_ef8008"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:textSize="14sp"
+                android:textColor="#999"
+                android:id="@+id/search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="搜索问题" />
+
+            <ImageView
+                android:id="@+id/search_button"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/home_dic_search"
+                android:layout_width="26dp"
+                android:layout_height="26dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/relative_search"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:paddingRight="16dp"
+                android:paddingLeft="30dp"
+                android:id="@+id/linear_ask"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/home_ask_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="#fff"
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="题问"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:id="@+id/linear_myAsk"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/home_myask_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="#fff"
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="我的提问"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

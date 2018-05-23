@@ -213,6 +213,7 @@
 
             <!--支付宝-->
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_below="@id/wx_relative"
                 android:layout_marginTop="1dp"
                 android:background="#fff"
@@ -268,7 +269,7 @@
 
             <!--银行卡支付-->
             <RelativeLayout
-
+                android:visibility="gone"
                 android:layout_below="@id/alipay_relative"
                 android:layout_marginTop="1dp"
                 android:background="#fff"

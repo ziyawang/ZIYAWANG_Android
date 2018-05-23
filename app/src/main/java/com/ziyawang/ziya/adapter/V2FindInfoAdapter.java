@@ -554,7 +554,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
                         context.startActivity(intent);
                         finalConvertView.setEnabled(true);
                     } else {
-                        if ("1".equals(role)) {
+                        //if ("1".equals(role)) {
                             if ("2".equals(list.get(position).getMember())) {
                                 String urls = String.format(Url.ISPay, GetBenSharedPreferences.getTicket(context));
                                 HttpUtils httpUtils = new HttpUtils();
@@ -563,6 +563,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
                                 httpUtils.send(HttpRequest.HttpMethod.POST, urls, params1, new RequestCallBack<String>() {
                                     @Override
                                     public void onSuccess(ResponseInfo<String> responseInfo) {
+                                        Log.e("isPay" , responseInfo.result) ;
                                         try {
                                             JSONObject jsonObject1 = new JSONObject(responseInfo.result);
                                             String payFlag = jsonObject1.getString("PayFlag");
@@ -590,10 +591,10 @@ public class V2FindInfoAdapter extends BaseAdapter {
                                 showForVipPop(finalConvertView , position ) ;
                             }
 
-                        } else {
-                            ToastUtils.shortToast(context, "您需要先通过服务方认证才可查看此条信息");
-                            finalConvertView.setEnabled(true);
-                        }
+//                        } else {
+//                            ToastUtils.shortToast(context, "您需要先通过服务方认证才可查看此条信息");
+//                            finalConvertView.setEnabled(true);
+//                        }
                     }
 
                 } catch (JSONException e) {
@@ -702,7 +703,7 @@ public class V2FindInfoAdapter extends BaseAdapter {
         httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                Log.e("benben" , responseInfo.result ) ;
+                Log.e("Pay" , responseInfo.result ) ;
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(responseInfo.result);

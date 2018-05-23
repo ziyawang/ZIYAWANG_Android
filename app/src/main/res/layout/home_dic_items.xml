@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:lineSpacingMultiplier="1.2"
+            android:id="@+id/text_des"
+            android:textColor="#666"
+            android:textSize="12sp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="25dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:minLines="3"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bgfff_rad10_str999"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:id="@+id/text_word"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="25dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/bgfdd000_rad50"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </FrameLayout>
+
+</LinearLayout>
