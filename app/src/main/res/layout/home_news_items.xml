@@ -22,8 +22,8 @@
             android:layout_marginLeft="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:textColor="#656565"
+            <com.ziyawang.ziya.view.JustifyTextView
+                android:textColor="#282828"
                 android:textSize="16sp"
                 android:id="@+id/text_newsTitle"
                 android:ellipsize="end"

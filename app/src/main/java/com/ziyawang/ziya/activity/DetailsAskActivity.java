@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -21,14 +22,17 @@ import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.entity.AskEntity;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
+import com.ziyawang.ziya.view.JustifyTextView;
 
 import java.util.List;
 
 public class DetailsAskActivity extends BenBenActivity implements View.OnClickListener {
 
     private RelativeLayout pre ;
-    private TextView text_question ;
+    private JustifyTextView text_question ;
     private TextView text_answer ;
+
+    private ScrollView scrollView ;
 
     private String id ;
 
@@ -56,6 +60,7 @@ public class DetailsAskActivity extends BenBenActivity implements View.OnClickLi
                             String answer = data.getJSONObject(0).getString("Answer");
                             text_question.setText(question);
                             text_answer.setText(answer);
+                            scrollView.setVisibility(View.VISIBLE);
                         }else {
                             ToastUtils.shortToast(DetailsAskActivity.this , "数据异常");
                             finish();
@@ -83,8 +88,9 @@ public class DetailsAskActivity extends BenBenActivity implements View.OnClickLi
     @Override
     public void initViews() {
         pre = (RelativeLayout)findViewById(R.id.pre ) ;
-        text_question = (TextView)findViewById(R.id.text_question ) ;
+        text_question = (JustifyTextView) findViewById(R.id.text_question ) ;
         text_answer = (TextView)findViewById(R.id.text_answer ) ;
+        scrollView  =(ScrollView)findViewById(R.id.scrollView ) ;
     }
 
     @Override

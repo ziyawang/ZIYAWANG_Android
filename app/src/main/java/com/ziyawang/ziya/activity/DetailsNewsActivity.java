@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,7 @@ import com.ziyawang.ziya.tools.GetBenSharedPreferences;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
 import com.ziyawang.ziya.view.BenListView;
+import com.ziyawang.ziya.view.JustifyTextView;
 import com.ziyawang.ziya.view.NotificationButton02;
 
 import org.json.JSONException;
@@ -56,12 +58,11 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class DetailsNewsActivity extends BenBenActivity implements View.OnClickListener {
 
-
     //回退事件
     private RelativeLayout pre ;
 
     //title
-    private TextView news_title ;
+    private JustifyTextView news_title ;
 
     //时间
     private TextView news_time ;
@@ -112,8 +113,16 @@ public class DetailsNewsActivity extends BenBenActivity implements View.OnClickL
         scrollView = (ScrollView)findViewById(R.id.scrollView ) ;
         linear_01 = (LinearLayout) findViewById(R.id.linear_01 ) ;
         details_news_des = (WebView)findViewById(R.id.details_news_des ) ;
+        details_news_des.setWebViewClient(new WebViewClient()
+        {
+            @Override
+            public void onPageFinished(WebView view,String url)
+            {
+                scrollView.setVisibility(View.VISIBLE);
+            }
+        });
         pre = (RelativeLayout)findViewById(R.id.pre ) ;
-        news_title = (TextView)findViewById(R.id.news_title ) ;
+        news_title = (JustifyTextView) findViewById(R.id.news_title ) ;
         news_time = (TextView)findViewById(R.id.news_time ) ;
         relative_collect = (RelativeLayout)findViewById(R.id.relative_collect ) ;
         relative_share = (RelativeLayout)findViewById(R.id.relative_share ) ;
@@ -142,10 +151,11 @@ public class DetailsNewsActivity extends BenBenActivity implements View.OnClickL
         news_id = intent.getStringExtra("id");
         target = intent.getStringExtra("target");
 
-        loadData() ;
         // 相关推荐列表
         loadRecommendData() ;
         loadComment(news_id) ;
+
+        loadData() ;
     }
 
     private void loadRecommendData() {
@@ -215,7 +225,6 @@ public class DetailsNewsActivity extends BenBenActivity implements View.OnClickL
                     textView_show_noData.setVisibility(View.GONE);
                     listView02.setVisibility(View.VISIBLE);
                 }
-                scrollView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -268,7 +277,6 @@ public class DetailsNewsActivity extends BenBenActivity implements View.OnClickL
                             ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
                             details_news_des.setVerticalScrollBarEnabled(false);
                             details_news_des.loadDataWithBaseURL(null, html, "text/html", "unicode", null);
-
                             break;
                         default:
                             break;

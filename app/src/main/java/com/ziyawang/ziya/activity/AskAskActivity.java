@@ -2,6 +2,7 @@ package com.ziyawang.ziya.activity;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -127,6 +128,10 @@ public class AskAskActivity extends BenBenActivity implements View.OnClickListen
     }
 
     public boolean isSubmit() {
+        if (TextUtils.isEmpty(edit_word.getText().toString())){
+            ToastUtils.shortToast(AskAskActivity.this , "最输入您的提问");
+            return false ;
+        }
         if (edit_word.getText().toString().trim().length() > 50){
             ToastUtils.shortToast(AskAskActivity.this , "最多可以输入50字");
             return false ;

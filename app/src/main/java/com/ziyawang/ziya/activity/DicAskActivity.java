@@ -2,6 +2,7 @@ package com.ziyawang.ziya.activity;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -127,6 +128,10 @@ public class DicAskActivity extends BenBenActivity implements View.OnClickListen
     }
 
     public boolean isSubmit() {
+        if (TextUtils.isEmpty(edit_word.getText().toString())){
+            ToastUtils.shortToast(DicAskActivity.this , "最输入您的疑问词");
+            return false ;
+        }
         if (edit_word.getText().toString().trim().length() > 10){
             ToastUtils.shortToast(DicAskActivity.this , "最多可以输入10字");
             return false ;

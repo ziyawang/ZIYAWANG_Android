@@ -41,6 +41,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/text_title"
             android:layout_marginTop="16dp"
             android:layout_below="@+id/relative_search"
             android:layout_centerHorizontal="true"

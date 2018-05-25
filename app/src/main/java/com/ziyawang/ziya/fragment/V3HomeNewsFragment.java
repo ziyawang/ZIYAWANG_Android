@@ -103,6 +103,10 @@ public class V3HomeNewsFragment extends NewsBenBenFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                //显示ProgressDialog
+                dialog = new MyProgressDialog(getContext() , "数据加载中，请稍后。。。");
+                dialog.setCancelable(false);// 不可以用“返回键”取消
+                dialog.show();
                 startpage = 1 ;
                 datas.clear();
                 Log.e("swipe" , "swipe") ;
@@ -136,10 +140,6 @@ public class V3HomeNewsFragment extends NewsBenBenFragment {
     }
 
     private void loadData() {
-        //显示ProgressDialog
-        dialog = new MyProgressDialog(getActivity() , "数据加载中，请稍后。。。");
-        dialog.setCancelable(false);// 不可以用“返回键”取消
-        dialog.show();
         //数据请求
         HttpUtils httpUtils = new HttpUtils()  ;
         RequestParams params = new RequestParams() ;

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.activity.DetailsAskActivity;
 import com.ziyawang.ziya.entity.AskEntity;
+import com.ziyawang.ziya.tools.StringUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -60,8 +61,10 @@ public class V3AskAdapter extends BaseAdapter{
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.text_question.setText(list.get(position).getQuestion());
-        holder.text_answer.setText(list.get(position).getAnswer());
+        String quw = StringUtils.replaceBlank(list.get(position).getQuestion());
+        String aws = StringUtils.replaceBlank(list.get(position).getAnswer());
+        holder.text_question.setText(quw);
+        holder.text_answer.setText(aws);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

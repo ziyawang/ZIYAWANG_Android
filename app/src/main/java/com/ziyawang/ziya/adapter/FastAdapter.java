@@ -1,6 +1,8 @@
 package com.ziyawang.ziya.adapter;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ziyawang.ziya.R;
+import com.ziyawang.ziya.activity.StartActivity;
 import com.ziyawang.ziya.entity.FastEntity;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.view.JustifyTextView;
@@ -59,6 +62,8 @@ public class FastAdapter extends RecyclerView.Adapter<FastAdapter.FastViewHolder
         holder.text_time.setText(beauty.getTime());
         holder.text_des.setText(beauty.getContent());
         holder.text_time01.setText(beauty.getCreated_at());
+
+        holder.text_time.setTypeface(StartActivity.mtypeface);
 
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener( new View.OnClickListener() {

@@ -29,6 +29,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.jaiky.imagespickers.ImageConfig;
+import com.jaiky.imagespickers.ImageSelector;
+import com.jaiky.imagespickers.ImageSelectorActivity;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -38,6 +42,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.umeng.analytics.MobclickAgent;
 import com.ziyawang.ziya.R;
 import com.ziyawang.ziya.tools.GetBenSharedPreferences;
+import com.ziyawang.ziya.tools.GlideLoader;
 import com.ziyawang.ziya.tools.SDUtil;
 import com.ziyawang.ziya.tools.ToastUtils;
 import com.ziyawang.ziya.tools.Url;
@@ -48,7 +53,9 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -82,6 +89,8 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
     private ImageView img_01 , img_02 , img_03 , img_04 , img_05 ;
 
     private String type_01 , type_02 , type_03, type_04 , type_05 ;
+
+    private ArrayList<String> pathList = new ArrayList<String>();
 
     public void onResume() {
         super.onResume();
@@ -309,86 +318,98 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
     protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 1:
-                if (resultCode == RESULT_OK && null != data) {
-                    Uri selectedImage = data.getData();
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-                    Uri uri = Uri.fromFile(new File(picturePath));
-                    imgstr = getSubStr(picturePath);
-                    file = new File(picturePath);
-                    //打开图片的裁剪意图
-                    doCropPhoto(uri);
-                } else {
-                    Toast.makeText(PersonalInformationActivity.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
+            case 200 :
+                if (resultCode == RESULT_OK && null != data){
+                    List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+                    //更新头像
+                    loadChangeIcon(pathList);
+                    Glide.with(PersonalInformationActivity.this)
+                            .load(pathList.get(0))
+                            .into(my_icon);
+                }else {
+                    ToastUtils.shortToast(PersonalInformationActivity.this , "请重新选择图片");
                 }
                 break;
-            case 2:
-                if (resultCode == Activity.RESULT_OK) {
-                    String sdStatus = Environment.getExternalStorageState();
-                    if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-                        Toast.makeText(this, "SD卡不可用", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    imgstr = getSubStr(file.getPath());
-                    Log.e("benben相机后缀01", imgstr);
-                    Log.e("benben相机路径01", file.getPath());
-                    //剪裁图片为方形
-                    doCropPhoto(Uri.fromFile(file));
-                } else {
-                    Toast.makeText(PersonalInformationActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case 3:
-                if (resultCode == Activity.RESULT_OK) {
-                    Bundle extras = data.getExtras();
-                    if (extras != null) {
-                        final Bitmap bitmap = extras.getParcelable("data");
-                        final byte[] aByte = getByte(bitmap, imgstr);
-                        SDUtil.saveDataInfoSDCard(aByte, "ziya", "icon.png") ;
-                        String path = SDUtil.getSDPath() + File.separator + "ziya"+ File.separator + "icon.png" ;
-                        File files = new File(path);
-                        String urls = String.format(Url.ChangeIcon, login) ;
-                        HttpUtils utils = new HttpUtils()  ;
-                        RequestParams params = new RequestParams() ;
-                        params.addBodyParameter("UserPicture" , files );
-                        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
-                            @Override
-                            public void onSuccess(ResponseInfo<String> responseInfo) {
-                                Log.e("benben", responseInfo.result);
-                                try {
-                                    JSONObject jsonObject = new JSONObject(responseInfo.result);
-                                    String status_code = jsonObject.getString("status_code");
-                                    switch (status_code) {
-                                        case "200":
-                                            ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像成功");
-                                            my_icon.setImageBitmap(bitmap);
-                                            break;
-                                        default:
-                                            ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像失败");
-                                            break;
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    ToastUtils.shortToast(PersonalInformationActivity.this, "网络连接异常");
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(HttpException error, String msg) {
-                                error.printStackTrace();
-                                ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像失败");
-                            }
-                        }) ;
-                    }
-                } else {
-                    Toast.makeText(PersonalInformationActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
-                }
-                break;
+//            case 1:
+//                if (resultCode == RESULT_OK && null != data) {
+//                    Uri selectedImage = data.getData();
+//                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+//                    cursor.moveToFirst();
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    String picturePath = cursor.getString(columnIndex);
+//                    cursor.close();
+//                    Uri uri = Uri.fromFile(new File(picturePath));
+//                    imgstr = getSubStr(picturePath);
+//                    file = new File(picturePath);
+//                    //打开图片的裁剪意图
+//                    doCropPhoto(uri);
+//                } else {
+//                    Toast.makeText(PersonalInformationActivity.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//            case 2:
+//                if (resultCode == Activity.RESULT_OK) {
+//                    String sdStatus = Environment.getExternalStorageState();
+//                    if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+//                        Toast.makeText(this, "SD卡不可用", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                    imgstr = getSubStr(file.getPath());
+//                    Log.e("benben相机后缀01", imgstr);
+//                    Log.e("benben相机路径01", file.getPath());
+//                    //剪裁图片为方形
+//                    doCropPhoto(Uri.fromFile(file));
+//                } else {
+//                    Toast.makeText(PersonalInformationActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//            case 3:
+//                if (resultCode == Activity.RESULT_OK) {
+//                    Bundle extras = data.getExtras();
+//                    if (extras != null) {
+//                        final Bitmap bitmap = extras.getParcelable("data");
+//                        final byte[] aByte = getByte(bitmap, imgstr);
+//                        SDUtil.saveDataInfoSDCard(aByte, "ziya", "icon.png") ;
+//                        String path = SDUtil.getSDPath() + File.separator + "ziya"+ File.separator + "icon.png" ;
+//                        File files = new File(path);
+//                        String urls = String.format(Url.ChangeIcon, login) ;
+//                        HttpUtils utils = new HttpUtils()  ;
+//                        RequestParams params = new RequestParams() ;
+//                        params.addBodyParameter("UserPicture" , files );
+//                        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+//                            @Override
+//                            public void onSuccess(ResponseInfo<String> responseInfo) {
+//                                Log.e("benben", responseInfo.result);
+//                                try {
+//                                    JSONObject jsonObject = new JSONObject(responseInfo.result);
+//                                    String status_code = jsonObject.getString("status_code");
+//                                    switch (status_code) {
+//                                        case "200":
+//                                            ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像成功");
+//                                            my_icon.setImageBitmap(bitmap);
+//                                            break;
+//                                        default:
+//                                            ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像失败");
+//                                            break;
+//                                    }
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                    ToastUtils.shortToast(PersonalInformationActivity.this, "网络连接异常");
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(HttpException error, String msg) {
+//                                error.printStackTrace();
+//                                ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像失败");
+//                            }
+//                        }) ;
+//                    }
+//                } else {
+//                    Toast.makeText(PersonalInformationActivity.this, "请重新获取图片", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
             case 12:
                 if (resultCode == Activity.RESULT_OK && null != data ) {
 
@@ -404,6 +425,47 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
         }
     }
 
+    private void loadChangeIcon(List<String> pathList) {
+//        final Bitmap bitmap = extras.getParcelable("data");
+//        final byte[] aByte = getByte(bitmap, imgstr);
+//        SDUtil.saveDataInfoSDCard(aByte, "ziya", "icon.png") ;
+//        String path = SDUtil.getSDPath() + File.separator + "ziya"+ File.separator + "icon.png" ;
+        File files = new File(pathList.get(0));
+        String urls = String.format(Url.ChangeIcon, login) ;
+        HttpUtils utils = new HttpUtils()  ;
+        RequestParams params = new RequestParams() ;
+        params.addBodyParameter("UserPicture" , files );
+        utils.send(HttpRequest.HttpMethod.POST, urls, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Log.e("benben", responseInfo.result);
+                try {
+                    JSONObject jsonObject = new JSONObject(responseInfo.result);
+                    String status_code = jsonObject.getString("status_code");
+                    switch (status_code) {
+                        case "200":
+                            ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像成功");
+                            my_icon.setImageBitmap(bitmap);
+                            break;
+                        default:
+                            ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像失败");
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    ToastUtils.shortToast(PersonalInformationActivity.this, "网络连接异常");
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                error.printStackTrace();
+                ToastUtils.shortToast(PersonalInformationActivity.this, "更换头像失败");
+            }
+        }) ;
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -413,7 +475,8 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
                 break;
             //更改头像事件的监听
             case R.id.basic_change_icon :
-                iconGet();
+                //iconGet();
+                v3IconChange() ;
                 break;
             //更改密码
             case R.id.basic_changePwd :
@@ -460,6 +523,36 @@ public class PersonalInformationActivity extends BenBenActivity implements View.
             default:
                 break;
         }
+    }
+
+    private void v3IconChange() {
+        pathList.clear();
+        ImageConfig imageConfig = new ImageConfig.Builder(
+                // GlideLoader 可用自己用的缓存库
+                new GlideLoader())
+                // 如果在 4.4 以上，则修改状态栏颜色 （默认黑色）
+                .steepToolBarColor(getResources().getColor(R.color.other))
+                // 标题的背景颜色 （默认黑色）
+                .titleBgColor(getResources().getColor(R.color.other))
+                // 提交按钮字体的颜色  （默认白色）
+                .titleSubmitTextColor(getResources().getColor(R.color.white))
+                // 标题颜色 （默认白色）
+                .titleTextColor(getResources().getColor(R.color.white))
+                // 开启多选   （默认为多选）  (单选 为 singleSelect)
+                .singleSelect()
+                //裁剪
+                .crop(1, 1, 300, 300)
+                // 多选时的最大数量   （默认 9 张）
+                .mutiSelectMaxSize(1)
+                // 已选择的图片路径
+                .pathList(pathList)
+                // 拍照后存放的图片路径（默认 /temp/picture）
+                .filePath("/temp")
+                // 开启拍照功能 （默认开启）
+                .showCamera()
+                .requestCode(200)
+                .build();
+        ImageSelector.open(PersonalInformationActivity.this, imageConfig);
     }
 
     private void showBen() {

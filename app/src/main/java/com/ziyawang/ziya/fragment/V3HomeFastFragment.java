@@ -56,7 +56,6 @@ public class V3HomeFastFragment extends NewsBenBenFragment{
 
     @Override
     protected void lazyLoad() {
-        loadHeadData() ;
         if (isLoad){
             //加载数据
             loadData() ;
@@ -104,10 +103,6 @@ public class V3HomeFastFragment extends NewsBenBenFragment{
 
     private void loadData() {
         datas.clear();
-        //显示ProgressDialog
-        dialog = new MyProgressDialog(getActivity() , "数据加载中，请稍后。。。");
-        dialog.setCancelable(false);// 不可以用“返回键”取消
-        dialog.show();
         //数据请求
         HttpUtils httpUtils = new HttpUtils()  ;
         RequestParams params = new RequestParams() ;
@@ -212,10 +207,16 @@ public class V3HomeFastFragment extends NewsBenBenFragment{
             @Override
             public void onRefresh() {
                 Log.e("swipe" , "swipe") ;
+                //显示ProgressDialog
+                dialog = new MyProgressDialog(getActivity() , "数据加载中，请稍后。。。");
+                dialog.setCancelable(false);// 不可以用“返回键”取消
+                dialog.show();
                 loadData();
                 loadHeadData() ;
             }
         });
+
+        loadHeadData() ;
 
     }
 

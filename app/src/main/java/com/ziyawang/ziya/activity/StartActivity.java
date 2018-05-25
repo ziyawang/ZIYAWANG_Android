@@ -2,6 +2,7 @@ package com.ziyawang.ziya.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class StartActivity extends BaseActivity {
     private int recLen = 3;
     Timer timer = new Timer();
     private Button start_time;
+    public static Typeface mtypeface ;
 
     private SharedPreferences role ;
     private SharedPreferences right ;
@@ -48,6 +50,9 @@ public class StartActivity extends BaseActivity {
         app.addActivity(this);
 
         initView();
+
+        mtypeface = Typeface.createFromAsset(getAssets(),"fast.ttf");
+
 
         timer.schedule(task, 1000, 1000);
 

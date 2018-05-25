@@ -16,6 +16,7 @@ import com.ziyawang.ziya.activity.DetailsNewsActivity;
 import com.ziyawang.ziya.entity.NewsEntity;
 import com.ziyawang.ziya.tools.FormatCurrentData;
 import com.ziyawang.ziya.tools.Url;
+import com.ziyawang.ziya.view.JustifyTextView;
 
 import java.util.Collection;
 import java.util.List;
@@ -59,7 +60,7 @@ public class NewsAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.home_news_items, parent , false);
             holder = new ViewHolder() ;
             holder.image_newsLogo = (ImageView) convertView.findViewById(R.id.image_newsLogo);
-            holder.text_newsTitle = (TextView)convertView.findViewById(R.id.text_newsTitle);
+            holder.text_newsTitle = (JustifyTextView)convertView.findViewById(R.id.text_newsTitle);
             holder.text_newsLabel = (TextView)convertView.findViewById(R.id.text_newsLabel);
             holder.text_newsTime = (TextView)convertView.findViewById(R.id.text_newsTime);
             convertView.setTag(holder);
@@ -98,7 +99,7 @@ public class NewsAdapter extends BaseAdapter {
 
     static class  ViewHolder{
         ImageView image_newsLogo ;
-        TextView text_newsTitle ;
+        JustifyTextView text_newsTitle ;
         TextView text_newsLabel ;
         TextView text_newsTime ;
 

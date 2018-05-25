@@ -56,6 +56,7 @@ public class V3HomeDictionaryFragment extends NewsBenBenFragment implements View
     private TextView ben ;
     private RelativeLayout relative_search ;
     private LinearLayout linear_ask ;
+    private TextView text_title ;
 
     private boolean isLoad = true ;
 
@@ -74,6 +75,10 @@ public class V3HomeDictionaryFragment extends NewsBenBenFragment implements View
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                //显示ProgressDialog
+                dialog = new MyProgressDialog(getActivity() , "数据加载中，请稍后。。。");
+                dialog.setCancelable(false);// 不可以用“返回键”取消
+                dialog.show();
                 startpage = 1 ;
                 datas.clear();
                 Log.e("swipe" , "swipe") ;
@@ -81,6 +86,7 @@ public class V3HomeDictionaryFragment extends NewsBenBenFragment implements View
             }
         });
         relative_search.setOnClickListener(this);
+        text_title.setOnClickListener(this);
         linear_ask.setOnClickListener(this);
     }
 
@@ -88,6 +94,7 @@ public class V3HomeDictionaryFragment extends NewsBenBenFragment implements View
         footLinearLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_foot_item , null ) ;
         headLinearLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.home_dic_head , null ) ;
         relative_search = (RelativeLayout)headLinearLayout.findViewById(R.id.relative_search ) ;
+        text_title = (TextView) headLinearLayout.findViewById(R.id.text_title ) ;
         linear_ask = (LinearLayout) headLinearLayout.findViewById(R.id.linear_ask ) ;
         ben = (TextView)footLinearLayout.findViewById(R.id.ben ) ;
         listView = (ListView) view.findViewById(R.id.listView ) ;
@@ -102,10 +109,6 @@ public class V3HomeDictionaryFragment extends NewsBenBenFragment implements View
     }
 
     private void loadData() {
-        //显示ProgressDialog
-        dialog = new MyProgressDialog(getActivity() , "数据加载中，请稍后。。。");
-        dialog.setCancelable(false);// 不可以用“返回键”取消
-        dialog.show();
         //数据请求
         HttpUtils httpUtils = new HttpUtils()  ;
         RequestParams params = new RequestParams() ;
@@ -182,6 +185,9 @@ public class V3HomeDictionaryFragment extends NewsBenBenFragment implements View
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.relative_search :
+                goSearchDicActivity() ;
+                break;
+            case R.id.text_title :
                 goSearchDicActivity() ;
                 break;
             case R.id.linear_ask :
